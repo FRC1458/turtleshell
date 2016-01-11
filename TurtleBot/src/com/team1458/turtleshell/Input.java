@@ -1,11 +1,13 @@
-package org.usfirst.frc.team1458.robot;
+package com.team1458.turtleshell;
+
+import org.usfirst.frc.team1458.robot.Constants;
 
 import edu.wpi.first.wpilibj.Joystick;
 
 public class Input {
-	private static Joystick rJoystick = new Joystick(0);
-	private static Joystick lJoystick = new Joystick(1);
-	private static Joystick buttonPanel = new Joystick(2);
+	private static Joystick rJoystick = new Joystick(Constants.RJOYSTICKPORT);
+	private static Joystick lJoystick = new Joystick(Constants.LJOYSTICKPORT);
+	private static Joystick buttonPanel = new Joystick(Constants.BUTTONPANELPORT);
 	
 	/**
 	 * Get the power for the right joystick.
@@ -28,7 +30,11 @@ public class Input {
 	 * @param whichButton Which button you want, note that this starts at 1.
 	 * @return Whether or not the button is pressed.
 	 */
-	public static boolean isPanelButton(int whichButton) {
+	public static boolean isPanelButtonPressed(int whichButton) {
 		return buttonPanel.getRawButton(whichButton);
+	}
+	
+	public static double getRTheta() {
+		return 180*Math.atan2(-rJoystick.getAxis(Joystick.AxisType.kY), rJoystick.getAxis(Joystick.AxisType.kX))/Math.PI;
 	}
 }

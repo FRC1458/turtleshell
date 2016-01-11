@@ -1,10 +1,10 @@
-package org.usfirst.frc.team1458.robot;
+package com.team1458.turtleshell;
 
-public class PID {
+public class TurtlePID {
 	private final double kP;
 	private final double kI;
 	private final double kD;
-	public PID(double kP, double kI, double kD) {
+	public TurtlePID(double kP, double kI, double kD) {
 		this.kP=kP;
 		this.kI=kI;
 		this.kD=kD;

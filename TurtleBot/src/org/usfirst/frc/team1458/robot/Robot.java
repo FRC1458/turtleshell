@@ -1,46 +1,33 @@
 
 package org.usfirst.frc.team1458.robot;
 
-import edu.wpi.first.wpilibj.SampleRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.team1458.turtleshell.TurtleRobot;
 
-public class Robot extends SampleRobot {
-	final String defaultAuto = "Default";
-	final String customAuto = "My Auto";
-	SendableChooser chooser;
+public class Robot extends TurtleRobot {
 
 	public Robot() {
 
 	}
 
 	public void robotInit() {
-		chooser = new SendableChooser();
-		chooser.addDefault("Default Auto", defaultAuto);
-		chooser.addObject("My Auto", customAuto);
-		SmartDashboard.putData("Auto modes", chooser);
+		chassis = RedTies2016Chassis.getInstance();
+		auto = RedTies2016Auto1.getInstance(chassis);
 	}
 
 	public void autonomous() {
 
-		String autoSelected = (String) chooser.getSelected();
-		// String autoSelected = SmartDashboard.getString("Auto Selector",
-		// defaultAuto);
-		System.out.println("Auto selected: " + autoSelected);
-
 	}
 
-	/**
-	 * Runs the motors with arcade steering.
-	 */
 	public void operatorControl() {
+		// Put the code to initialise operator control here.
 
+		while (isOperatorControl() && isEnabled()) {
+			// This is the main loop for operator control.
+
+		}
 	}
 
-	/**
-	 * Runs during test mode
-	 */
 	public void test() {
-		
+
 	}
 }

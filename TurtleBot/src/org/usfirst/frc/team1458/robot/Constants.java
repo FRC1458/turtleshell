@@ -7,4 +7,7 @@ public class Constants {
 	public static final int RIGHT1VICTORPORT = 4;
 	public static final int RIGHT2VICTORPORT = 5;
 	public static final int RIGHT3VICTORPORT = 6;
+	public static final int RJOYSTICKPORT = 0;
+	public static final int LJOYSTICKPORT = 1;
+	public static final int BUTTONPANELPORT = 2;
 }
