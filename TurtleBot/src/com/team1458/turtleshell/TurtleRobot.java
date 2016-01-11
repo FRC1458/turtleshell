@@ -8,9 +8,7 @@ public abstract class TurtleRobot extends TurtleAdvancedRobot {
 	public abstract void robotInit();
 	
 	@Override
-	public void autonomous() {
-		auto.doAuto();
-	}
+	public abstract void autonomous();
 	
 	@Override
 	public abstract void operatorControl();

@@ -3,15 +3,16 @@ package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell.TurtleRobot;
 
-public class Robot extends TurtleRobot {
+public class RedTies2016Robot extends TurtleRobot {
 
-	public Robot() {
+	public RedTies2016Robot() {
 
 	}
 
 	public void robotInit() {
 		chassis = RedTies2016Chassis.getInstance();
-		auto = RedTies2016Auto1.getInstance(chassis);
+		auto = RedTies2016Auto1.getInstance();
+		
 	}
 
 	public void autonomous() {

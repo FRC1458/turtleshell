@@ -1,33 +1,35 @@
 package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell.TurtleAutonomous;
-import com.team1458.turtleshell.TurtleChassis;
 
-public class RedTies2016Auto1 implements TurtleAutonomous{
-//4 Autos, one for each position of obstacle
-	//vision tracking for theta
-	
+public class RedTies2016Auto1 implements TurtleAutonomous {
+	// 4 Autos, one for each position of obstacle
+	// vision tracking for theta
+	private double lDp;
+	private double rDp;
+
 	private static RedTies2016Auto1 instance;
-	private TurtleChassis chassis;
-	
 
-	
-	private RedTies2016Auto1(TurtleChassis chassis) {
-		this.chassis=chassis;
+	private RedTies2016Auto1() {
+
 	}
-	
-	public static RedTies2016Auto1 getInstance(TurtleChassis chassis) {
+
+	public static RedTies2016Auto1 getInstance() {
 		if (instance == null) {
-			instance = new RedTies2016Auto1(chassis);
+			instance = new RedTies2016Auto1();
 		}
 		return instance;
 	}
 
 	@Override
-	public void doAuto() {
-		
-		chassis.straightDrive(1);
-		
+	public double[] getMotors() {
+		return new double[]{rDp,lDp};
 	}
-	
+
+	@Override
+	public void calculate() {
+		rDp=0;
+		lDp=0;
+	}
+
 }
