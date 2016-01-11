@@ -15,7 +15,12 @@ public class Robot extends TurtleRobot {
 	}
 
 	public void autonomous() {
+		// Put the code to initialise autonomous here.
 
+		while (isAutonomous() && isEnabled()) {
+			// This is the main loop for autonomous.
+
+		}
 	}
 
 	public void operatorControl() {
@@ -28,6 +33,6 @@ public class Robot extends TurtleRobot {
 	}
 
 	public void test() {
-
+		// Code for testing mode
 	}
 }

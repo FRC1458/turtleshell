@@ -2,7 +2,7 @@ package com.team1458.turtleshell;
 
 import edu.wpi.first.wpilibj.Victor;
 
-public class TurtleVictor implements TurtleMotorInterface {
+public class TurtleVictor implements TurtleMotor {
 	private Victor victor;
 	
 	public TurtleVictor(int port) {

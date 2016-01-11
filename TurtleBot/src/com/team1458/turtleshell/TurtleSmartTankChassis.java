@@ -1,6 +1,6 @@
 package com.team1458.turtleshell;
 
-public interface TurtleSmartTankChassisInterface extends TurtleTankChassisInterface {
+public interface TurtleSmartTankChassis extends TurtleTankChassis {
 	/**
 	 * Drive forward (or backwards) a certain distance.
 	 * @param distance Signed distance in decimal inches to drive forward.

@@ -1,6 +1,6 @@
 package com.team1458.turtleshell;
 
-public interface TurtleTankChassisInterface extends TurtleChassisInterface {
+public interface TurtleTankChassis extends TurtleChassis {
 
 	/**
 	 * Drive the motors on the right side

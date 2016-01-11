@@ -1,8 +1,8 @@
 package com.team1458.turtleshell;
 
 public abstract class TurtleRobot extends TurtleAdvancedRobot {
-	protected TurtleChassisInterface chassis;
-	protected TurtleAutonomousInterface auto;
+	protected TurtleChassis chassis;
+	protected TurtleAutonomous auto;
 	
 	@Override
 	public abstract void robotInit();

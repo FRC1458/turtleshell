@@ -1,6 +1,6 @@
 package com.team1458.turtleshell;
 
-public interface TurtleEncoderInterface extends TurtleSensorInterface {
+public interface TurtleEncoder extends TurtleSensor {
 	/**
 	 * Gets the ticks an encoder has gone through, signed
 	 * @return The ticks an encoder has gone through

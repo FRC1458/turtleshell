@@ -2,7 +2,7 @@ package com.team1458.turtleshell;
 
 import edu.wpi.first.wpilibj.Talon;
 
-public class TurtleTalon implements TurtleMotorInterface {
+public class TurtleTalon implements TurtleMotor {
 	private Talon talon;
 	public TurtleTalon(int port) {
 		talon=new Talon(port);

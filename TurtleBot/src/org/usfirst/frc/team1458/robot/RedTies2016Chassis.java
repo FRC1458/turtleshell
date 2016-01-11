@@ -1,9 +1,9 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.team1458.turtleshell.TurtleTankChassisInterface;
+import com.team1458.turtleshell.TurtleTankChassis;
 import com.team1458.turtleshell.TurtleVictor;
 
-public class RedTies2016Chassis implements TurtleTankChassisInterface {
+public class RedTies2016Chassis implements TurtleTankChassis {
 private static RedTies2016Chassis instance;
 	private TurtleVictor rDrive1;
 	private TurtleVictor lDrive1;

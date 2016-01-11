@@ -1,5 +1,5 @@
 package com.team1458.turtleshell;
 
-public interface TurtleAutonomousInterface {
+public interface TurtleAutonomous {
 	public void doAuto();
 }
