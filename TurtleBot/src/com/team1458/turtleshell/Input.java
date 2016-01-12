@@ -1,13 +1,22 @@
 package com.team1458.turtleshell;
 
-import org.usfirst.frc.team1458.robot.Constants;
-
 import edu.wpi.first.wpilibj.Joystick;
 
 public class Input {
-	private static Joystick rJoystick = new Joystick(Constants.RJOYSTICKPORT);
-	private static Joystick lJoystick = new Joystick(Constants.LJOYSTICKPORT);
-	private static Joystick buttonPanel = new Joystick(Constants.BUTTONPANELPORT);
+	
+	public static void setRJoystickPort(int port) {
+		rJoystick= new Joystick(port);
+	}
+	public static void setLJoystickPort(int port) {
+		lJoystick= new Joystick(port);
+	}
+	public static void setButtonPanelPort(int port) {
+		buttonPanel= new Joystick(port);
+	}
+	
+	private static Joystick rJoystick = new Joystick(0);
+	private static Joystick lJoystick = new Joystick(1);
+	private static Joystick buttonPanel = new Joystick(2);
 	
 	/**
 	 * Get the power for the right joystick.
