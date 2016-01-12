@@ -3,23 +3,23 @@ package org.usfirst.frc.team1458.robot;
 import com.team1458.turtleshell.TurtleTankChassis;
 import com.team1458.turtleshell.TurtleVictor;
 
-public class RedTies2016Chassis implements TurtleTankChassis {
-private static RedTies2016Chassis instance;
+public class RedTies2015Chassis implements TurtleTankChassis {
+private static RedTies2015Chassis instance;
 	private TurtleVictor rDrive1;
 	private TurtleVictor lDrive1;
 	private TurtleVictor rDrive2;
 	private TurtleVictor lDrive2;
 	
-	private RedTies2016Chassis() {
+	private RedTies2015Chassis() {
 		rDrive1=new TurtleVictor(Constants.RIGHT1VICTORPORT);
 		lDrive1=new TurtleVictor(Constants.LEFT1VICTORPORT);
 		rDrive2=new TurtleVictor(Constants.RIGHT2VICTORPORT);
 		lDrive2=new TurtleVictor(Constants.LEFT2VICTORPORT);
 	}
 	
-	public static RedTies2016Chassis getInstance() {
+	public static RedTies2015Chassis getInstance() {
 		if (instance == null) {
-			instance = new RedTies2016Chassis();
+			instance = new RedTies2015Chassis();
 		}
 		return instance;
 	}

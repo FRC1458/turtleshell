@@ -24,4 +24,10 @@ public interface TurtleTankChassis extends TurtleChassis {
 	public default void turn(double power) {
 		tankDrive(power,-power);
 	}
+	/**
+	 * Drive all motors at once, is left, right
+	 */
+	public default void allDrive(double[] allMotorPowers) {
+		tankDrive(allMotorPowers[0],allMotorPowers[1]);
+	}
 }

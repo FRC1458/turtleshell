@@ -14,4 +14,8 @@ public interface TurtleAutonomous {
 	 * Have the autonomous recalculate what to do. To get meaningful results, this might require sending in sensor values.
 	 */
 	public void calculate();
+	/**
+	 * Initialise autonomous.
+	 */
+	public void init();
 }

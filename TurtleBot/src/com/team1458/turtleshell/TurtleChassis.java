@@ -11,4 +11,10 @@ public interface TurtleChassis extends TurtleRobotComponent {
 	 * @param power The power to turn at, signed double -1 to 1
 	 */
 	public void turn(double power);
+	
+	/**
+	 * Send commands to all chassis (drive) motors at once. Left, right, other (no standard)
+	 * @param allMotorPowers
+	 */
+	public void allDrive(double[] allMotorPowers);
 }
