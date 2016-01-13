@@ -12,4 +12,9 @@ public interface TurtleEncoder extends TurtleSensor {
 	 * @return The rate in ticks/second an encoder is moving
 	 */
 	public double getRate();
+	
+	/**
+	 * Resets the encoder value to zero.
+	 */
+	public void reset();
 }

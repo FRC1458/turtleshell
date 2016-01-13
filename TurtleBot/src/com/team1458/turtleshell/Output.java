@@ -11,4 +11,7 @@ public class Output {
 	public static void spew(Object o) {
 		SmartDashboard.putString(o.hashCode()+"", o.toString());
 	}
+	public static void outputNumber(String s, Number n) {
+		SmartDashboard.putNumber(s, n.doubleValue());
+	}
 }

@@ -1,4 +1,6 @@
-package com.team1458.turtleshell;
+package com.team1458.turtleshell.physical;
+
+import com.team1458.turtleshell.TurtleMotor;
 
 import edu.wpi.first.wpilibj.Talon;
 

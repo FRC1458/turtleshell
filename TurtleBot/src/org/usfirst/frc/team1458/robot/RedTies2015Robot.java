@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell.Input;
@@ -14,7 +13,7 @@ public class RedTies2015Robot extends TurtleRobot {
 	public void robotInit() {
 		chassis = RedTies2015Chassis.getInstance();
 		auto = RedTies2015Auto1.getInstance();
-		
+
 	}
 
 	public void autonomous() {
@@ -22,6 +21,7 @@ public class RedTies2015Robot extends TurtleRobot {
 		auto.init();
 		while (isAutonomous() && isEnabled()) {
 			// This is the main loop for autonomous.
+			auto.calculate(null);
 			chassis.allDrive(auto.getMotors());
 		}
 	}
@@ -31,7 +31,7 @@ public class RedTies2015Robot extends TurtleRobot {
 
 		while (isOperatorControl() && isEnabled()) {
 			// This is the main loop for operator control.
-			((TurtleTankChassis)chassis).tankDrive(Input.getLPower(), Input.getRPower());
+			((TurtleTankChassis) chassis).tankDrive(Input.getLPower(), Input.getRPower());
 		}
 	}
 

@@ -10,5 +10,9 @@ public class Constants {
 	public static final int RJOYSTICKPORT = 0;
 	public static final int LJOYSTICKPORT = 1;
 	public static final int BUTTONPANELPORT = 2;
+	public static final int LEFTENCODERPORT1 = 0;
+	public static final int LEFTENCODERPORT2 = 1;
+	public static final int RIGHTENCODERPORT1 = 2;
+	public static final int RIGHTENCODERPORT2 = 3;
 	
 }
