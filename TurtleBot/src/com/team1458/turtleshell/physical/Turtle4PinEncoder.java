@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.Encoder;
 
 public class Turtle4PinEncoder extends TurtleEncoder {
 	private Encoder encoder;
-	private boolean isReversed = false;
+
 	public Turtle4PinEncoder(int aChannel, int bChannel) {
 		encoder = new Encoder(aChannel, bChannel);
 		encoder.setDistancePerPulse(1.0);
@@ -29,9 +29,4 @@ public class Turtle4PinEncoder extends TurtleEncoder {
 	public void reset() {
 		encoder.reset();
 	}
-	@Override
-	public boolean isReversed() {
-		return isReversed;
-	}
-
 }
