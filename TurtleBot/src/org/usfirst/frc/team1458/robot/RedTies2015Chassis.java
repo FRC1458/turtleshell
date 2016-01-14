@@ -5,7 +5,7 @@ import com.team1458.turtleshell.TurtleSmartTankChassis;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;
 import com.team1458.turtleshell.physical.TurtleVictor;
 
-public class RedTies2015Chassis implements TurtleSmartTankChassis {
+public class RedTies2015Chassis extends TurtleSmartTankChassis {
 	private static RedTies2015Chassis instance;
 	private TurtleVictor rDrive1;
 	private TurtleVictor lDrive1;
