@@ -30,4 +30,16 @@ public interface TurtleTankChassis extends TurtleChassis {
 	public default void allDrive(double[] allMotorPowers) {
 		tankDrive(allMotorPowers[0],allMotorPowers[1]);
 	}
+	
+	/**
+	 * Get the wheelbase of the Tank Chassis.
+	 * @return The wheelbase (distance between wheels) in inches.
+	 */
+	public double getWheelBase();
+	
+	/**
+	 * Get the diameter of the wheels.
+	 * @return Diameter of wheels in inches
+	 */
+	public double getWheelDiameter();
 }

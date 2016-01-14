@@ -17,4 +17,10 @@ public interface TurtleEncoder extends TurtleSensor {
 	 * Resets the encoder value to zero.
 	 */
 	public void reset();
+	
+	/**
+	 * Checks whether or not the Encoder is reversed
+	 * @return whether or not the encoder is reversed
+	 */
+	public boolean isReversed();
 }

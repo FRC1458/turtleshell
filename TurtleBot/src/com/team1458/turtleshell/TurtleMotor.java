@@ -11,4 +11,10 @@ public interface TurtleMotor {
 	 * @return The most recently set motor power, from -1 to 1.
 	 */
 	public double get();
+	
+	/**
+	 * Checks whether or not this motor is reversed. Reversal should be done upon construction, so sides are the same.
+	 * @return Whether or not the motor is reversed.
+	 */
+	public boolean isReversed();
 }

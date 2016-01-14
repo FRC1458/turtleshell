@@ -6,25 +6,25 @@ import com.team1458.turtleshell.physical.Turtle4PinEncoder;
 import com.team1458.turtleshell.physical.TurtleVictor;
 
 public class RedTies2015Chassis implements TurtleSmartTankChassis {
-private static RedTies2015Chassis instance;
+	private static RedTies2015Chassis instance;
 	private TurtleVictor rDrive1;
 	private TurtleVictor lDrive1;
 	private TurtleVictor rDrive2;
 	private TurtleVictor lDrive2;
-	
+
 	private TurtleEncoder lEncoder;
 	private TurtleEncoder rEncoder;
-	
+
 	private RedTies2015Chassis() {
-		rDrive1=new TurtleVictor(Constants.RIGHT1VICTORPORT);
-		lDrive1=new TurtleVictor(Constants.LEFT1VICTORPORT);
-		rDrive2=new TurtleVictor(Constants.RIGHT2VICTORPORT);
-		lDrive2=new TurtleVictor(Constants.LEFT2VICTORPORT);
-		
-		lEncoder= new Turtle4PinEncoder(Constants.LEFTENCODERPORT1,Constants.LEFTENCODERPORT2);
-		rEncoder= new Turtle4PinEncoder(Constants.RIGHTENCODERPORT1,Constants.RIGHTENCODERPORT2);
+		rDrive1 = new TurtleVictor(Constants.RIGHT1VICTORPORT, true);
+		lDrive1 = new TurtleVictor(Constants.LEFT1VICTORPORT, false);
+		rDrive2 = new TurtleVictor(Constants.RIGHT2VICTORPORT, true);
+		lDrive2 = new TurtleVictor(Constants.LEFT2VICTORPORT, false);
+
+		lEncoder = new Turtle4PinEncoder(Constants.LEFTENCODERPORT1, Constants.LEFTENCODERPORT2, false);
+		rEncoder = new Turtle4PinEncoder(Constants.RIGHTENCODERPORT1, Constants.RIGHTENCODERPORT2, true);
 	}
-	
+
 	public static RedTies2015Chassis getInstance() {
 		if (instance == null) {
 			instance = new RedTies2015Chassis();
@@ -48,13 +48,13 @@ private static RedTies2015Chassis instance;
 	public void init() {
 		lEncoder.reset();
 		rEncoder.reset();
-		
+
 	}
 
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -69,13 +69,21 @@ private static RedTies2015Chassis instance;
 
 	@Override
 	public double getTheta() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 360 * (lEncoder.getTicks() - rEncoder.getTicks()) * getTicksToInches() / (Math.PI * getWheelBase());
 	}
 
 	@Override
 	public double getTicksToInches() {
-		// TODO Auto-generated method stub
-		return 0;
+		return (this.getWheelDiameter() * Math.PI) / 360;
+	}
+
+	@Override
+	public double getWheelBase() {
+		return 26.5;
+	}
+
+	@Override
+	public double getWheelDiameter() {
+		return 8.0;
 	}
 }
