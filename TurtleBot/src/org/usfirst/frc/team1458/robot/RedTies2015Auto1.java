@@ -8,7 +8,7 @@ import com.team1458.turtleshell.TurtleEncoderDistanceDrivePID;
  * @author mehnadnerd
  *
  */
-public class RedTies2015Auto1 implements TurtleAutonomous {
+public class RedTies2015Auto1 extends TurtleAutonomous {
 	
 	private final double kP = 0.1;
 	private final double kD = 0.01;
