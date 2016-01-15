@@ -52,12 +52,6 @@ public class RedTies2015Chassis extends TurtleSmartTankChassis {
 	}
 
 	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public int getLeftEncoder() {
 		return lEncoder.getTicks();
 	}

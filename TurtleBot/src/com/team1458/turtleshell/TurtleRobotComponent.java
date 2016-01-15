@@ -6,8 +6,4 @@ public abstract class TurtleRobotComponent {
 	 */
 	public abstract void init();
 	
-	/**
-	 * Update a component, all subcomponents should have this called by this.
-	 */
-	public abstract void update();
 }
