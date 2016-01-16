@@ -1,0 +1,9 @@
+package org.usfirst.frc.team1458.robot;
+
+public interface TurtleEncoderInterface extends TurtleSensorInterface {
+	/**
+	 * Gets the ticks an encoder has gone through, signed
+	 * @return The ticks an encoder has gone through
+	 */
+	public double getTicks();
+}

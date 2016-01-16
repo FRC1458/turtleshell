@@ -1,0 +1,24 @@
+package org.usfirst.frc.team1458.robot;
+
+public class Autonomous {
+//4 Autos, one for each position of obstacle
+	//vision tracking for theta
+	
+	private static Autonomous instance;
+	
+	private int a1;
+	private int a2;
+	
+	private Autonomous() {
+		a1 = 1;
+		a2 = 2;
+	}
+	
+	public static Autonomous getInstance() {
+		if (instance == null) {
+			instance = new Autonomous();
+		}
+		return instance;
+	}
+	
+}

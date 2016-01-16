@@ -1,0 +1,5 @@
+package com.team1458.turtleshell;
+
+public interface TurtleChassisInterface extends TurtleRobotComponentInterface {
+	public void straightDrive(double power);
+}

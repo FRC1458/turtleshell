@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.usfirst.frc.team1458.robot.RedTies2016Autonomous"/>
+<fullyQualifiedTypeName name="com.team1458.turtleshell.TurtleChassisInterface"/>
+<fullyQualifiedTypeName name="edu.wpi.first.wpilibj.Timer"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.team1458.turtleshell.TurtleTankChassis"/>
+<fullyQualifiedTypeName name="com.team1458.turtleshell.Input"/>
+<fullyQualifiedTypeName name="com.team1458.turtleshell.TurtleEncoderDistanceDrivePID"/>
+<fullyQualifiedTypeName name="com.team1458.turtleshell.physical.Turtle4PinEncoder"/>
+<fullyQualifiedTypeName name="com.team1458.turtleshell.TurtleEncoder"/>
+<fullyQualifiedTypeName name="edu.wpi.first.wpilibj.Encoder"/>
+<fullyQualifiedTypeName name="com.team1458.turtleshell.TurtleSmartTankChassis"/>
+</qualifiedTypeNameHistroy>

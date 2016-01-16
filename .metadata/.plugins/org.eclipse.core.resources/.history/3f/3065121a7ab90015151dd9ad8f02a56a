@@ -1,0 +1,43 @@
+package org.usfirst.frc.team1458.robot;
+
+import com.team1458.turtleshell.TurtleAutonomous;
+import com.team1458.turtleshell.TurtleEncoderDistanceDrivePID;
+
+public class RedTies2015Auto1 implements TurtleAutonomous {
+	// 4 Autos, one for each position of obstacle
+	// vision tracking for theta
+	private double lDp;
+	private double rDp;
+	private TurtleEncoderDistanceDrivePID pid;
+
+	private static RedTies2015Auto1 instance;
+
+	private RedTies2015Auto1() {
+
+	}
+
+	public static RedTies2015Auto1 getInstance() {
+		if (instance == null) {
+			instance = new RedTies2015Auto1();
+		}
+		return instance;
+	}
+
+	@Override
+	public double[] getMotors() {
+		return new double[]{lDp,rDp};
+	}
+
+	@Override
+	public void calculate() {
+		rDp=0;
+		lDp=0;
+	}
+
+	@Override
+	public void init() {
+		rDp=0;
+		lDp=0;
+	}
+
+}

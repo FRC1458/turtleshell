@@ -11,8 +11,8 @@ import com.team1458.turtleshell.TurtleEncoderDistanceDrivePID;
 public class RedTies2015Auto1 implements TurtleAutonomous {
 	
 	private final double kP = 0.1;
-	private final double kD = 0.01;
-	private final double kLRP = 0.1;
+	private final double kD = 0.00;
+	private final double kLRP = 0.0;
 	private final int distanceToMove = 360*10;
 	
 	// 4 Autos, one for each position of obstacle

@@ -1,0 +1,31 @@
+
+package org.usfirst.frc.team1458.robot;
+
+import com.team1458.turtleshell.TurtleRobot;
+
+public class Robot extends TurtleRobot {
+	
+	
+	public Robot() {
+
+	}
+
+	public void robotInit() {
+		
+	}
+
+	public void autonomous() {
+
+	}
+
+	public void operatorControl() {
+		
+		while(isOperatorControl() && isEnabled()) {
+			
+		}
+	}
+
+	public void test() {
+		
+	}
+}

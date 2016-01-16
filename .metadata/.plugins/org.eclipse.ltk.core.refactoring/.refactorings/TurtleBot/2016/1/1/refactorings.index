@@ -1,0 +1,22 @@
+1452393317627	Delete elements
+1452448385160	Rename type 'TurtleEncoder'
+1452448404615	Rename type 'TurtleMotor'
+1452448439058	Rename type 'TurtleSensor'
+1452448496616	Rename type 'PhysicalThingyInterface'
+1452448512043	Rename type 'ChassisInterface'
+1452449067787	Rename type 'SmartChassisInterface'
+1452453864801	Rename type 'Chassis'
+1452454218010	Rename type 'TurtleChassisInterface'
+1452454236563	Rename type 'TurtleSmartChassisInterface'
+1452462516167	Rename type 'Autonomous'
+1452467750405	Rename type 'TurtlePhysicalThingyInterface'
+1452467972209	Move compilation units
+1452468863698	Move compilation unit
+1452469091028	Rename type 'PID'
+1452469124740	Move compilation unit
+1452469181083	Move compilation unit
+1452469191846	Move compilation unit
+1452469223234	Move compilation unit
+1452469233910	Delete element
+1452469261666	Rename type 'Vision'
+1452469266920	Move compilation unit

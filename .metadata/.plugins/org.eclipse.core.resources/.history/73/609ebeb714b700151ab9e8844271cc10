@@ -1,0 +1,8 @@
+package org.usfirst.frc.team1458.robot;
+
+public class Output {
+	
+	public static void spew(String title, Object o) {
+		
+	}
+}

@@ -1,0 +1,13 @@
+package com.team1458.turtleshell;
+
+public interface TurtleAutonomous {
+	/**
+	 * 
+	 * @return An array of doubles for the motors. the first two values should
+	 *         be the right and then left motors, but there is no standard for
+	 *         the remaining.
+	 */
+	public double[] getMotors();
+
+	public void doAuto();
+}

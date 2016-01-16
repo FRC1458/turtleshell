@@ -1,0 +1,8 @@
+package com.team1458.turtleshell;
+
+public interface TurtleUpdatable {
+	/**
+	 * Update the updatable object.
+	 */
+	public void update();
+}

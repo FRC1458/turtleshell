@@ -1,0 +1,12 @@
+package org.usfirst.frc.team1458.robot;
+
+import edu.wpi.first.wpilibj.Victor;
+
+public class TurtleVictor implements TurtleMotor {
+	private Victor victor;
+
+	@Override
+	public void set(double power) {
+		victor.set(power);
+	}
+}

@@ -1,0 +1,9 @@
+package org.usfirst.frc.team1458.robot;
+
+public interface TurtleSmartChassisInterface extends TurtleChassisInterface {
+	/**
+	 * Drive forward (or backwards) a certain distance.
+	 * @param distance
+	 */
+	public void driveForward(double distance);
+}

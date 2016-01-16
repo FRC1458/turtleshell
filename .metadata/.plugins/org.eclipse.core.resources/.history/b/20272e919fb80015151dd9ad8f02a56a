@@ -1,0 +1,30 @@
+package org.usfirst.frc.team1458.robot;
+
+import com.team1458.turtleshell.TurtleAutonomousInterface;
+
+public class RedTies2016Autonomous implements TurtleAutonomousInterface{
+//4 Autos, one for each position of obstacle
+	//vision tracking for theta
+	
+	private static RedTies2016Autonomous instance;
+	
+
+	
+	private RedTies2016Autonomous() {
+
+	}
+	
+	public static RedTies2016Autonomous getInstance() {
+		if (instance == null) {
+			instance = new RedTies2016Autonomous();
+		}
+		return instance;
+	}
+
+	@Override
+	public void doAuto() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}

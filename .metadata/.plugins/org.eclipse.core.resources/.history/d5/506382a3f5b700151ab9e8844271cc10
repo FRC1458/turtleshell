@@ -1,0 +1,30 @@
+
+package org.usfirst.frc.team1458.robot;
+
+import edu.wpi.first.wpilibj.SampleRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+public class Robot extends SampleRobot {
+
+	Turtle
+	public Robot() {
+
+	}
+
+	public void robotInit() {
+
+	}
+
+	public void autonomous() {
+
+	}
+
+	public void operatorControl() {
+		
+	}
+
+	public void test() {
+		
+	}
+}

@@ -1,0 +1,7 @@
+package org.usfirst.frc.team1458.robot;
+
+public interface ChassisInterface {
+	public TurtleMotor[] getAllMotors();
+	public TurtleMotor[] getLeftDriveMotors();
+	public TurtleMotor[] getRightDriveMotors();
+}

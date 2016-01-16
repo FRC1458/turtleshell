@@ -1,0 +1,19 @@
+package com.team1458.turtleshell;
+
+public class TurtleEncoderDistanceDrivePID extends TurtlePID {
+	protected final int dist;
+	public TurtleEncoderDistanceDrivePID(double kP, double kI, double kD, int dist) {
+		super(kP, kI, kD);
+		this.dist=dist;
+		// TODO Auto-generated constructor stub
+	}
+	//error = encoder-dist
+	public double[] getP(int lEncoder, int rEncoder) {
+		
+		return null;
+	}
+	public double[] getPD(int lEncoder, double lEncoderRate, int rEncoder, double rEncoderRate) {
+		return null;
+	}
+
+}

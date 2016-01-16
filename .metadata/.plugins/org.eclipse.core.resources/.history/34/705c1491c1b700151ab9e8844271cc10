@@ -1,0 +1,21 @@
+package org.usfirst.frc.team1458.robot;
+
+import edu.wpi.first.wpilibj.Talon;
+
+public class TurtleTalon implements TurtleMotor {
+	Talon talon;
+	public TurtleTalon(int port) {
+		talon=new Talon(port);
+	}
+	@Override
+	public void set(double power) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public double get() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+}

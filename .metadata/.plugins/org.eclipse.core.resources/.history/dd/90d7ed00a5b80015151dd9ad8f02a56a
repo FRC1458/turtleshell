@@ -1,0 +1,14 @@
+package com.team1458.turtleshell;
+
+public interface TurtleChassisInterface extends TurtleRobotComponentInterface {
+	/**
+	 * Drive straight forward (or backwards)
+	 * @param power signed double -1 to 1, -1 full backwards 1 full forwards
+	 */
+	public void straightDrive(double power);
+	/**
+	 * Turn clockwise (or anticlockwise)
+	 * @param power The power to turn at, signed double -1 to 1
+	 */
+	public void turn(double power);
+}
