@@ -46,4 +46,12 @@ public class Input {
 	public static double getRTheta() {
 		return 180*Math.atan2(-rJoystick.getAxis(Joystick.AxisType.kY), rJoystick.getAxis(Joystick.AxisType.kX))/Math.PI;
 	}
+	
+	public static double getLTheta() {
+		return 180*Math.atan2(-lJoystick.getAxis(Joystick.AxisType.kY), lJoystick.getAxis(Joystick.AxisType.kX))/Math.PI;
+	}
+	
+	public static double getRRadius() {
+		return 180*Math.atan2(-rJoystick.getAxis(Joystick.AxisType.kY), rJoystick.getAxis(Joystick.AxisType.kX))/Math.PI;
+	}
 }

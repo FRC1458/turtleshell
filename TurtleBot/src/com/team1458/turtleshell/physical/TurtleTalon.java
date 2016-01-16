@@ -4,7 +4,7 @@ import com.team1458.turtleshell.TurtleMotor;
 
 import edu.wpi.first.wpilibj.Talon;
 
-public class TurtleTalon implements TurtleMotor {
+public class TurtleTalon extends TurtleMotor {
 	private Talon talon;
 	private boolean isReversed = false;
 

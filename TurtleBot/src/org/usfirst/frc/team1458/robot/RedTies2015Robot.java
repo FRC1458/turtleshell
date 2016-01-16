@@ -2,6 +2,7 @@ package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell.Input;
 import com.team1458.turtleshell.TurtleRobot;
+import com.team1458.turtleshell.TurtleSmartTankChassis;
 import com.team1458.turtleshell.TurtleTankChassis;
 
 public class RedTies2015Robot extends TurtleRobot {
@@ -21,7 +22,8 @@ public class RedTies2015Robot extends TurtleRobot {
 		auto.init();
 		while (isAutonomous() && isEnabled()) {
 			// This is the main loop for autonomous.
-			auto.calculate(null);
+			auto.calculate(new double[] { ((TurtleSmartTankChassis) chassis).getLeftEncoder(),
+					((TurtleSmartTankChassis) chassis).getLeftEncoder() });
 			chassis.allDrive(auto.getMotors());
 		}
 	}
