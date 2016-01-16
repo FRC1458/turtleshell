@@ -1,6 +1,6 @@
-*.pydevproject
-.metadata
-.recommenders
+#*.pydevproject
+#.metadata
+#.recommenders
 bin/
 tmp/
 build/
@@ -8,27 +8,27 @@ build/
 *.bak
 *.swp
 *~.nib
-local.properties
-.settings/
-.loadpath
+#local.properties
+#.settings/
+#.loadpath
 
 # Eclipse Core
 #.project
 
 # External tool builders
-.externalToolBuilders/
+#.externalToolBuilders/
 
 # Locally stored "Eclipse launch configurations"
-*.launch
+#*.launch
 
 # CDT-specific
-.cproject
+#.cproject
 
 # JDT-specific (Eclipse Java Development Tools)
-.classpath
+#.classpath
 
 # Java annotation processor (APT)
-.factorypath
+#.factorypath
 
 # PDT-specific
 .buildpath
