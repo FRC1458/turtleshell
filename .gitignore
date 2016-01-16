@@ -3,6 +3,7 @@
 .recommenders
 bin/
 tmp/
+build/
 *.tmp
 *.bak
 *.swp
@@ -12,7 +13,7 @@ local.properties
 .loadpath
 
 # Eclipse Core
-.project
+#.project
 
 # External tool builders
 .externalToolBuilders/
@@ -33,10 +34,10 @@ local.properties
 .buildpath
 
 # sbteclipse plugin
-.target
+#.target
 
 # TeXlipse plugin
-.texlipse
+#.texlipse
 
 # STS (Spring Tool Suite)
-.springBeans
+#.springBeans

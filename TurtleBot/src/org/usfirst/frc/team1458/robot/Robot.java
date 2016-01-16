@@ -5,9 +5,9 @@ import com.team1458.turtleshell.TurtleRobot;
 import com.team1458.turtleshell.TurtleSmartTankChassis;
 import com.team1458.turtleshell.TurtleTankChassis;
 
-public class RedTies2015Robot extends TurtleRobot {
+public class Robot extends TurtleRobot {
 
-	public RedTies2015Robot() {
+	public Robot() {
 
 	}
 
