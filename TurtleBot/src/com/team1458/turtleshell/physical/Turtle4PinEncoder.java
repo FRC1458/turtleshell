@@ -4,8 +4,9 @@ import com.team1458.turtleshell.TurtleEncoder;
 
 import edu.wpi.first.wpilibj.Encoder;
 
-public class Turtle4PinEncoder extends TurtleEncoder {
+public class Turtle4PinEncoder implements TurtleEncoder {
 	private Encoder encoder;
+	private boolean isReversed;
 
 	public Turtle4PinEncoder(int aChannel, int bChannel) {
 		encoder = new Encoder(aChannel, bChannel);
@@ -28,5 +29,9 @@ public class Turtle4PinEncoder extends TurtleEncoder {
 	@Override
 	public void reset() {
 		encoder.reset();
+	}
+	@Override
+	public boolean isReversed() {
+		return isReversed();
 	}
 }

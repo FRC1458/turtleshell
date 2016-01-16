@@ -1,6 +1,6 @@
 package com.team1458.turtleshell;
 
-public abstract class TurtleSmartTankChassis extends TurtleTankChassis {
+public interface TurtleSmartTankChassis extends TurtleTankChassis {
 
 	/**
 	 * Get number of ticks the left encoder has gone

@@ -1,6 +1,6 @@
 package com.team1458.turtleshell;
 
-public abstract class TurtleMotor {
+public interface TurtleMotor {
 	/**
 	 * Sets the motor power.
 	 * 

@@ -4,7 +4,7 @@ import com.team1458.turtleshell.TurtleMotor;
 
 import edu.wpi.first.wpilibj.Victor;
 
-public class TurtleVictor extends TurtleMotor {
+public class TurtleVictor implements TurtleMotor {
 	private Victor victor;
 	private boolean isReversed;
 

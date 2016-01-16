@@ -1,6 +1,6 @@
 package com.team1458.turtleshell;
 
-public abstract class TurtleChassis extends TurtleRobotComponent {
+public interface TurtleChassis extends TurtleRobotComponent {
 	/**
 	 * Drive straight forward (or backwards)
 	 * @param power signed double -1 to 1, -1 full backwards 1 full forwards

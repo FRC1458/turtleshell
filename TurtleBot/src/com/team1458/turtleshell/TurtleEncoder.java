@@ -1,7 +1,6 @@
 package com.team1458.turtleshell;
 
-public abstract class TurtleEncoder extends TurtleSensor {
-	protected boolean isReversed = false;
+public interface TurtleEncoder extends TurtleSensor {
 	/**
 	 * Gets the ticks an encoder has gone through, signed
 	 * 
@@ -26,7 +25,5 @@ public abstract class TurtleEncoder extends TurtleSensor {
 	 * 
 	 * @return whether or not the encoder is reversed
 	 */
-	public boolean isReversed() {
-		return isReversed;
-	}
+	public boolean isReversed();
 }

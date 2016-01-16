@@ -1,6 +1,6 @@
 package com.team1458.turtleshell;
 
-public abstract class TurtleRobotComponent {
+public interface TurtleRobotComponent {
 	/**
 	 * Initialise a component. Will be called once.
 	 */
