@@ -9,8 +9,8 @@ public class RedTies2015Chassis extends TurtleSmartTankChassis {
 	private static RedTies2015Chassis instance;
 	private TurtleVictor rDrive1;
 	private TurtleVictor lDrive1;
-	private TurtleVictor rDrive2;
-	private TurtleVictor lDrive2;
+	//private TurtleVictor rDrive2;
+	//private TurtleVictor lDrive2;
 
 	private TurtleEncoder lEncoder;
 	private TurtleEncoder rEncoder;
@@ -18,8 +18,8 @@ public class RedTies2015Chassis extends TurtleSmartTankChassis {
 	private RedTies2015Chassis() {
 		rDrive1 = new TurtleVictor(Constants.RIGHT1VICTORPORT, true);
 		lDrive1 = new TurtleVictor(Constants.LEFT1VICTORPORT, false);
-		rDrive2 = new TurtleVictor(Constants.RIGHT2VICTORPORT, true);
-		lDrive2 = new TurtleVictor(Constants.LEFT2VICTORPORT, false);
+		//rDrive2 = new TurtleVictor(Constants.RIGHT2VICTORPORT, true);
+		//lDrive2 = new TurtleVictor(Constants.LEFT2VICTORPORT, false);
 
 		lEncoder = new Turtle4PinEncoder(Constants.LEFTENCODERPORT1, Constants.LEFTENCODERPORT2, false);
 		rEncoder = new Turtle4PinEncoder(Constants.RIGHTENCODERPORT1, Constants.RIGHTENCODERPORT2, true);
@@ -35,13 +35,13 @@ public class RedTies2015Chassis extends TurtleSmartTankChassis {
 	@Override
 	public void rightDrive(double power) {
 		rDrive1.set(power);
-		rDrive2.set(power);
+		//rDrive2.set(power);
 	}
 
 	@Override
 	public void leftDrive(double power) {
 		lDrive1.set(power);
-		lDrive2.set(power);
+		//lDrive2.set(power);
 	}
 
 	@Override
