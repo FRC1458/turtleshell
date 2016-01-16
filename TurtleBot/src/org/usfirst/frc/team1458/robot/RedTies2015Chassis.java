@@ -80,4 +80,9 @@ public class RedTies2015Chassis extends TurtleSmartTankChassis {
 	public double getWheelDiameter() {
 		return 8.0;
 	}
+
+	@Override
+	public int[] getAllEncoders() {
+		return new int[]{getLeftEncoder(),getRightEncoder()};
+	}
 }

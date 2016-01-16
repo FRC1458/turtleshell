@@ -15,6 +15,12 @@ public abstract class TurtleSmartTankChassis extends TurtleTankChassis {
 	public abstract int getRightEncoder();
 	
 	/**
+	 * GEt number of ticks all encoders have gone
+	 * @return left, right, other
+	 */
+	public abstract int[] getAllEncoders();
+	
+	/**
 	 * Get number of degrees robot has rotated clockwise
 	 * @return Signed rotation in degrees clockwise
 	 */
