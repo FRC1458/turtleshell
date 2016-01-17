@@ -85,4 +85,14 @@ public class RedTies2015Chassis implements TurtleSmartTankChassis {
 	public int[] getAllEncoders() {
 		return new int[]{getLeftEncoder(),getRightEncoder()};
 	}
+
+	@Override
+	public double getLeftEncoderRate() {
+		return lEncoder.getRate();
+	}
+
+	@Override
+	public double getRightEncoderRate() {
+		return rEncoder.getRate();
+	}
 }

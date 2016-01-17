@@ -1,6 +1,6 @@
 package com.team1458.turtleshell;
 
-public interface TurtleRobotComponent {
+public interface TurtleRobotComponent extends TurtleUpdatable {
 	/**
 	 * Initialise a component. Will be called once.
 	 */

@@ -1,5 +1,6 @@
 package com.team1458.turtleshell.physical;
 
+import com.team1458.turtleshell.MotorValue;
 import com.team1458.turtleshell.TurtleMotor;
 
 import edu.wpi.first.wpilibj.Talon;
@@ -18,14 +19,14 @@ public class TurtleTalon implements TurtleMotor {
 	}
 
 	@Override
-	public void set(double power) {
-		talon.set((isReversed ? -1 : 1) * power);
+	public void set(MotorValue power) {
+		talon.set((isReversed ? -1 : 1) * power.getValue());
 
 	}
 
 	@Override
-	public double get() {
-		return (isReversed ? -1 : 1) * talon.get();
+	public MotorValue get() {
+		return new MotorValue((isReversed ? -1 : 1) * talon.get());
 	}
 
 	@Override

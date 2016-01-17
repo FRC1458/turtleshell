@@ -10,5 +10,5 @@ public interface TurtleUpdatable {
 	 * Get the preferred cycle time for the updatable object
 	 * @return Preferred cycle time in ms.
 	 */
-	public double getCycleTime();
+	//public double getCycleTime();
 }

@@ -23,7 +23,9 @@ public class Robot extends TurtleRobot {
 		while (isAutonomous() && isEnabled()) {
 			// This is the main loop for autonomous.
 			auto.calculate(new double[] { ((TurtleSmartTankChassis) chassis).getLeftEncoder(),
-					((TurtleSmartTankChassis) chassis).getLeftEncoder() });
+					((TurtleSmartTankChassis) chassis).getRightEncoder(),
+					((TurtleSmartTankChassis) chassis).getLeftEncoderRate(),
+					((TurtleSmartTankChassis) chassis).getRightEncoderRate() });
 			chassis.allDrive(auto.getMotors());
 		}
 	}

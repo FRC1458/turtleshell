@@ -8,14 +8,14 @@ public interface TurtleMotor {
 	 *            double from -1 to 1, with 1 being full forward and -1 full
 	 *            backward.
 	 */
-	public abstract void set(double power);
+	public abstract void set(MotorValue power);
 
 	/**
 	 * Gets the most recently set motor power.
 	 * 
 	 * @return The most recently set motor power, from -1 to 1.
 	 */
-	public abstract double get();
+	public abstract MotorValue get();
 
 	/**
 	 * Checks whether or not this motor is reversed. Reversal should be done

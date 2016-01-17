@@ -18,7 +18,7 @@ public interface TurtleSmartTankChassis extends TurtleTankChassis {
 	 * GEt number of ticks all encoders have gone
 	 * @return left, right, other
 	 */
-	public abstract int[] getAllEncoders();
+	//public abstract int[] getAllEncoders();
 	
 	/**
 	 * Get number of degrees robot has rotated clockwise
@@ -31,4 +31,10 @@ public interface TurtleSmartTankChassis extends TurtleTankChassis {
 	 * @return The conversion factor in the units of in/ticks.
 	 */
 	public abstract double getTicksToInches();
+
+	//public abstract double getLeftEncoderRate();
+	
+	//public double getRightEncoderRate();
+	
+	public void 
 }

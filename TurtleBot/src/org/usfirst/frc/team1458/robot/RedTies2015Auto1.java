@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell.TurtleAutonomous;
-import com.team1458.turtleshell.TurtleEncoderDistanceDrivePID;
+import com.team1458.turtleshell.TurtlePID;
 
 /**
  * Test implementation of an auto that drives 10 revolutions forward
@@ -11,20 +11,23 @@ import com.team1458.turtleshell.TurtleEncoderDistanceDrivePID;
 public class RedTies2015Auto1 implements TurtleAutonomous {
 	
 	private final double kP = 0.1;
-	private final double kD = 0.00;
-	private final double kLRP = 0.0;
+	private final double kD = 0.1;
+	private final double kLRP = 0.1;
 	private final int distanceToMove = 360*10;
 	
 	// 4 Autos, one for each position of obstacle
 	// vision tracking for theta
 	private int lEncoder;
 	private int rEncoder;
-	private TurtleEncoderDistanceDrivePID pid;
+	private double lEncoderRate;
+	private double rEncoderRate;
+	private TurtlePID lpid;
+	private TurtlePID rpid;
 
 	private static RedTies2015Auto1 instance;
 
 	private RedTies2015Auto1() {
-		pid = new TurtleEncoderDistanceDrivePID(kP, kD, kLRP, distanceToMove);
+		pid = new TurtlePID(kP, kD, kLRP, distanceToMove);
 	}
 
 	public static RedTies2015Auto1 getInstance() {
@@ -36,7 +39,7 @@ public class RedTies2015Auto1 implements TurtleAutonomous {
 
 	@Override
 	public double[] getMotors() {
-		return pid.getP(lEncoder, rEncoder);
+		return new double[]{};
 	}
 
 	@Override
@@ -51,6 +54,8 @@ public class RedTies2015Auto1 implements TurtleAutonomous {
 	public void calculate(double[] encoderValues) {
 		lEncoder=(int) encoderValues[0];
 		rEncoder=(int) encoderValues[1];
+		lEncoderRate=encoderValues[2];
+		rEncoderRate=encoderValues[3];
 	}
 
 	@Override
