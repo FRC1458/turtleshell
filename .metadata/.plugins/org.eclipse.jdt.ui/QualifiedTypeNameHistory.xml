@@ -7,8 +7,21 @@
 <fullyQualifiedTypeName name="com.team1458.turtleshell.TurtleTankChassis"/>
 <fullyQualifiedTypeName name="com.team1458.turtleshell.Input"/>
 <fullyQualifiedTypeName name="com.team1458.turtleshell.TurtleEncoderDistanceDrivePID"/>
-<fullyQualifiedTypeName name="com.team1458.turtleshell.physical.Turtle4PinEncoder"/>
-<fullyQualifiedTypeName name="com.team1458.turtleshell.TurtleEncoder"/>
 <fullyQualifiedTypeName name="edu.wpi.first.wpilibj.Encoder"/>
 <fullyQualifiedTypeName name="com.team1458.turtleshell.TurtleSmartTankChassis"/>
+<fullyQualifiedTypeName name="com.team1458.turtleshell.TurtlePDD2"/>
+<fullyQualifiedTypeName name="java.util.Random"/>
+<fullyQualifiedTypeName name="com.team1458.turtleshell.TurtleMotor"/>
+<fullyQualifiedTypeName name="com.team1458.turtleshell.physical.TurtleVictor"/>
+<fullyQualifiedTypeName name="com.team1458.turtleshell.physical.Turtle4PinEncoder"/>
+<fullyQualifiedTypeName name="com.team1458.turtleshell.TurtleEncoder"/>
+<fullyQualifiedTypeName name="com.team1458.turtleshell.TurtleDualPID"/>
+<fullyQualifiedTypeName name="com.team1458.turtleshell.TurtleStraightDrivePID"/>
+<fullyQualifiedTypeName name="com.team1458.turtleshell.MotorValue"/>
+<fullyQualifiedTypeName name="com.team1458.turtleshell.TurtleAutonomous"/>
+<fullyQualifiedTypeName name="edu.wpi.first.wpilibj.DriverStation"/>
+<fullyQualifiedTypeName name="edu.wpi.first.wpilibj.DriverStation.Alliance"/>
+<fullyQualifiedTypeName name="com.team1458.turtleshell.TurtleSafeDriverStation"/>
+<fullyQualifiedTypeName name="com.team1458.turtleshell.TurtleSmartChassis"/>
+<fullyQualifiedTypeName name="com.team1458.turtleshell.TurtleAutoable"/>
 </qualifiedTypeNameHistroy>
