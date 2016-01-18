@@ -10,7 +10,7 @@ public class TurtlePDD2 implements TurtlePID {
 	protected double prevdValue;
 	protected double savedpValue;
 
-	public TurtlePDD2(double kP, double kDD, double kD, int target) {
+	public TurtlePDD2(double kP, double kDD, double kD, double target) {
 		this.kP = kP;
 		this.kDD = kDD;
 		this.kD = kD;
@@ -21,7 +21,7 @@ public class TurtlePDD2 implements TurtlePID {
 		double newValue = kP * (target - inputs[0]) - kD * inputs[1] + kDD * (prevdValue - inputs[1]);
 		prevdValue = inputs[1];
 		savedpValue = inputs[0];
-		System.out.println("U"+newValue);
+		//System.out.println("U"+newValue);
 		return new MotorValue(newValue);
 	}
 

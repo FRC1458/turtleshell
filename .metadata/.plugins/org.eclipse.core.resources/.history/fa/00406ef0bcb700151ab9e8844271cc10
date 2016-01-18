@@ -1,7 +1,0 @@
-package org.usfirst.frc.team1458.robot;
-
-public class PID {
-	private final double kP;
-	private final double kI;
-	private final double kD;
-}

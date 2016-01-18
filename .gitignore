@@ -1,6 +1,6 @@
 #*.pydevproject
 .metadata
-#.recommenders
+.recommenders
 bin/
 tmp/
 build/

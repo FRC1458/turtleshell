@@ -5,7 +5,7 @@ public interface TurtleMotor {
 	 * Sets the motor power.
 	 * 
 	 * @param power
-	 *            double from -1 to 1, with 1 being full forward and -1 full
+	 *            MotorValue from -1 to 1, with 1 being full forward and -1 full
 	 *            backward.
 	 */
 	public abstract void set(MotorValue power);

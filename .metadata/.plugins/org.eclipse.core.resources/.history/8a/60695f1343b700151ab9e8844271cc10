@@ -1,5 +1,0 @@
-package org.usfirst.frc.team1458.robot;
-
-public class Constants {
-	public static final int LEFT1VICTORPORT = 1;
-}
