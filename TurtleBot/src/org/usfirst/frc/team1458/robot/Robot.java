@@ -2,8 +2,7 @@ package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell.Input;
 import com.team1458.turtleshell.TurtleRobot;
-import com.team1458.turtleshell.TurtleSmartTankChassis;
-import com.team1458.turtleshell.TurtleTankChassis;
+import com.team1458.turtleshell.TurtleSafeDriverStation;
 
 public class Robot extends TurtleRobot {
 
@@ -12,22 +11,13 @@ public class Robot extends TurtleRobot {
 	}
 
 	public void robotInit() {
-		chassis = RedTies2015Chassis.getInstance();
-		auto = RedTies2015Auto1.getInstance();
-
+		TurtleSafeDriverStation.setDS(m_ds);
 	}
 
 	public void autonomous() {
 		// Put the code to initialise autonomous here.
-		auto.init();
-		while (isAutonomous() && isEnabled()) {
-			// This is the main loop for autonomous.
-			auto.calculate(new double[] { ((TurtleSmartTankChassis) chassis).getLeftEncoder(),
-					((TurtleSmartTankChassis) chassis).getRightEncoder(),
-					((TurtleSmartTankChassis) chassis).getLeftEncoderRate(),
-					((TurtleSmartTankChassis) chassis).getRightEncoderRate() });
-			chassis.allDrive(auto.getMotors());
-		}
+		TurtwigTestAutonomous auto = new TurtwigTestAutonomous();
+		auto.doAuto();
 	}
 
 	public void operatorControl() {
@@ -35,7 +25,6 @@ public class Robot extends TurtleRobot {
 
 		while (isOperatorControl() && isEnabled()) {
 			// This is the main loop for operator control.
-			((TurtleTankChassis) chassis).tankDrive(Input.getLPower(), Input.getRPower());
 		}
 	}
 

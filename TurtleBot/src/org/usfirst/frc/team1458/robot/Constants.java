@@ -14,5 +14,8 @@ public class Constants {
 	public static final int LEFTENCODERPORT2 = 1;
 	public static final int RIGHTENCODERPORT1 = 2;
 	public static final int RIGHTENCODERPORT2 = 3;
-	
+
+	public static final double WHEELDIAMETER = 8;
+	public static final double WHEELBASE = 24;
+
 }
