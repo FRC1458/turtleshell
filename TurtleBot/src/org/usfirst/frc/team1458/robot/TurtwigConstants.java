@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1458.robot;
 
-public class Constants {
+public class TurtwigConstants {
 	public static final int LEFT1VICTORPORT = 2;
 	public static final int LEFT2VICTORPORT = 3;
 	public static final int LEFT3VICTORPORT = -1;
