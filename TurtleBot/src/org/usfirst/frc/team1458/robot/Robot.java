@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.team1458.turtleshell.Input;
 import com.team1458.turtleshell.TurtleRobot;
 import com.team1458.turtleshell.TurtleSafeDriverStation;
 

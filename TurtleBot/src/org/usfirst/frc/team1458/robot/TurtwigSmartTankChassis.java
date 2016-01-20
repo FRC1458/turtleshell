@@ -74,5 +74,20 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis, TurtleTeleop
 		lMotor.set(motorPowers[0]);
 		rMotor.set(motorPowers[1]);
 	}
+	/**
+	 * Gets the current theta of the chassis
+	 * @return Angle rotated clockwise in radians
+	 */
+	private double getTheta() {
+		return (lEncoder.getTicks()-rEncoder.getTicks())*Math.PI*TurtwigConstants.WHEELDIAMETER/(TurtwigConstants.WHEELBASE*Math.PI);
+	}
+	
+	/**
+	 * Returns the current theta of the chassis in degrees
+	 * @return Angle rotated clockwise in degrees
+	 */
+	private double getThetaDegrees() {
+		return Math.toDegrees(getTheta());
+	}
 
 }
