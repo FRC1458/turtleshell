@@ -5,9 +5,9 @@ public class TurtleStraightDrivePID implements TurtleDualPID {
 	private final TurtlePID rPID;
 	private final double kLR;
 
-	public TurtleStraightDrivePID(double kP, double kDD, double kD, double target, double kLR) {
-		lPID = new TurtlePDD2(kP, kDD, kD, target);
-		rPID = new TurtlePDD2(kP, kDD, kD, target);
+	public TurtleStraightDrivePID(double kP, double kD, double kDD, double target, double kLR) {
+		lPID = new TurtlePDD2(kP, kD, kDD, target);
+		rPID = new TurtlePDD2(kP, kD, kDD, target);
 		this.kLR = kLR;
 	}
 

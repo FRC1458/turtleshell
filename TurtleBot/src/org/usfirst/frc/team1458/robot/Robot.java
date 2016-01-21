@@ -5,7 +5,7 @@ import com.team1458.turtleshell.TurtleRobot;
 import com.team1458.turtleshell.TurtleSafeDriverStation;
 
 public class Robot extends TurtleRobot {
-
+TurtwigTestAutonomous auto = new TurtwigTestAutonomous();
 	public Robot() {
 
 	}
@@ -16,7 +16,7 @@ public class Robot extends TurtleRobot {
 
 	public void autonomous() {
 		// Put the code to initialise autonomous here.
-		TurtwigTestAutonomous auto = new TurtwigTestAutonomous();
+		
 		auto.doAuto();
 	}
 
