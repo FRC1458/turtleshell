@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1458.robot;
 
+import com.team1458.turtleshell.Input;
 import com.team1458.turtleshell.MotorValue;
 import com.team1458.turtleshell.TurtleAutoable;
 import com.team1458.turtleshell.TurtleDualPID;
@@ -8,6 +9,7 @@ import com.team1458.turtleshell.TurtleMotor;
 import com.team1458.turtleshell.TurtleSmartChassis;
 import com.team1458.turtleshell.TurtleStraightDrivePID;
 import com.team1458.turtleshell.TurtleTeleoperable;
+import com.team1458.turtleshell.TurtleTurnPID;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;
 import com.team1458.turtleshell.physical.TurtleVictor;
 
@@ -43,20 +45,20 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis, TurtleTeleop
 
 	@Override
 	public void teleUpdate() {
-		// TODO Auto-generated method stub
+		this.driveMotors(new MotorValue[] { new MotorValue(Input.getLPower()), new MotorValue(Input.getRPower()) });
 
 	}
 
 	@Override
 	public void setLinearTarget(double target) {
-		pid = new TurtleStraightDrivePID(.0015, .0001, .0001, target * 360 * TurtwigConstants.WHEELDIAMETER * 2 * Math.PI,
-				0.00005);
+		pid = new TurtleStraightDrivePID(.0015, .0001, .0001,
+				target * 360 * TurtwigConstants.WHEELDIAMETER * 2 * Math.PI, 0.00005);
 
 	}
 
 	@Override
 	public void setThetaTarget(double target) {
-		// TODO Auto-generated method stub
+		pid = new TurtleTurnPID(0.0015, .0001, .0001, target, 0.00005, 8, 24);
 
 	}
 
@@ -73,21 +75,6 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis, TurtleTeleop
 	private void driveMotors(MotorValue[] motorPowers) {
 		lMotor.set(motorPowers[0]);
 		rMotor.set(motorPowers[1]);
-	}
-	/**
-	 * Gets the current theta of the chassis
-	 * @return Angle rotated clockwise in radians
-	 */
-	private double getTheta() {
-		return (lEncoder.getTicks()-rEncoder.getTicks())*Math.PI*TurtwigConstants.WHEELDIAMETER/(TurtwigConstants.WHEELBASE*Math.PI);
-	}
-	
-	/**
-	 * Returns the current theta of the chassis in degrees
-	 * @return Angle rotated clockwise in degrees
-	 */
-	private double getThetaDegrees() {
-		return Math.toDegrees(getTheta());
 	}
 
 }

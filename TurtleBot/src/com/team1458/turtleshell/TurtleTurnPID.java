@@ -13,11 +13,11 @@ public class TurtleTurnPID implements TurtleDualPID {
 	/**
 	 * 
 	 * @param kP
-	 * @param kDD
 	 * @param kD
+	 * @param kDD
 	 * @param target
 	 * @param kLR
-	 * @param wheeldiameter
+	 * @param wheeldiameter Diameter of wheels
 	 * @param wheelbase Distance between wheels, diameter of turning circle
 	 */
 	public TurtleTurnPID(double kP, double kD, double kDD, double target, double kLR, double wheeldiameter, double wheelbase) {
