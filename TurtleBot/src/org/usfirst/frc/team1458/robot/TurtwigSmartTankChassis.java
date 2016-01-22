@@ -51,8 +51,8 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis, TurtleTeleop
 
 	@Override
 	public void setLinearTarget(double target) {
-		pid = new TurtleStraightDrivePID(.0015, .0001, .0001,
-				target * 360 * TurtwigConstants.WHEELDIAMETER * 2 * Math.PI, 0.00005);
+		pid = new TurtleStraightDrivePID(.002, .0008, .0001, target * 360
+				/ (TurtwigConstants.WHEELDIAMETER * Math.PI), 0.00005);
 
 	}
 
