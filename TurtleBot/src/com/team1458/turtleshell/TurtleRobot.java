@@ -1,8 +1,27 @@
 package com.team1458.turtleshell;
 
+/**
+ * A replacement for SampleRobot/SimpleRobot, this class provides a base class
+ * for a robot built off of the turtleshell framework
+ * 
+ * @author mehnadnerd
+ *
+ */
 public abstract class TurtleRobot extends TurtleAdvancedRobot {
+	/**
+	 * A representation of the physical robot. You should add components to
+	 * this, and give it to your tele and auto.
+	 */
 	protected TurtlePhysicalRobot physicalRobot = new TurtlePhysicalRobot();
+	/**
+	 * Teleop. This object represents your teleop code, and you call it in
+	 * teleop.
+	 */
 	protected TurtleTeleop tele;
+	/**
+	 * Autonomous. This object handles autonomous, you call it during autonomous
+	 * and let it do its thing.
+	 */
 	protected TurtleAutonomous auto;
 
 	@Override
