@@ -9,20 +9,20 @@ public class Robot extends TurtleRobot {
 
 	}
 
-	public void robotInit() {
-		TurtleSafeDriverStation.setDS(m_ds);
+	public void initRobot() {
+		physicalRobot.addComponent(new TurtwigSmartTankChassis());
 	}
 
 	public void autonomous() {
 		// Put the code to initialise autonomous here.
-		TurtwigTestAutonomous auto = new TurtwigTestAutonomous();
+		auto = new TurtwigTestAutonomous();
 		auto.doAuto();
 	}
 
 	public void operatorControl() {
 		// Put the code to initialise operator control here.
-
-		while (isOperatorControl() && isEnabled()) {
+		tele = new TurtwigTestTeleop();
+		while (TurtleSafeDriverStation.canTele()) {
 			// This is the main loop for operator control.
 		}
 	}
