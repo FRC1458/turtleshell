@@ -4,6 +4,8 @@ public interface TurtleRobotComponent extends TurtleUpdatable {
 	/**
 	 * Initialise a component. Will be called once.
 	 */
-	public abstract void init();
+	public void init();
+	
+	public void stop();
 	
 }

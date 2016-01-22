@@ -5,6 +5,7 @@ public class TurtleStraightDrivePID implements TurtleDualPID {
 	private final TurtlePID rPID;
 	private final double kLR;
 
+<<<<<<< HEAD
 	private double lDist;
 	private double rDist;
 	private double lRate;
@@ -18,6 +19,8 @@ public class TurtleStraightDrivePID implements TurtleDualPID {
 	 * @param target
 	 * @param kLR
 	 */
+=======
+>>>>>>> master
 	public TurtleStraightDrivePID(double kP, double kD, double kDD, double target, double kLR) {
 		lPID = new TurtlePDD2(kP, kD, kDD, target);
 		rPID = new TurtlePDD2(kP, kD, kDD, target);
