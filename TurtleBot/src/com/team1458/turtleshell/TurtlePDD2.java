@@ -26,7 +26,7 @@ public class TurtlePDD2 implements TurtlePID {
 	}
 
 	public boolean atTarget() {
-		return TurtleMaths.absDiff(target,savedpValue) < 30 && prevdValue < 30;
+		return Math.abs(savedpValue - target) < 20 && prevdValue < 20;
 	}
 
 }

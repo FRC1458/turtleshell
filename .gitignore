@@ -41,3 +41,9 @@ build/
 
 # STS (Spring Tool Suite)
 #.springBeans
+
+.metadata/.log
+
+.metadata/version.ini
+
+*.snap

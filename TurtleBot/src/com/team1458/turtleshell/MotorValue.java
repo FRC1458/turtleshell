@@ -1,5 +1,13 @@
 package com.team1458.turtleshell;
 
+/**
+ * A class to move around motorValues. They are internally backed by a double,
+ * but the class restricts it to -1 to 1, because those are the limits on the
+ * range.
+ * 
+ * @author mehnadnerd
+ *
+ */
 public class MotorValue {
 	private final double value;
 
