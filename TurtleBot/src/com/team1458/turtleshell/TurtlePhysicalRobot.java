@@ -2,10 +2,15 @@ package com.team1458.turtleshell;
 
 import java.util.ArrayList;
 
-public class TurtlePhysicalRobotComponents {
+/**
+ * A class representing the physical robot, it holds all of the robotComponents for the robot.
+ * @author mehnadnerd
+ *
+ */
+public class TurtlePhysicalRobot {
 	private ArrayList<TurtleRobotComponent> robotComponents = new ArrayList<TurtleRobotComponent>();
 
-	public TurtlePhysicalRobotComponents() {
+	public TurtlePhysicalRobot() {
 
 	}
 
@@ -36,20 +41,38 @@ public class TurtlePhysicalRobotComponents {
 	public void teleUpdateAll() {
 		for (TurtleRobotComponent c : robotComponents) {
 			if (c instanceof TurtleTeleoperable) {
-				((TurtleTeleoperable)c).teleUpdate();;
+				((TurtleTeleoperable) c).teleUpdate();
+				;
 			}
 		}
 	}
-	
+
 	/**
 	 * Calls the autoUpdate method for all components that update it
 	 */
 	public void autoUpdateAll() {
 		for (TurtleRobotComponent c : robotComponents) {
 			if (c instanceof TurtleAutoable) {
-				((TurtleAutoable)c).autoUpdate();;
+				((TurtleAutoable) c).autoUpdate();
+				;
 			}
 		}
+	}
+
+	/**
+	 * Unbelievably sketchy way of getting robotComponents that implement a particular interface
+	 * @param interfac Interface to get robotComponents that are
+	 * @return An arraylist holding all robotComponents that extend that interface
+	 */
+	public ArrayList<TurtleRobotComponent> getComponent(Class<? extends TurtleRobotComponent> interfac) {
+		ArrayList<TurtleRobotComponent> toRet = new ArrayList<TurtleRobotComponent>();
+		for (TurtleRobotComponent c : robotComponents) {
+			if (interfac.isInstance(c)) {
+				toRet.add(c);
+			}
+		}
+
+		return toRet;
 	}
 
 }

@@ -1,7 +1,7 @@
 package com.team1458.turtleshell;
 
 public abstract class TurtleRobot extends TurtleAdvancedRobot {
-	protected TurtlePhysicalRobotComponents physicalRobot = new TurtlePhysicalRobotComponents();
+	protected TurtlePhysicalRobot physicalRobot = new TurtlePhysicalRobot();
 	protected TurtleTeleop tele;
 	protected TurtleAutonomous auto;
 
@@ -23,8 +23,4 @@ public abstract class TurtleRobot extends TurtleAdvancedRobot {
 
 	@Override
 	public abstract void operatorControl();
-
-	public TurtlePhysicalRobotComponents getPhysicalRobot() {
-		return physicalRobot;
-	}
 }
