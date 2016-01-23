@@ -14,6 +14,7 @@ public class TurtleTurnPID implements TurtleDualPID {
 	private double lRate;
 	private double rRate;
 	private double gyroTheta;
+	private double gyroRate;
 
 	/**
 	 * 
@@ -61,16 +62,24 @@ public class TurtleTurnPID implements TurtleDualPID {
 		lRate = inputs[2];
 		rRate = inputs[3];
 		gyroTheta = inputs[4];
+		gyroRate = inputs[5];
 		Output.outputNumber("lDist", lDist);
 		Output.outputNumber("rDist", rDist);
+		Output.outputNumber("theta", gyroTheta);
+		
+		MotorValue lPidValue = lPID.newValue(new double[] { lDist, lRate });
+		MotorValue rPidValue = rPID.newValue(new double[] { rDist, rRate });
+		MotorValue gPidValue = gPID.newValue(new double[] { gyroTheta, gyroRate });
+		
+		Output.outputNumber("lPidVal", lPidValue.getValue());
+		Output.outputNumber("rPidVal", rPidValue.getValue());
+		Output.outputNumber("gPidVal", gPidValue.getValue());
+		
+		MotorValue lMotor = new MotorValue((1 - kGW) * lPidValue.getValue() + kGW * gPidValue.getValue());
+		MotorValue rMotor = new MotorValue((1 - kGW) * rPidValue.getValue() + kGW * gPidValue.getValue());
+		
 		// lDist and rDist are added because lDist should equal -rDist0
-		return new MotorValue[] {
-				new MotorValue((1 - kGW)
-						* lPID.newValue(new double[] { lDist, lRate })
-								.getValue() + kGW * (target - gyroTheta)),
-				new MotorValue((1 - kGW)
-						* rPID.newValue(new double[] { rDist, rRate })
-								.getValue() - kGW * (target - gyroTheta)) };
+		return new MotorValue[] { lMotor, rMotor };
 	}
 
 }

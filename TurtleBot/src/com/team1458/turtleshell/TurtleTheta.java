@@ -8,6 +8,10 @@ public interface TurtleTheta extends TurtleSensor {
 	public double getContinousTheta();
 	
 	/**
+	 * get the rate, in degrees/second
+	 */
+	public double getRate();
+	/**
 	 * Reset the measurement
 	 */
 	public void reset();

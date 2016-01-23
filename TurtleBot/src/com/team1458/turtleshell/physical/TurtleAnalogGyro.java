@@ -21,4 +21,9 @@ public class TurtleAnalogGyro implements TurtleTheta{
 		gyro.reset();
 	}
 
+	@Override
+	public double getRate() {
+		return gyro.getRate();
+	}
+
 }
