@@ -8,19 +8,23 @@ import com.team1458.turtleshell.TurtleEncoder;
 import com.team1458.turtleshell.TurtleMotor;
 import com.team1458.turtleshell.TurtleSmartChassis;
 import com.team1458.turtleshell.TurtleStraightDrivePID;
+import com.team1458.turtleshell.TurtleTheta;
 import com.team1458.turtleshell.TurtleTurnPID;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;
+import com.team1458.turtleshell.physical.TurtleAnalogGyro;
 import com.team1458.turtleshell.physical.TurtleVictor;
 
 public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 	private final TurtleMotor lMotor = new TurtleVictor(TurtwigConstants.LEFT1VICTORPORT, false);
 	private final TurtleMotor rMotor = new TurtleVictor(TurtwigConstants.RIGHT1VICTORPORT, true);
 
-	private final TurtleEncoder lEncoder = new Turtle4PinEncoder(TurtwigConstants.LEFTENCODERPORT1,
-			TurtwigConstants.LEFTENCODERPORT2,true);
-	private final TurtleEncoder rEncoder = new Turtle4PinEncoder(TurtwigConstants.RIGHTENCODERPORT1,
-			TurtwigConstants.RIGHTENCODERPORT2,false);
-
+		private final TurtleEncoder lEncoder = new Turtle4PinEncoder(TurtwigConstants.LEFTENCODERPORT1,
+				TurtwigConstants.LEFTENCODERPORT2,true);
+		private final TurtleEncoder rEncoder = new Turtle4PinEncoder(TurtwigConstants.RIGHTENCODERPORT1,
+				TurtwigConstants.RIGHTENCODERPORT2,false);
+		private final TurtleTheta gyro = new TurtleAnalogGyro(TurtwigConstants.GYROPORT);
+	
+	
 	private TurtleDualPID pid;
 
 	@Override
@@ -32,7 +36,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 	@Override
 	public void autoUpdate() {
 		this.driveMotors(pid.newValue(
-				new double[] { lEncoder.getTicks(), rEncoder.getTicks(), lEncoder.getRate(), rEncoder.getRate() }));
+				new double[] { lEncoder.getTicks(), rEncoder.getTicks(), lEncoder.getRate(), rEncoder.getRate(), gyro.getContinousTheta()}));
 
 	}
 
@@ -55,7 +59,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 	public void setThetaTarget(double target) {
 		lEncoder.reset();
 		rEncoder.reset();
-		pid = new TurtleTurnPID(0.0015, .0001, .0001, target, 0.00001, 8, 24);
+		pid = new TurtleTurnPID(0.0022, .0004, .0004, target, 0.3, 8, 28, 0.001, 0.0002, 0.0002);
 
 	}
 
