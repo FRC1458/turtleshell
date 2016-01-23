@@ -15,15 +15,16 @@ public class TurtleTurnPID implements TurtleDualPID {
 	 * @param kP
 	 * @param kD
 	 * @param kDD
-	 * @param target
+	 * @param target In degrees
 	 * @param kLR
 	 * @param wheeldiameter Diameter of wheels
 	 * @param wheelbase Distance between wheels, diameter of turning circle
 	 */
 	public TurtleTurnPID(double kP, double kD, double kDD, double target, double kLR, double wheeldiameter, double wheelbase) {
-		lPID = new TurtlePDD2(kP, kD, kDD, target/360*(wheeldiameter/wheelbase));
-		rPID = new TurtlePDD2(kP, kD, kDD, -target/360*(wheeldiameter/wheelbase));
+		lPID = new TurtlePDD2(kP, kD, kDD, target*(wheelbase/wheeldiameter));
+		rPID = new TurtlePDD2(kP, kD, kDD, -target*(wheelbase/wheeldiameter));
 		this.kLR = kLR;
+		Output.outputNumber("target", target*(wheelbase/wheeldiameter));
 	}
 
 	@Override
@@ -44,6 +45,8 @@ public class TurtleTurnPID implements TurtleDualPID {
 		rDist = inputs[1];
 		lRate = inputs[2];
 		rRate = inputs[3];
+		Output.outputNumber("lDist", lDist);
+		Output.outputNumber("rDist", rDist);
 		//lDist and rDist are added because lDist should equal -rDist
 		return new MotorValue[] {
 				new MotorValue(lPID.newValue(new double[] { lDist, lRate }).getValue() - kLR * (lDist + rDist)),

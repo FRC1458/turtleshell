@@ -2,25 +2,24 @@ package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell.Input;
 import com.team1458.turtleshell.MotorValue;
-import com.team1458.turtleshell.TurtleAutoable;
+import com.team1458.turtleshell.Output;
 import com.team1458.turtleshell.TurtleDualPID;
 import com.team1458.turtleshell.TurtleEncoder;
 import com.team1458.turtleshell.TurtleMotor;
 import com.team1458.turtleshell.TurtleSmartChassis;
 import com.team1458.turtleshell.TurtleStraightDrivePID;
-import com.team1458.turtleshell.TurtleTeleoperable;
 import com.team1458.turtleshell.TurtleTurnPID;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;
 import com.team1458.turtleshell.physical.TurtleVictor;
 
-public class TurtwigSmartTankChassis implements TurtleSmartChassis, TurtleTeleoperable, TurtleAutoable {
+public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 	private final TurtleMotor lMotor = new TurtleVictor(TurtwigConstants.LEFT1VICTORPORT, false);
 	private final TurtleMotor rMotor = new TurtleVictor(TurtwigConstants.RIGHT1VICTORPORT, true);
 
 	private final TurtleEncoder lEncoder = new Turtle4PinEncoder(TurtwigConstants.LEFTENCODERPORT1,
-			TurtwigConstants.LEFTENCODERPORT2);
+			TurtwigConstants.LEFTENCODERPORT2,true);
 	private final TurtleEncoder rEncoder = new Turtle4PinEncoder(TurtwigConstants.RIGHTENCODERPORT1,
-			TurtwigConstants.RIGHTENCODERPORT2);
+			TurtwigConstants.RIGHTENCODERPORT2,false);
 
 	private TurtleDualPID pid;
 
@@ -28,12 +27,6 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis, TurtleTeleop
 	public void init() {
 		// TODO Auto-generated method stub
 		// nothing to do
-	}
-
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -51,6 +44,8 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis, TurtleTeleop
 
 	@Override
 	public void setLinearTarget(double target) {
+		lEncoder.reset();
+		rEncoder.reset();
 		pid = new TurtleStraightDrivePID(.002, .0008, .0001, target * 360
 				/ (TurtwigConstants.WHEELDIAMETER * Math.PI), 0.00005);
 
@@ -58,7 +53,9 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis, TurtleTeleop
 
 	@Override
 	public void setThetaTarget(double target) {
-		pid = new TurtleTurnPID(0.0015, .0001, .0001, target, 0.00005, 8, 24);
+		lEncoder.reset();
+		rEncoder.reset();
+		pid = new TurtleTurnPID(0.0015, .0001, .0001, target, 0.00001, 8, 24);
 
 	}
 
@@ -73,6 +70,8 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis, TurtleTeleop
 	 *            Left, right
 	 */
 	private void driveMotors(MotorValue[] motorPowers) {
+		Output.outputNumber("lPower", motorPowers[0].getValue());
+		Output.outputNumber("rPower", motorPowers[1].getValue());
 		lMotor.set(motorPowers[0]);
 		rMotor.set(motorPowers[1]);
 	}

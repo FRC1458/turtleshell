@@ -38,6 +38,8 @@ public class TurtleStraightDrivePID implements TurtleDualPID {
 	 */
 	@Override
 	public MotorValue[] newValue(double[] inputs) {
+		Output.outputNumber("lDist", inputs[0]);
+		Output.outputNumber("rDist", inputs[1]);
 		lDist = inputs[0];
 		rDist = inputs[1];
 		lRate = inputs[2];
