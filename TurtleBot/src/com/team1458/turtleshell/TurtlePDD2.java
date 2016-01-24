@@ -6,15 +6,17 @@ public class TurtlePDD2 implements TurtlePID {
 	protected final double kD;
 
 	protected double target;
+	protected double tolerence;
 
 	protected double prevdValue;
 	protected double savedpValue;
 
-	public TurtlePDD2(double kP, double kD, double kDD, double target) {
+	public TurtlePDD2(double kP, double kD, double kDD, double target, double tolerence) {
 		this.kP = kP;
 		this.kDD = kDD;
 		this.kD = kD;
 		this.target = target;
+		this.tolerence = tolerence;
 	}
 
 	public MotorValue newValue(double[] inputs) {
@@ -26,7 +28,7 @@ public class TurtlePDD2 implements TurtlePID {
 	}
 
 	public boolean atTarget() {
-		return Math.abs(savedpValue - target) < 20 && prevdValue < 20;
+		return Math.abs(savedpValue - target) < tolerence && prevdValue < tolerence;
 	}
 
 }

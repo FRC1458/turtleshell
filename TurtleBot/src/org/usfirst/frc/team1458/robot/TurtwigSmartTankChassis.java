@@ -65,8 +65,9 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 	public void setThetaTarget(double target) {
 		lEncoder.reset();
 		rEncoder.reset();
-		pid = new TurtleTurnPID(0.0022, .0004, .0004, target, 0.3, 8, 28,
-				0.001, 0.0002, 0.0002);
+		gyro.reset();
+		pid = new TurtleTurnPID(.0055, .00035, .0004, target, .4, 8, 26.5,
+				.01, .00035, .0004);
 
 	}
 
@@ -85,6 +86,11 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 		Output.outputNumber("rPower", motorPowers[1].getValue());
 		lMotor.set(motorPowers[0]);
 		rMotor.set(motorPowers[1]);
+	}
+	
+	public void stop() {
+		lMotor.set(new MotorValue(0));
+		rMotor.set(new MotorValue(0));
 	}
 
 }

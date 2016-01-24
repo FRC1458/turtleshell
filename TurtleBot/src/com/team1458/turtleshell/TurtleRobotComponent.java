@@ -8,4 +8,6 @@ public interface TurtleRobotComponent {
 	
 	public void teleUpdate();
 	
+	public void stop();
+	
 }

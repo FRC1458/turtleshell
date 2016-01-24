@@ -15,6 +15,7 @@ public class TurtwigTestAutonomous implements TurtleAutonomous {
 		while (TurtleSafeDriverStation.canAuto() && !chassis.atTarget()) {
 			chassis.autoUpdate();
 		}
+		chassis.stop();
 		System.out.println("Turtwig did it!");
 	}
 
