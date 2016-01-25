@@ -18,6 +18,7 @@ public class Robot extends TurtleRobot {
 		auto = new TurtwigTestAutonomous();
 		auto.giveRobot(physicalRobot);
 		auto.doAuto();
+		
 	}
 
 	public void operatorControl() {

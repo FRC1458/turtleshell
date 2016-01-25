@@ -13,22 +13,14 @@ public class TurtwigTestAutonomous implements TurtleAutonomous {
 		chassis = (TurtwigSmartTankChassis) physicalRobot.getComponent("Chassis");
 		//chassis.setThetaTarget(90);
 		//safeDo();
-		chassis.setLinearTarget(24);
+		int n = 3;
+		for(int i = 0;i<n;i++){
+		chassis.setLinearTarget(36);
 		safeDo();
-		chassis.setThetaTarget(-90);
+		chassis.setThetaTarget(-(360.0/n));
 		safeDo();
-		chassis.setLinearTarget(24);
-		safeDo();
-		chassis.setThetaTarget(90);
-		safeDo();
-		chassis.setLinearTarget(-24);
-		safeDo();
-		chassis.setThetaTarget(-90);
-		safeDo();
-		chassis.setLinearTarget(-24);
-		safeDo();
-		chassis.setThetaTarget(90);
-		safeDo();
+		}
+		
 		System.out.println("Turtwig did it!");
 	}
 
