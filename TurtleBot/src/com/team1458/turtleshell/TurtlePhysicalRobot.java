@@ -37,5 +37,14 @@ public class TurtlePhysicalRobot {
 	public TurtleRobotComponent getComponent(String s) {
 		return robotComponents.get(s);
 	}
+	
+	/**
+	 * 
+	 */
+	public void teleUpdateAll() {
+		for(TurtleRobotComponent c: robotComponents.values()) {
+			c.teleUpdate();
+		}
+	}
 
 }

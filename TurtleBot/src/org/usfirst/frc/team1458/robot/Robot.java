@@ -22,10 +22,10 @@ public class Robot extends TurtleRobot {
 
 	public void operatorControl() {
 		// Put the code to initialise operator control here.
-		//tele = new TurtwigTestTeleop();
+		tele = new TurtwigTestTeleop();
 		while (TurtleSafeDriverStation.canTele()) {
-			//tele.tick();
-			physicalRobot.getComponent("Chassis").teleUpdate();
+			tele.tick();
+			//physicalRobot.getComponent("Chassis").teleUpdate();
 		}
 	}
 
