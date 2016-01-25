@@ -11,10 +11,10 @@ public class TurtlePDD2 implements TurtlePID {
 	protected double prevdValue;
 	protected double savedpValue;
 
-	public TurtlePDD2(double kP, double kD, double kDD, double target, double tolerence) {
-		this.kP = kP;
-		this.kDD = kDD;
-		this.kD = kD;
+	public TurtlePDD2(TurtlePIDConstants consti, double target, double tolerence) {
+		this.kP = consti.getKP();
+		this.kDD = consti.getKD2();
+		this.kD = consti.getKD();
 		this.target = target;
 		this.tolerence = tolerence;
 	}

@@ -11,11 +11,24 @@ public class TurtwigTestAutonomous implements TurtleAutonomous {
 	@Override
 	public void doAuto() {
 		chassis = (TurtwigSmartTankChassis) physicalRobot.getComponent("Chassis");
+		//chassis.setThetaTarget(90);
+		//safeDo();
+		chassis.setLinearTarget(24);
+		safeDo();
+		chassis.setThetaTarget(-90);
+		safeDo();
+		chassis.setLinearTarget(24);
+		safeDo();
 		chassis.setThetaTarget(90);
-		while (TurtleSafeDriverStation.canAuto() && !chassis.atTarget()) {
-			chassis.autoUpdate();
-		}
-		chassis.stop();
+		safeDo();
+		chassis.setLinearTarget(-24);
+		safeDo();
+		chassis.setThetaTarget(-90);
+		safeDo();
+		chassis.setLinearTarget(-24);
+		safeDo();
+		chassis.setThetaTarget(90);
+		safeDo();
 		System.out.println("Turtwig did it!");
 	}
 
@@ -23,6 +36,13 @@ public class TurtwigTestAutonomous implements TurtleAutonomous {
 	public void giveRobot(TurtlePhysicalRobot physicalRobot) {
 		this.physicalRobot = physicalRobot;
 
+	}
+	
+	private void safeDo() {
+		while (TurtleSafeDriverStation.canAuto() && !chassis.atTarget()) {
+			chassis.autoUpdate();
+		}
+		chassis.stop();
 	}
 
 }

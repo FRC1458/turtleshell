@@ -23,6 +23,7 @@ public class Robot extends TurtleRobot {
 	public void operatorControl() {
 		// Put the code to initialise operator control here.
 		tele = new TurtwigTestTeleop();
+		tele.giveRobot(physicalRobot);
 		while (TurtleSafeDriverStation.canTele()) {
 			tele.tick();
 			//physicalRobot.getComponent("Chassis").teleUpdate();

@@ -46,5 +46,11 @@ public class TurtlePhysicalRobot {
 			c.teleUpdate();
 		}
 	}
+	
+	public void stopAll() {
+		for(TurtleRobotComponent c: robotComponents.values()) {
+			c.stop();
+		}
+	}
 
 }
