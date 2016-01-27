@@ -67,12 +67,31 @@ public class TurtleMaths {
 
 		/**
 		 * Use the RangeShifter to actually shift numbers.
-		 * @param toShift The number to shift
+		 * 
+		 * @param toShift
+		 *            The number to shift
 		 * @return The shifted value.
 		 */
 		public double shift(double toShift) {
 			return minB + (rngB / rngA) * (toShift - minA);
 		}
+	}
+
+	/**
+	 * Rounds a double to a certain number of places past the decimal point
+	 * 
+	 * @param toRound
+	 *            The double to round
+	 * @param decimalPlaces
+	 *            The number of digits past the decimal point to keep, negative
+	 *            numbers are supported.
+	 * @return
+	 */
+	public static double round(double toRound, int decimalPlaces) {
+		toRound *= Math.pow(10, decimalPlaces);
+		toRound = Math.round(Math.round(toRound));
+		toRound /= Math.pow(10, decimalPlaces);
+		return toRound;
 	}
 
 }

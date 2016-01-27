@@ -2,8 +2,8 @@ package com.team1458.turtleshell;
 
 public interface TurtleTheta extends TurtleSensor {
 	/**
-	 * Get Continous theta, 
-	 * @return Angle in degrees, continous
+	 * Get Continuous theta, 
+	 * @return Angle in degrees, continuous
 	 */
 	public double getContinousTheta();
 	

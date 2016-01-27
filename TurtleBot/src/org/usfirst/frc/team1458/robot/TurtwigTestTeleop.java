@@ -5,15 +5,9 @@ import com.team1458.turtleshell.TurtleTeleop;
 
 public class TurtwigTestTeleop implements TurtleTeleop {
 	TurtlePhysicalRobot physicalRobot;
-	//TurtleDistance metalSonic = new TurtleMaxbotixUltrasonic(0);
-	//double distance = 0;
 	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
-		physicalRobot.teleUpdateAll();
-		//distance = metalSonic.getDistance(); 
 		
-		//Output.outputNumber("distance =", distance);
 	}
 
 	@Override

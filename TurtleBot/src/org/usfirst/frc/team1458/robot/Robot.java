@@ -27,8 +27,8 @@ public class Robot extends TurtleRobot {
 		tele = new TurtwigTestTeleop();
 		tele.giveRobot(physicalRobot);
 		while (TurtleSafeDriverStation.canTele()) {
+			physicalRobot.teleUpdateAll();
 			tele.tick();
-			// physicalRobot.getComponent("Chassis").teleUpdate();
 		}
 	}
 

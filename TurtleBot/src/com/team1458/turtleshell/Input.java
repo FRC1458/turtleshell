@@ -2,6 +2,11 @@ package com.team1458.turtleshell;
 
 import edu.wpi.first.wpilibj.Joystick;
 
+/**
+ * Static class to deal with Inputs, all inputs should be done through this.
+ * @author mehnadnerd
+ *
+ */
 public class Input {
 	protected static InputDriveConfiguration inputDriveConfig = InputDriveConfiguration.TANK;
 	protected static InputThingyConfiguration inputThingy1Config = InputThingyConfiguration.PANEL;
@@ -64,29 +69,5 @@ public class Input {
 		}
 	}
 
-	/**
-	 * Gets whether a button on the buttonPanel is pressed.
-	 * 
-	 * @param whichButton
-	 *            Which button you want, note that this starts at 1.
-	 * @return Whether or not the button is pressed.
-	 */
-	/*public static boolean isPanelButtonPressed(int whichButton) {
-		return buttonPanel.getRawButton(whichButton);
-	}
-
-	public static double getRTheta() {
-		return 180 * Math.atan2(-rJoystick.getAxis(Joystick.AxisType.kY), rJoystick.getAxis(Joystick.AxisType.kX))
-				/ Math.PI;
-	}
-
-	public static double getLTheta() {
-		return 180 * Math.atan2(-lJoystick.getAxis(Joystick.AxisType.kY), lJoystick.getAxis(Joystick.AxisType.kX))
-				/ Math.PI;
-	}
-
-	public static double getRRadius() {
-		return 180 * Math.atan2(-rJoystick.getAxis(Joystick.AxisType.kY), rJoystick.getAxis(Joystick.AxisType.kX))
-				/ Math.PI;
-	}*/
+	
 }

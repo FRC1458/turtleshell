@@ -1,5 +1,6 @@
 package com.team1458.turtleshell.physical;
 
+import com.team1458.turtleshell.TurtleMaths;
 import com.team1458.turtleshell.TurtleTheta;
 
 import edu.wpi.first.wpilibj.I2C;
@@ -8,19 +9,19 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 	private double angle;
 	private double prevAngle;
 	private int rotations = 0;
-	I2C m_i2c;
+	private I2C m_i2c;
 	private byte[] rawInput = new byte[6];
 	private final int address = 0x0e;// specific to magnetometer
 	private double[] axes = new double[3]; // x y z
-	byte[] buffer = new byte[1];
+	private byte[] buffer = new byte[1];
 	private int xCentre = 0;
 	private int yCentre = 0;
 	private int xScale = 1;
 	private int yScale = 1;
-	double xMax = -10000;
-	double yMax = -10000;
-	double xMin = 10000;
-	double yMin = 10000;
+	private double xMax = -10000;
+	private double yMax = -10000;
+	private double xMin = 10000;
+	private double yMin = 10000;
 
 	/**
 	 * Initialise the magnetometer, should only be run by the constructor.
@@ -56,10 +57,10 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 
 		// starting values for max and min that should allow for comparison
 		// while being easily exceeded
-		xMax = -10000;
-		yMax = -10000;
-		yMin = 10000;
-		xMin = 10000;
+		xMax = Integer.MIN_VALUE;
+		yMax = Integer.MIN_VALUE;
+		yMin = Integer.MAX_VALUE;
+		xMin = Integer.MAX_VALUE;
 
 		// initial update
 		calcAngle();
@@ -87,7 +88,7 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 	 * @return the current heading of the robot in degrees. This heading is
 	 *         based on the magnetometer.
 	 */
-	public double getAngle() {
+	private double getAngle() {
 		update();
 		// do math stuff to make more accurate;
 		return angle;
@@ -99,7 +100,7 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 	 * 
 	 * @return Continous heading based on magnetometer
 	 */
-	public double getContinousAngle() {
+	private double getContinousAngle() {
 		update();
 		return angle + (360 * rotations);
 	}
@@ -184,13 +185,15 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 		axes[0] /= xScale; // maggie 239, margaret 298
 		axes[1] /= yScale; // maggie 241, margaret 340
 		// axes[2]/=1;
+		angle=Math.atan2(axes[1], axes[0]);
+		/*
 		angle = Math.atan(axes[1] / axes[0]);
 		if (axes[0] < 0) {
 			angle += Math.PI;
-		}
-		angle *= (180 / Math.PI);
-
-		angle = Math.round(angle * 10) / 10.0;
+		}*/
+		angle = Math.toDegrees(angle);
+		//angle *= (180 / Math.PI);
+		angle=TurtleMaths.round(angle, 0);
 		angle += 90;
 
 	}
@@ -235,7 +238,7 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 	}
 	@Override
 	public double getContinousTheta() {
-		return this.angle;
+		return this.getContinousAngle();
 	}
 
 	@Override
@@ -245,7 +248,7 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 
 	@Override
 	public void reset() {
-		this.angle=0;
+		//this.angle=0;
 	}
 
 }
