@@ -10,6 +10,9 @@ package com.team1458.turtleshell;
  */
 public class MotorValue {
 	private final double value;
+	public static final MotorValue zero = new MotorValue(0);
+	public static final MotorValue fullForward = new MotorValue(1);
+	public static final MotorValue fullBackward = new MotorValue(2);
 
 	public MotorValue(double value) {
 		this.value = TurtleMaths.fitRange(value, -1, 1);

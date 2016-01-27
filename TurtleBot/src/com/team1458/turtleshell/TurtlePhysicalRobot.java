@@ -1,6 +1,7 @@
 package com.team1458.turtleshell;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A class representing the physical robot, it holds all of the robotComponents
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  *
  */
 public class TurtlePhysicalRobot {
-	private ArrayList<TurtleRobotComponent> robotComponents = new ArrayList<TurtleRobotComponent>();
+	private Map<String,TurtleRobotComponent> robotComponents = new HashMap<String,TurtleRobotComponent>();
 
 	public TurtlePhysicalRobot() {
 
@@ -23,62 +24,33 @@ public class TurtlePhysicalRobot {
 	 * @param component
 	 *            The component to add.
 	 */
-	public void addComponent(TurtleRobotComponent component) {
+	public void addComponent(String name, TurtleRobotComponent component) {
 		component.init();
-		robotComponents.add(component);
+		robotComponents.put(name, component);
 	}
 
 	/**
-	 * Calls the update method for all components.
+	 * 
+	 * @param s Name of component
+	 * @return The component
 	 */
-	public void updateAll() {
-		for (TurtleRobotComponent c : robotComponents) {
-			c.update();
-		}
+	public TurtleRobotComponent getComponent(String s) {
+		return robotComponents.get(s);
 	}
-
+	
 	/**
-	 * Calls the teleUpdate method for all components that implement it.
+	 * 
 	 */
 	public void teleUpdateAll() {
-		for (TurtleRobotComponent c : robotComponents) {
-			if (c instanceof TurtleTeleoperable) {
-				((TurtleTeleoperable) c).teleUpdate();
-
-			}
+		for(TurtleRobotComponent c: robotComponents.values()) {
+			c.teleUpdate();
 		}
 	}
-
-	/**
-	 * Calls the autoUpdate method for all components that update it
-	 */
-	public void autoUpdateAll() {
-		for (TurtleRobotComponent c : robotComponents) {
-			if (c instanceof TurtleAutoable) {
-				((TurtleAutoable) c).autoUpdate();
-
-			}
+	
+	public void stopAll() {
+		for(TurtleRobotComponent c: robotComponents.values()) {
+			c.stop();
 		}
-	}
-
-	/**
-	 * Unbelievably sketchy way of getting robotComponents that implement a
-	 * particular interface
-	 * 
-	 * @param interfac
-	 *            Interface to get robotComponents that are
-	 * @return An arraylist holding all robotComponents that extend that
-	 *         interface
-	 */
-	public ArrayList<TurtleRobotComponent> getComponent(Class<? extends TurtleRobotComponent> interfac) {
-		ArrayList<TurtleRobotComponent> toRet = new ArrayList<TurtleRobotComponent>();
-		for (TurtleRobotComponent c : robotComponents) {
-			if (interfac.isInstance(c)) {
-				toRet.add(c);
-			}
-		}
-
-		return toRet;
 	}
 
 }

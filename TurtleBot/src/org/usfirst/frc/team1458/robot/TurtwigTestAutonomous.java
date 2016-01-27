@@ -1,29 +1,40 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.team1458.turtleshell.TurtleAutoable;
 import com.team1458.turtleshell.TurtleAutonomous;
 import com.team1458.turtleshell.TurtlePhysicalRobot;
 import com.team1458.turtleshell.TurtleSafeDriverStation;
-import com.team1458.turtleshell.TurtleSmartChassis;
 
 public class TurtwigTestAutonomous implements TurtleAutonomous {
 	TurtlePhysicalRobot physicalRobot;
+	TurtwigSmartTankChassis chassis;
 
 	@Override
 	public void doAuto() {
-		((TurtleSmartChassis) physicalRobot.getComponent(TurtleSmartChassis.class).get(0)).setLinearTarget(36);
-		while (TurtleSafeDriverStation.canAuto()
-				&& !((TurtleSmartChassis) physicalRobot.getComponent(TurtleSmartChassis.class).get(0)).atTarget()) {
-			((TurtleAutoable) ((TurtleSmartChassis) physicalRobot.getComponent(TurtleSmartChassis.class).get(0)))
-					.autoUpdate();
+		chassis = (TurtwigSmartTankChassis) physicalRobot.getComponent("Chassis");
+		//chassis.setThetaTarget(90);
+		//safeDo();
+		int n = 3;
+		for(int i = 0;i<n;i++){
+		chassis.setLinearTarget(36);
+		safeDo();
+		chassis.setThetaTarget(-(360.0/n));
+		safeDo();
 		}
+		
 		System.out.println("Turtwig did it!");
 	}
 
 	@Override
 	public void giveRobot(TurtlePhysicalRobot physicalRobot) {
-		this.physicalRobot=physicalRobot;
-		
+		this.physicalRobot = physicalRobot;
+
+	}
+	
+	private void safeDo() {
+		while (TurtleSafeDriverStation.canAuto() && !chassis.atTarget()) {
+			chassis.autoUpdate();
+		}
+		chassis.stop();
 	}
 
 }

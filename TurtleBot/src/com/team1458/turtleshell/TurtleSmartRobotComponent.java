@@ -1,6 +1,6 @@
 package com.team1458.turtleshell;
 
-public interface TurtleAutoable {
+public interface TurtleSmartRobotComponent extends TurtleRobotComponent {
 	/**
 	 * Update method for autonomous.
 	 */

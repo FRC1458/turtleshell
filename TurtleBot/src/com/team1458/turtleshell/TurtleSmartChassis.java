@@ -1,6 +1,6 @@
 package com.team1458.turtleshell;
 
-public interface TurtleSmartChassis extends TurtleRobotComponent {
+public interface TurtleSmartChassis extends TurtleSmartRobotComponent {
 	/**
 	 * Set the linear target the robot should drive
 	 * @param target The distance in inches forwards or backwards to drive.

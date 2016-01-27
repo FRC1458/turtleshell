@@ -1,14 +1,21 @@
 package com.team1458.turtleshell;
 
 public class TurtleTurnPID implements TurtleDualPID {
+	//private final double target;
 	private final TurtlePID lPID;
 	private final TurtlePID rPID;
-	private final double kLR;
-	
+
+	private final TurtlePID gPID;
+
+	private final double kGW;
+
 	private double lDist;
 	private double rDist;
 	private double lRate;
 	private double rRate;
+	private double gyroTheta;
+	private double gyroRate;
+	private double kLR;
 
 	/**
 	 * 
@@ -16,26 +23,35 @@ public class TurtleTurnPID implements TurtleDualPID {
 	 * @param kD
 	 * @param kDD
 	 * @param target
-	 * @param kLR
-	 * @param wheeldiameter Diameter of wheels
-	 * @param wheelbase Distance between wheels, diameter of turning circle
+	 *            In degrees
+	 * @param kG
+	 * @param wheeldiameter
+	 *            Diameter of wheels
+	 * @param wheelbase
+	 *            Distance between wheels, diameter of turning circle
 	 */
-	public TurtleTurnPID(double kP, double kD, double kDD, double target, double kLR, double wheeldiameter, double wheelbase) {
-		lPID = new TurtlePDD2(kP, kD, kDD, target/360*(wheeldiameter/wheelbase));
-		rPID = new TurtlePDD2(kP, kD, kDD, -target/360*(wheeldiameter/wheelbase));
+	public TurtleTurnPID(TurtlePIDConstants encoderConstants, double target,
+			double kGW, double wheeldiameter, double wheelbase, TurtlePIDConstants gyroConstants, double kLR) {
+		//this.target = target;
+		lPID = new TurtlePDD2(encoderConstants, target * (wheelbase / wheeldiameter), 20);
+		rPID = new TurtlePDD2(encoderConstants, -target* (wheelbase / wheeldiameter), 20);
+		gPID = new TurtlePDD2(gyroConstants, target, 3);
+
 		this.kLR = kLR;
+		this.kGW = kGW;
+		Output.outputNumber("targetTheta", target * (wheelbase / wheeldiameter));
 	}
 
 	@Override
 	public boolean atTarget() {
-		return lPID.atTarget() && rPID.atTarget();
+		return gPID.atTarget();
 	}
 
 	/**
 	 * 
 	 * @param inputs
 	 *            Left Encoder, Right Encoder, LeftEncoder Rate, Right Encoder
-	 *            Rate
+	 *            Rate, Gyro
 	 * @return Left Motor Value, Right Motor Value
 	 */
 	@Override
@@ -44,10 +60,26 @@ public class TurtleTurnPID implements TurtleDualPID {
 		rDist = inputs[1];
 		lRate = inputs[2];
 		rRate = inputs[3];
-		//lDist and rDist are added because lDist should equal -rDist
-		return new MotorValue[] {
-				new MotorValue(lPID.newValue(new double[] { lDist, lRate }).getValue() - kLR * (lDist + rDist)),
-				new MotorValue(rPID.newValue(new double[] { rDist, rRate }).getValue() + kLR * (lDist + rDist)) };
+		gyroTheta = inputs[4];
+		gyroRate = inputs[5];
+		Output.outputNumber("lDist", lDist);
+		Output.outputNumber("rDist", rDist);
+		Output.outputNumber("theta", gyroTheta);
+		Output.outputNumber("gRate", gyroRate);
+		
+		MotorValue lPidValue = lPID.newValue(new double[] { lDist, lRate });
+		MotorValue rPidValue = rPID.newValue(new double[] { rDist, rRate });
+		MotorValue gPidValue = gPID.newValue(new double[] { gyroTheta, gyroRate });
+		
+		Output.outputNumber("lPidVal", lPidValue.getValue());
+		Output.outputNumber("rPidVal", rPidValue.getValue());
+		Output.outputNumber("gPidVal", gPidValue.getValue());
+		
+		MotorValue lMotor = new MotorValue(kLR * ((1 - kGW) * lPidValue.getValue() + kGW * gPidValue.getValue()));
+		MotorValue rMotor = new MotorValue(((1 - kGW) * rPidValue.getValue() - kGW * gPidValue.getValue()) / kLR);
+		
+		// lDist and rDist are added because lDist should equal -rDist0
+		return new MotorValue[] { lMotor, rMotor };
 	}
 
 }

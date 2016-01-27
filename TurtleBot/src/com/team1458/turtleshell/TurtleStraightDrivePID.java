@@ -18,9 +18,10 @@ public class TurtleStraightDrivePID implements TurtleDualPID {
 	 * @param target
 	 * @param kLR
 	 */
-	public TurtleStraightDrivePID(double kP, double kD, double kDD, double target, double kLR) {
-		lPID = new TurtlePDD2(kP, kD, kDD, target);
-		rPID = new TurtlePDD2(kP, kD, kDD, target);
+	public TurtleStraightDrivePID(TurtlePIDConstants constants, double target, double kLR) {
+		Output.outputNumber("targetLinear", target);
+		lPID = new TurtlePDD2(constants, target, 20);
+		rPID = new TurtlePDD2(constants, target, 20);
 		this.kLR = kLR;
 	}
 
@@ -38,6 +39,8 @@ public class TurtleStraightDrivePID implements TurtleDualPID {
 	 */
 	@Override
 	public MotorValue[] newValue(double[] inputs) {
+		Output.outputNumber("lDist", inputs[0]);
+		Output.outputNumber("rDist", inputs[1]);
 		lDist = inputs[0];
 		rDist = inputs[1];
 		lRate = inputs[2];
