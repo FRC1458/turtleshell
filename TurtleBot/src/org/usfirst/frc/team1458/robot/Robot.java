@@ -1,9 +1,7 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.team1458.turtleshell.MotorValue;
 import com.team1458.turtleshell.TurtleRobot;
 import com.team1458.turtleshell.TurtleSafeDriverStation;
-import com.team1458.turtleshell.physical.TurtleVictor;
 
 public class Robot extends TurtleRobot {
 

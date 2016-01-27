@@ -29,5 +29,11 @@ public class TurtleMaxbotixUltrasonic implements TurtleDistance {
 	public TurtleMaxbotixUltrasonic(int port){
 		sonic = new AnalogInput(port);
 	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

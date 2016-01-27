@@ -34,4 +34,8 @@ public class Turtle4PinEncoder implements TurtleEncoder {
 	public boolean isReversed() {
 		return isReversed();
 	}
+	@Override
+	public void update() {
+
+	}
 }

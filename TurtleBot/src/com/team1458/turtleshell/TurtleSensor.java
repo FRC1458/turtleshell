@@ -1,5 +1,5 @@
 package com.team1458.turtleshell;
 
-public interface TurtleSensor {
+public interface TurtleSensor extends TurtleUpdatable {
 
 }

@@ -11,6 +11,12 @@ public class TurtlePDD2 implements TurtlePID {
 	protected double prevdValue;
 	protected double savedpValue;
 
+	/**
+	 * Create a PDD2 with the given constants, target, and tolerance
+	 * @param consti TurtlePIDConstants object holding a p, d, and d2 value.
+	 * @param target Target of PID loop, in ticks
+	 * @param tolerence Tolerance, in ticks
+	 */
 	public TurtlePDD2(TurtlePIDConstants consti, double target, double tolerence) {
 		this.kP = consti.getKP();
 		this.kDD = consti.getKD2();
@@ -19,6 +25,9 @@ public class TurtlePDD2 implements TurtlePID {
 		this.tolerence = tolerence;
 	}
 
+	/**
+	 * @param inputs p,d
+	 */
 	public MotorValue newValue(double[] inputs) {
 		double newValue = kP * (target - inputs[0]) - kD * inputs[1] + kDD * (prevdValue - inputs[1]);
 		prevdValue = inputs[1];

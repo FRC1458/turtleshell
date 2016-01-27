@@ -51,7 +51,7 @@ public class TurtleTurnPID implements TurtleDualPID {
 	 * 
 	 * @param inputs
 	 *            Left Encoder, Right Encoder, LeftEncoder Rate, Right Encoder
-	 *            Rate, Gyro
+	 *            Rate, Gyro Theta, Gyro weight
 	 * @return Left Motor Value, Right Motor Value
 	 */
 	@Override
