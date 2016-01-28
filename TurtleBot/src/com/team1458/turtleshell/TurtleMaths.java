@@ -40,7 +40,7 @@ public class TurtleMaths {
 	 * @author mehnadnerd
 	 *
 	 */
-	public class RangeShifter {
+	public static class RangeShifter {
 		private final double minA;
 		private final double minB;
 		private final double rngA;
@@ -92,6 +92,16 @@ public class TurtleMaths {
 		toRound = Math.round(Math.round(toRound));
 		toRound /= Math.pow(10, decimalPlaces);
 		return toRound;
+	}
+
+	/**
+	 * Returns the smallest of two double values
+	 * @param a
+	 * @param b
+	 * @return The smaller of the two values, or b if they are equal or such
+	 */
+	public static double smallerOf(double a, double b) {
+		return (a < b ? a : b);
 	}
 
 }

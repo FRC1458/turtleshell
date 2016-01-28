@@ -12,7 +12,7 @@ public interface TurtleTheta extends TurtleSensor {
 	 */
 	public double getRate();
 	/**
-	 * Reset the measurement
+	 * Reset the measurement, so the robot will be facing towards zero
 	 */
 	public void reset();
 }
