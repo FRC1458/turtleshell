@@ -14,4 +14,7 @@ public class Output {
 	public static void outputNumber(String s, Number n) {
 		SmartDashboard.putNumber(s, n.doubleValue());
 	}
+	public static void syso(Object o) {
+		System.out.println(o);
+	}
 }

@@ -88,6 +88,7 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 	 * @return the current heading of the robot in degrees. This heading is
 	 *         based on the magnetometer.
 	 */
+	@SuppressWarnings("unused")
 	private double getAngle() {
 		update();
 		// do math stuff to make more accurate;
@@ -249,6 +250,16 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 	@Override
 	public void reset() {
 		//this.angle=0;
+	}
+	
+	/**
+	 * This monstrosity converts the byte arrays found through the magnetometer into the integer. Don't try to understand it.
+	 * @param byteArray MSB, LSB
+	 * @return The int representing the two combined, as in signed two's complement format
+	 */
+	private int doubleByteToInt(byte[] byteArray) {
+		return (int) byteArray[0] > 0 ? (byteArray[0] * 256 + Byte.toUnsignedInt(byteArray[1]))
+				: Byte.toUnsignedInt(byteArray[0]) * 256 + Byte.toUnsignedInt(byteArray[1]) - 65536;
 	}
 
 }
