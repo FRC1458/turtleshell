@@ -12,7 +12,7 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 	private boolean doDebug = true;
 	private double angle;
 	private double prevAngle;
-	private Timer rateTimer;
+	private Timer rateTimer = new Timer();
 	private int rotations = 0;
 
 	private double baseAngle;
