@@ -4,6 +4,7 @@ import com.team1458.turtleshell.Output;
 import com.team1458.turtleshell.TurtleMaths;
 import com.team1458.turtleshell.TurtleMaths.RangeShifter;
 import com.team1458.turtleshell.TurtleTheta;
+import com.team1458.turtleshell.TurtleThetaCalibration;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Timer;
@@ -12,6 +13,7 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 	private boolean doDebug = true;
 	private double angle;
 	private double prevAngle;
+	private double rateAngle;
 	private Timer rateTimer = new Timer();
 	private int rotations = 0;
 
@@ -36,6 +38,7 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 	// Configuration variables
 	private RangeShifter xShifter;
 	private RangeShifter yShifter;
+	private double[] calib = new double[4];
 
 	// minimum and maximum values, set very leniently
 	private int xMax = Integer.MIN_VALUE;
@@ -74,24 +77,12 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 		i2c.write(0x0c, 0b00000000);
 		i2c.write(0x0d, 0b00000000);
 		i2c.write(0x0e, 0b00000000);
-
+		
+		this.setCalibration(this.generateCalibration());
 		// initial update
-		// update();
+		update();
 		prevAngle = angle = 0;
 		rateTimer.start();
-	}
-
-	/**
-	 * Set calibration
-	 * @param lMin x Min
-	 * @param lMax x Max
-	 * @param rMin y Min
-	 * @param rMax y Max
-	 */
-	public void setCalibration(double lMin, double lMax, double rMin,
-			double rMax) {
-		xShifter = new RangeShifter(lMin, lMax, -1, 1);
-		yShifter = new RangeShifter(rMin, rMax, -1, 1);
 	}
 
 	/**
@@ -116,44 +107,50 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 		prevAngle = angle;
 		// do the read
 		i2c.read(0x01, 6, rawInput);
-		
-		
+
 		for (int i = 0; i < 3; i++) {
 			inputs[i] = doubleByteToInt(new byte[] { rawInput[2 * i],
 					rawInput[2 * i + 1] });
 		}
-		//correct x axis direction
-		//inputs[0]=-inputs[0];
+		// correct x axis direction
+		// inputs[0]=-inputs[0];
 		// correct the values
 		axes[0] = xShifter.shift(inputs[0]);
 		axes[1] = yShifter.shift(inputs[1]);
 		// we aren't bothering with the z axis
 		axes[2] = inputs[2];
-		for(int i=0;i<axes.length;i++)
-		{
-			Output.outputNumber("axes "+ i, axes[i]);
-			
+		for (int i = 0; i < axes.length; i++) {
+			Output.outputNumber("axes " + i, axes[i]);
+
 		}
 
 		angle = Math.toDegrees(Math.atan2(axes[1], axes[0]));
 		angle -= baseAngle;
+		rateAngle = rateAngle * .99 + 0.01 * angle;
 		// Code for correcting the fact that it is discontinous
 		if (angle - prevAngle > 200) {
 			// This means it has crossed across the zero line in the
 			// anticlockwise direction
 			rotations--;
 			prevAngle += 360;
+			rateAngle += 360;
+
 		} else if (angle - prevAngle < -200) {
 			rotations++;
 			prevAngle -= 360;
+			rateAngle -= 360;
 		}
 		// code to handle max, min etc. with debug stuff, for calibration and
 		// such
 		if (doDebug) {
-			xMax = TurtleMaths.biggerOf(xMax, TurtleMaths.makeReasonableMin(inputs[0]));
-			yMax = TurtleMaths.biggerOf(yMax, TurtleMaths.makeReasonableMin(inputs[1]));
-			xMin = TurtleMaths.smallerOf(xMin, TurtleMaths.makeReasonableMax(inputs[0]));
-			yMin = TurtleMaths.smallerOf(yMin, TurtleMaths.makeReasonableMax(inputs[1]));
+			xMax = TurtleMaths.biggerOf(xMax,
+					TurtleMaths.makeReasonableMin(inputs[0]));
+			yMax = TurtleMaths.biggerOf(yMax,
+					TurtleMaths.makeReasonableMin(inputs[1]));
+			xMin = TurtleMaths.smallerOf(xMin,
+					TurtleMaths.makeReasonableMax(inputs[0]));
+			yMin = TurtleMaths.smallerOf(yMin,
+					TurtleMaths.makeReasonableMax(inputs[1]));
 			Output.outputNumber("xMax", (xMax));
 			Output.outputNumber("yMax", (yMax));
 			Output.outputNumber("xMin", (xMin));
@@ -170,7 +167,7 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 	@Override
 	public double getRate() {
 		this.update();
-		double toRet = (angle - prevAngle) / rateTimer.get();
+		double toRet = (angle - rateAngle) / rateTimer.get();
 		rateTimer.reset();
 		return toRet;
 	}
@@ -181,6 +178,24 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 		prevAngle = angle;
 		this.update();
 		rateTimer.reset();
+	}
+
+	@Override
+	public TurtleThetaCalibration getCalibration() {
+		return new TurtleXtrinsicMagnetometerCalibration(calib[0], calib[1], calib[2], calib[3]);
+	}
+
+	@Override
+	public void setCalibration(TurtleThetaCalibration calibration) {
+		calib = calibration.getValues();
+		xShifter = new RangeShifter(calib[0], calib[1], -1, 1);
+		yShifter = new RangeShifter(calib[2], calib[3], -1, 1);
+
+	}
+
+	@Override
+	public TurtleThetaCalibration generateCalibration() {
+		return new TurtleXtrinsicMagnetometerCalibration(xMin, xMax, yMin, yMax);
 	}
 
 }
