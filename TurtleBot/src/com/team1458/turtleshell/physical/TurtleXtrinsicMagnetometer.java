@@ -38,25 +38,27 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 	private RangeShifter yShifter;
 
 	// minimum and maximum values, set very leniently
-	private double xMax = Double.MIN_VALUE;
-	private double yMax = Double.MIN_VALUE;
-	private double xMin = Double.MAX_VALUE;
-	private double yMin = Double.MAX_VALUE;
+	private int xMax = Integer.MIN_VALUE;
+	private int yMax = Integer.MIN_VALUE;
+	private int xMin = Integer.MAX_VALUE;
+	private int yMin = Integer.MAX_VALUE;
 
 	/**
-	 * Magnetometer constructor, address is precoded. MAKE SURE TO CALIBRATE IT FIRST
+	 * Magnetometer constructor, address is precoded. MAKE SURE TO CALIBRATE IT
+	 * FIRST
 	 */
 	public TurtleXtrinsicMagnetometer(I2C.Port port) {
-		i2c = new I2C(port, address);
+		i2c = new I2C(I2C.Port.kOnboard, 0x0e);
 		if (i2c == null) {
 			System.out.println("Null m_i2c");
 		}
 
 		// check to see if the I2C connection is working correctly
 		i2c.read(0x07, 1, buffer);
-		if ((int) buffer[0] != 0xc4) {
+		System.out.println("WHO_AM_I: " + buffer[0]);
+		if ((Byte.toUnsignedInt(buffer[0])) != 0xc4) {
 			System.out.println("Something has gone terribly wrong.");
-			System.out.println(buffer[0]);
+
 		} else {
 			System.out.println("Found WHO_AM_I");
 		}
@@ -74,12 +76,13 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 		i2c.write(0x0e, 0b00000000);
 
 		// initial update
-		update();
-		prevAngle = angle;
+		// update();
+		prevAngle = angle = 0;
 		rateTimer.start();
 	}
 
-	public void setCalibration(double lMin, double lMax, double rMin, double rMax) {
+	public void setCalibration(double lMin, double lMax, double rMin,
+			double rMax) {
 		xShifter = new RangeShifter(lMin, lMax, -1, 1);
 		yShifter = new RangeShifter(rMin, rMax, -1, 1);
 	}
@@ -94,8 +97,11 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 	 *         complement format
 	 */
 	private int doubleByteToInt(byte[] byteArray) {
-		return (int) byteArray[0] > 0 ? (byteArray[0] * 256 + Byte.toUnsignedInt(byteArray[1]))
-				: Byte.toUnsignedInt(byteArray[0]) * 256 + Byte.toUnsignedInt(byteArray[1]) - 65536;
+		return (int) byteArray[0] > 0 ? (byteArray[0] * 256 + Byte
+				.toUnsignedInt(byteArray[1])) : Byte
+				.toUnsignedInt(byteArray[0])
+				* 256
+				+ Byte.toUnsignedInt(byteArray[1]) - 65536;
 	}
 
 	@Override
@@ -103,14 +109,24 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 		prevAngle = angle;
 		// do the read
 		i2c.read(0x01, 6, rawInput);
+		
+		
 		for (int i = 0; i < 3; i++) {
-			inputs[i] = doubleByteToInt(new byte[] { rawInput[2 * i], rawInput[2 * i + 1] });
+			inputs[i] = doubleByteToInt(new byte[] { rawInput[2 * i],
+					rawInput[2 * i + 1] });
 		}
+		//correct x axis direction
+		inputs[0]=-inputs[0];
 		// correct the values
 		axes[0] = xShifter.shift(inputs[0]);
 		axes[1] = yShifter.shift(inputs[1]);
 		// we aren't bothering with the z axis
 		axes[2] = inputs[2];
+		for(int i=0;i<axes.length;i++)
+		{
+			Output.outputNumber("axes "+ i, axes[i]);
+			
+		}
 
 		angle = Math.toDegrees(Math.atan2(axes[1], axes[0]));
 		angle -= baseAngle;
@@ -124,16 +140,17 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 			rotations++;
 			prevAngle -= 360;
 		}
-		//code to handle max, min etc. with debug stuff, for calibration and such
-		if(doDebug) {
-			xMax=TurtleMaths.biggerOf(xMax, axes[0]);
-			yMax=TurtleMaths.biggerOf(yMax, axes[1]);
-			xMin=TurtleMaths.smallerOf(xMin, axes[0]);
-			yMin=TurtleMaths.smallerOf(yMin, axes[1]);
-			Output.outputNumber("xMax", xMax);
-			Output.outputNumber("yMax", yMax);
-			Output.outputNumber("xMin", xMin);
-			Output.outputNumber("yMin", yMin);
+		// code to handle max, min etc. with debug stuff, for calibration and
+		// such
+		if (doDebug) {
+			xMax = TurtleMaths.biggerOf(xMax, TurtleMaths.makeReasonableMin(inputs[0]));
+			yMax = TurtleMaths.biggerOf(yMax, TurtleMaths.makeReasonableMin(inputs[1]));
+			xMin = TurtleMaths.smallerOf(xMin, TurtleMaths.makeReasonableMax(inputs[0]));
+			yMin = TurtleMaths.smallerOf(yMin, TurtleMaths.makeReasonableMax(inputs[1]));
+			Output.outputNumber("xMax", (xMax));
+			Output.outputNumber("yMax", (yMax));
+			Output.outputNumber("xMin", (xMin));
+			Output.outputNumber("yMin", (yMin));
 		}
 	}
 
