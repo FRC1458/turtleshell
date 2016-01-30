@@ -29,7 +29,7 @@ public class Robot extends TurtleRobot {
 	public void operatorControl() {
 		// Put the code to initialise operator control here.
 		maggie = new TurtleXtrinsicMagnetometer(I2C.Port.kOnboard);
-		maggie.setCalibration(-1, 1, -1, 1);
+		maggie.setCalibration(-1614, -874, 763, 1649);
 		tele = new TurtwigTestTeleop();
 		tele.giveRobot(physicalRobot);
 		

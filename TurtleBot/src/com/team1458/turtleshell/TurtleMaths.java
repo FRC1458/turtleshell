@@ -33,11 +33,10 @@ public class TurtleMaths {
 		return (a > b ? a : b);
 	}
 
-	public static int biggerOf(int a , int b) {
+	public static int biggerOf(int a, int b) {
 		return (a > b ? a : b);
 	}
-	
-	
+
 	/**
 	 * A class to help with moving values between different ranges, i.e. 0-100
 	 * to 3-7
@@ -65,7 +64,7 @@ public class TurtleMaths {
 		 */
 		public RangeShifter(double minA, double maxA, double minB, double maxB) {
 			this.minA = minA;
-			this.rngA = maxA - minB;
+			this.rngA = maxA - minA;
 			this.minB = minB;
 			this.rngB = maxB - minB;
 		}
@@ -110,17 +109,18 @@ public class TurtleMaths {
 		return (a < b ? a : b);
 	}
 
-	public static int smallerOf(int a, int b){
+	public static int smallerOf(int a, int b) {
 		return (a < b ? a : b);
 	}
 
-	public static int makeReasonableMin (int i) {
+	public static int makeReasonableMin(int i) {
 		if (i > 60000) {
 			return Integer.MIN_VALUE;
 		}
 		return i;
 	}
-	public static int makeReasonableMax (int i) {
+
+	public static int makeReasonableMax(int i) {
 		if (i < -60000) {
 			return Integer.MAX_VALUE;
 		}

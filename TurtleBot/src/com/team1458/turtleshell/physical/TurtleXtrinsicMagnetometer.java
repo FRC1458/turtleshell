@@ -81,6 +81,13 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 		rateTimer.start();
 	}
 
+	/**
+	 * Set calibration
+	 * @param lMin x Min
+	 * @param lMax x Max
+	 * @param rMin y Min
+	 * @param rMax y Max
+	 */
 	public void setCalibration(double lMin, double lMax, double rMin,
 			double rMax) {
 		xShifter = new RangeShifter(lMin, lMax, -1, 1);
@@ -116,7 +123,7 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 					rawInput[2 * i + 1] });
 		}
 		//correct x axis direction
-		inputs[0]=-inputs[0];
+		//inputs[0]=-inputs[0];
 		// correct the values
 		axes[0] = xShifter.shift(inputs[0]);
 		axes[1] = yShifter.shift(inputs[1]);
