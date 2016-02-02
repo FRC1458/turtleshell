@@ -45,7 +45,6 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 		this.driveMotors(pid.newValue(new double[] { lEncoder.getTicks(),
 				rEncoder.getTicks(), lEncoder.getRate(), rEncoder.getRate(),
 				gyro.getContinousTheta(), gyro.getRate() }));
-
 	}
 
 	@Override
