@@ -43,6 +43,12 @@ public class Input {
 	public static double getRPower() {
 		switch( inputDriveConfig) {
 		case TANK:
+			if(steering1.getRawButton(1)) {
+				return -steering1.getAxis(Joystick.AxisType.kY);
+			}
+			if(steering2.getRawButton(1)) {
+				return steering2.getAxis(Joystick.AxisType.kY);
+			}
 			return -steering1.getAxis(Joystick.AxisType.kY);
 		case ARCADE:
 			return 0;
@@ -59,6 +65,12 @@ public class Input {
 	public static double getLPower() {
 		switch( inputDriveConfig) {
 		case TANK:
+			if(steering1.getRawButton(1)) {
+				return -steering1.getAxis(Joystick.AxisType.kY);
+			}
+			if(steering2.getRawButton(1)) {
+				return -steering2.getAxis(Joystick.AxisType.kY);
+			}
 			return -steering2.getAxis(Joystick.AxisType.kY);
 		case ARCADE:
 			return 0;

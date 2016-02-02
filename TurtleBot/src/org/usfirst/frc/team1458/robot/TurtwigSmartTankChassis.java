@@ -16,10 +16,12 @@ import com.team1458.turtleshell.physical.TurtleAnalogGyro;
 import com.team1458.turtleshell.physical.TurtleVictor;
 
 public class TurtwigSmartTankChassis implements TurtleSmartChassis {
-	private final TurtleMotor lMotor = new TurtleVictor(
+	private final TurtleMotor lMotor1 = new TurtleVictor(
 			TurtwigConstants.LEFT1VICTORPORT, false);
-	private final TurtleMotor rMotor = new TurtleVictor(
+	private final TurtleMotor rMotor1 = new TurtleVictor(
 			TurtwigConstants.RIGHT1VICTORPORT, true);
+	private final TurtleMotor lMotor2 = new TurtleVictor(TurtwigConstants.LEFT2VICTORPORT, false);
+	private final TurtleMotor rMotor2 = new TurtleVictor(TurtwigConstants.RIGHT2VICTORPORT, true);
 
 	private final TurtleEncoder lEncoder = new Turtle4PinEncoder(
 			TurtwigConstants.LEFTENCODERPORT1,
@@ -48,6 +50,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 
 	@Override
 	public void teleUpdate() {
+		
 		this.driveMotors(new MotorValue[] { new MotorValue(Input.getLPower()),
 				new MotorValue(Input.getRPower()) });
 
@@ -86,13 +89,18 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 	private void driveMotors(MotorValue[] motorPowers) {
 		Output.outputNumber("lPower", motorPowers[0].getValue());
 		Output.outputNumber("rPower", motorPowers[1].getValue());
-		lMotor.set(motorPowers[0]);
-		rMotor.set(motorPowers[1]);
+		lMotor1.set(motorPowers[0]);
+		lMotor2.set(motorPowers[0]);
+		rMotor1.set(motorPowers[1]);
+		rMotor2.set(motorPowers[1]);
+		
 	}
 
 	public void stop() {
-		lMotor.set(new MotorValue(0));
-		rMotor.set(new MotorValue(0));
+		lMotor1.set(new MotorValue(0));
+		lMotor2.set(new MotorValue(0));
+		rMotor1.set(new MotorValue(0));
+		rMotor2.set(new MotorValue(0));
 	}
 
 }
