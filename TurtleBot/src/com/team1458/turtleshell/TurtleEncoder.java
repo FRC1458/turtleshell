@@ -1,5 +1,10 @@
 package com.team1458.turtleshell;
 
+/**
+ * An interface for encoders.
+ * @author mehnadnerd
+ *
+ */
 public interface TurtleEncoder extends TurtleSensor {
 	/**
 	 * Gets the ticks an encoder has gone through, signed

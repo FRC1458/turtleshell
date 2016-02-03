@@ -5,6 +5,11 @@ import com.team1458.turtleshell.TurtleMotor;
 
 import edu.wpi.first.wpilibj.Talon;
 
+/**
+ * A wrapper for a Talon to get it to implement TurtleMotor.
+ * @author mehnadnerd
+ *
+ */
 public class TurtleTalon implements TurtleMotor {
 	private Talon talon;
 	private boolean isReversed = false;

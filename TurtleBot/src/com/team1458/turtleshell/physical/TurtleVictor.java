@@ -5,6 +5,11 @@ import com.team1458.turtleshell.TurtleMotor;
 
 import edu.wpi.first.wpilibj.Victor;
 
+/**
+ * A wrapper for a Victor to get it to implement TurtleMotor.
+ * @author mehnadnerd
+ *
+ */
 public class TurtleVictor implements TurtleMotor {
 	private Victor victor;
 	private boolean isReversed;

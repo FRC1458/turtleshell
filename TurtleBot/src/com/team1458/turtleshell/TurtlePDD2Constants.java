@@ -1,5 +1,10 @@
 package com.team1458.turtleshell;
 
+/**
+ * Implements TurtlePIDConstants for the TurtlePDD2
+ * @author mehnadnerd
+ *
+ */
 public class TurtlePDD2Constants implements TurtlePIDConstants {
 	private final double kP;
 	private final double kD;

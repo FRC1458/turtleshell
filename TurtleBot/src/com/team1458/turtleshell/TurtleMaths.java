@@ -1,6 +1,20 @@
 package com.team1458.turtleshell;
 
+/**
+ * A class holding helpful static methods for maths-related things.
+ * 
+ * @author mehnadnerd
+ *
+ */
 public class TurtleMaths {
+	/**
+	 * Fit the double to a specified range.
+	 * 
+	 * @param toFit number to fit in range
+	 * @param min minimum value for toFit
+	 * @param max Maximum value for toFit
+	 * @return
+	 */
 	public static double fitRange(double toFit, double min, double max) {
 		if (toFit > max) {
 			return max;
@@ -14,8 +28,8 @@ public class TurtleMaths {
 	/**
 	 * Returns the absolute difference between the two numbers
 	 * 
-	 * @param a
-	 * @param b
+	 * @param a 1st value
+	 * @param b 2nd value
 	 * @return The absolute difference of the two, equal to Math.abs(a-b)
 	 */
 	public static double absDiff(double a, double b) {
@@ -33,6 +47,13 @@ public class TurtleMaths {
 		return (a > b ? a : b);
 	}
 
+	/**
+	 * Returns the bigger of the two int values
+	 * 
+	 * @param a 
+	 * @param b
+	 * @return
+	 */
 	public static int biggerOf(int a, int b) {
 		return (a > b ? a : b);
 	}
@@ -109,23 +130,14 @@ public class TurtleMaths {
 		return (a < b ? a : b);
 	}
 
+	/**
+	 * Returns the smaller of the two int values
+	 * 
+	 * @param a
+	 * @param b
+	 * @return
+	 */
 	public static int smallerOf(int a, int b) {
 		return (a < b ? a : b);
 	}
-
-	public static int makeReasonableMin(int i) {
-		if (i > 60000) {
-			return Integer.MIN_VALUE;
-		}
-		return i;
-	}
-
-	public static int makeReasonableMax(int i) {
-		if (i < -60000) {
-			return Integer.MAX_VALUE;
-		}
-		return i;
-
-	}
-
 }

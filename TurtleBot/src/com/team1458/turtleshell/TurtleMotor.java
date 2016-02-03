@@ -1,5 +1,10 @@
 package com.team1458.turtleshell;
 
+/**
+ * Interface to control motor. 
+ * @author mehnadnerd
+ *
+ */
 public interface TurtleMotor {
 	/**
 	 * Sets the motor power.

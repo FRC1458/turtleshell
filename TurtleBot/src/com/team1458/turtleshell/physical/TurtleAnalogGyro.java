@@ -5,13 +5,16 @@ import com.team1458.turtleshell.TurtleThetaCalibration;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 
-public class TurtleAnalogGyro implements TurtleTheta{
+/**
+ * A standard analog gyro, backed by WPILib AnalogGyro.
+ */
+public class TurtleAnalogGyro implements TurtleTheta {
 	private AnalogGyro gyro;
-	
+
 	public TurtleAnalogGyro(int port) {
 		gyro = new AnalogGyro(port);
 	}
-	
+
 	@Override
 	public double getContinousTheta() {
 		return gyro.getAngle();
@@ -29,7 +32,7 @@ public class TurtleAnalogGyro implements TurtleTheta{
 
 	@Override
 	public void update() {
-		//nothing to update
+		// nothing to update
 	}
 
 	/**
@@ -45,7 +48,7 @@ public class TurtleAnalogGyro implements TurtleTheta{
 	 */
 	@Override
 	public void setCalibration(TurtleThetaCalibration calibration) {
-		//nothing
+		// nothing
 	}
 
 	/**

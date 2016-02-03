@@ -9,6 +9,13 @@ import com.team1458.turtleshell.TurtleThetaCalibration;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Timer;
 
+/**
+ * A Xtrinsic Magnetometer, implementation of TurtleTheta. Should be plugged
+ * into the I2C port.
+ * 
+ * @author mehnadnerd
+ *
+ */
 public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 	private boolean doDebug = true;
 	private double angle;
@@ -47,8 +54,8 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 	private int yMin = Integer.MAX_VALUE;
 
 	/**
-	 * Magnetometer constructor, address is precoded. MAKE SURE TO CALIBRATE IT
-	 * FIRST
+	 * Magnetometer constructor, address is precoded. MAKE SURE TO CALIBRATE
+	 * BEFORE USING
 	 */
 	public TurtleXtrinsicMagnetometer(I2C.Port port) {
 		i2c = new I2C(I2C.Port.kOnboard, 0x0e);
@@ -77,7 +84,7 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 		i2c.write(0x0c, 0b00000000);
 		i2c.write(0x0d, 0b00000000);
 		i2c.write(0x0e, 0b00000000);
-		
+
 		this.setCalibration(this.generateCalibration());
 		// initial update
 		update();
@@ -95,11 +102,8 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 	 *         complement format
 	 */
 	private int doubleByteToInt(byte[] byteArray) {
-		return (int) byteArray[0] > 0 ? (byteArray[0] * 256 + Byte
-				.toUnsignedInt(byteArray[1])) : Byte
-				.toUnsignedInt(byteArray[0])
-				* 256
-				+ Byte.toUnsignedInt(byteArray[1]) - 65536;
+		return (int) byteArray[0] > 0 ? (byteArray[0] * 256 + Byte.toUnsignedInt(byteArray[1]))
+				: Byte.toUnsignedInt(byteArray[0]) * 256 + Byte.toUnsignedInt(byteArray[1]) - 65536;
 	}
 
 	@Override
@@ -109,8 +113,7 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 		i2c.read(0x01, 6, rawInput);
 
 		for (int i = 0; i < 3; i++) {
-			inputs[i] = doubleByteToInt(new byte[] { rawInput[2 * i],
-					rawInput[2 * i + 1] });
+			inputs[i] = doubleByteToInt(new byte[] { rawInput[2 * i], rawInput[2 * i + 1] });
 		}
 		// correct x axis direction
 		// inputs[0]=-inputs[0];
@@ -143,14 +146,10 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 		// code to handle max, min etc. with debug stuff, for calibration and
 		// such
 		if (doDebug) {
-			xMax = TurtleMaths.biggerOf(xMax,
-					TurtleMaths.makeReasonableMin(inputs[0]));
-			yMax = TurtleMaths.biggerOf(yMax,
-					TurtleMaths.makeReasonableMin(inputs[1]));
-			xMin = TurtleMaths.smallerOf(xMin,
-					TurtleMaths.makeReasonableMax(inputs[0]));
-			yMin = TurtleMaths.smallerOf(yMin,
-					TurtleMaths.makeReasonableMax(inputs[1]));
+			xMax = TurtleMaths.biggerOf(xMax, inputs[0]);
+			yMax = TurtleMaths.biggerOf(yMax, inputs[1]);
+			xMin = TurtleMaths.smallerOf(xMin, inputs[0]);
+			yMin = TurtleMaths.smallerOf(yMin, inputs[1]);
 			Output.outputNumber("xMax", (xMax));
 			Output.outputNumber("yMax", (yMax));
 			Output.outputNumber("xMin", (xMin));
