@@ -1,5 +1,9 @@
 package com.team1458.turtleshell;
-
+/**
+ * Class used drive the robot in a straight line
+ * @author mehnadnerd
+ *
+ */
 public class TurtleStraightDrivePID implements TurtleDualPID {
 	private final TurtlePID lPID;
 	private final TurtlePID rPID;

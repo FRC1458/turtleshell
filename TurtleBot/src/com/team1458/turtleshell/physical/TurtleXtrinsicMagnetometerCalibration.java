@@ -2,6 +2,11 @@ package com.team1458.turtleshell.physical;
 
 import com.team1458.turtleshell.TurtleThetaCalibration;
 
+/**
+ * Calibration for the Xtrinsic Magnetometer. Implements TurtleThetaCalibration.
+ * @author mehnadnerd
+ *
+ */
 public class TurtleXtrinsicMagnetometerCalibration implements TurtleThetaCalibration {
 	private double[] values;
 	@Override

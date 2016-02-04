@@ -4,6 +4,11 @@ import com.team1458.turtleshell.TurtleEncoder;
 
 import edu.wpi.first.wpilibj.Encoder;
 
+/**
+ * A wrapper for standard encoders to get them to implement TurtleEncoder.
+ * @author mehnadnerd
+ *
+ */
 public class Turtle4PinEncoder implements TurtleEncoder {
 	private Encoder encoder;
 	private boolean isReversed;

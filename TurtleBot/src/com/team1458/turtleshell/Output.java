@@ -11,9 +11,18 @@ public class Output {
 	public static void spew(Object o) {
 		SmartDashboard.putString(o.hashCode()+"", o.toString());
 	}
+	/**
+	 * Output a number to the SmartDashboard
+	 * @param s The name to use for the parameter.
+	 * @param n The number to output.
+	 */
 	public static void outputNumber(String s, Number n) {
 		SmartDashboard.putNumber(s, n.doubleValue());
 	}
+	/**
+	 * Output to standard out.
+	 * @param o The object to output.
+	 */
 	public static void syso(Object o) {
 		System.out.println(o);
 	}

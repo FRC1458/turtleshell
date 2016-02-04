@@ -2,7 +2,11 @@ package com.team1458.turtleshell;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-
+/**
+ * Class to access driver station functions in a safe matter
+ * @author mehnadnerd
+ *
+ */
 public class TurtleSafeDriverStation {
 	private static DriverStation ds;
 	private static boolean dsSet = false;

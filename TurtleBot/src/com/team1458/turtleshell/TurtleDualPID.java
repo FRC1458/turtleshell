@@ -1,5 +1,10 @@
 package com.team1458.turtleshell;
 
+/**
+ * An interface for a PID that should manage two motors.
+ * @author mehnadnerd
+ *
+ */
 public interface TurtleDualPID {
 	/**
 	 * Checks whether or not it is at a target

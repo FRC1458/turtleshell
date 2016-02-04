@@ -5,6 +5,11 @@ import com.team1458.turtleshell.TurtleMotor;
 
 import edu.wpi.first.wpilibj.CANTalon;
 
+/**
+ * A wrapper for CANTalon to get it to implement TurtleMotor.
+ * @author mehnadnerd
+ *
+ */
 public class TurtleCANTalon implements TurtleMotor {
 	private CANTalon talon;
 	private boolean isReversed = false;

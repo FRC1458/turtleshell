@@ -1,5 +1,10 @@
 package com.team1458.turtleshell;
 
+/**
+ * An interface for rotation sensors. Ex: gyro, magnetometer, etc.
+ * @author mehnadnerd
+ *
+ */
 public interface TurtleTheta extends TurtleSensor {
 	/**
 	 * Get Continuous theta,

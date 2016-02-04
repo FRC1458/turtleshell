@@ -12,12 +12,16 @@ public class MotorValue {
 	private final double value;
 	public static final MotorValue zero = new MotorValue(0);
 	public static final MotorValue fullForward = new MotorValue(1);
-	public static final MotorValue fullBackward = new MotorValue(2);
+	public static final MotorValue fullBackward = new MotorValue(-1);
 
 	public MotorValue(double value) {
 		this.value = TurtleMaths.fitRange(value, -1, 1);
 	}
 
+	/**
+	 * Get the double associated with this MotorValue
+	 * @return The double that this motorValue holds
+	 */
 	public double getValue() {
 		return value;
 	}

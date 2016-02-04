@@ -1,5 +1,9 @@
 package com.team1458.turtleshell;
-
+/**
+ * Implemntation of PID for a Proportional-Derivative-2nd Derivative controller.
+ * @author mehnadnerd
+ *
+ */
 public class TurtlePDD2 implements TurtlePID {
 	protected final double kP;
 	protected final double kDD;

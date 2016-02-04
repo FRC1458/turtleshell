@@ -1,5 +1,9 @@
 package com.team1458.turtleshell;
-
+/**
+ * Provides an interface for moving PID constants
+ * @author mehnadnerd
+ *
+ */
 public interface TurtlePIDConstants {
 	public double getKP();
 	
