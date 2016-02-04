@@ -1,0 +1,8 @@
+Tote val min : 134
+Tote val max : 255
+
+Tote hue min : 101
+tote hue max : 64
+
+tote sat min: 88
+tote sat max: 255

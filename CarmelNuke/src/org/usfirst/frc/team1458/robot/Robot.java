@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1458.robot;
 
 import java.lang.Math;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Vector;
 
@@ -23,37 +24,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  * Sample images can found here: http://wp.wpi.edu/wpilib/2015/01/16/sample-images-for-vision-projects/ 
  */
-public class Robot extends SampleRobot {
+public class Robot extends CarmelBot {
 		//A structure to hold measurements of a particle
-		public class ParticleReport implements Comparator<ParticleReport>, Comparable<ParticleReport>{
-			double PercentAreaToImageArea;
-			double Area;
-			double BoundingRectLeft;
-			double BoundingRectTop;
-			double BoundingRectRight;
-			double BoundingRectBottom;
-			
-			public int compareTo(ParticleReport r)
-			{
-				return (int)(r.Area - this.Area);
-			}
-			
-			public int compare(ParticleReport r1, ParticleReport r2)
-			{
-				return (int)(r1.Area - r2.Area);
-			}
-		};
+		
 
-		//Structure to represent the scores for the various tests used for target identification
-		public class Scores {
-			double Area;
-			double Aspect;
-		};
+		
 
 		//Images
-		Image frame;
-		Image binaryFrame;
-		int imaqError;
+		
 
 		//Constants
 		NIVision.Range TOTE_HUE_RANGE = new NIVision.Range(101, 64);	//Default hue range for yellow tote
@@ -83,6 +61,7 @@ public class Robot extends SampleRobot {
 			SmartDashboard.putNumber("Tote val max", TOTE_VAL_RANGE.maxValue);
 			SmartDashboard.putNumber("Area min %", AREA_MINIMUM);
 		}
+		
 
 		public void autonomous() {
 			while (isAutonomous() && isEnabled())
@@ -121,10 +100,10 @@ public class Robot extends SampleRobot {
 				if(numParticles > 0)
 				{
 					//Measure particles and sort by particle size
-					Vector<ParticleReport> particles = new Vector<ParticleReport>();
+					ArrayList<Particle> particles = new ArrayList<Particle>();
 					for(int particleIndex = 0; particleIndex < numParticles; particleIndex++)
 					{
-						ParticleReport par = new ParticleReport();
+						Particle par = new Particle();
 						par.PercentAreaToImageArea = NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_AREA_BY_IMAGE_AREA);
 						par.Area = NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_AREA);
 						par.BoundingRectTop = NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_TOP);
@@ -138,15 +117,15 @@ public class Robot extends SampleRobot {
 					//This example only scores the largest particle. Extending to score all particles and choosing the desired one is left as an exercise
 					//for the reader. Note that this scores and reports information about a single particle (single L shaped target). To get accurate information 
 					//about the location of the tote (not just the distance) you will need to correlate two adjacent targets in order to find the true center of the tote.
-					scores.Aspect = AspectScore(particles.elementAt(0));
+					scores.Aspect = AspectScore(particles.get(0));
 					SmartDashboard.putNumber("Aspect", scores.Aspect);
-					scores.Area = AreaScore(particles.elementAt(0));
+					scores.Area = AreaScore(particles.get(0));
 					SmartDashboard.putNumber("Area", scores.Area);
 					boolean isTote = scores.Aspect > SCORE_MIN && scores.Area > SCORE_MIN;
 
 					//Send distance and tote status to dashboard. The bounding rect, particularly the horizontal center (left - right) may be useful for rotating/driving towards a tote
 					SmartDashboard.putBoolean("IsTote", isTote);
-					SmartDashboard.putNumber("Distance", computeDistance(binaryFrame, particles.elementAt(0)));
+					SmartDashboard.putNumber("Distance", computeDistance(binaryFrame, particles.get(0)));
 				} else {
 					SmartDashboard.putBoolean("IsTote", false);
 				}
@@ -162,7 +141,7 @@ public class Robot extends SampleRobot {
 		}
 
 		//Comparator function for sorting particles. Returns true if particle 1 is larger
-		static boolean CompareParticleSizes(ParticleReport particle1, ParticleReport particle2)
+		static boolean CompareParticleSizes(Particle particle1, Particle particle2)
 		{
 			//we want descending sort order
 			return particle1.PercentAreaToImageArea > particle2.PercentAreaToImageArea;
@@ -177,7 +156,7 @@ public class Robot extends SampleRobot {
 			return (Math.max(0, Math.min(100*(1-Math.abs(1-ratio)), 100)));
 		}
 
-		double AreaScore(ParticleReport report)
+		double AreaScore(Particle report)
 		{
 			double boundingArea = (report.BoundingRectBottom - report.BoundingRectTop) * (report.BoundingRectRight - report.BoundingRectLeft);
 			//Tape is 7" edge so 49" bounding rect. With 2" wide tape it covers 24" of the rect.
@@ -187,7 +166,7 @@ public class Robot extends SampleRobot {
 		/**
 		 * Method to score if the aspect ratio of the particle appears to match the retro-reflective target. Target is 7"x7" so aspect should be 1
 		 */
-		double AspectScore(ParticleReport report)
+		double AspectScore(Particle report)
 		{
 			return ratioToScore(((report.BoundingRectRight-report.BoundingRectLeft)/(report.BoundingRectBottom-report.BoundingRectTop)));
 		}
@@ -201,7 +180,7 @@ public class Robot extends SampleRobot {
 		 * @param isLong Boolean indicating if the target is believed to be the long side of a tote
 		 * @return The estimated distance to the target in feet.
 		 */
-		double computeDistance (Image image, ParticleReport report) {
+		double computeDistance (Image image, Particle report) {
 			double normalizedWidth, targetWidth;
 			NIVision.GetImageSizeResult size;
 
