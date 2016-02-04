@@ -58,7 +58,7 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 	 * BEFORE USING
 	 */
 	public TurtleXtrinsicMagnetometer(I2C.Port port) {
-		i2c = new I2C(I2C.Port.kOnboard, 0x0e);
+		i2c = new I2C(port, address);
 		if (i2c == null) {
 			System.out.println("Null m_i2c");
 		}

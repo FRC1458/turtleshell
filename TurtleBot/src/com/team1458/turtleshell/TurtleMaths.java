@@ -10,9 +10,12 @@ public class TurtleMaths {
 	/**
 	 * Fit the double to a specified range.
 	 * 
-	 * @param toFit number to fit in range
-	 * @param min minimum value for toFit
-	 * @param max Maximum value for toFit
+	 * @param toFit
+	 *            number to fit in range
+	 * @param min
+	 *            minimum value for toFit
+	 * @param max
+	 *            Maximum value for toFit
 	 * @return
 	 */
 	public static double fitRange(double toFit, double min, double max) {
@@ -28,8 +31,10 @@ public class TurtleMaths {
 	/**
 	 * Returns the absolute difference between the two numbers
 	 * 
-	 * @param a 1st value
-	 * @param b 2nd value
+	 * @param a
+	 *            1st value
+	 * @param b
+	 *            2nd value
 	 * @return The absolute difference of the two, equal to Math.abs(a-b)
 	 */
 	public static double absDiff(double a, double b) {
@@ -50,7 +55,7 @@ public class TurtleMaths {
 	/**
 	 * Returns the bigger of the two int values
 	 * 
-	 * @param a 
+	 * @param a
 	 * @param b
 	 * @return
 	 */
@@ -139,5 +144,24 @@ public class TurtleMaths {
 	 */
 	public static int smallerOf(int a, int b) {
 		return (a < b ? a : b);
+	}
+
+	/**
+	 * Normalises a slope to between zero and one. Used in arcade drive code
+	 * 
+	 * @param m
+	 *            The slope to normalise
+	 * @return The slope normalised to (0, 1], it will be absolute valued and
+	 *         recipocaled as nessecary
+	 */
+	public static double normaliseM(double m) {
+		m = Math.abs(m);
+		if (m > 1) {
+			m = 1 / m;
+		}
+		if (Double.isNaN(m)) {
+			m = 0;
+		}
+		return m;
 	}
 }
