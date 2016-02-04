@@ -52,7 +52,7 @@ public class Input {
 			}
 			return -steering1.getAxis(Joystick.AxisType.kY);
 		case ARCADE:
-			return (steering1.getAxis(Joystick.AxisType.kX) + steering1.getAxis(Joystick.AxisType.kY))
+			return (-steering1.getAxis(Joystick.AxisType.kX) - steering1.getAxis(Joystick.AxisType.kY))
 					/ (1 + TurtleMaths.normaliseM(
 							-steering1.getAxis(Joystick.AxisType.kY) / steering1.getAxis(Joystick.AxisType.kX)));
 		case WHEEL:
