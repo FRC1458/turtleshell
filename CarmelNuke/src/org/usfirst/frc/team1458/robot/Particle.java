@@ -5,20 +5,25 @@ import java.util.Comparator;
 
 
 public class Particle {
-	double PercentAreaToImageArea;
-	double Area;
-	double BoundingRectLeft;
-	double BoundingRectTop;
-	double BoundingRectRight;
-	double BoundingRectBottom;
 	
-	public int compareTo(Particle r)
-	{
-		return (int)(r.Area - this.Area);
-	}
-	
-	public int compare(Particle r1, Particle r2)
-	{
-		return (int)(r1.Area - r2.Area);
-	}
+		 	public final double percentArea;
+		 	public final double area;
+		 	public final double convexArea;
+		 	public final double left;
+		 	public final double top;
+		 	public final double right;
+		 	public final double bottom;
+		 	
+		 	public Particle(double percentArea, double area, double convexArea, double left, double top, double right, double bottom) {
+		 		this.percentArea = percentArea;
+		 		this.area = area;
+		 		this.convexArea = convexArea;
+		 		this.left = left;
+		 		this.top = top;
+		 		this.right = right;
+		 		this.bottom = bottom;
+		 	}
+
+		 	
+		 
 }
