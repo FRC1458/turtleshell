@@ -1,15 +1,19 @@
 package org.usfirst.frc.team1458.robot;
+
 //Structure to represent the scores for the various tests used for target identification
 public class Scores {
-	public final double trapezoid;
-	 	public final double longAspect;
-	 	public final double shortAspect;
-	 	public final double areaToConvexArea;
-	 	
-	 	public Scores(double trapezoid, double longAspect, double shortAspect, double areaToConvexArea) {
-	 		this.trapezoid = trapezoid;
-	 		this.longAspect = longAspect;
-	 		this.shortAspect = shortAspect;
-	 		this.areaToConvexArea = areaToConvexArea;
-	 	}
+
+    public final double areaToConvexArea;
+    public final double plenimeter;
+    public final double perimeterToConvexPerimeter;
+    public final double rectangliness;
+
+    public Scores(Particle p) {
+
+	this.areaToConvexArea = p.area / p.convexArea;
+	this.plenimeter = (p.perimeter) * (p.perimeter) / p.area;
+	this.perimeterToConvexPerimeter = p.perimeter / p.convexPerimeter;
+	this.rectangliness = p.convexArea / p.boundingArea;
+
+    }
 }
