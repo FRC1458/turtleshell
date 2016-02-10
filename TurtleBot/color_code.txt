@@ -1,8 +1,8 @@
-Tote val min : 134
-Tote val max : 255
+Tote val min : 15
+Tote val max : 249
 
-Tote hue min : 101
-tote hue max : 64
+Tote hue min : 249
+tote hue max : 15
 
-tote sat min: 88
-tote sat max: 255
+tote sat min: 15
+tote sat max: 249

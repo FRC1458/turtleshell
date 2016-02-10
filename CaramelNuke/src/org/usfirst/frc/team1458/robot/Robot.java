@@ -98,8 +98,8 @@ public class Robot extends CarmelBot {
 	// Put default values to SmartDashboard so fields will appear
 	SmartDashboard.putNumber("Tote hue min", TOTE_HUE_RANGE.minValue);
 	SmartDashboard.putNumber("Tote hue max", TOTE_HUE_RANGE.maxValue);
-	SmartDashboard.putNumber("Tote sat min", TOTE_SAT_RANGE.minValue);
-	SmartDashboard.putNumber("Tote sat max", TOTE_SAT_RANGE.maxValue);
+	SmartDashboard.putNumber("Tote sat max", TOTE_SAT_RANGE.minValue);
+	SmartDashboard.putNumber("Tote sat min", TOTE_SAT_RANGE.maxValue);
 	SmartDashboard.putNumber("Tote val min", TOTE_VAL_RANGE.minValue);
 	SmartDashboard.putNumber("Tote val max", TOTE_VAL_RANGE.maxValue);
 	SmartDashboard.putNumber("Area min %", AREA_MINIMUM);
