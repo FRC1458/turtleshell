@@ -38,11 +38,11 @@ public class Robot extends CarmelBot {
     }
 
     // Constants
-    NIVision.Range TOTE_HUE_RANGE = new NIVision.Range(250, 64); // Default hue
+    NIVision.Range TOTE_HUE_RANGE = new NIVision.Range(220, 14); // Default hue
 								 // range for
 								 // yellow
 								 // tote
-    NIVision.Range TOTE_SAT_RANGE = new NIVision.Range(125, 255); // Default
+    NIVision.Range TOTE_SAT_RANGE = new NIVision.Range(249, 55); // Default
 								  // saturation
 								  // range for
 								  // yellow
