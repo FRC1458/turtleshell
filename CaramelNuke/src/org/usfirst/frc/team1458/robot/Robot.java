@@ -47,7 +47,7 @@ public class Robot extends CarmelBot {
 								  // range for
 								  // yellow
 								  // tote
-    NIVision.Range TOTE_VAL_RANGE = new NIVision.Range(134, 255); // Default
+    NIVision.Range TOTE_VAL_RANGE = new NIVision.Range(81, 255); // Default
 								  // value
 								  // range for
 								  // yellow

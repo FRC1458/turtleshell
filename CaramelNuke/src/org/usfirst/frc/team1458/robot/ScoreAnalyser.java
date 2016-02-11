@@ -23,6 +23,7 @@ public class ScoreAnalyser {
 	boolean plenimeterAcceptable = TurtleMaths.percentError(plenimeterIdeal, s.plenimeter) < pleniRange;
 	SmartDashboard.putNumber("PlenimeterError", TurtleMaths.percentError(plenimeterIdeal, s.plenimeter));
 	boolean rectanglinessAcceptable = TurtleMaths.percentError(s.rectangliness, 1) < rectRange;
+	SmartDashboard.putNumber("RectanglinessError", TurtleMaths.percentError(s.rectangliness, 1));
 	
 	areaRange = SmartDashboard.getNumber("areaRange", areaRange);
 	periRange = SmartDashboard.getNumber("periRange", periRange);
