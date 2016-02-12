@@ -1,5 +1,8 @@
 package org.usfirst.frc.team1458.robot;
 
+import com.team1458.turtleshell.TurtlePDD2Constants;
+import com.team1458.turtleshell.TurtlePIDConstants;
+
 public class TurtwigConstants {
 	public static final int LEFT1VICTORPORT = 0;
 	public static final int LEFT2VICTORPORT = 4;
@@ -15,9 +18,27 @@ public class TurtwigConstants {
 	public static final int RIGHTENCODERPORT1 = 2;
 	public static final int RIGHTENCODERPORT2 = 3;
 
+	public static final int SHOULDERVICTORPORT = 5;
+	public static final int ELBOWVICTORPORT = 6;
+	
+	public static final int SHOULDERENCODERPORT1 = 4;
+	public static final int SHOULDERENCODERPORT2 = 5;
+	public static final int ELBOWENCODERPORT1 = 6;
+	public static final int ELBOWENCODERPORT2 = 7;
+	
+	public static final double UPPERARMLENGTH = 21;
+	public static final double FOREARMLENGTH = 18;
+
 	public static final double WHEELDIAMETER = 8;
 	public static final double WHEELBASE = 24;
 
 	public static final int GYROPORT = 1;
+
+	public static final TurtlePIDConstants straightConstants = new TurtlePDD2Constants(.00325, .001, .00008);
+	public static final TurtlePIDConstants turnConstants = new TurtlePDD2Constants(.008, .00035, .00045);
+	public static final TurtlePIDConstants turnGyroConstants = new TurtlePDD2Constants(.015, .00035, .0004);
 	
+	public static final TurtlePIDConstants shoulderConstants = new TurtlePDD2Constants(.015, .00035, .0004);
+	public static final TurtlePIDConstants elbowConstants = new TurtlePDD2Constants(.015, .00035, .0004);
+
 }

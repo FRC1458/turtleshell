@@ -6,7 +6,6 @@ import com.team1458.turtleshell.Output;
 import com.team1458.turtleshell.TurtleDualPID;
 import com.team1458.turtleshell.TurtleEncoder;
 import com.team1458.turtleshell.TurtleMotor;
-import com.team1458.turtleshell.TurtlePDD2Constants;
 import com.team1458.turtleshell.TurtleSmartChassis;
 import com.team1458.turtleshell.TurtleStraightDrivePID;
 import com.team1458.turtleshell.TurtleTheta;
@@ -60,7 +59,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 		Output.outputNumber("target",target);
 		lEncoder.reset();
 		rEncoder.reset();
-		pid = new TurtleStraightDrivePID(new TurtlePDD2Constants(.00325, .001, .00008), target * 360
+		pid = new TurtleStraightDrivePID(TurtwigConstants.straightConstants, target * 360
 				/ (TurtwigConstants.WHEELDIAMETER * Math.PI), 0.00005);
 
 	}
@@ -70,8 +69,8 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 		lEncoder.reset();
 		rEncoder.reset();
 		gyro.reset();
-		pid = new TurtleTurnPID(new TurtlePDD2Constants(.008, .00035, .00045), target, .45, 8, 26.5,
-				new TurtlePDD2Constants(.015, .00035, .0004), 1.26);
+		pid = new TurtleTurnPID(TurtwigConstants.turnConstants, target, .45, 8, 26.5,
+				TurtwigConstants.turnGyroConstants, 1.26);
 
 	}
 

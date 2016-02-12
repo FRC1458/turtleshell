@@ -19,6 +19,7 @@ public class Robot extends TurtleRobot {
 
 	public void initRobot() {
 		physicalRobot.addComponent("Chassis", new TurtwigSmartTankChassis());
+		//physicalRobot.addComponent("Arm", new TurtwigManipulatorArm());
 	}
 
 	public void autonomous() {
