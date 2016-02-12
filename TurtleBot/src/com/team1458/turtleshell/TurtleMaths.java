@@ -159,7 +159,7 @@ public class TurtleMaths {
 		if (m > 1) {
 			m = 1 / m;
 		}
-		if (Double.isNaN(m)) {
+		if (Double.isNaN(m)||Double.isInfinite(m)) {
 			m = 0;
 		}
 		return m;
