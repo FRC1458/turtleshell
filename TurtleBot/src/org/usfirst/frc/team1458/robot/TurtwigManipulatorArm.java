@@ -2,7 +2,6 @@ package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell.TurtleEncoder;
 import com.team1458.turtleshell.TurtleMotor;
-import com.team1458.turtleshell.TurtlePDD2;
 import com.team1458.turtleshell.TurtlePID;
 import com.team1458.turtleshell.TurtleRobotComponent;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;

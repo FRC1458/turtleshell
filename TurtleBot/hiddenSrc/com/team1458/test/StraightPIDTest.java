@@ -8,13 +8,14 @@ import org.junit.Test;
 import com.team1458.turtleshell.MotorValue;
 import com.team1458.turtleshell.TurtleDualPID;
 import com.team1458.turtleshell.TurtleMaths;
+import com.team1458.turtleshell.TurtlePDD2Constants;
 import com.team1458.turtleshell.TurtleStraightDrivePID;
 
 public class StraightPIDTest {
 
 	@Test
 	public void test() {
-		TurtleDualPID pid = new TurtleStraightDrivePID(.0015, .0001, .0001, 5000, 0.00005);
+		TurtleDualPID pid = new TurtleStraightDrivePID(new TurtlePDD2Constants(.0015, .0001, .0001), 5000, 0.00005);
 		double lSpeed = 0;
 		double rSpeed = 0;
 		double lDistance = 0;

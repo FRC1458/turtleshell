@@ -5,14 +5,16 @@ import java.util.Random;
 import org.junit.Test;
 
 import com.team1458.turtleshell.TurtlePDD2;
+import com.team1458.turtleshell.TurtlePDD2Constants;
 import com.team1458.turtleshell.TurtlePID;
+import com.team1458.turtleshell.TurtlePIDConstants;
 
 public class PIDTest {
 
 	@Test
 	public void test() {
 		
-		TurtlePID pid = new TurtlePDD2(.0015,.0001,.0001,5000);
+		TurtlePID pid = new TurtlePDD2(new TurtlePDD2Constants(.0015,.0001,.0001),5000,10);
 		double dist = 0;
 		double motorPower = 0;
 		Random r = new Random();

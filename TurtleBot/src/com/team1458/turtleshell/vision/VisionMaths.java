@@ -4,7 +4,7 @@ public class VisionMaths {
 	/**
 	 * Constant for converting y values to theta
 	 */
-	public final static double yViewConstant = 255.8191;
+	public final static double yViewConstant = 289.27079243662;
 	/**
 	 * Constant for converting x values to theta
 	 */
