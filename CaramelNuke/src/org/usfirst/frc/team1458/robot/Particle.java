@@ -3,6 +3,8 @@ package org.usfirst.frc.team1458.robot;
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.Image;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class Particle implements Comparable {
 
     public final double percentArea;
@@ -16,6 +18,9 @@ public class Particle implements Comparable {
     public final int top;
     public final int right;
     public final int bottom;
+    
+    public final int xCentre;
+    public final int yCentre;
 
     public Particle(Image binaryFrame, int particleIndex) {
 	percentArea = NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_AREA_BY_IMAGE_AREA);
@@ -30,6 +35,11 @@ public class Particle implements Comparable {
 	top = (int) Math.round(NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_TOP));
 	right = (int) Math.round(NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_RIGHT));
 	bottom = (int) Math.round(NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_BOTTOM));
+	
+	xCentre = (int) Math.round(NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_CENTER_OF_MASS_X));
+	
+	yCentre = (int) Math.round(NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_CENTER_OF_MASS_Y));
+	SmartDashboard.putNumber("Total Image area", NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_IMAGE_AREA));
     }
 
     @Override

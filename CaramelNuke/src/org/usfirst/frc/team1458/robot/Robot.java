@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Vector;
 
+import org.usfirst.frc.team1458.robot.TurtleMaths.RangeShifter;
+
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
@@ -64,6 +66,9 @@ public class Robot extends CarmelBot {
 			      // HD3000 square, 60 for HD3000 640x480
     NIVision.ParticleFilterCriteria2 criteria[] = new NIVision.ParticleFilterCriteria2[1];
     NIVision.ParticleFilterOptions2 filterOptions = new NIVision.ParticleFilterOptions2(0, 0, 1, 1);
+    
+    private final RangeShifter xShifter = new RangeShifter(0,640,-320,320);
+    private final RangeShifter yShifter = new RangeShifter(0,480,-240,240);
 
     public void initRobot() {
 	initCamera();
@@ -157,6 +162,8 @@ public class Robot extends CarmelBot {
 	    SmartDashboard.putNumber("PerimeterScore", scores.perimeterToConvexPerimeter);
 	    SmartDashboard.putNumber("PlenimeterScore", scores.plenimeter);
 	    SmartDashboard.putNumber("RectanglinessScore", scores.rectangliness);
+	    SmartDashboard.putNumber("X value is", xShifter.shift(particle.xCentre));
+	    SmartDashboard.putNumber("Y value is", yShifter.shift(particle.yCentre));
 	    SmartDashboard.putBoolean("IsAcceptable", ScoreAnalyser.isAcceptable(scores));
 
 	    //NIVision.Rect rect = new NIVision.Rect(particle.left, particle.top, particle.right - particle.left, particle.bottom - particle.top);
