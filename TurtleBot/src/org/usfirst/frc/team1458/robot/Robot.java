@@ -34,8 +34,7 @@ public class Robot extends TurtleRobot {
 		maggie = new TurtleXtrinsicMagnetometer(I2C.Port.kOnboard);
 		((TurtleXtrinsicMagnetometer) maggie).setCalibration(new TurtleXtrinsicMagnetometerCalibration(-1614,
 				-874, 763, 1649));
-		tele = new TurtwigTestTeleop();
-		tele.giveRobot(physicalRobot);
+		tele = thingGiver.giveTeleop();
 
 		while (TurtleSafeDriverStation.canTele()) {
 			physicalRobot.teleUpdateAll();

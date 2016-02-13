@@ -37,5 +37,10 @@ public class TurtleCANTalon implements TurtleMotor {
 	public boolean isReversed() {
 		return isReversed;
 	}
+	@Override
+	public void stop() {
+		talon.set(0);
+		
+	}
 
 }

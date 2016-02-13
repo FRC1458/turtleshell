@@ -12,7 +12,6 @@ public class TurtwigIntake implements TurtleRobotComponent {
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
 		
 	}
 

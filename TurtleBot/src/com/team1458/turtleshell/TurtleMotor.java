@@ -29,4 +29,9 @@ public interface TurtleMotor {
 	 * @return Whether or not the motor is reversed.
 	 */
 	public abstract boolean isReversed();
+	
+	/**
+	 * Stop the motor.
+	 */
+	public void stop();
 }

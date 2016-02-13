@@ -37,4 +37,10 @@ public class TurtleVictor implements TurtleMotor {
 	public boolean isReversed() {
 		return isReversed;
 	}
+
+	@Override
+	public void stop() {
+		victor.set(0);
+		
+	}
 }

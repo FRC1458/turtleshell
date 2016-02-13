@@ -39,4 +39,10 @@ public class TurtleTalon implements TurtleMotor {
 		return isReversed;
 	}
 
+	@Override
+	public void stop() {
+		talon.set(0);
+		
+	}
+
 }
