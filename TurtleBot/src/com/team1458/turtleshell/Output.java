@@ -1,5 +1,7 @@
 package com.team1458.turtleshell;
 
+import com.team1458.turtleshell.logging.TurtleLogger;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Output {
@@ -10,6 +12,7 @@ public class Output {
 	 */
 	public static void spew(Object o) {
 		SmartDashboard.putString(o.hashCode()+"", o.toString());
+		TurtleLogger.info("Spewing to SmartDashboard: "+o.toString());
 	}
 	/**
 	 * Output a number to the SmartDashboard
@@ -18,6 +21,7 @@ public class Output {
 	 */
 	public static void outputNumber(String s, Number n) {
 		SmartDashboard.putNumber(s, n.doubleValue());
+		TurtleLogger.info("Outputing to SmartDashboard" + n + "with key "+s);
 	}
 	
 	/**
@@ -27,6 +31,7 @@ public class Output {
 	 */
 	public static void outputBoolean(String s, boolean b) {
 		SmartDashboard.putBoolean(s, b);
+		TurtleLogger.info("Outputing to SmartDashboard" + b + "with key "+s);
 	}
 	
 	/**
@@ -35,5 +40,6 @@ public class Output {
 	 */
 	public static void syso(Object o) {
 		System.out.println(o);
+		TurtleLogger.info("Outputing to standard out: " + o);
 	}
 }

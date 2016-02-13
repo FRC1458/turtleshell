@@ -1,4 +1,7 @@
 package com.team1458.turtleshell;
+
+import com.team1458.turtleshell.logging.TurtleLogger;
+
 /**
  * Implemntation of PID for a Proportional-Derivative-2nd Derivative controller.
  * @author mehnadnerd

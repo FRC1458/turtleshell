@@ -31,7 +31,7 @@ public class TurtleLogger {
 		if(l.level>=currentLevel.level) {
 			//do log
 			try {
-				fw.write(LocalDateTime.now().toString()+" ["+l.toString()+"]" + s + "\n");
+				fw.write(LocalDateTime.now().toString()+" ["+l.toString()+"] " + s + "\n");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

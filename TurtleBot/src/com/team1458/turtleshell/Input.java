@@ -1,5 +1,7 @@
 package com.team1458.turtleshell;
 
+import com.team1458.turtleshell.logging.TurtleLogger;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
