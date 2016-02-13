@@ -1,5 +1,7 @@
 package com.team1458.turtleshell;
 
+import com.team1458.turtleshell.logging.TurtleLogger;
+
 /**
  * A replacement for SampleRobot/SimpleRobot, this class provides a base class
  * for a robot built off of the turtleshell framework
@@ -29,6 +31,7 @@ public abstract class TurtleRobot extends TurtleAdvancedRobot {
 	@Override
 	public final void robotInit() {
 		TurtleSafeDriverStation.setDS(m_ds);
+		//TurtleLogger.initialise(l);
 		initRobot();
 	}
 
