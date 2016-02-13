@@ -23,6 +23,10 @@ public abstract class TurtleRobot extends TurtleAdvancedRobot {
 	 * and let it do its thing.
 	 */
 	protected TurtleAutonomous auto;
+	
+	protected TurtleThingGiver thingGiver;
+	
+	protected TurtleUpdatableBlob updateBlob;
 
 	@Override
 	public final void robotInit() {
@@ -42,4 +46,12 @@ public abstract class TurtleRobot extends TurtleAdvancedRobot {
 
 	@Override
 	public abstract void operatorControl();
+	
+	/**
+	 * Do the nessecary updates, should be called once per cycle in the loop.
+	 */
+	public void doUpdates() {
+		updateBlob.updateAll();
+		physicalRobot.teleUpdateAll();
+	}
 }

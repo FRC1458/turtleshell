@@ -12,21 +12,22 @@ import edu.wpi.first.wpilibj.Utility;
 
 public class Robot extends TurtleRobot {
 	TurtleTheta maggie;
+	
 
 	public Robot() {
 
 	}
 
 	public void initRobot() {
-		physicalRobot.addComponent("Chassis", new TurtwigSmartTankChassis());
-		//physicalRobot.addComponent("Arm", new TurtwigManipulatorArm());
+		thingGiver=new TurtwigThingGiver();
+		physicalRobot=thingGiver.givePhysicalRobot();
+		updateBlob=thingGiver.giveUpdatableBlob();
 	}
 
 	public void autonomous() {
 		// Put the code to initialise autonomous here.
-		// auto = new TurtwigTestAutonomous();
-		// auto.giveRobot(physicalRobot);
-		// auto.doAuto();
+		auto = thingGiver.giveAutonomous();
+		auto.doAuto();
 	}
 
 	public void operatorControl() {
@@ -38,8 +39,7 @@ public class Robot extends TurtleRobot {
 		tele.giveRobot(physicalRobot);
 
 		while (TurtleSafeDriverStation.canTele()) {
-			physicalRobot.teleUpdateAll();
-			// tele.tick();
+			doUpdates();
 			maggie.update();
 			if (Utility.getUserButton()) {
 				maggie.setCalibration(maggie.generateCalibration());
