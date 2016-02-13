@@ -19,7 +19,7 @@ public class Robot extends TurtleRobot {
 	}
 
 	public void initRobot() {
-		thingGiver=new TurtwigThingGiver();
+		thingGiver=new Turtwig2016RobotGiver();
 		physicalRobot=thingGiver.givePhysicalRobot();
 	}
 

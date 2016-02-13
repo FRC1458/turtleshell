@@ -6,13 +6,13 @@ import com.team1458.turtleshell.TurtleTeleop;
 import com.team1458.turtleshell.TurtleThingGiver;
 import com.team1458.turtleshell.TurtleUpdatableBlob;
 
-public class TurtwigThingGiver implements TurtleThingGiver {
+public class Turtwig2016RobotGiver implements TurtleThingGiver {
 	private TurtlePhysicalRobot phy = new TurtlePhysicalRobot();
 	private TurtleTeleop tel = new TurtwigTestTeleop();
 	private TurtleAutonomous aut = new TurtwigTestAutonomous();
 	private TurtleUpdatableBlob blo = new TurtleUpdatableBlob();
 
-	public TurtwigThingGiver() {
+	public Turtwig2016RobotGiver() {
 		phy.addComponent("Chassis", new TurtwigSmartTankChassis());
 		phy.giveUpdatableBlob(blo);
 		tel.giveRobot(phy);

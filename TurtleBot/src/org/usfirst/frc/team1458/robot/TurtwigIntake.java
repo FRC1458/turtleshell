@@ -8,7 +8,7 @@ import com.team1458.turtleshell.physical.TurtleVictor;
 
 public class TurtwigIntake implements TurtleRobotComponent {
 	private TurtleMotor lMotor = new TurtleVictor(TurtwigConstants.LEFTINTAKEVICTORPORT, false);
-	private TurtleMotor rMotor = new TurtleVictor(TurtwigConstants.RIGHTINTAKEVICTORPORT, false);
+	private TurtleMotor rMotor = new TurtleVictor(TurtwigConstants.RIGHTINTAKEVICTORPORT, true);
 
 	@Override
 	public void init() {
@@ -24,7 +24,6 @@ public class TurtwigIntake implements TurtleRobotComponent {
 	@Override
 	public void stop() {
 		driveMotors(MotorValue.zero);
-		
 	}
 	
 	private void driveMotors(MotorValue power) {
