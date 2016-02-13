@@ -40,5 +40,11 @@ public class TurtwigConstants {
 	
 	public static final TurtlePIDConstants shoulderConstants = new TurtlePDD2Constants(.015, .00035, .0004);
 	public static final TurtlePIDConstants elbowConstants = new TurtlePDD2Constants(.015, .00035, .0004);
+	
+	public static final double cameraHeight = 8;
+	/**
+	 * Elevation of camera in radians
+	 */
+	public static final double cameraAngle = 0;
 
 }
