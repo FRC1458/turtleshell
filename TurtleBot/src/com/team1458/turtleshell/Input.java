@@ -1,6 +1,7 @@
 package com.team1458.turtleshell;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Static class to deal with Inputs, all inputs should be done through this.
@@ -83,6 +84,37 @@ public class Input {
 			return 0;
 		default:
 			return 0;
+		}
+	}
+
+	/**
+	 * Get a number from the SmartDashboard
+	 * 
+	 * @param key
+	 *            The name of the SmartDashboard thing
+	 * @return The number in SmartDashboard, or zero if it cannot be found
+	 */
+	public static double getDashboardNumber(String key) {
+		return SmartDashboard.getNumber(key, 0);
+	}
+
+	/**
+	 * Get a boolean from the SmartDashboard
+	 * 
+	 * @param key
+	 *            The name of the SmartDashboard thing
+	 * @return The boolean in SmartDashboard, or false if it cannot be found
+	 */
+	public static boolean getDashboardBoolean(String key) {
+		return SmartDashboard.getBoolean(key);
+	}
+
+	public static boolean isDebug() {
+		switch (inputThingy1Config) {
+		case PANEL:
+			return thingy1.getRawButton(13);
+		default:
+			return false;
 		}
 	}
 

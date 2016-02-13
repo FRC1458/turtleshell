@@ -3,7 +3,7 @@ package com.team1458.turtleshell.vision;
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.Image;
 
-public class Particle implements Comparable {
+public class Particle implements Comparable<Particle> {
 
 	public final double percentArea;
 	public final double area;
@@ -35,10 +35,8 @@ public class Particle implements Comparable {
 	}
 
 	@Override
-	public int compareTo(Object o) {
-		Particle particle = (Particle) o;
-
-		if (particle.percentArea > percentArea) {
+	public int compareTo(Particle o) {
+		if (o.percentArea > percentArea) {
 			return 1;
 		}
 		return 0;

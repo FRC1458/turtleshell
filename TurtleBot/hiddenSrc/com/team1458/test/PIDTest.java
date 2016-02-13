@@ -7,7 +7,6 @@ import org.junit.Test;
 import com.team1458.turtleshell.TurtlePDD2;
 import com.team1458.turtleshell.TurtlePDD2Constants;
 import com.team1458.turtleshell.TurtlePID;
-import com.team1458.turtleshell.TurtlePIDConstants;
 
 public class PIDTest {
 

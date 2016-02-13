@@ -1,10 +1,11 @@
 package com.team1458.turtleshell.physical;
 
 import com.team1458.turtleshell.Output;
+import com.team1458.turtleshell.TurtleCalibratable;
 import com.team1458.turtleshell.TurtleMaths;
 import com.team1458.turtleshell.TurtleMaths.RangeShifter;
 import com.team1458.turtleshell.TurtleTheta;
-import com.team1458.turtleshell.TurtleThetaCalibration;
+import com.team1458.turtleshell.TurtleCalibration;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Timer;
@@ -16,7 +17,7 @@ import edu.wpi.first.wpilibj.Timer;
  * @author mehnadnerd
  *
  */
-public class TurtleXtrinsicMagnetometer implements TurtleTheta {
+public class TurtleXtrinsicMagnetometer implements TurtleTheta, TurtleCalibratable {
 	private boolean doDebug = true;
 	private double angle;
 	private double prevAngle;
@@ -180,12 +181,12 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 	}
 
 	@Override
-	public TurtleThetaCalibration getCalibration() {
+	public TurtleCalibration getCalibration() {
 		return new TurtleXtrinsicMagnetometerCalibration(calib[0], calib[1], calib[2], calib[3]);
 	}
 
 	@Override
-	public void setCalibration(TurtleThetaCalibration calibration) {
+	public void setCalibration(TurtleCalibration calibration) {
 		calib = calibration.getValues();
 		xShifter = new RangeShifter(calib[0], calib[1], -1, 1);
 		yShifter = new RangeShifter(calib[2], calib[3], -1, 1);
@@ -193,7 +194,7 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta {
 	}
 
 	@Override
-	public TurtleThetaCalibration generateCalibration() {
+	public TurtleCalibration generateCalibration() {
 		return new TurtleXtrinsicMagnetometerCalibration(xMin, xMax, yMin, yMax);
 	}
 

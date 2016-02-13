@@ -1,7 +1,5 @@
 package com.team1458.test;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 import com.team1458.turtleshell.TurtleMaths.RangeShifter;

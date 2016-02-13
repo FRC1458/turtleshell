@@ -32,7 +32,7 @@ public class Robot extends TurtleRobot {
 	public void operatorControl() {
 		// Put the code to initialise operator control here.
 		maggie = new TurtleXtrinsicMagnetometer(I2C.Port.kOnboard);
-		maggie.setCalibration(new TurtleXtrinsicMagnetometerCalibration(-1614,
+		((TurtleXtrinsicMagnetometer) maggie).setCalibration(new TurtleXtrinsicMagnetometerCalibration(-1614,
 				-874, 763, 1649));
 		tele = new TurtwigTestTeleop();
 		tele.giveRobot(physicalRobot);
@@ -41,7 +41,7 @@ public class Robot extends TurtleRobot {
 			physicalRobot.teleUpdateAll();
 			maggie.update();
 			if (Utility.getUserButton()) {
-				maggie.setCalibration(maggie.generateCalibration());
+				((TurtleXtrinsicMagnetometer) maggie).setCalibration(((TurtleXtrinsicMagnetometer) maggie).generateCalibration());
 			}
 			Output.outputNumber("MagAngle", maggie.getContinousTheta());
 			Output.outputNumber("MagRate", maggie.getRate());

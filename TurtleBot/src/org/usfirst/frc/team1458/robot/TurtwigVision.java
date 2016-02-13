@@ -7,7 +7,7 @@ import com.ni.vision.NIVision.Image;
 import com.ni.vision.NIVision.ImageType;
 import com.team1458.turtleshell.TurtleDistance;
 import com.team1458.turtleshell.TurtleTheta;
-import com.team1458.turtleshell.TurtleThetaCalibration;
+import com.team1458.turtleshell.TurtleCalibration;
 import com.team1458.turtleshell.TurtleVision;
 import com.team1458.turtleshell.vision.Particle;
 import com.team1458.turtleshell.vision.ScoreAnalyser;
@@ -151,21 +151,6 @@ public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance 
 	@Override
 	public void reset() {
 		// Not applicable
-	}
-
-	@Override
-	public TurtleThetaCalibration getCalibration() {
-		return null;
-	}
-
-	@Override
-	public void setCalibration(TurtleThetaCalibration calibration) {
-		// nothing to do
-	}
-
-	@Override
-	public TurtleThetaCalibration generateCalibration() {
-		return null;
 	}
 
 	@Override
