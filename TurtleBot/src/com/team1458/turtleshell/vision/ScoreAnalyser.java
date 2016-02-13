@@ -6,9 +6,9 @@ import com.team1458.turtleshell.TurtleMaths;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ScoreAnalyser {
-	public static final double areaOverConvexAreaIdeal = 88.0 / 280;
-	public static final double perimeterOverConvexPerimeterIdeal = 94.0 / 68;
-	public static final double plenimeterIdeal = 92.0 * 92.0 / 88;
+	public static final double areaOverConvexAreaIdeal = 76.0 / 240;
+	public static final double perimeterOverConvexPerimeterIdeal = 84.5 / 64;
+	public static final double plenimeterIdeal = 84.5 * 84.5 / 76;
 
 	public static final double errorRange = .2;
 	public static double areaRange = .2;
