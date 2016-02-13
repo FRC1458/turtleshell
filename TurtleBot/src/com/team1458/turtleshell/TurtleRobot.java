@@ -26,8 +26,6 @@ public abstract class TurtleRobot extends TurtleAdvancedRobot {
 	
 	protected TurtleThingGiver thingGiver;
 	
-	protected TurtleUpdatableBlob updateBlob;
-
 	@Override
 	public final void robotInit() {
 		TurtleSafeDriverStation.setDS(m_ds);
@@ -46,12 +44,4 @@ public abstract class TurtleRobot extends TurtleAdvancedRobot {
 
 	@Override
 	public abstract void operatorControl();
-	
-	/**
-	 * Do the nessecary updates, should be called once per cycle in the loop.
-	 */
-	public void doUpdates() {
-		updateBlob.updateAll();
-		physicalRobot.teleUpdateAll();
-	}
 }

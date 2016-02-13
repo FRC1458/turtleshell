@@ -21,7 +21,6 @@ public class Robot extends TurtleRobot {
 	public void initRobot() {
 		thingGiver=new TurtwigThingGiver();
 		physicalRobot=thingGiver.givePhysicalRobot();
-		updateBlob=thingGiver.giveUpdatableBlob();
 	}
 
 	public void autonomous() {
@@ -39,7 +38,7 @@ public class Robot extends TurtleRobot {
 		tele.giveRobot(physicalRobot);
 
 		while (TurtleSafeDriverStation.canTele()) {
-			doUpdates();
+			physicalRobot.teleUpdateAll();
 			maggie.update();
 			if (Utility.getUserButton()) {
 				maggie.setCalibration(maggie.generateCalibration());

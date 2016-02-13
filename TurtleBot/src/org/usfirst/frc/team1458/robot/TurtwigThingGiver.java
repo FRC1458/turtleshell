@@ -14,6 +14,7 @@ public class TurtwigThingGiver implements TurtleThingGiver {
 
 	public TurtwigThingGiver() {
 		phy.addComponent("Chassis", new TurtwigSmartTankChassis());
+		phy.giveUpdatableBlob(blo);
 		tel.giveRobot(phy);
 		aut.giveRobot(phy);
 	}
@@ -31,10 +32,5 @@ public class TurtwigThingGiver implements TurtleThingGiver {
 	@Override
 	public TurtlePhysicalRobot givePhysicalRobot() {
 		return phy;
-	}
-
-	@Override
-	public TurtleUpdatableBlob giveUpdatableBlob() {
-		return blo;
 	}
 }

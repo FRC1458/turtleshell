@@ -11,10 +11,15 @@ import java.util.Map;
  *
  */
 public class TurtlePhysicalRobot {
-	private Map<String,TurtleRobotComponent> robotComponents = new HashMap<String,TurtleRobotComponent>();
+	private Map<String, TurtleRobotComponent> robotComponents = new HashMap<String, TurtleRobotComponent>();
+	private TurtleUpdatableBlob updateBlob;
 
 	public TurtlePhysicalRobot() {
 
+	}
+
+	public void giveUpdatableBlob(TurtleUpdatableBlob blob) {
+		this.updateBlob = blob;
 	}
 
 	/**
@@ -31,24 +36,45 @@ public class TurtlePhysicalRobot {
 
 	/**
 	 * 
-	 * @param s Name of component
+	 * @param s
+	 *            Name of component
 	 * @return The component
 	 */
 	public TurtleRobotComponent getComponent(String s) {
 		return robotComponents.get(s);
 	}
-	
+
+	/**
+	 * Updates all updatable components
+	 */
+	public void updateAll() {
+		updateBlob.updateAll();
+	}
+
+	/**
+	 * Updates all updatable components and all autoUpdatableComponents
+	 */
+	public void autoUpdateAll() {
+		updateAll();
+		for (TurtleRobotComponent c : robotComponents.values()) {
+			if (c instanceof TurtleSmartRobotComponent) {
+				((TurtleSmartRobotComponent) c).autoUpdate();
+			}
+		}
+	}
+
 	/**
 	 * 
 	 */
 	public void teleUpdateAll() {
-		for(TurtleRobotComponent c: robotComponents.values()) {
+		updateAll();
+		for (TurtleRobotComponent c : robotComponents.values()) {
 			c.teleUpdate();
 		}
 	}
-	
+
 	public void stopAll() {
-		for(TurtleRobotComponent c: robotComponents.values()) {
+		for (TurtleRobotComponent c : robotComponents.values()) {
 			c.stop();
 		}
 	}
