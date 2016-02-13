@@ -9,6 +9,7 @@ import com.team1458.turtleshell.physical.TurtleVictor;
 public class TurtwigIntake implements TurtleRobotComponent {
 	private TurtleMotor lMotor = new TurtleVictor(TurtwigConstants.LEFTINTAKEVICTORPORT, false);
 	private TurtleMotor rMotor = new TurtleVictor(TurtwigConstants.RIGHTINTAKEVICTORPORT, true);
+	private TurtleMotor sMotor = new TurtleVictor(TurtwigConstants.SPININTAKEVICTORPORT, false);
 
 	@Override
 	public void init() {
@@ -18,6 +19,7 @@ public class TurtwigIntake implements TurtleRobotComponent {
 	@Override
 	public void teleUpdate() {
 		driveMotors(new MotorValue(Input.getRPower()));
+		sMotor.set(new MotorValue(Input.getLPower()));
 	}
 
 	@Override
