@@ -1,5 +1,6 @@
 package com.team1458.turtleshell;
 
+import com.team1458.turtleshell.logging.TurtleLogLevel;
 import com.team1458.turtleshell.logging.TurtleLogger;
 
 /**
@@ -27,11 +28,15 @@ public abstract class TurtleRobot extends TurtleAdvancedRobot {
 	protected TurtleAutonomous auto;
 	
 	protected TurtleThingGiver thingGiver;
+	/**
+	 * Sets the log level, override this to change the log level
+	 */
+	private TurtleLogLevel logLevel = TurtleLogLevel.INFO; 
 	
 	@Override
 	public final void robotInit() {
 		TurtleSafeDriverStation.setDS(m_ds);
-		//TurtleLogger.initialise(l);
+		TurtleLogger.initialise(logLevel);
 		initRobot();
 	}
 
