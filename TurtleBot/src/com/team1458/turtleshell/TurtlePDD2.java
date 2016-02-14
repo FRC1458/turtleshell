@@ -1,7 +1,5 @@
 package com.team1458.turtleshell;
 
-import com.team1458.turtleshell.logging.TurtleLogger;
-
 /**
  * Implemntation of PID for a Proportional-Derivative-2nd Derivative controller.
  * @author mehnadnerd
@@ -39,7 +37,6 @@ public class TurtlePDD2 implements TurtlePID {
 		double newValue = kP * (target - inputs[0]) - kD * inputs[1] + kDD * (prevdValue - inputs[1]);
 		prevdValue = inputs[1];
 		savedpValue = inputs[0];
-		//System.out.println("U"+newValue);
 		return new MotorValue(newValue);
 	}
 

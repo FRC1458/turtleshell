@@ -8,6 +8,7 @@ import com.ni.vision.NIVision.ImageType;
 import com.team1458.turtleshell.TurtleDistance;
 import com.team1458.turtleshell.TurtleTheta;
 import com.team1458.turtleshell.TurtleVision;
+import com.team1458.turtleshell.logging.TurtleLogger;
 import com.team1458.turtleshell.vision.Particle;
 import com.team1458.turtleshell.vision.ScoreAnalyser;
 import com.team1458.turtleshell.vision.Scores;
@@ -125,6 +126,8 @@ public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance 
 				angle = VisionMaths.xToTheta(particle.xCentre);
 			}
 
+		} else {
+			TurtleLogger.warning("No vision target found");
 		}
 
 		if (!SmartDashboard.getBoolean("use binary")) {

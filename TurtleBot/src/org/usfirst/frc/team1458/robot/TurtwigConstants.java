@@ -41,5 +41,8 @@ public class TurtwigConstants {
 	 * Elevation of camera in radians
 	 */
 	public static final double cameraAngle = 0;
+	public static final int POWERWINCHVICTORPORT = 7;
+	public static final int HOOKWINCHVICTORPORT = 8;
+
 
 }

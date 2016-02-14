@@ -10,6 +10,7 @@ import com.team1458.turtleshell.TurtleSmartChassis;
 import com.team1458.turtleshell.TurtleStraightDrivePID;
 import com.team1458.turtleshell.TurtleTheta;
 import com.team1458.turtleshell.TurtleTurnPID;
+import com.team1458.turtleshell.logging.TurtleLogger;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;
 import com.team1458.turtleshell.physical.TurtleAnalogGyro;
 import com.team1458.turtleshell.physical.TurtleVictor;
@@ -56,6 +57,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 
 	@Override
 	public void setLinearTarget(double target) {
+		TurtleLogger.info("Setting linear target: "+target);
 		Output.outputNumber("target",target);
 		lEncoder.reset();
 		rEncoder.reset();
@@ -66,6 +68,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 
 	@Override
 	public void setThetaTarget(double target) {
+		TurtleLogger.info("Setting theta target: "+target);
 		lEncoder.reset();
 		rEncoder.reset();
 		gyro.reset();

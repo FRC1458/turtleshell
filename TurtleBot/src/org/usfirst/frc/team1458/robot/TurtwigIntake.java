@@ -4,12 +4,13 @@ import com.team1458.turtleshell.Input;
 import com.team1458.turtleshell.MotorValue;
 import com.team1458.turtleshell.TurtleMotor;
 import com.team1458.turtleshell.TurtleRobotComponent;
+import com.team1458.turtleshell.physical.TurtleTalon;
 import com.team1458.turtleshell.physical.TurtleVictor;
 
 public class TurtwigIntake implements TurtleRobotComponent {
 	private TurtleMotor lMotor = new TurtleVictor(TurtwigConstants.LEFTINTAKEVICTORPORT, false);
 	private TurtleMotor rMotor = new TurtleVictor(TurtwigConstants.RIGHTINTAKEVICTORPORT, true);
-	private TurtleMotor sMotor = new TurtleVictor(TurtwigConstants.SPININTAKEVICTORPORT, false);
+	private TurtleMotor sMotor = new TurtleTalon(TurtwigConstants.SPININTAKEVICTORPORT, false);
 
 	@Override
 	public void init() {
@@ -24,7 +25,9 @@ public class TurtwigIntake implements TurtleRobotComponent {
 
 	@Override
 	public void stop() {
-		driveMotors(MotorValue.zero);
+		lMotor.stop();
+		rMotor.stop();
+		sMotor.stop();
 	}
 	
 	private void driveMotors(MotorValue power) {

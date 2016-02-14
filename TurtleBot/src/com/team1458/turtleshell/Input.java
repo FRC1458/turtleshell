@@ -1,7 +1,5 @@
 package com.team1458.turtleshell;
 
-import com.team1458.turtleshell.logging.TurtleLogger;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -118,6 +116,29 @@ public class Input {
 		default:
 			return false;
 		}
+	}
+	
+	public static boolean shouldInterrupt() {
+		boolean toReturn = false;
+		for(int i = 0; i < 15; i++) {
+			toReturn|=steering1.getRawButton(i);
+		}
+		for(int i = 0; i < 15; i++) {
+			toReturn|=steering2.getRawButton(i);
+		}
+		for(int i = 0; i < 15; i++) {
+			toReturn|=thingy1.getRawButton(i);
+		}
+		for(int i = 0; i < 15; i++) {
+			toReturn|=thingy2.getRawButton(i);
+		}
+		if(Math.abs(steering1.getAxis(Joystick.AxisType.kY))>.1) {
+			toReturn=true;
+		}
+		if(Math.abs(steering2.getAxis(Joystick.AxisType.kY))>.1) {
+			toReturn=true;
+		}
+		return toReturn;
 	}
 
 }
