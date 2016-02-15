@@ -26,6 +26,14 @@ public class Input {
 	public static enum InputThingyConfiguration {
 		PANEL, XBOX
 	}
+	
+	public static enum XBoxButton {
+		X(0), Y;
+		public final int val;
+		XBoxButton(int i) {
+			val=i;
+		}
+	}
 
 	public static void setDriveConfiguration(InputDriveConfiguration driveConfig) {
 		inputDriveConfig = driveConfig;
@@ -140,5 +148,7 @@ public class Input {
 		}
 		return toReturn;
 	}
+	
+	public static boolean 
 
 }
