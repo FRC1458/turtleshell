@@ -7,7 +7,7 @@ public class TurtwigTestTeleop implements TurtleTeleop {
 	TurtlePhysicalRobot physicalRobot;
 	@Override
 	public void tick() {
-		
+		physicalRobot.teleUpdateAll();
 	}
 
 	@Override

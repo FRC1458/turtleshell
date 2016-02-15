@@ -1,5 +1,7 @@
 package com.team1458.turtleshell;
 
+import com.team1458.turtleshell.logging.TurtleLogger;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -27,15 +29,32 @@ public class Input {
 		PANEL, XBOX
 	}
 	
-	public static enum XBoxButton {
-		X(0), Y;
+	public static enum XboxButton {
+		A(0), B(1), X(2), Y(3), LBUMP(4), RBUMP(5), SELECT(6), START(7), LSTICK(8), RSTICK(9);
 		public final int val;
-		XBoxButton(int i) {
+		XboxButton(int i) {
+			val=i;
+		}
+	}
+	
+	public static enum POV {
+		NONE(-1), N(0), NW(1), W(2), SW(3), S(4), SE(5), E(6), NE(7);
+		public final int val;
+		POV(int i) {
+			val=i;
+		}
+	}
+	
+	public static enum XboxAxis {
+		LX(0), LY(1), LT(2), RT(3), RX(4), RY(5), ;
+		public final int val;
+		XboxAxis(int i) {
 			val=i;
 		}
 	}
 
 	public static void setDriveConfiguration(InputDriveConfiguration driveConfig) {
+		steering1.getPOV(0);
 		inputDriveConfig = driveConfig;
 	}
 
@@ -149,6 +168,32 @@ public class Input {
 		return toReturn;
 	}
 	
-	public static boolean 
+	public static boolean getXboxButton(XboxButton b) {
+		if(inputThingy1Config==InputThingyConfiguration.XBOX) {
+			return thingy1.getRawButton(b.val);
+		}
+		if(inputThingy2Config==InputThingyConfiguration.XBOX) {
+			return thingy2.getRawButton(b.val);
+		}
+		TurtleLogger.severe("Requesting an Xbox button, but no Xbox controller is connected or configured");
+		return false;	
+	}
+	
+	public static double getXboxAxis(XboxAxis a) {
+		if(inputThingy1Config==InputThingyConfiguration.XBOX) {
+			if(a==XboxAxis.LY||a==XboxAxis.RY) {
+				return -thingy1.getRawAxis(a.val);
+			}
+			return thingy1.getRawAxis(a.val);
+		}
+		if(inputThingy2Config==InputThingyConfiguration.XBOX) {
+			if(a==XboxAxis.LY||a==XboxAxis.RY) {
+				return -thingy2.getRawAxis(a.val);
+			}
+			return thingy2.getRawAxis(a.val);
+		}
+		TurtleLogger.severe("Requesting an Xbox axis, but no Xbox controller is connected or configured");
+		return 0;
+	}
 
 }

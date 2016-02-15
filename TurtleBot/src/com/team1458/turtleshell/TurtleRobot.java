@@ -31,12 +31,14 @@ public abstract class TurtleRobot extends TurtleAdvancedRobot {
 	/**
 	 * Sets the log level, override this to change the log level
 	 */
-	private TurtleLogLevel logLevel = TurtleLogLevel.INFO; 
+	protected TurtleLogLevel logLevel = TurtleLogLevel.INFO; 
 	
 	@Override
 	public final void robotInit() {
+		
 		TurtleSafeDriverStation.setDS(m_ds);
 		TurtleLogger.initialise(logLevel);
+		TurtleLogger.info("Logging started");
 		initRobot();
 	}
 

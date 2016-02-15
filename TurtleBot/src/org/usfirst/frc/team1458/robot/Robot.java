@@ -37,7 +37,7 @@ public class Robot extends TurtleRobot {
 		tele = thingGiver.giveTeleop();
 
 		while (TurtleSafeDriverStation.canTele()) {
-			physicalRobot.teleUpdateAll();
+			tele.tick();
 			maggie.update();
 			if (Utility.getUserButton()) {
 				((TurtleXtrinsicMagnetometer) maggie).setCalibration(((TurtleXtrinsicMagnetometer) maggie).generateCalibration());
