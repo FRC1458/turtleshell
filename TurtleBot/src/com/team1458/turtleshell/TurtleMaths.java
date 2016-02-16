@@ -174,4 +174,12 @@ public class TurtleMaths {
 	public static double percentError(double actual, double measured) {
 	    return TurtleMaths.absDiff(actual, measured)/actual;
 	}
+	public static double deadband(double input, double deadbandRange) {
+	    if(Math.abs(input) < deadbandRange){
+		return 0;
+	    }
+	    
+	    return input;
+	    
+	}
 }

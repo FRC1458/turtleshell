@@ -20,7 +20,16 @@ public class Input {
 	protected static Joystick steering2 = new Joystick(1);
 	protected static Joystick thingy1 = new Joystick(2);
 	protected static Joystick thingy2 = new Joystick(3);
-
+	protected static double xboxDeadband = 0.2; 
+	protected static double joystickDeadband = 0.1; 
+	
+	public static void setXboxDeadband(double xboxDeadband) {
+	    Input.xboxDeadband = xboxDeadband; 
+	}
+	public static void setJoystickDeadband(double joystickDeadband) {
+	    Input.joystickDeadband = joystickDeadband; 
+	}
+	
 	public static enum InputDriveConfiguration {
 		TANK, ARCADE, WHEEL
 	}
@@ -182,15 +191,15 @@ public class Input {
 	public static double getXboxAxis(XboxAxis a) {
 		if(inputThingy1Config==InputThingyConfiguration.XBOX) {
 			if(a==XboxAxis.LY||a==XboxAxis.RY) {
-				return -thingy1.getRawAxis(a.val);
+				return TurtleMaths.deadband(-thingy1.getRawAxis(a.val), xboxDeadband);
 			}
-			return thingy1.getRawAxis(a.val);
+			return TurtleMaths.deadband(thingy1.getRawAxis(a.val), xboxDeadband);
 		}
 		if(inputThingy2Config==InputThingyConfiguration.XBOX) {
 			if(a==XboxAxis.LY||a==XboxAxis.RY) {
-				return -thingy2.getRawAxis(a.val);
+				return TurtleMaths.deadband(-thingy2.getRawAxis(a.val), xboxDeadband);
 			}
-			return thingy2.getRawAxis(a.val);
+			return TurtleMaths.deadband(thingy2.getRawAxis(a.val), xboxDeadband);
 		}
 		TurtleLogger.severe("Requesting an Xbox axis, but no Xbox controller is connected or configured");
 		return 0;
