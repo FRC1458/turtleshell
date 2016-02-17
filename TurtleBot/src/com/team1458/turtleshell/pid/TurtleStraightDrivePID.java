@@ -1,4 +1,9 @@
-package com.team1458.turtleshell;
+package com.team1458.turtleshell.pid;
+
+import com.team1458.turtleshell.MotorValue;
+import com.team1458.turtleshell.Output;
+import com.team1458.turtleshell.TurtleMaths;
+
 /**
  * Class used drive the robot in a straight line
  * @author mehnadnerd

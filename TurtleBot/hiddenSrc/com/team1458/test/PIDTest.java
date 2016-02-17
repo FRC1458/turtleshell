@@ -4,9 +4,9 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import com.team1458.turtleshell.TurtlePDD2;
-import com.team1458.turtleshell.TurtlePDD2Constants;
-import com.team1458.turtleshell.TurtlePID;
+import com.team1458.turtleshell.pid.TurtlePDD2;
+import com.team1458.turtleshell.pid.TurtlePDD2Constants;
+import com.team1458.turtleshell.pid.TurtlePID;
 
 public class PIDTest {
 

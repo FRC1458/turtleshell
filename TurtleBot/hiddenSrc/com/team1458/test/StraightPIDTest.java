@@ -6,10 +6,10 @@ import java.util.Random;
 import org.junit.Test;
 
 import com.team1458.turtleshell.MotorValue;
-import com.team1458.turtleshell.TurtleDualPID;
 import com.team1458.turtleshell.TurtleMaths;
-import com.team1458.turtleshell.TurtlePDD2Constants;
-import com.team1458.turtleshell.TurtleStraightDrivePID;
+import com.team1458.turtleshell.pid.TurtleDualPID;
+import com.team1458.turtleshell.pid.TurtlePDD2Constants;
+import com.team1458.turtleshell.pid.TurtleStraightDrivePID;
 
 public class StraightPIDTest {
 
