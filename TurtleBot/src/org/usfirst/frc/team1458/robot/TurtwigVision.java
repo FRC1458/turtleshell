@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.Image;
 import com.ni.vision.NIVision.ImageType;
+import com.team1458.turtleshell.Output;
 import com.team1458.turtleshell.TurtleDistance;
 import com.team1458.turtleshell.TurtleTheta;
 import com.team1458.turtleshell.TurtleVision;
@@ -133,6 +134,7 @@ public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance 
 		if (!SmartDashboard.getBoolean("use binary")) {
 			CameraServer.getInstance().setImage(image);
 		}
+		Output.outputNumber("Vision Distance", this.getDistance());
 	}
 
 	@Override

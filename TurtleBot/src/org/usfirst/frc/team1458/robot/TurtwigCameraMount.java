@@ -25,7 +25,7 @@ public class TurtwigCameraMount implements TurtleRobotComponent{
 	    Output.outputNumber("horizontal", Input.getXboxAxis(XboxAxis.RX));
 	    Output.outputNumber("vertical", Input.getXboxAxis(XboxAxis.RY));
 		horizontalServo.updateAngle(horizontalShifter.shift(TurtleMaths.deadband(Input.getXboxAxis(XboxAxis.RX), 0.15)));
-		verticalServo.updateAngle(verticalShifter.shift(TurtleMaths.deadband(Input.getXboxAxis(XboxAxis.RY), 0.15)));
+		verticalServo.updateAngle(verticalShifter.shift(TurtleMaths.deadband(Input.getXboxAxis(XboxAxis.LY), 0.15)));
 	}
 
 	@Override
