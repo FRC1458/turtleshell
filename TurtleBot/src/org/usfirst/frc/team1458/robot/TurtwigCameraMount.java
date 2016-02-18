@@ -6,11 +6,12 @@ import com.team1458.turtleshell.Output;
 import com.team1458.turtleshell.TurtleMaths;
 import com.team1458.turtleshell.TurtleMaths.RangeShifter;
 import com.team1458.turtleshell.TurtleRobotComponent;
-import com.team1458.turtleshell.physical.TurtleServo;
+import com.team1458.turtleshell.TurtleSmartServo;
+import com.team1458.turtleshell.physical.TurtlePWMServo;
 
 public class TurtwigCameraMount implements TurtleRobotComponent{
-	private TurtleServo horizontalServo = new TurtleServo(8, 90,72,15);
-	private TurtleServo verticalServo = new TurtleServo(9, 90,72,15);
+	private TurtleSmartServo horizontalServo = new TurtlePWMServo(8, 90,72,15);
+	private TurtleSmartServo verticalServo = new TurtlePWMServo(9, 90,72,15);
 	private RangeShifter horizontalShifter = new RangeShifter(-1, 1, -1, 1);
 	private RangeShifter verticalShifter = new RangeShifter(-1, 1, -1, 1);
 

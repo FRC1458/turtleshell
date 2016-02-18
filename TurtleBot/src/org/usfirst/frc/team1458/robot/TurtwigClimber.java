@@ -53,9 +53,6 @@ public class TurtwigClimber implements TurtleRobotComponent {
 				folder.set(true);
 				unfoldTimer.start();
 				break;
-			case UNFOLDED:
-				this.state = ClimberState.RAISING;
-				break;
 			case RAISED:
 				this.state = ClimberState.CLIMBING;
 				break;
@@ -76,6 +73,9 @@ public class TurtwigClimber implements TurtleRobotComponent {
 				state = ClimberState.UNFOLDED;
 				unfoldTimer.stop();
 			}
+			break;
+		case UNFOLDED: 
+			state = ClimberState.RAISING;
 			break;
 		case RAISING:
 			break;

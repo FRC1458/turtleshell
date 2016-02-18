@@ -34,7 +34,7 @@ public class TurtwigConstants {
 	public static final int HOOKWINCHENCODERPORT1 = 10;
 	public static final int HOOKWINCHENCODERPORT2 = 11;
 	
-	public static final int SOLENOIDPORT = 12;
+	public static final int SOLENOIDPORT = 0;
 	
 	public static final double WHEELDIAMETER = 8;
 	public static final double WHEELBASE = 24;
