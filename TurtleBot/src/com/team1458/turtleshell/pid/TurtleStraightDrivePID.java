@@ -27,10 +27,10 @@ public class TurtleStraightDrivePID implements TurtleDualPID {
 	 * @param target
 	 * @param kLR
 	 */
-	public TurtleStraightDrivePID(TurtlePIDConstants constants, double target, double kLR) {
+	public TurtleStraightDrivePID(TurtlePIDConstants constants, double target, double kLR, double kError) {
 		Output.outputNumber("targetLinear", target);
-		lPID = new TurtlePDD2(constants, target, 20);
-		rPID = new TurtlePDD2(constants, target, 20);
+		lPID = new TurtlePDD2(constants, target, kError);
+		rPID = new TurtlePDD2(constants, target, kError);
 		this.kLR = kLR;
 	}
 

@@ -62,7 +62,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 		lEncoder.reset();
 		rEncoder.reset();
 		pid = new TurtleStraightDrivePID(TurtwigConstants.straightConstants, target * 360
-				/ (TurtwigConstants.WHEELDIAMETER * Math.PI), 0.00005);
+				/ (TurtwigConstants.WHEELDIAMETER * Math.PI), 0.00005, TurtwigConstants.pidTolerance);
 
 	}
 
@@ -73,7 +73,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 		rEncoder.reset();
 		gyro.reset();
 		pid = new TurtleTurnPID(TurtwigConstants.turnConstants, target, .45, 8, 26.5,
-				TurtwigConstants.turnGyroConstants, 1.26);
+				TurtwigConstants.turnGyroConstants, 1.26, TurtwigConstants.pidTolerance);
 
 	}
 

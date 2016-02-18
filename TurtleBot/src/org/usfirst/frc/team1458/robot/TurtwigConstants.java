@@ -49,6 +49,8 @@ public class TurtwigConstants {
 	 */
 	public static final double cameraAngle = 0;
 	
+	public static final double pidTolerance = 20;
+	
 
 
 }
