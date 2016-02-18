@@ -42,11 +42,6 @@ public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance 
 		initCamera();
 	}
 
-	/*
-	 * public void operatorControl() { NIVision.IMAQdxStopAcquisition(session);
-	 * }
-	 */
-
 	private void initCamera() {
 		session = NIVision.IMAQdxOpenCamera("cam0", NIVision.IMAQdxCameraControlMode.CameraControlModeController);
 		NIVision.IMAQdxConfigureGrab(session);

@@ -6,9 +6,13 @@ import com.team1458.turtleshell.MotorValue;
 import com.team1458.turtleshell.TurtleEncoder;
 import com.team1458.turtleshell.TurtleMotor;
 import com.team1458.turtleshell.TurtleRobotComponent;
+import com.team1458.turtleshell.TurtleSolenoid;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;
+import com.team1458.turtleshell.physical.TurtleElectricalSolenoid;
 import com.team1458.turtleshell.physical.TurtleVictor;
 import com.team1458.turtleshell.pid.TurtleDualPID;
+
+import edu.wpi.first.wpilibj.Timer;
 
 public class TurtwigClimber implements TurtleRobotComponent {
 	private TurtleMotor powerWinch = new TurtleVictor(TurtwigConstants.POWERWINCHVICTORPORT, false);
@@ -19,9 +23,15 @@ public class TurtwigClimber implements TurtleRobotComponent {
 	private TurtleEncoder hookEncoder = new Turtle4PinEncoder(TurtwigConstants.HOOKWINCHENCODERPORT1,
 			TurtwigConstants.HOOKWINCHENCODERPORT2, false);
 
+	private TurtleSolenoid folder = new TurtleElectricalSolenoid(TurtwigConstants.SOLENOIDPORT);
+
 	private TurtleDualPID pid;
 
+	private Timer unfoldTimer = new Timer();
+
 	private ClimberState state = ClimberState.FOLDED;
+	
+	private final double unfoldTime = 1.0;
 
 	private enum ClimberState {
 		FOLDED, UNFOLDING, UNFOLDED, RAISING, RAISED, CLIMBING, CLIMBED
@@ -29,7 +39,7 @@ public class TurtwigClimber implements TurtleRobotComponent {
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
+		folder.set(false);
 
 	}
 
@@ -40,6 +50,8 @@ public class TurtwigClimber implements TurtleRobotComponent {
 			switch (state) {
 			case FOLDED:
 				this.state = ClimberState.UNFOLDING;
+				folder.set(true);
+				unfoldTimer.start();
 				break;
 			case UNFOLDED:
 				this.state = ClimberState.RAISING;
@@ -60,6 +72,10 @@ public class TurtwigClimber implements TurtleRobotComponent {
 		// check if move to new state
 		switch (state) {
 		case UNFOLDING:
+			if (unfoldTimer.get() > unfoldTime) {
+				state = ClimberState.UNFOLDED;
+				unfoldTimer.stop();
+			}
 			break;
 		case RAISING:
 			break;
