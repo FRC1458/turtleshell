@@ -1,4 +1,6 @@
-package com.team1458.turtleshell;
+package com.team1458.turtleshell.pid;
+
+import com.team1458.turtleshell.MotorValue;
 
 public interface TurtlePID {
 	/**

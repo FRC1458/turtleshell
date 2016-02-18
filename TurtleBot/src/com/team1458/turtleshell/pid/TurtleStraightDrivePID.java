@@ -1,4 +1,9 @@
-package com.team1458.turtleshell;
+package com.team1458.turtleshell.pid;
+
+import com.team1458.turtleshell.MotorValue;
+import com.team1458.turtleshell.Output;
+import com.team1458.turtleshell.TurtleMaths;
+
 /**
  * Class used drive the robot in a straight line
  * @author mehnadnerd
@@ -22,10 +27,10 @@ public class TurtleStraightDrivePID implements TurtleDualPID {
 	 * @param target
 	 * @param kLR
 	 */
-	public TurtleStraightDrivePID(TurtlePIDConstants constants, double target, double kLR) {
+	public TurtleStraightDrivePID(TurtlePIDConstants constants, double target, double kLR, double kError) {
 		Output.outputNumber("targetLinear", target);
-		lPID = new TurtlePDD2(constants, target, 20);
-		rPID = new TurtlePDD2(constants, target, 20);
+		lPID = new TurtlePDD2(constants, target, kError);
+		rPID = new TurtlePDD2(constants, target, kError);
 		this.kLR = kLR;
 	}
 

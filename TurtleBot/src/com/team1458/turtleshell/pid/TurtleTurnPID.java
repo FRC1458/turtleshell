@@ -1,4 +1,7 @@
-package com.team1458.turtleshell;
+package com.team1458.turtleshell.pid;
+
+import com.team1458.turtleshell.MotorValue;
+import com.team1458.turtleshell.Output;
 
 public class TurtleTurnPID implements TurtleDualPID {
 	//private final double target;
@@ -31,10 +34,10 @@ public class TurtleTurnPID implements TurtleDualPID {
 	 *            Distance between wheels, diameter of turning circle
 	 */
 	public TurtleTurnPID(TurtlePIDConstants encoderConstants, double target,
-			double kGW, double wheeldiameter, double wheelbase, TurtlePIDConstants gyroConstants, double kLR) {
+			double kGW, double wheeldiameter, double wheelbase, TurtlePIDConstants gyroConstants, double kLR, double pidTolerence) {
 		//this.target = target;
-		lPID = new TurtlePDD2(encoderConstants, target * (wheelbase / wheeldiameter), 20);
-		rPID = new TurtlePDD2(encoderConstants, -target* (wheelbase / wheeldiameter), 20);
+		lPID = new TurtlePDD2(encoderConstants, target * (wheelbase / wheeldiameter), pidTolerence);
+		rPID = new TurtlePDD2(encoderConstants, -target* (wheelbase / wheeldiameter), pidTolerence);
 		gPID = new TurtlePDD2(gyroConstants, target, 3);
 
 		this.kLR = kLR;

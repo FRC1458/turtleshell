@@ -47,3 +47,13 @@ build/
 .metadata/version.ini
 
 *.snap
+
+*.aux
+
+*.aux
+
+TurtleShellReasons.aux
+
+*.log
+
+*.gz
