@@ -10,7 +10,10 @@ import com.team1458.turtleshell.TurtleSolenoid;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;
 import com.team1458.turtleshell.physical.TurtleElectricalSolenoid;
 import com.team1458.turtleshell.physical.TurtleVictor;
+import com.team1458.turtleshell.pid.TurtleAsymmetricPID;
 import com.team1458.turtleshell.pid.TurtleDualPID;
+import com.team1458.turtleshell.pid.TurtlePDD2Constants;
+import com.team1458.turtleshell.pid.TurtlePIDConstants;
 
 import edu.wpi.first.wpilibj.Timer;
 
@@ -32,6 +35,19 @@ public class TurtwigClimber implements TurtleRobotComponent {
 	private ClimberState state = ClimberState.FOLDED;
 	
 	private final double unfoldTime = 1.0;
+	
+	TurtwigConstants consti = new TurtwigConstants();
+	
+		
+	private double aTarget = 42;
+	
+	private double bTarget = 42;
+	
+	private double cTarget = 42;
+	
+	private double dTarget = 42;
+	
+	
 
 	private enum ClimberState {
 		FOLDED, UNFOLDING, UNFOLDED, RAISING, RAISED, CLIMBING, CLIMBED
@@ -39,7 +55,7 @@ public class TurtwigClimber implements TurtleRobotComponent {
 
 	@Override
 	public void init() {
-		folder.set(false);
+		folder.set(true);
 
 	}
 
@@ -50,11 +66,12 @@ public class TurtwigClimber implements TurtleRobotComponent {
 			switch (state) {
 			case FOLDED:
 				this.state = ClimberState.UNFOLDING;
-				folder.set(true);
+				folder.set(false);
 				unfoldTimer.start();
 				break;
 			case RAISED:
 				this.state = ClimberState.CLIMBING;
+				pid = new TurtleAsymmetricPID(TurtwigConstants.cClimber, TurtwigConstants.dClimber, cTarget, dTarget, TurtwigConstants.kABA2, TurtwigConstants.kABB2, TurtwigConstants.cTolerance, TurtwigConstants.dTolerance);
 				break;
 			default:
 				break;
@@ -73,13 +90,31 @@ public class TurtwigClimber implements TurtleRobotComponent {
 				state = ClimberState.UNFOLDED;
 				unfoldTimer.stop();
 			}
+				
 			break;
-		case UNFOLDED: 
+		case UNFOLDED: //starts the climbing
 			state = ClimberState.RAISING;
+			pid = new TurtleAsymmetricPID(TurtwigConstants.aClimber, TurtwigConstants.bClimber, aTarget, bTarget, TurtwigConstants.kABA, TurtwigConstants.kABB, TurtwigConstants.aTolerance, TurtwigConstants.bTolerance);
 			break;
-		case RAISING:
+		case RAISING:// checks if it is done raising
+		    	if(pid.atTarget()){
+		    	    /*
+		    	     * TODO: make PID null
+		    	     */
+		    	    pid = null;
+		    	    state = ClimberState.RAISED;
+		    	    
+		    	}
 			break;
 		case CLIMBING:
+		    if(pid.atTarget()){
+		    	    /*
+		    	     * TODO: make PID null
+		    	     */
+		    	    pid = null;
+		    	    state = ClimberState.CLIMBED;
+		    	    
+		    	}
 			break;
 		default:
 			break;
