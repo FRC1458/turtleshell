@@ -2,7 +2,7 @@ package com.team1458.test;
 
 import org.junit.Test;
 
-import com.team1458.turtleshell.TurtleMaths.RangeShifter;
+import com.team1458.turtleshell.util.TurtleMaths.RangeShifter;
 
 public class RangeShifterTest {
 

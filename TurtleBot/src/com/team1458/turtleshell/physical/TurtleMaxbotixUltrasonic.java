@@ -1,6 +1,6 @@
 package com.team1458.turtleshell.physical;
 
-import com.team1458.turtleshell.TurtleDistance;
+import com.team1458.turtleshell.sensor.TurtleDistance;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 

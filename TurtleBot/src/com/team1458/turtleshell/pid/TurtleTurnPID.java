@@ -1,7 +1,7 @@
 package com.team1458.turtleshell.pid;
 
-import com.team1458.turtleshell.MotorValue;
-import com.team1458.turtleshell.Output;
+import com.team1458.turtleshell.util.MotorValue;
+import com.team1458.turtleshell.util.Output;
 
 public class TurtleTurnPID implements TurtleDualPID {
 	//private final double target;

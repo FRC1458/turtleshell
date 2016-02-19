@@ -45,6 +45,10 @@ public class TurtwigConstants {
 	public static final TurtlePIDConstants turnConstants = new TurtlePDD2Constants(.008, .00035, .00045);
 	public static final TurtlePIDConstants turnGyroConstants = new TurtlePDD2Constants(.015, .00035, .0004);
 	
+	public static final TurtlePIDConstants intakePIDConstants = new TurtlePDD2Constants(.008, .00035, .00045);
+	
+	public static final double intakePIDkLR = 0.001;
+	
 	public static final TurtlePIDConstants aClimber = new TurtlePDD2Constants(.008, .00035, .00045);
 	public static final TurtlePIDConstants bClimber = new TurtlePDD2Constants(.015, .00035, .0004);
 	public static final TurtlePIDConstants cClimber = new TurtlePDD2Constants(.008, .00035, .00045);
@@ -66,6 +70,7 @@ public class TurtwigConstants {
 	public static final double cameraAngle = 0;
 	
 	public static final double pidTolerance = 20;
+	
 	
 
 

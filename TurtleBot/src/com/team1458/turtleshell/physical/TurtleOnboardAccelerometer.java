@@ -1,6 +1,6 @@
 package com.team1458.turtleshell.physical;
 
-import com.team1458.turtleshell.TurtleSmartAccelerometer;
+import com.team1458.turtleshell.sensor.TurtleSmartAccelerometer;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 

@@ -1,7 +1,8 @@
-package com.team1458.turtleshell;
+package com.team1458.turtleshell.base;
 
 import com.team1458.turtleshell.logging.TurtleLogLevel;
 import com.team1458.turtleshell.logging.TurtleLogger;
+import com.team1458.turtleshell.util.TurtleSafeDriverStation;
 
 /**
  * A replacement for SampleRobot/SimpleRobot, this class provides a base class

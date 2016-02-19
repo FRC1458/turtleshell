@@ -1,6 +1,6 @@
 package com.team1458.turtleshell.physical;
 
-import com.team1458.turtleshell.TurtleEncoder;
+import com.team1458.turtleshell.sensor.TurtleEncoder;
 
 import edu.wpi.first.wpilibj.Encoder;
 

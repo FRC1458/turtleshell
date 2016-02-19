@@ -1,4 +1,4 @@
-package com.team1458.turtleshell;
+package com.team1458.turtleshell.sensor;
 
 public interface TurtleVision {
 	/**

@@ -1,10 +1,10 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.team1458.turtleshell.TurtleAutonomous;
-import com.team1458.turtleshell.TurtlePhysicalRobot;
-import com.team1458.turtleshell.TurtleTeleop;
-import com.team1458.turtleshell.TurtleThingGiver;
-import com.team1458.turtleshell.TurtleUpdatableBlob;
+import com.team1458.turtleshell.base.TurtleAutonomous;
+import com.team1458.turtleshell.base.TurtlePhysicalRobot;
+import com.team1458.turtleshell.base.TurtleTeleop;
+import com.team1458.turtleshell.base.TurtleThingGiver;
+import com.team1458.turtleshell.base.TurtleUpdatableBlob;
 import com.team1458.turtleshell.logging.TurtleLogger;
 
 public class Turtwig2016RobotGiver implements TurtleThingGiver {

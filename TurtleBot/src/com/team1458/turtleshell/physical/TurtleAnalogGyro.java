@@ -1,6 +1,6 @@
 package com.team1458.turtleshell.physical;
 
-import com.team1458.turtleshell.TurtleTheta;
+import com.team1458.turtleshell.sensor.TurtleTheta;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 

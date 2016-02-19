@@ -1,6 +1,6 @@
 package com.team1458.turtleshell.pid;
 
-import com.team1458.turtleshell.MotorValue;
+import com.team1458.turtleshell.util.MotorValue;
 
 /**
  * Class used for synchronising two PID when should be going at different rates.

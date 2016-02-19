@@ -1,20 +1,21 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.team1458.turtleshell.Input;
-import com.team1458.turtleshell.MotorValue;
-import com.team1458.turtleshell.Output;
-import com.team1458.turtleshell.TurtleEncoder;
-import com.team1458.turtleshell.TurtleMotor;
-import com.team1458.turtleshell.TurtleSmartAccelerometer;
-import com.team1458.turtleshell.TurtleSmartChassis;
-import com.team1458.turtleshell.TurtleTheta;
+import com.team1458.turtleshell.component.TurtleMotor;
+import com.team1458.turtleshell.component.TurtleSmartChassis;
 import com.team1458.turtleshell.logging.TurtleLogger;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;
 import com.team1458.turtleshell.physical.TurtleAnalogGyro;
+import com.team1458.turtleshell.physical.TurtleOnboardAccelerometer;
 import com.team1458.turtleshell.physical.TurtleVictor;
 import com.team1458.turtleshell.pid.TurtleDualPID;
 import com.team1458.turtleshell.pid.TurtleStraightDrivePID;
 import com.team1458.turtleshell.pid.TurtleTurnPID;
+import com.team1458.turtleshell.sensor.TurtleEncoder;
+import com.team1458.turtleshell.sensor.TurtleSmartAccelerometer;
+import com.team1458.turtleshell.sensor.TurtleTheta;
+import com.team1458.turtleshell.util.Input;
+import com.team1458.turtleshell.util.MotorValue;
+import com.team1458.turtleshell.util.Output;
 
 public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 	private final TurtleMotor lMotor1 = new TurtleVictor(TurtwigConstants.LEFT1VICTORPORT, false);
@@ -41,7 +42,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 	@Override
 	public void autoUpdate() {
 		this.driveMotors(pid.newValue(new double[] { lEncoder.getTicks(), rEncoder.getTicks(), lEncoder.getRate(),
-				rEncoder.getRate(), gyro.getContinousTheta(), gyro.getRate() }));
+				rEncoder.getRate(), gyro.getContinousTheta(), gyro.getRate(), accel.getDown()[0], accel.getDown()[1] }));
 	}
 
 	@Override
@@ -118,10 +119,13 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 		}
 
 		/**
-		 * @param inputs discard, discard, discard, discard, theta, theta rate
+		 * @param inputs discard, discard, discard, discard, theta, theta rate, pitch, roll
 		 */
 		@Override
 		public MotorValue[] newValue(double[] inputs) {
+			pitch = inputs[6];
+			roll = inputs[7];
+			
 			// TODO Auto-generated method stub
 			return null;
 		}

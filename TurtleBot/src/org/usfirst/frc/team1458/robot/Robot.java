@@ -1,11 +1,11 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.team1458.turtleshell.Output;
-import com.team1458.turtleshell.TurtleRobot;
-import com.team1458.turtleshell.TurtleSafeDriverStation;
-import com.team1458.turtleshell.TurtleTheta;
+import com.team1458.turtleshell.base.TurtleRobot;
 import com.team1458.turtleshell.physical.TurtleXtrinsicMagnetometer;
 import com.team1458.turtleshell.physical.TurtleXtrinsicMagnetometerCalibration;
+import com.team1458.turtleshell.sensor.TurtleTheta;
+import com.team1458.turtleshell.util.Output;
+import com.team1458.turtleshell.util.TurtleSafeDriverStation;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Utility;

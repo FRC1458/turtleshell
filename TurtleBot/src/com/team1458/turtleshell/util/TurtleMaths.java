@@ -1,4 +1,4 @@
-package com.team1458.turtleshell;
+package com.team1458.turtleshell.util;
 
 /**
  * A class holding helpful static methods for maths-related things.
@@ -159,27 +159,40 @@ public class TurtleMaths {
 		if (m > 1) {
 			m = 1 / m;
 		}
-		if (Double.isNaN(m)||Double.isInfinite(m)) {
+		if (Double.isNaN(m) || Double.isInfinite(m)) {
 			m = 0;
 		}
 		return m;
 	}
-	
+
 	/**
 	 * Calculates percent Error
-	 * @param actual The ideal or "correct" value
-	 * @param measured The measured value
+	 * 
+	 * @param actual
+	 *            The ideal or "correct" value
+	 * @param measured
+	 *            The measured value
 	 * @return
 	 */
 	public static double percentError(double actual, double measured) {
-	    return TurtleMaths.absDiff(actual, measured)/actual;
+		return TurtleMaths.absDiff(actual, measured) / actual;
 	}
+
 	public static double deadband(double input, double deadbandRange) {
-	    if(Math.abs(input) < deadbandRange){
-		return 0;
-	    }
-	    
-	    return input;
-	    
+		if (Math.abs(input) < deadbandRange) {
+			return 0;
+		}
+
+		return input;
+
 	}
+
+	public static double avg(double... num) {
+		double sum = 0;
+		for (double d : num) {
+			sum += d;
+		}
+		return sum / num.length;
+	}
+
 }

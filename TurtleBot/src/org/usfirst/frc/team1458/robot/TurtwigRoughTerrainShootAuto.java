@@ -1,9 +1,9 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.team1458.turtleshell.Output;
-import com.team1458.turtleshell.TurtleAutonomous;
-import com.team1458.turtleshell.TurtlePhysicalRobot;
-import com.team1458.turtleshell.TurtleSafeDriverStation;
+import com.team1458.turtleshell.base.TurtleAutonomous;
+import com.team1458.turtleshell.base.TurtlePhysicalRobot;
+import com.team1458.turtleshell.util.Output;
+import com.team1458.turtleshell.util.TurtleSafeDriverStation;
 
 public class TurtwigRoughTerrainShootAuto implements TurtleAutonomous {
 	TurtlePhysicalRobot physicalRobot;

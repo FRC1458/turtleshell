@@ -1,4 +1,4 @@
-package com.team1458.turtleshell;
+package com.team1458.turtleshell.util;
 
 import com.team1458.turtleshell.logging.TurtleLogger;
 
@@ -20,7 +20,7 @@ public class Input {
 	protected static Joystick steering2 = new Joystick(1);
 	protected static Joystick thingy1 = new Joystick(2);
 	protected static Joystick thingy2 = new Joystick(3);
-	protected static double xboxDeadband = 0.2; 
+	protected static double xboxDeadband = 0.15; 
 	protected static double joystickDeadband = 0.1; 
 	
 	public static void setXboxDeadband(double xboxDeadband) {

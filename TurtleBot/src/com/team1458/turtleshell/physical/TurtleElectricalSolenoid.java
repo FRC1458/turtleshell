@@ -1,6 +1,6 @@
 package com.team1458.turtleshell.physical;
 
-import com.team1458.turtleshell.TurtleSolenoid;
+import com.team1458.turtleshell.component.TurtleSolenoid;
 
 import edu.wpi.first.wpilibj.Relay;
 

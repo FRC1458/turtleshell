@@ -1,7 +1,7 @@
 package com.team1458.turtleshell.vision;
 
-import com.team1458.turtleshell.Input;
-import com.team1458.turtleshell.TurtleMaths;
+import com.team1458.turtleshell.util.Input;
+import com.team1458.turtleshell.util.TurtleMaths;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 

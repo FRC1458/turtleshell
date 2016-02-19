@@ -1,11 +1,11 @@
 package com.team1458.turtleshell.physical;
 
-import com.team1458.turtleshell.Output;
-import com.team1458.turtleshell.TurtleCalibratable;
-import com.team1458.turtleshell.TurtleMaths;
-import com.team1458.turtleshell.TurtleMaths.RangeShifter;
-import com.team1458.turtleshell.TurtleTheta;
-import com.team1458.turtleshell.TurtleCalibration;
+import com.team1458.turtleshell.sensor.TurtleTheta;
+import com.team1458.turtleshell.util.Output;
+import com.team1458.turtleshell.util.TurtleCalibratable;
+import com.team1458.turtleshell.util.TurtleCalibration;
+import com.team1458.turtleshell.util.TurtleMaths;
+import com.team1458.turtleshell.util.TurtleMaths.RangeShifter;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Timer;

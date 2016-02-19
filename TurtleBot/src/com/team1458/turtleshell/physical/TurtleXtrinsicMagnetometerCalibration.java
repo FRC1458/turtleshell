@@ -1,6 +1,6 @@
 package com.team1458.turtleshell.physical;
 
-import com.team1458.turtleshell.TurtleCalibration;
+import com.team1458.turtleshell.util.TurtleCalibration;
 
 /**
  * Calibration for the Xtrinsic Magnetometer. Implements TurtleThetaCalibration.

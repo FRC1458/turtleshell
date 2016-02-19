@@ -1,13 +1,13 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.team1458.turtleshell.Input;
-import com.team1458.turtleshell.Input.XboxAxis;
-import com.team1458.turtleshell.Output;
-import com.team1458.turtleshell.TurtleMaths;
-import com.team1458.turtleshell.TurtleMaths.RangeShifter;
-import com.team1458.turtleshell.TurtleRobotComponent;
-import com.team1458.turtleshell.TurtleSmartServo;
+import com.team1458.turtleshell.component.TurtleRobotComponent;
+import com.team1458.turtleshell.component.TurtleSmartServo;
 import com.team1458.turtleshell.physical.TurtlePWMServo;
+import com.team1458.turtleshell.util.Input;
+import com.team1458.turtleshell.util.Output;
+import com.team1458.turtleshell.util.TurtleMaths;
+import com.team1458.turtleshell.util.Input.XboxAxis;
+import com.team1458.turtleshell.util.TurtleMaths.RangeShifter;
 
 public class TurtwigCameraMount implements TurtleRobotComponent{
 	private TurtleSmartServo horizontalServo = new TurtlePWMServo(8, 90,72,15);

@@ -1,7 +1,7 @@
 package com.team1458.turtleshell.physical;
 
-import com.team1458.turtleshell.MotorValue;
-import com.team1458.turtleshell.TurtleMotor;
+import com.team1458.turtleshell.component.TurtleMotor;
+import com.team1458.turtleshell.util.MotorValue;
 
 import edu.wpi.first.wpilibj.CANTalon;
 

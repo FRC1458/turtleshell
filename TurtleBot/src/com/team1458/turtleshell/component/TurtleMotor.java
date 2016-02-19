@@ -1,4 +1,6 @@
-package com.team1458.turtleshell;
+package com.team1458.turtleshell.component;
+
+import com.team1458.turtleshell.util.MotorValue;
 
 /**
  * Interface to control motor. 

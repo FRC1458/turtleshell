@@ -1,8 +1,8 @@
 package com.team1458.turtleshell.physical;
 
-import com.team1458.turtleshell.Output;
-import com.team1458.turtleshell.TurtleMaths;
-import com.team1458.turtleshell.TurtleSmartServo;
+import com.team1458.turtleshell.component.TurtleSmartServo;
+import com.team1458.turtleshell.util.Output;
+import com.team1458.turtleshell.util.TurtleMaths;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Timer;

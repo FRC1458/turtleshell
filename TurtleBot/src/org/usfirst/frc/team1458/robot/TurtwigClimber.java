@@ -1,12 +1,8 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.team1458.turtleshell.Input;
-import com.team1458.turtleshell.Input.XboxButton;
-import com.team1458.turtleshell.MotorValue;
-import com.team1458.turtleshell.TurtleEncoder;
-import com.team1458.turtleshell.TurtleMotor;
-import com.team1458.turtleshell.TurtleRobotComponent;
-import com.team1458.turtleshell.TurtleSolenoid;
+import com.team1458.turtleshell.component.TurtleMotor;
+import com.team1458.turtleshell.component.TurtleRobotComponent;
+import com.team1458.turtleshell.component.TurtleSolenoid;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;
 import com.team1458.turtleshell.physical.TurtleElectricalSolenoid;
 import com.team1458.turtleshell.physical.TurtleVictor;
@@ -14,6 +10,10 @@ import com.team1458.turtleshell.pid.TurtleAsymmetricPID;
 import com.team1458.turtleshell.pid.TurtleDualPID;
 import com.team1458.turtleshell.pid.TurtlePDD2Constants;
 import com.team1458.turtleshell.pid.TurtlePIDConstants;
+import com.team1458.turtleshell.sensor.TurtleEncoder;
+import com.team1458.turtleshell.util.Input;
+import com.team1458.turtleshell.util.MotorValue;
+import com.team1458.turtleshell.util.Input.XboxButton;
 
 import edu.wpi.first.wpilibj.Timer;
 

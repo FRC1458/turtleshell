@@ -1,7 +1,10 @@
-package com.team1458.turtleshell;
+package com.team1458.turtleshell.base;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.team1458.turtleshell.component.TurtleRobotComponent;
+import com.team1458.turtleshell.component.TurtleSmartRobotComponent;
 
 /**
  * A class representing the physical robot, it holds all of the robotComponents

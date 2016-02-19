@@ -1,6 +1,6 @@
 package com.team1458.turtleshell.pid;
 
-import com.team1458.turtleshell.MotorValue;
+import com.team1458.turtleshell.util.MotorValue;
 
 /**
  * An interface for a PID that should manage two motors.
