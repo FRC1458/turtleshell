@@ -5,6 +5,7 @@ import com.team1458.turtleshell.MotorValue;
 import com.team1458.turtleshell.Output;
 import com.team1458.turtleshell.TurtleEncoder;
 import com.team1458.turtleshell.TurtleMotor;
+import com.team1458.turtleshell.TurtleSmartAccelerometer;
 import com.team1458.turtleshell.TurtleSmartChassis;
 import com.team1458.turtleshell.TurtleTheta;
 import com.team1458.turtleshell.logging.TurtleLogger;
@@ -16,23 +17,20 @@ import com.team1458.turtleshell.pid.TurtleStraightDrivePID;
 import com.team1458.turtleshell.pid.TurtleTurnPID;
 
 public class TurtwigSmartTankChassis implements TurtleSmartChassis {
-	private final TurtleMotor lMotor1 = new TurtleVictor(
-			TurtwigConstants.LEFT1VICTORPORT, false);
-	private final TurtleMotor rMotor1 = new TurtleVictor(
-			TurtwigConstants.RIGHT1VICTORPORT, true);
+	private final TurtleMotor lMotor1 = new TurtleVictor(TurtwigConstants.LEFT1VICTORPORT, false);
+	private final TurtleMotor rMotor1 = new TurtleVictor(TurtwigConstants.RIGHT1VICTORPORT, true);
 	private final TurtleMotor lMotor2 = new TurtleVictor(TurtwigConstants.LEFT2VICTORPORT, false);
 	private final TurtleMotor rMotor2 = new TurtleVictor(TurtwigConstants.RIGHT2VICTORPORT, true);
 
-	private final TurtleEncoder lEncoder = new Turtle4PinEncoder(
-			TurtwigConstants.LEFTENCODERPORT1,
+	private final TurtleEncoder lEncoder = new Turtle4PinEncoder(TurtwigConstants.LEFTENCODERPORT1,
 			TurtwigConstants.LEFTENCODERPORT2, true);
-	private final TurtleEncoder rEncoder = new Turtle4PinEncoder(
-			TurtwigConstants.RIGHTENCODERPORT1,
+	private final TurtleEncoder rEncoder = new Turtle4PinEncoder(TurtwigConstants.RIGHTENCODERPORT1,
 			TurtwigConstants.RIGHTENCODERPORT2, false);
-	private final TurtleTheta gyro = new TurtleAnalogGyro(
-			TurtwigConstants.GYROPORT);
+	private final TurtleTheta gyro = new TurtleAnalogGyro(TurtwigConstants.GYROPORT);
 
 	private TurtleDualPID pid;
+	
+	private final TurtleSmartAccelerometer accel = new TurtleOnboardAccelerometer();
 
 	@Override
 	public void init() {
@@ -42,33 +40,39 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 
 	@Override
 	public void autoUpdate() {
-		this.driveMotors(pid.newValue(new double[] { lEncoder.getTicks(),
-				rEncoder.getTicks(), lEncoder.getRate(), rEncoder.getRate(),
-				gyro.getContinousTheta(), gyro.getRate() }));
+		this.driveMotors(pid.newValue(new double[] { lEncoder.getTicks(), rEncoder.getTicks(), lEncoder.getRate(),
+				rEncoder.getRate(), gyro.getContinousTheta(), gyro.getRate() }));
 	}
 
 	@Override
 	public void teleUpdate() {
-		
-		this.driveMotors(new MotorValue[] { new MotorValue(Input.getLPower()),
-				new MotorValue(Input.getRPower()) });
+
+		this.driveMotors(new MotorValue[] { new MotorValue(Input.getLPower()), new MotorValue(Input.getRPower()) });
 
 	}
 
 	@Override
 	public void setLinearTarget(double target) {
-		TurtleLogger.info("Setting linear target: "+target);
-		Output.outputNumber("target",target);
+		TurtleLogger.info("Setting linear target: " + target);
+		Output.outputNumber("target", target);
 		lEncoder.reset();
 		rEncoder.reset();
-		pid = new TurtleStraightDrivePID(TurtwigConstants.straightConstants, target * 360
-				/ (TurtwigConstants.WHEELDIAMETER * Math.PI), 0.00005, TurtwigConstants.pidTolerance);
+		gyro.reset();
+		pid = new TurtleStraightDrivePID(TurtwigConstants.straightConstants,
+				target * 360 / (TurtwigConstants.WHEELDIAMETER * Math.PI), 0.00005, TurtwigConstants.pidTolerance);
 
+	}
+
+	public void setRoughTerrainLinearTarget(double target) {
+		TurtleLogger.info("Setting rough terrain linear target: " + target);
+		Output.outputNumber("target", target);
+		gyro.reset();
+		pid = new RoughTerrainPID();
 	}
 
 	@Override
 	public void setThetaTarget(double target) {
-		TurtleLogger.info("Setting theta target: "+target);
+		TurtleLogger.info("Setting theta target: " + target);
 		lEncoder.reset();
 		rEncoder.reset();
 		gyro.reset();
@@ -94,7 +98,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 		lMotor2.set(motorPowers[0]);
 		rMotor1.set(motorPowers[1]);
 		rMotor2.set(motorPowers[1]);
-		
+
 	}
 
 	public void stop() {
@@ -102,6 +106,26 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 		lMotor2.set(new MotorValue(0));
 		rMotor1.set(new MotorValue(0));
 		rMotor2.set(new MotorValue(0));
+	}
+	
+	private class RoughTerrainPID implements TurtleDualPID {
+		private double pitch;
+		private double roll;
+		@Override
+		public boolean atTarget() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		/**
+		 * @param inputs discard, discard, discard, discard, theta, theta rate
+		 */
+		@Override
+		public MotorValue[] newValue(double[] inputs) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
 	}
 
 }
