@@ -49,19 +49,12 @@ public class TurtwigConstants {
 	
 	public static final double intakePIDkLR = 0.001;
 	
-	public static final TurtlePIDConstants aClimber = new TurtlePDD2Constants(.008, .00035, .00045);
-	public static final TurtlePIDConstants bClimber = new TurtlePDD2Constants(.015, .00035, .0004);
-	public static final TurtlePIDConstants cClimber = new TurtlePDD2Constants(.008, .00035, .00045);
-	public static final TurtlePIDConstants dClimber = new TurtlePDD2Constants(.015, .00035, .0004);
+	public static final TurtlePIDConstants hookRaiseConstants = new TurtlePDD2Constants(.008, .00035, .00045);
+	public static final TurtlePIDConstants hookLowerConstants = new TurtlePDD2Constants(.008, .00035, .00045);
+	public static final TurtlePIDConstants robotRaiseConstants = new TurtlePDD2Constants(.008, .00035, .00045);
 	
-	public static final double kABA = 0.042;
-	public static final double kABB = 0.042;
-	public static final double kABA2 = 0.042;
-	public static final double kABB2 = 0.042;
-	public static final double aTolerance = 42;
-	public static final double bTolerance = 42;
-	public static final double cTolerance = 42;
-	public static final double dTolerance = 42;
+	public static final double hookEncoderTicks = 1000;
+	public static final double robotEncoderTicks = 100;
 	
 	public static final double cameraHeight = 8;
 	/**

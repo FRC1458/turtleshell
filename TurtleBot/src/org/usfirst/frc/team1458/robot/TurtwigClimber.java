@@ -8,8 +8,9 @@ import com.team1458.turtleshell.physical.TurtleElectricalSolenoid;
 import com.team1458.turtleshell.physical.TurtleVictor;
 import com.team1458.turtleshell.pid.TurtleAsymmetricPID;
 import com.team1458.turtleshell.pid.TurtleDualPID;
-import com.team1458.turtleshell.pid.TurtlePDD2Constants;
-import com.team1458.turtleshell.pid.TurtlePIDConstants;
+import com.team1458.turtleshell.pid.TurtleManualDualPID;
+import com.team1458.turtleshell.pid.TurtlePDD2;
+import com.team1458.turtleshell.pid.TurtleZeroPID;
 import com.team1458.turtleshell.sensor.TurtleEncoder;
 import com.team1458.turtleshell.util.Input;
 import com.team1458.turtleshell.util.MotorValue;
@@ -33,24 +34,21 @@ public class TurtwigClimber implements TurtleRobotComponent {
 	private Timer unfoldTimer = new Timer();
 
 	private ClimberState state = ClimberState.FOLDED;
-	
+
 	private final double unfoldTime = 1.0;
-	
+
 	TurtwigConstants consti = new TurtwigConstants();
-	
-		
+
 	private double aTarget = 42;
-	
+
 	private double bTarget = 42;
-	
+
 	private double cTarget = 42;
-	
+
 	private double dTarget = 42;
-	
-	
 
 	private enum ClimberState {
-		FOLDED, UNFOLDING, UNFOLDED, RAISING, RAISED, CLIMBING, CLIMBED
+		FOLDED, UNFOLDING, UNFOLDED, RAISING, RAISED, RETRACTING, CLIMBING, CLIMBED
 	}
 
 	@Override
@@ -70,8 +68,9 @@ public class TurtwigClimber implements TurtleRobotComponent {
 				unfoldTimer.start();
 				break;
 			case RAISED:
-				this.state = ClimberState.CLIMBING;
-				pid = new TurtleAsymmetricPID(TurtwigConstants.cClimber, TurtwigConstants.dClimber, cTarget, dTarget, TurtwigConstants.kABA2, TurtwigConstants.kABB2, TurtwigConstants.cTolerance, TurtwigConstants.dTolerance);
+				this.state = ClimberState.RETRACTING;
+				pid = new TurtleManualDualPID(TurtleZeroPID.getInstance(),
+						new TurtlePDD2(TurtwigConstants.hookLowerConstants, 0, TurtwigConstants.pidTolerance));
 				break;
 			default:
 				break;
@@ -90,31 +89,34 @@ public class TurtwigClimber implements TurtleRobotComponent {
 				state = ClimberState.UNFOLDED;
 				unfoldTimer.stop();
 			}
-				
+
 			break;
-		case UNFOLDED: //starts the climbing
+		case UNFOLDED: // starts the raising
 			state = ClimberState.RAISING;
-			pid = new TurtleAsymmetricPID(TurtwigConstants.aClimber, TurtwigConstants.bClimber, aTarget, bTarget, TurtwigConstants.kABA, TurtwigConstants.kABB, TurtwigConstants.aTolerance, TurtwigConstants.bTolerance);
+			pid = new TurtleManualDualPID(TurtleZeroPID.getInstance(),
+					new TurtlePDD2(TurtwigConstants.hookRaiseConstants, TurtwigConstants.hookEncoderTicks,
+							TurtwigConstants.pidTolerance));
 			break;
 		case RAISING:// checks if it is done raising
-		    	if(pid.atTarget()){
-		    	    /*
-		    	     * TODO: make PID null
-		    	     */
-		    	    pid = null;
-		    	    state = ClimberState.RAISED;
-		    	    
-		    	}
+			if (pid.atTarget()) {
+				pid = null;
+				state = ClimberState.RAISED;
+
+			}
 			break;
+		case RETRACTING:
+			if (pid.atTarget()) {
+				// start climbing
+				state = ClimberState.CLIMBING;
+				pid = new TurtleManualDualPID(new TurtlePDD2(TurtwigConstants.robotRaiseConstants,
+						TurtwigConstants.robotEncoderTicks, TurtwigConstants.pidTolerance),
+						TurtleZeroPID.getInstance());
+			}
 		case CLIMBING:
-		    if(pid.atTarget()){
-		    	    /*
-		    	     * TODO: make PID null
-		    	     */
-		    	    pid = null;
-		    	    state = ClimberState.CLIMBED;
-		    	    
-		    	}
+			if (pid.atTarget()) {
+				pid = null;
+				state = ClimberState.CLIMBED;
+			}
 			break;
 		default:
 			break;
