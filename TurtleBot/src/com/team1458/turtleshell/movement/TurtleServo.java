@@ -1,6 +1,6 @@
-package com.team1458.turtleshell.component;
+package com.team1458.turtleshell.movement;
 
-public interface TurtleServo {
+public interface TurtleServo extends TurtleMovable {
 	/**
 	 * Get the angle of the servo
 	 * @return Angle in degrees

@@ -1,6 +1,6 @@
 package com.team1458.turtleshell.physical;
 
-import com.team1458.turtleshell.component.TurtleMotor;
+import com.team1458.turtleshell.movement.TurtleMotor;
 import com.team1458.turtleshell.util.MotorValue;
 
 import edu.wpi.first.wpilibj.Talon;

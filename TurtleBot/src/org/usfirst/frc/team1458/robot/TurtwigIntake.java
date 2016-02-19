@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.team1458.turtleshell.component.TurtleMotor;
 import com.team1458.turtleshell.component.TurtleRobotComponent;
+import com.team1458.turtleshell.movement.TurtleMotor;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;
 import com.team1458.turtleshell.physical.TurtleTalon;
 import com.team1458.turtleshell.physical.TurtleVictor;

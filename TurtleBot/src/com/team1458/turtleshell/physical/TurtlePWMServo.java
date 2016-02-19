@@ -1,6 +1,6 @@
 package com.team1458.turtleshell.physical;
 
-import com.team1458.turtleshell.component.TurtleSmartServo;
+import com.team1458.turtleshell.movement.TurtleSmartServo;
 import com.team1458.turtleshell.util.Output;
 import com.team1458.turtleshell.util.TurtleMaths;
 
@@ -49,6 +49,12 @@ public class TurtlePWMServo implements TurtleSmartServo {
 		currentAngle = TurtleMaths.fitRange(currentAngle, minRange, maxRange);
 		servo.setAngle(currentAngle);
 		Output.outputNumber("currentAngle", currentAngle);
+	}
+
+	@Override
+	public void stop() {
+		servo.setAngle(servo.getAngle());
+		
 	}
 
 }

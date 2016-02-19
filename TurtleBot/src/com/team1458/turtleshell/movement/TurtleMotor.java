@@ -1,4 +1,4 @@
-package com.team1458.turtleshell.component;
+package com.team1458.turtleshell.movement;
 
 import com.team1458.turtleshell.util.MotorValue;
 
@@ -7,7 +7,7 @@ import com.team1458.turtleshell.util.MotorValue;
  * @author mehnadnerd
  *
  */
-public interface TurtleMotor {
+public interface TurtleMotor extends TurtleMovable {
 	/**
 	 * Sets the motor power.
 	 * 
@@ -31,9 +31,4 @@ public interface TurtleMotor {
 	 * @return Whether or not the motor is reversed.
 	 */
 	public abstract boolean isReversed();
-	
-	/**
-	 * Stop the motor.
-	 */
-	public void stop();
 }

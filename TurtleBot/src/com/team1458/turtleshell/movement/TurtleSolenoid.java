@@ -1,11 +1,11 @@
-package com.team1458.turtleshell.component;
+package com.team1458.turtleshell.movement;
 
 /**
  * An interface for solenoids, whether electrical or pneumatic
  * @author mehnadnerd
  *
  */
-public interface TurtleSolenoid {
+public interface TurtleSolenoid extends TurtleMovable {
 	/**
 	 * Set whether the solenoid is extended or not.
 	 * @param isExtended true if extended, false if not.

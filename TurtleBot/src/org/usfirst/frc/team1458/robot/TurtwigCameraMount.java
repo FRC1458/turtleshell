@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell.component.TurtleRobotComponent;
-import com.team1458.turtleshell.component.TurtleSmartServo;
+import com.team1458.turtleshell.movement.TurtleSmartServo;
 import com.team1458.turtleshell.physical.TurtlePWMServo;
 import com.team1458.turtleshell.util.Input;
 import com.team1458.turtleshell.util.Output;

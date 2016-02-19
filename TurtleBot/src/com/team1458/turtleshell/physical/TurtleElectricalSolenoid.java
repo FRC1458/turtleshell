@@ -1,6 +1,6 @@
 package com.team1458.turtleshell.physical;
 
-import com.team1458.turtleshell.component.TurtleSolenoid;
+import com.team1458.turtleshell.movement.TurtleSolenoid;
 
 import edu.wpi.first.wpilibj.Relay;
 
@@ -21,6 +21,12 @@ public class TurtleElectricalSolenoid implements TurtleSolenoid {
 	@Override
 	public boolean get() {
 		return ex;
+	}
+
+	@Override
+	public void stop() {
+		//Nothing to do
+		
 	}
 
 }
