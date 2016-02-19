@@ -1,10 +1,11 @@
-package com.team1458.turtleshell.base;
+package com.team1458.turtleshell.core;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.team1458.turtleshell.component.TurtleRobotComponent;
 import com.team1458.turtleshell.component.TurtleSmartRobotComponent;
+import com.team1458.turtleshell.util.TurtleUpdatable;
 
 /**
  * A class representing the physical robot, it holds all of the robotComponents
@@ -15,14 +16,10 @@ import com.team1458.turtleshell.component.TurtleSmartRobotComponent;
  */
 public class TurtlePhysicalRobot {
 	private Map<String, TurtleRobotComponent> robotComponents = new HashMap<String, TurtleRobotComponent>();
-	private TurtleUpdatableBlob updateBlob;
+	private Map<String, TurtleUpdatable> robotUpdatable = new HashMap<String, TurtleUpdatable>();
 
 	public TurtlePhysicalRobot() {
 
-	}
-
-	public void giveUpdatableBlob(TurtleUpdatableBlob blob) {
-		this.updateBlob = blob;
 	}
 
 	/**
@@ -35,6 +32,10 @@ public class TurtlePhysicalRobot {
 	public void addComponent(String name, TurtleRobotComponent component) {
 		component.init();
 		robotComponents.put(name, component);
+	}
+	
+	public void addUpdatable(String name, TurtleUpdatable updatable) {
+		robotUpdatable.put(name, updatable);
 	}
 
 	/**
@@ -51,7 +52,9 @@ public class TurtlePhysicalRobot {
 	 * Updates all updatable components
 	 */
 	public void updateAll() {
-		updateBlob.updateAll();
+		for (TurtleUpdatable u : robotUpdatable.values()) {
+			u.update();
+		}
 	}
 
 	/**

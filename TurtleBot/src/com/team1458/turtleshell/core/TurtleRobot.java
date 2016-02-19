@@ -1,4 +1,4 @@
-package com.team1458.turtleshell.base;
+package com.team1458.turtleshell.core;
 
 import com.team1458.turtleshell.logging.TurtleLogLevel;
 import com.team1458.turtleshell.logging.TurtleLogger;

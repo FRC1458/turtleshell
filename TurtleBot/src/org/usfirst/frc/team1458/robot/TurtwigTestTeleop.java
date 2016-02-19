@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.team1458.turtleshell.base.TurtlePhysicalRobot;
-import com.team1458.turtleshell.base.TurtleTeleop;
+import com.team1458.turtleshell.core.TurtlePhysicalRobot;
+import com.team1458.turtleshell.core.TurtleTeleop;
 
 public class TurtwigTestTeleop implements TurtleTeleop {
 	TurtlePhysicalRobot physicalRobot;

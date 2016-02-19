@@ -6,7 +6,6 @@ import com.team1458.turtleshell.movement.TurtleSolenoid;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;
 import com.team1458.turtleshell.physical.TurtleElectricalSolenoid;
 import com.team1458.turtleshell.physical.TurtleVictor;
-import com.team1458.turtleshell.pid.TurtleAsymmetricPID;
 import com.team1458.turtleshell.pid.TurtleDualPID;
 import com.team1458.turtleshell.pid.TurtleManualDualPID;
 import com.team1458.turtleshell.pid.TurtlePDD2;
@@ -19,6 +18,15 @@ import com.team1458.turtleshell.util.Input.XboxButton;
 import edu.wpi.first.wpilibj.Timer;
 
 public class TurtwigClimber implements TurtleRobotComponent {
+	
+	private static TurtwigClimber instance;
+	public static TurtwigClimber getInstance() {
+		if(instance==null) {
+			instance = new TurtwigClimber();
+		}
+		return instance;
+	}
+	
 	private TurtleMotor powerWinch = new TurtleVictor(TurtwigConstants.POWERWINCHVICTORPORT, false);
 	private TurtleMotor hookWinch = new TurtleVictor(TurtwigConstants.HOOKWINCHVICTORPORT, false);
 
@@ -34,18 +42,6 @@ public class TurtwigClimber implements TurtleRobotComponent {
 	private Timer unfoldTimer = new Timer();
 
 	private ClimberState state = ClimberState.FOLDED;
-
-	private final double unfoldTime = 1.0;
-
-	TurtwigConstants consti = new TurtwigConstants();
-
-	private double aTarget = 42;
-
-	private double bTarget = 42;
-
-	private double cTarget = 42;
-
-	private double dTarget = 42;
 
 	private enum ClimberState {
 		FOLDED, UNFOLDING, UNFOLDED, RAISING, RAISED, RETRACTING, CLIMBING, CLIMBED
@@ -85,7 +81,7 @@ public class TurtwigClimber implements TurtleRobotComponent {
 		// check if move to new state
 		switch (state) {
 		case UNFOLDING:
-			if (unfoldTimer.get() > unfoldTime) {
+			if (unfoldTimer.get() > TurtwigConstants.unfoldTime) {
 				state = ClimberState.UNFOLDED;
 				unfoldTimer.stop();
 			}

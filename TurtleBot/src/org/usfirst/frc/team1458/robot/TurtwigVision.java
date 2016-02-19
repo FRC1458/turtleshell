@@ -19,6 +19,16 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance {
+	private static TurtwigVision instance;
+	public static TurtwigVision getInstance() {
+		if(instance==null) {
+			instance = new TurtwigVision();
+		}
+		return instance;
+	}
+	
+	
+	
 	int session;
 	Image image;
 	Image binaryFrame;
@@ -38,7 +48,7 @@ public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance 
 	private double angle;
 	private boolean targetRecognised;
 
-	public TurtwigVision() {
+	private TurtwigVision() {
 		initCamera();
 	}
 

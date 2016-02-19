@@ -1,4 +1,4 @@
-package com.team1458.turtleshell.base;
+package com.team1458.turtleshell.core;
 
 public interface TurtleThingGiver {
 	public TurtleTeleop giveTeleop();

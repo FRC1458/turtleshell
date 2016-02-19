@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.team1458.turtleshell.base.TurtleRobot;
+import com.team1458.turtleshell.core.TurtleRobot;
 import com.team1458.turtleshell.physical.TurtleXtrinsicMagnetometer;
 import com.team1458.turtleshell.physical.TurtleXtrinsicMagnetometerCalibration;
 import com.team1458.turtleshell.sensor.TurtleTheta;

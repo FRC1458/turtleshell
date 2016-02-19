@@ -15,6 +15,15 @@ import com.team1458.turtleshell.util.Input.XboxAxis;
 import com.team1458.turtleshell.util.Input.XboxButton;
 
 public class TurtwigIntake implements TurtleRobotComponent {
+	
+	private static TurtwigIntake instance;
+	public static TurtwigIntake getInstance() {
+		if(instance==null) {
+			instance = new TurtwigIntake();
+		}
+		return instance;
+	}
+	
 	private TurtleMotor lMotor = new TurtleVictor(TurtwigConstants.LEFTINTAKEVICTORPORT, false);
 	private TurtleMotor rMotor = new TurtleVictor(TurtwigConstants.RIGHTINTAKEVICTORPORT, true);
 

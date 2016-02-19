@@ -10,6 +10,15 @@ import com.team1458.turtleshell.util.Input.XboxAxis;
 import com.team1458.turtleshell.util.TurtleMaths.RangeShifter;
 
 public class TurtwigCameraMount implements TurtleRobotComponent{
+	
+	private static TurtwigCameraMount instance;
+	public static TurtwigCameraMount getInstance() {
+		if(instance==null) {
+			instance = new TurtwigCameraMount();
+		}
+		return instance;
+	}
+	
 	private TurtleSmartServo horizontalServo = new TurtlePWMServo(8, 90,72,15);
 	private TurtleSmartServo verticalServo = new TurtlePWMServo(9, 90,72,15);
 	private RangeShifter horizontalShifter = new RangeShifter(-1, 1, -1, 1);

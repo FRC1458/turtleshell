@@ -7,6 +7,7 @@ import com.team1458.turtleshell.physical.Turtle4PinEncoder;
 import com.team1458.turtleshell.physical.TurtleAnalogGyro;
 import com.team1458.turtleshell.physical.TurtleOnboardAccelerometer;
 import com.team1458.turtleshell.physical.TurtleVictor;
+import com.team1458.turtleshell.physical.TurtleXtrinsicMagnetometer;
 import com.team1458.turtleshell.pid.TurtleDualPID;
 import com.team1458.turtleshell.pid.TurtleStraightDrivePID;
 import com.team1458.turtleshell.pid.TurtleTurnPID;
@@ -17,9 +18,23 @@ import com.team1458.turtleshell.util.Input;
 import com.team1458.turtleshell.util.MotorValue;
 import com.team1458.turtleshell.util.Output;
 
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Timer;
 
 public class TurtwigSmartTankChassis implements TurtleSmartChassis {
+	private static TurtwigSmartTankChassis instance;
+	public static TurtwigSmartTankChassis getInstance() {
+		if(instance==null) {
+			instance = new TurtwigSmartTankChassis();
+		}
+		return instance;
+	}
+	
+	private TurtwigSmartTankChassis() {
+		
+	}
+	
+	
 	private final TurtleMotor lMotor1 = new TurtleVictor(TurtwigConstants.LEFT1VICTORPORT, false);
 	private final TurtleMotor rMotor1 = new TurtleVictor(TurtwigConstants.RIGHT1VICTORPORT, true);
 	private final TurtleMotor lMotor2 = new TurtleVictor(TurtwigConstants.LEFT2VICTORPORT, false);
@@ -29,8 +44,9 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 			TurtwigConstants.LEFTENCODERPORT2, true);
 	private final TurtleEncoder rEncoder = new Turtle4PinEncoder(TurtwigConstants.RIGHTENCODERPORT1,
 			TurtwigConstants.RIGHTENCODERPORT2, false);
-	private final TurtleTheta theta = new TurtleAnalogGyro(TurtwigConstants.GYROPORT);
-	private TurtleTheta cameraTheta;
+	private TurtleTheta theta;
+	private final TurtleTheta maggie = new TurtleXtrinsicMagnetometer(I2C.Port.kOnboard);
+	private final TurtleTheta cameraTheta = TurtwigVision.getInstance();
 
 	private TurtleDualPID pid;
 

@@ -28,10 +28,6 @@ public class TurtleManualDualPID implements TurtleDualPID {
 			inputs1[i] = inputs[2 * i];
 			inputs2[i] = inputs[2 * i + 1];
 		}
-
-		for (int i = inputs.length / 2; i < inputs.length; i++) {
-			inputs2[i - inputs2.length] = inputs[i];
-		}
 		return new MotorValue[] { pid1.newValue(inputs1), pid2.newValue(inputs2) };
 	}
 
