@@ -71,7 +71,15 @@ public class TurtwigConstants {
 	
 	public static final double pidTolerance = 20;
 	
+	/**
+	 * In degrees
+	 */
+	public static final double roughTerrainFlatAngle = 5;
 	
+	/**
+	 * In seconds
+	 */
+	public static final double roughTerrainMinTime = 0.2;
 
 
 }

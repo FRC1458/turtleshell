@@ -17,6 +17,8 @@ import com.team1458.turtleshell.util.Input;
 import com.team1458.turtleshell.util.MotorValue;
 import com.team1458.turtleshell.util.Output;
 
+import edu.wpi.first.wpilibj.Timer;
+
 public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 	private final TurtleMotor lMotor1 = new TurtleVictor(TurtwigConstants.LEFT1VICTORPORT, false);
 	private final TurtleMotor rMotor1 = new TurtleVictor(TurtwigConstants.RIGHT1VICTORPORT, true);
@@ -27,29 +29,28 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 			TurtwigConstants.LEFTENCODERPORT2, true);
 	private final TurtleEncoder rEncoder = new Turtle4PinEncoder(TurtwigConstants.RIGHTENCODERPORT1,
 			TurtwigConstants.RIGHTENCODERPORT2, false);
-	private final TurtleTheta gyro = new TurtleAnalogGyro(TurtwigConstants.GYROPORT);
+	private final TurtleTheta theta = new TurtleAnalogGyro(TurtwigConstants.GYROPORT);
+	private TurtleTheta cameraTheta;
 
 	private TurtleDualPID pid;
-	
+
 	private final TurtleSmartAccelerometer accel = new TurtleOnboardAccelerometer();
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
 		// nothing to do
 	}
 
 	@Override
 	public void autoUpdate() {
-		this.driveMotors(pid.newValue(new double[] { lEncoder.getTicks(), rEncoder.getTicks(), lEncoder.getRate(),
-				rEncoder.getRate(), gyro.getContinousTheta(), gyro.getRate(), accel.getDown()[0], accel.getDown()[1] }));
+		this.driveMotors(pid.newValue(
+				new double[] { lEncoder.getTicks(), rEncoder.getTicks(), lEncoder.getRate(), rEncoder.getRate(),
+						theta.getContinousTheta(), theta.getRate(), accel.getDown()[0], accel.getDown()[1] }));
 	}
 
 	@Override
 	public void teleUpdate() {
-
 		this.driveMotors(new MotorValue[] { new MotorValue(Input.getLPower()), new MotorValue(Input.getRPower()) });
-
 	}
 
 	@Override
@@ -58,7 +59,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 		Output.outputNumber("target", target);
 		lEncoder.reset();
 		rEncoder.reset();
-		gyro.reset();
+		theta.reset();
 		pid = new TurtleStraightDrivePID(TurtwigConstants.straightConstants,
 				target * 360 / (TurtwigConstants.WHEELDIAMETER * Math.PI), 0.00005, TurtwigConstants.pidTolerance);
 
@@ -67,7 +68,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 	public void setRoughTerrainLinearTarget(double target) {
 		TurtleLogger.info("Setting rough terrain linear target: " + target);
 		Output.outputNumber("target", target);
-		gyro.reset();
+		theta.reset();
 		pid = new RoughTerrainPID();
 	}
 
@@ -76,7 +77,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 		TurtleLogger.info("Setting theta target: " + target);
 		lEncoder.reset();
 		rEncoder.reset();
-		gyro.reset();
+		theta.reset();
 		pid = new TurtleTurnPID(TurtwigConstants.turnConstants, target, .45, 8, 26.5,
 				TurtwigConstants.turnGyroConstants, 1.26, TurtwigConstants.pidTolerance);
 
@@ -103,33 +104,59 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 	}
 
 	public void stop() {
-		lMotor1.set(new MotorValue(0));
-		lMotor2.set(new MotorValue(0));
-		rMotor1.set(new MotorValue(0));
-		rMotor2.set(new MotorValue(0));
+		lMotor1.set(MotorValue.zero);
+		lMotor2.set(MotorValue.zero);
+		rMotor1.set(MotorValue.zero);
+		rMotor2.set(MotorValue.zero);
 	}
-	
+
 	private class RoughTerrainPID implements TurtleDualPID {
+		private final double kLR = 0.01;
+
 		private double pitch;
 		private double roll;
+		private Timer flatTimer = new Timer();
+		private boolean beginTilt = false;
+
+		private boolean tiltBig() {
+			return Math.sqrt(pitch * pitch + roll * roll) > TurtwigConstants.roughTerrainFlatAngle;
+		}
+
 		@Override
 		public boolean atTarget() {
-			// TODO Auto-generated method stub
-			return false;
+			return beginTilt && !tiltBig() && flatTimer.get() > TurtwigConstants.roughTerrainMinTime;
 		}
 
 		/**
-		 * @param inputs discard, discard, discard, discard, theta, theta rate, pitch, roll
+		 * @param inputs
+		 *            discard, discard, discard, discard, theta, theta rate,
+		 *            pitch, roll
 		 */
 		@Override
 		public MotorValue[] newValue(double[] inputs) {
 			pitch = inputs[6];
 			roll = inputs[7];
-			
-			// TODO Auto-generated method stub
-			return null;
+
+			if (!beginTilt && tiltBig()) {
+				beginTilt = true;
+			}
+			if (beginTilt && !tiltBig()) {
+				flatTimer.start();
+			}
+			if (beginTilt && tiltBig()) {
+				flatTimer.stop();
+				flatTimer.reset();
+			}
+			double a = kLR * inputs[4];
+			if (inputs[4] > 0) {
+				// too far to right
+				return new MotorValue[] { new MotorValue(1 - a), MotorValue.fullForward };
+			} else {
+				// too far to left
+				return new MotorValue[] { MotorValue.fullForward, new MotorValue(1 - a) };
+			}
 		}
-		
+
 	}
 
 }

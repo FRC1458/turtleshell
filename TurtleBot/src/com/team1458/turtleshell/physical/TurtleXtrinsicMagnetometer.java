@@ -190,7 +190,6 @@ public class TurtleXtrinsicMagnetometer implements TurtleTheta, TurtleCalibratab
 		calib = calibration.getValues();
 		xShifter = new RangeShifter(calib[0], calib[1], -1, 1);
 		yShifter = new RangeShifter(calib[2], calib[3], -1, 1);
-
 	}
 
 	@Override
