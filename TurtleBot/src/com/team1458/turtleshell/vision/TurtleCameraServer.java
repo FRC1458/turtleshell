@@ -1,7 +1,7 @@
 package com.team1458.turtleshell.vision;
 
-import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.Image;
+import com.team1458.turtleshell.logging.TurtleLogger;
+import com.team1458.turtleshell.sensor.TurtleVision;
 
 import edu.wpi.first.wpilibj.CameraServer;
 
@@ -11,10 +11,10 @@ import edu.wpi.first.wpilibj.CameraServer;
  * 
  * @author mehnadnerd
  */
-public class TurtleCameraServer {
+public class TurtleCameraServer implements Runnable {
 	private static TurtleCameraServer instance;
 
-	public TurtleCameraServer getInstance() {
+	public static TurtleCameraServer getInstance() {
 		if (instance == null) {
 			instance = new TurtleCameraServer();
 		}
@@ -22,52 +22,35 @@ public class TurtleCameraServer {
 	}
 
 	private CameraServer cs;
+	
+	private TurtleVision v;
 
 	private TurtleCameraServer() {
 		cs = CameraServer.getInstance();
-		frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+		new Thread(this).start();
 	}
-
-	private int _session;
-	private Image frame;
-	private int selectedCamera = 0;
-	private boolean firstTime = true;
 
 	/**
 	 * Send the image to the dashboard
 	 */
+	@Override
 	public void run() {
-		NIVision.IMAQdxGrab(_session, frame, 1);
-		cs.setImage(frame);
-	}
-
-	/**
-	 * Change the current camera
-	 * 
-	 * @param cam
-	 *            new camera
-	 */
-	public void setCamera(int cam) {
-
-		if (!firstTime) {
-			NIVision.IMAQdxStopAcquisition(_session);
-			NIVision.IMAQdxCloseCamera(_session);
-		} else {
-			firstTime = false;
+		while(true) {
+			try {
+				cs.setImage(v.getImage());
+			} catch (NullPointerException e) {
+				TurtleLogger.warning("Vision not providing image");
+			}
+			
+			try {
+				wait(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
-		selectedCamera = cam;
-		_session = NIVision.IMAQdxOpenCamera("cam" + selectedCamera,
-				NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-		NIVision.IMAQdxConfigureGrab(_session);
-		NIVision.IMAQdxStartAcquisition(_session);
 	}
-
-	/**
-	 * Get currently selected camera
-	 * 
-	 * @return currently selected camera
-	 */
-	public int getCamera() {
-		return selectedCamera;
+	
+	public void setVision(TurtleVision v) {
+		this.v=v;
 	}
 }

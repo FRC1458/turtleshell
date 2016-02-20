@@ -5,6 +5,7 @@ import com.team1458.turtleshell.core.TurtlePhysicalRobot;
 import com.team1458.turtleshell.core.TurtleTeleop;
 import com.team1458.turtleshell.core.TurtleThingGiver;
 import com.team1458.turtleshell.logging.TurtleLogger;
+import com.team1458.turtleshell.vision.TurtleCameraServer;
 
 public class Turtwig2016RobotGiver implements TurtleThingGiver {
 	private TurtlePhysicalRobot phy = new TurtlePhysicalRobot();
@@ -17,6 +18,7 @@ public class Turtwig2016RobotGiver implements TurtleThingGiver {
 		phy.addComponent("Climber", TurtwigClimber.getInstance());
 		phy.addComponent("CameraMount", TurtwigCameraMount.getInstance());
 		phy.addUpdatable("Vision",TurtwigVision.getInstance());
+		TurtleCameraServer.getInstance().setVision(TurtwigVision.getInstance());
 		tel.giveRobot(phy);
 		aut.giveRobot(phy);
 	}
