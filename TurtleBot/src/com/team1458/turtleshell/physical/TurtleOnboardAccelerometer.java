@@ -12,6 +12,7 @@ public class TurtleOnboardAccelerometer implements TurtleSmartAccelerometer, Tur
 
 	public TurtleOnboardAccelerometer() {
 		acc = new BuiltInAccelerometer();
+		cal = new TurtleSmartAccelerometerCalibration(0,0);
 	}
 
 	@Override

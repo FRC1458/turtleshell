@@ -47,6 +47,16 @@ public class TurtlePhysicalRobot {
 	public TurtleRobotComponent getComponent(String s) {
 		return robotComponents.get(s);
 	}
+	
+	/**
+	 * 
+	 * @param s
+	 *            Name of component
+	 * @return The component
+	 */
+	public TurtleUpdatable getUpdatable(String s) {
+		return robotUpdatable.get(s);
+	}
 
 	/**
 	 * Updates all updatable components

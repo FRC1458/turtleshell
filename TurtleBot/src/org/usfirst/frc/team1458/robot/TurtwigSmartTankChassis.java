@@ -33,7 +33,6 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 		
 	}
 	
-	
 	private final TurtleMotor lMotor1 = new TurtleVictor(TurtwigConstants.LEFT1VICTORPORT, false);
 	private final TurtleMotor rMotor1 = new TurtleVictor(TurtwigConstants.RIGHT1VICTORPORT, true);
 	private final TurtleMotor lMotor2 = new TurtleVictor(TurtwigConstants.LEFT2VICTORPORT, false);
@@ -54,6 +53,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 	@Override
 	public void init() {
 		// nothing to do
+	    theta = maggie;
 	}
 
 	@Override
