@@ -87,7 +87,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 		theta.reset();
 		pid = new RoughTerrainPID();
 	}
-
+	
 	@Override
 	public void setThetaTarget(double target) {
 		TurtleLogger.info("Setting theta target: " + target);
@@ -174,5 +174,5 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 		}
 
 	}
-
+	
 }
