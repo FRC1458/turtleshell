@@ -5,6 +5,7 @@ import com.team1458.turtleshell.movement.TurtleMotor;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;
 import com.team1458.turtleshell.physical.TurtleTalon;
 import com.team1458.turtleshell.physical.TurtleVictor;
+import com.team1458.turtleshell.physical.TurtleVictorSP;
 import com.team1458.turtleshell.pid.TurtleDualPID;
 import com.team1458.turtleshell.pid.TurtleStraightDrivePID;
 import com.team1458.turtleshell.sensor.TurtleEncoder;
@@ -32,7 +33,7 @@ public class TurtwigIntake implements TurtleRobotComponent {
 	private TurtleEncoder rEncoder = new Turtle4PinEncoder(TurtwigConstants.RIGHTINTAKEENCODERPORT1,
 			TurtwigConstants.RIGHTINTAKEENCODERPORT2, true);
 
-	private TurtleMotor sMotor = new TurtleTalon(TurtwigConstants.SPININTAKEVICTORPORT, false);
+	private TurtleMotor sMotor = new TurtleVictorSP(TurtwigConstants.SPININTAKEVICTORSPPORT, false);
 	private TurtleDualPID pid;
 
 	@Override

@@ -151,7 +151,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 
 		@Override
 		public boolean atTarget() {
-			return beginTilt && !tiltBig() && flatTimer.get() > TurtwigConstants.roughTerrainMinTime;
+			return beginTilt && !tiltBig() && flatTimer.get() > TurtwigConstants.roughTerrainMinFlatTime;
 		}
 
 		/**

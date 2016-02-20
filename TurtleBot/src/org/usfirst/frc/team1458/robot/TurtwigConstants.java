@@ -8,16 +8,16 @@ public class TurtwigConstants {
 	public static final int LJOYSTICKPORT = 1;
 	public static final int BUTTONPANELPORT = 2;
 
-	public static final int LEFT1VICTORPORT = 0;
-	public static final int LEFT2VICTORPORT = 1;
-	public static final int RIGHT1VICTORPORT = 2;
-	public static final int RIGHT2VICTORPORT = 3;
+	public static final int LEFT1VICTORPORT = 2;
+	public static final int LEFT2VICTORPORT = 3;
+	public static final int RIGHT1VICTORPORT = 5;
+	public static final int RIGHT2VICTORPORT = 7;
 
 	public static final int LEFTINTAKEVICTORPORT = 4;
-	public static final int RIGHTINTAKEVICTORPORT = 5;
-	public static final int SPININTAKEVICTORPORT = 6;
-	public static final int POWERWINCHVICTORPORT = 7;
-	public static final int HOOKWINCHVICTORPORT = 8;
+	public static final int RIGHTINTAKEVICTORPORT = 6;
+	public static final int SPININTAKEVICTORSPPORT = 8;
+	public static final int POWERWINCHVICTORPORT = 1;
+	public static final int HOOKWINCHTALONPORT = 0;
 
 	public static final int LEFTENCODERPORT1 = 0;
 	public static final int LEFTENCODERPORT2 = 1;
@@ -53,8 +53,8 @@ public class TurtwigConstants {
 	public static final TurtlePIDConstants hookLowerConstants = new TurtlePDD2Constants(.008, .00035, .00045);
 	public static final TurtlePIDConstants robotRaiseConstants = new TurtlePDD2Constants(.008, .00035, .00045);
 
-	public static final double hookEncoderTicks = 1000;
-	public static final double robotEncoderTicks = 100;
+	public static final double hookLiftEncoderTicks = 1000;
+	public static final double robotLiftEncoderTicks = 100;
 
 	public static final double cameraHeight = 8;
 	/**
@@ -72,7 +72,7 @@ public class TurtwigConstants {
 	/**
 	 * In seconds
 	 */
-	public static final double roughTerrainMinTime = 0.2;
+	public static final double roughTerrainMinFlatTime = 0.2;
 	public static final double unfoldTime = 3.5;
 	
 	//Constructor so can't be initialised

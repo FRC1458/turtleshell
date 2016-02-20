@@ -5,6 +5,7 @@ import com.team1458.turtleshell.movement.TurtleMotor;
 import com.team1458.turtleshell.movement.TurtleSolenoid;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;
 import com.team1458.turtleshell.physical.TurtleElectricalSolenoid;
+import com.team1458.turtleshell.physical.TurtleTalon;
 import com.team1458.turtleshell.physical.TurtleVictor;
 import com.team1458.turtleshell.pid.TurtleDualPID;
 import com.team1458.turtleshell.pid.TurtleManualDualPID;
@@ -28,7 +29,7 @@ public class TurtwigClimber implements TurtleRobotComponent {
 	}
 	
 	private TurtleMotor powerWinch = new TurtleVictor(TurtwigConstants.POWERWINCHVICTORPORT, false);
-	private TurtleMotor hookWinch = new TurtleVictor(TurtwigConstants.HOOKWINCHVICTORPORT, false);
+	private TurtleMotor hookWinch = new TurtleTalon(TurtwigConstants.HOOKWINCHTALONPORT, false);
 
 	private TurtleEncoder powerEncoder = new Turtle4PinEncoder(TurtwigConstants.POWERWINCHENCODERPORT1,
 			TurtwigConstants.POWERWINCHENCODERPORT2, false);
@@ -90,7 +91,7 @@ public class TurtwigClimber implements TurtleRobotComponent {
 		case UNFOLDED: // starts the raising
 			state = ClimberState.RAISING;
 			pid = new TurtleManualDualPID(TurtleZeroPID.getInstance(),
-					new TurtlePDD2(TurtwigConstants.hookRaiseConstants, TurtwigConstants.hookEncoderTicks,
+					new TurtlePDD2(TurtwigConstants.hookRaiseConstants, TurtwigConstants.hookLiftEncoderTicks,
 							TurtwigConstants.pidTolerance));
 			break;
 		case RAISING:// checks if it is done raising
@@ -105,7 +106,7 @@ public class TurtwigClimber implements TurtleRobotComponent {
 				// start climbing
 				state = ClimberState.CLIMBING;
 				pid = new TurtleManualDualPID(new TurtlePDD2(TurtwigConstants.robotRaiseConstants,
-						TurtwigConstants.robotEncoderTicks, TurtwigConstants.pidTolerance),
+						TurtwigConstants.robotLiftEncoderTicks, TurtwigConstants.pidTolerance),
 						TurtleZeroPID.getInstance());
 			}
 		case CLIMBING:
