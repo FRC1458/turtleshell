@@ -72,9 +72,13 @@ public class TurtwigClimber implements TurtleRobotComponent {
 				pid = new TurtleManualDualPID(TurtleZeroPID.getInstance(),
 						new TurtlePDD2(TurtwigConstants.hookLowerConstants, 0, TurtwigConstants.pidTolerance));
 				break;
+			case CLIMBING:
+			    powerWinch.set(MotorValue.fullForward);
 			default:
 				break;
 			}
+		} else if (state==ClimberState.CLIMBING) {
+		    powerWinch.set(MotorValue.zero);
 		}
 		// execute actions for state change
 		if (pid != null) {
@@ -113,9 +117,11 @@ public class TurtwigClimber implements TurtleRobotComponent {
 				// start climbing
 				TurtleLogger.info("Retracting done, starting climbing");
 				state = ClimberState.CLIMBING;
+				//powerWinch.set();
+				/*
 				pid = new TurtleManualDualPID(new TurtlePDD2(TurtwigConstants.robotRaiseConstants,
 						TurtwigConstants.robotLiftEncoderTicks, TurtwigConstants.pidTolerance),
-						TurtleZeroPID.getInstance());
+						TurtleZeroPID.getInstance());*/
 			}
 		case CLIMBING:
 			if (pid.atTarget()) {

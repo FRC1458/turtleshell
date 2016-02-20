@@ -15,7 +15,8 @@ public class MotorValue {
 	public static final MotorValue fullBackward = new MotorValue(-1);
 
 	public MotorValue(double value) {
-		this.value = TurtleMaths.fitRange(value, -1, 1);
+		value = TurtleMaths.fitRange(value, -1, 1);
+		this.value = TurtleMaths.deadband(value, 0.05);
 	}
 
 	/**

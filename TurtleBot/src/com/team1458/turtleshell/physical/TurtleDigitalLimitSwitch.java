@@ -5,19 +5,25 @@ import com.team1458.turtleshell.sensor.TurtleLimitSwitch;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 public class TurtleDigitalLimitSwitch implements TurtleLimitSwitch {
-	private final DigitalInput i;
+    private final DigitalInput i;
+    private final boolean isReversed;
 
-	public TurtleDigitalLimitSwitch(int port) {
-		i = new DigitalInput(port);
-	}
+    public TurtleDigitalLimitSwitch(int port) {
+	this(port, false);
+    }
 
-	@Override
-	public void update() {
-		// nothing
-	}
+    public TurtleDigitalLimitSwitch(int port, boolean isReversed) {
+	i = new DigitalInput(port);
+	this.isReversed = isReversed;
+    }
 
-	@Override
-	public boolean isPressed() {
-		return i.get();
-	}
+    @Override
+    public void update() {
+	// nothing
+    }
+
+    @Override
+    public boolean isPressed() {
+	return isReversed ^ i.get();//XORs it, reversing it (This is the right way)
+    }
 }
