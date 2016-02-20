@@ -127,7 +127,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 	}
 
 	private class RoughTerrainPID implements TurtleDualPID {
-		private final double kLR = 0.01;
+		private final double kLR = 0.01; //in porgramming circles, k in front of something means its a constant
 
 		private double pitch;
 		private double roll;
@@ -135,11 +135,15 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 		private boolean beginTilt = false;
 
 		private boolean tiltBig() {
+			/*
+			* This checks to see if the robot is on rough terrain
+			*/
 			return Math.sqrt(pitch * pitch + roll * roll) > TurtwigConstants.roughTerrainFlatAngle;
 		}
 
 		@Override
 		public boolean atTarget() {
+			//tells if the PID loop is done
 			return beginTilt && !tiltBig() && flatTimer.get() > TurtwigConstants.roughTerrainMinTime;
 		}
 
