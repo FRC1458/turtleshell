@@ -33,7 +33,7 @@ public class TurtlePhysicalRobot {
 		component.init();
 		robotComponents.put(name, component);
 	}
-	
+
 	public void addUpdatable(String name, TurtleUpdatable updatable) {
 		robotUpdatable.put(name, updatable);
 	}

@@ -16,7 +16,7 @@ public class TurtwigLowBarAuto implements TurtleAutonomous {
 				.getComponent("Chassis");
 		
 		chassis.setLinearTarget(120);
-		
+		safeDo();
 
 		Output.syso("Turtwig did it!");
 	}

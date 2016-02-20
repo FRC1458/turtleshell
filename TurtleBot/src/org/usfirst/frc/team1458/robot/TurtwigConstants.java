@@ -36,8 +36,8 @@ public class TurtwigConstants {
 
 	public static final int SOLENOIDPORT = 0;
 
-	public static final double WHEELDIAMETER = 8;
-	public static final double WHEELBASE = 24;
+	public static final double WHEELDIAMETER = 3.5;
+	public static final double WHEELBASE = 24.70;
 
 	public static final int GYROPORT = 1;
 

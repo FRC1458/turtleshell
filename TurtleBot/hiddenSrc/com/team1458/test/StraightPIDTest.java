@@ -15,7 +15,7 @@ public class StraightPIDTest {
 
 	@Test
 	public void test() {
-		TurtleDualPID pid = new TurtleStraightDrivePID(new TurtlePDD2Constants(.0015, .0001, .0001), 5000, 0.00005);
+		TurtleDualPID pid = new TurtleStraightDrivePID(new TurtlePDD2Constants(.0015, .0001, .0001), 5000, 0.00005, 0);
 		double lSpeed = 0;
 		double rSpeed = 0;
 		double lDistance = 0;
