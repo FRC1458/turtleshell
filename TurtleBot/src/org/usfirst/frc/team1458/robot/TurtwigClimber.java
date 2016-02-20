@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell.component.TurtleRobotComponent;
+import com.team1458.turtleshell.logging.TurtleLogger;
 import com.team1458.turtleshell.movement.TurtleMotor;
 import com.team1458.turtleshell.movement.TurtleSolenoid;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;
@@ -31,8 +32,8 @@ public class TurtwigClimber implements TurtleRobotComponent {
 	private TurtleMotor powerWinch = new TurtleVictor(TurtwigConstants.POWERWINCHVICTORPORT, false);
 	private TurtleMotor hookWinch = new TurtleTalon(TurtwigConstants.HOOKWINCHTALONPORT, false);
 
-	private TurtleEncoder powerEncoder = new Turtle4PinEncoder(TurtwigConstants.POWERWINCHENCODERPORT1,
-			TurtwigConstants.POWERWINCHENCODERPORT2, false);
+	/*private TurtleEncoder powerEncoder = new Turtle4PinEncoder(TurtwigConstants.POWERWINCHENCODERPORT1,
+			TurtwigConstants.POWERWINCHENCODERPORT2, false);*/
 	private TurtleEncoder hookEncoder = new Turtle4PinEncoder(TurtwigConstants.HOOKWINCHENCODERPORT1,
 			TurtwigConstants.HOOKWINCHENCODERPORT2, false);
 
@@ -60,11 +61,13 @@ public class TurtwigClimber implements TurtleRobotComponent {
 		if (Input.getXboxButton(XboxButton.Y)) {
 			switch (state) {
 			case FOLDED:
+				TurtleLogger.info("Starting unfolding");
 				this.state = ClimberState.UNFOLDING;
 				folder.set(false);
 				unfoldTimer.start();
 				break;
 			case RAISED:
+				TurtleLogger.info("Starting to retract the hook");
 				this.state = ClimberState.RETRACTING;
 				pid = new TurtleManualDualPID(TurtleZeroPID.getInstance(),
 						new TurtlePDD2(TurtwigConstants.hookLowerConstants, 0, TurtwigConstants.pidTolerance));
@@ -75,27 +78,31 @@ public class TurtwigClimber implements TurtleRobotComponent {
 		}
 		// execute actions for state change
 		if (pid != null) {
-			driveMotors(pid.newValue(new double[] { powerEncoder.getTicks(), hookEncoder.getTicks(),
-					powerEncoder.getRate(), hookEncoder.getRate() }));
+			driveMotors(pid.newValue(new double[] { /*powerEncoder.getTicks()*/0, hookEncoder.getTicks(),
+					/*powerEncoder.getRate()*/0, hookEncoder.getRate() }));
 		}
 
 		// check if move to new state
 		switch (state) {
 		case UNFOLDING:
 			if (unfoldTimer.get() > TurtwigConstants.unfoldTime) {
+				TurtleLogger.info("Unfolding finished");
 				state = ClimberState.UNFOLDED;
 				unfoldTimer.stop();
 			}
 
 			break;
 		case UNFOLDED: // starts the raising
+			TurtleLogger.info("Starting to raise");
 			state = ClimberState.RAISING;
 			pid = new TurtleManualDualPID(TurtleZeroPID.getInstance(),
 					new TurtlePDD2(TurtwigConstants.hookRaiseConstants, TurtwigConstants.hookLiftEncoderTicks,
 							TurtwigConstants.pidTolerance));
 			break;
 		case RAISING:// checks if it is done raising
+			
 			if (pid.atTarget()) {
+				TurtleLogger.info("Raising done");
 				pid = null;
 				state = ClimberState.RAISED;
 
@@ -104,6 +111,7 @@ public class TurtwigClimber implements TurtleRobotComponent {
 		case RETRACTING:
 			if (pid.atTarget()) {
 				// start climbing
+				TurtleLogger.info("Retracting done, starting climbing");
 				state = ClimberState.CLIMBING;
 				pid = new TurtleManualDualPID(new TurtlePDD2(TurtwigConstants.robotRaiseConstants,
 						TurtwigConstants.robotLiftEncoderTicks, TurtwigConstants.pidTolerance),
@@ -111,6 +119,7 @@ public class TurtwigClimber implements TurtleRobotComponent {
 			}
 		case CLIMBING:
 			if (pid.atTarget()) {
+				TurtleLogger.info("Done climbing, yay!");
 				pid = null;
 				state = ClimberState.CLIMBED;
 			}

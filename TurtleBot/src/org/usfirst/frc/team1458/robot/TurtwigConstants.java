@@ -76,8 +76,13 @@ public class TurtwigConstants {
 	 */
 	public static final double roughTerrainMinFlatTime = 0.2;
 	public static final double unfoldTime = 3.5;
+	public static final int BALLLIMITSWITCHPORT = 9;
+	public static final int INTAKETOPLIMITSWITCHPORT = -1;
 	
-	//Constructor so can't be initialised
-	private TurtwigConstants(){};
+	public static final double INTAKEENCODERMAX = 100;
+
+	// Constructor so can't be initialised
+	private TurtwigConstants() {
+	};
 
 }

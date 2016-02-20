@@ -56,24 +56,29 @@ public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance 
 	}
 
 	private void initCamera() {
-		session = NIVision.IMAQdxOpenCamera("cam0", NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-		NIVision.IMAQdxConfigureGrab(session);
+		try {
+			session = NIVision.IMAQdxOpenCamera("cam0", NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+			NIVision.IMAQdxConfigureGrab(session);
 
-		// create images
-		image = NIVision.imaqCreateImage(ImageType.IMAGE_RGB, 0);
-		binaryFrame = NIVision.imaqCreateImage(ImageType.IMAGE_U8, 0);
-		criteria[0] = new NIVision.ParticleFilterCriteria2(NIVision.MeasurementType.MT_AREA_BY_IMAGE_AREA, AREA_MINIMUM,
-				100.0, 0, 0);
+			// create images
+			image = NIVision.imaqCreateImage(ImageType.IMAGE_RGB, 0);
+			binaryFrame = NIVision.imaqCreateImage(ImageType.IMAGE_U8, 0);
+			criteria[0] = new NIVision.ParticleFilterCriteria2(NIVision.MeasurementType.MT_AREA_BY_IMAGE_AREA,
+					AREA_MINIMUM, 100.0, 0, 0);
 
-		// Put default values to SmartDashboard so fields will appear
-		SmartDashboard.putNumber("Hue min", TARGET_HUE_RANGE.minValue);
-		SmartDashboard.putNumber("Hue max", TARGET_HUE_RANGE.maxValue);
-		SmartDashboard.putNumber("Sat max", TARGET_SAT_RANGE.minValue);
-		SmartDashboard.putNumber("Sat min", TARGET_SAT_RANGE.maxValue);
-		SmartDashboard.putNumber("Val min", TARGET_VAL_RANGE.minValue);
-		SmartDashboard.putNumber("Val max", TARGET_VAL_RANGE.maxValue);
-		SmartDashboard.putNumber("Area min %", AREA_MINIMUM);
-		SmartDashboard.putBoolean("use binary", false);
+			// Put default values to SmartDashboard so fields will appear
+			SmartDashboard.putNumber("Hue min", TARGET_HUE_RANGE.minValue);
+			SmartDashboard.putNumber("Hue max", TARGET_HUE_RANGE.maxValue);
+			SmartDashboard.putNumber("Sat max", TARGET_SAT_RANGE.minValue);
+			SmartDashboard.putNumber("Sat min", TARGET_SAT_RANGE.maxValue);
+			SmartDashboard.putNumber("Val min", TARGET_VAL_RANGE.minValue);
+			SmartDashboard.putNumber("Val max", TARGET_VAL_RANGE.maxValue);
+			SmartDashboard.putNumber("Area min %", AREA_MINIMUM);
+			SmartDashboard.putBoolean("use binary", false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
