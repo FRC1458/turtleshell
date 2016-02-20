@@ -33,6 +33,8 @@ public class TurtwigConstants {
 	public static final int POWERWINCHENCODERPORT2 = 9;
 	public static final int HOOKWINCHENCODERPORT1 = 10;
 	public static final int HOOKWINCHENCODERPORT2 = 11;
+	
+	public static final int BALLLIMITSWITCHPORT = 9;
 
 	public static final int SOLENOIDPORT = 0;
 

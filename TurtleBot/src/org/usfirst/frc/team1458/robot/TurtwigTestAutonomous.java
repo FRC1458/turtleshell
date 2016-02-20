@@ -11,7 +11,7 @@ public class TurtwigTestAutonomous implements TurtleAutonomous {
 	@Override
 	public void doAuto() {
 	    while(TurtleSafeDriverStation.canAuto()) {
-		physicalRobot.getUpdatable("Vision").update();
+		physicalRobot.updateAll();
 	    }
 	    /*
 		chassis = (TurtwigSmartTankChassis) physicalRobot

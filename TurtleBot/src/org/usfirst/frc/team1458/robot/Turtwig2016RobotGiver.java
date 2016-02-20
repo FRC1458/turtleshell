@@ -18,7 +18,7 @@ public class Turtwig2016RobotGiver implements TurtleThingGiver {
 		phy.addComponent("Climber", TurtwigClimber.getInstance());
 		//phy.addComponent("CameraMount", TurtwigCameraMount.getInstance());
 		phy.addUpdatable("Vision",TurtwigVision.getInstance());
-		TurtleCameraServer.getInstance().setVision(TurtwigVision.getInstance());
+		//TurtleCameraServer.getInstance().setVision(TurtwigVision.getInstance());
 		tel.giveRobot(phy);
 		aut.giveRobot(phy);
 	}

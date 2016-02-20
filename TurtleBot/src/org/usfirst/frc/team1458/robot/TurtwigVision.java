@@ -14,6 +14,7 @@ import com.team1458.turtleshell.util.TurtleSafeDriverStation;
 import com.team1458.turtleshell.vision.Particle;
 import com.team1458.turtleshell.vision.ScoreAnalyser;
 import com.team1458.turtleshell.vision.Scores;
+import com.team1458.turtleshell.vision.TurtleCameraServer;
 import com.team1458.turtleshell.vision.VisionMaths;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -82,7 +83,7 @@ public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance 
 
 		if (!SmartDashboard.getBoolean("use binary")) {
 			sendImage = image;
-			// CameraServer.getInstance().setImage(image);
+			TurtleCameraServer.getInstance().setImage(image);
 		}
 		if (TurtleSafeDriverStation.canAuto()) {
 			// Update threshold values from SmartDashboard. For performance
@@ -99,7 +100,7 @@ public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance 
 					TARGET_SAT_RANGE, TARGET_VAL_RANGE);
 			if (SmartDashboard.getBoolean("use binary")) {
 				sendImage = binaryFrame;
-				// CameraServer.getInstance().setImage(binaryFrame);
+				TurtleCameraServer.getInstance().setImage(binaryFrame);
 			}
 			// Send particle count to dashboard
 			int numParticles = NIVision.imaqCountParticles(binaryFrame, 1);
@@ -140,7 +141,7 @@ public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance 
 				}
 
 			} else {
-				TurtleLogger.warning("No vision target found");
+				TurtleLogger.verbose("No vision target found");
 			}
 
 			Output.outputNumber("Vision Distance", this.getDistance());
