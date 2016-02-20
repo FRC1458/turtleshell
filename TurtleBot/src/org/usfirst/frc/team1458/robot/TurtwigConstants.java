@@ -43,7 +43,7 @@ public class TurtwigConstants {
     public static final TurtlePIDConstants turnConstants = new TurtlePDD2Constants(.008, .00035, .00045);
     public static final TurtlePIDConstants turnGyroConstants = new TurtlePDD2Constants(.015, .00035, .0004);
 
-    public static final TurtlePIDConstants intakePIDConstants = new TurtlePDD2Constants(.008, .00035, .00045);
+    public static final TurtlePIDConstants intakePIDConstants = new TurtlePDD2Constants(.016, .00035, .0003);
 
     public static final double intakePIDkLR = 0.001;
 
@@ -74,7 +74,7 @@ public class TurtwigConstants {
     public static final double unfoldTime = 3.5;
     public static final int BALLLIMITSWITCHPORT = 8;
 
-    public static final double INTAKEENCODERMAX = 100;
+    public static final double INTAKEENCODERMAX = 220;
 
     // Constructor so can't be initialised
     private TurtwigConstants() {

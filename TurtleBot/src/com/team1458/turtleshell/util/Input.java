@@ -39,7 +39,7 @@ public class Input {
 	}
 	
 	public static enum XboxButton {
-		A(0), B(1), X(2), Y(3), LBUMP(4), RBUMP(5), SELECT(6), START(7), LSTICK(8), RSTICK(9);
+		A(1), B(2), X(3), Y(4), LBUMP(5), RBUMP(6), SELECT(7), START(8), LSTICK(9), RSTICK(10);
 		public final int val;
 		XboxButton(int i) {
 			val=i;

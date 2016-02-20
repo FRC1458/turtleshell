@@ -9,6 +9,8 @@ import com.team1458.turtleshell.physical.TurtleEncoderLimit;
 import com.team1458.turtleshell.physical.TurtleVictor;
 import com.team1458.turtleshell.physical.TurtleVictorSP;
 import com.team1458.turtleshell.pid.TurtleDualPID;
+import com.team1458.turtleshell.pid.TurtlePDD2;
+import com.team1458.turtleshell.pid.TurtlePID;
 import com.team1458.turtleshell.pid.TurtleStraightDrivePID;
 import com.team1458.turtleshell.sensor.TurtleEncoder;
 import com.team1458.turtleshell.sensor.TurtleLimitSwitch;
@@ -39,7 +41,7 @@ public class TurtwigIntake implements TurtleRobotComponent {
     private TurtleEncoder rEncoder = new Turtle4PinEncoder(TurtwigConstants.RIGHTINTAKEENCODERPORT1, TurtwigConstants.RIGHTINTAKEENCODERPORT2, false);
 
     private TurtleMotor sMotor = new TurtleVictorSP(TurtwigConstants.SPININTAKEVICTORSPPORT, false);
-    private TurtleDualPID pid;
+    private TurtlePID pid;
 
     private TurtleLimitSwitch ballLimit = new TurtleDigitalLimitSwitch(TurtwigConstants.BALLLIMITSWITCHPORT, true);
     private TurtleLimitSwitch intakeTopLimit = new TurtleEncoderLimit(rEncoder, 0, false);
@@ -81,13 +83,16 @@ public class TurtwigIntake implements TurtleRobotComponent {
 	} else if (pid == null) {
 	    TurtleLogger.info("Holding position");
 	    double currentPos = TurtleMaths.fitRange(TurtleMaths.avg(lEncoder.getTicks(), rEncoder.getTicks()), 0, TurtwigConstants.INTAKEENCODERMAX);
-	    pid = new TurtleStraightDrivePID(TurtwigConstants.intakePIDConstants, currentPos, TurtwigConstants.intakePIDkLR, 0.0);
+	    pid = new TurtlePDD2(TurtwigConstants.intakePIDConstants, currentPos, 0);
+	    
 	} else {
-	    driveMotors(pid.newValue(new double[] { lEncoder.getTicks(), rEncoder.getTicks(), lEncoder.getRate(), rEncoder.getRate() }));
+	    driveMotors(pid.newValue(new double[] { TurtleMaths.avg(lEncoder.getTicks(), rEncoder.getTicks()),
+		    TurtleMaths.avg(lEncoder.getRate(), rEncoder.getRate()) }));
 	    Output.outputNumber("lIntakePower", lMotor.get().getValue());
 	    Output.outputNumber("rIntakePower", rMotor.get().getValue());
 	}
 	Output.outputBoolean("ballLimit", ballLimit.isPressed());
+	
 	if (Input.getXboxButton(XboxButton.LBUMP)) {
 	    // should intake
 	    if (ballLimit.isPressed()) {
@@ -103,10 +108,11 @@ public class TurtwigIntake implements TurtleRobotComponent {
 	    SmartDashboard.putString("Spinny", "out");
 	    sMotor.set(MotorValue.fullBackward);
 	} else {
-	    // neithe rpressed, should stop
+	    // neither pressed, should stop
 	    SmartDashboard.putString("Spinny", "stop");
 	    sMotor.set(MotorValue.zero);
 	}
+	//sMotor.set(new MotorValue(Input.getXboxAxis(XboxAxis.RY)));
     }
 
     @Override
