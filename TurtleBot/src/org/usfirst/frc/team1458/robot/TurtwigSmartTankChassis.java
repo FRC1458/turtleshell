@@ -93,11 +93,23 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 		TurtleLogger.info("Setting theta target: " + target);
 		lEncoder.reset();
 		rEncoder.reset();
+		theta = maggie;
 		theta.reset();
 		pid = new TurtleTurnPID(TurtwigConstants.turnConstants, target, .45, 8, 26.5,
 				TurtwigConstants.turnGyroConstants, 1.26, TurtwigConstants.pidTolerance);
 
 	}
+	public void setCameraThetaTarget(double target) {
+		TurtleLogger.info("Setting camera theta target: " + target);
+		lEncoder.reset();
+		rEncoder.reset();
+		theta = cameraTheta;
+		theta.reset();
+		pid = new TurtleTurnPID(TurtwigConstants.turnConstants, target, .45, 8, 26.5,
+				TurtwigConstants.turnGyroConstants, 1.26, TurtwigConstants.pidTolerance);
+
+	}
+	
 
 	@Override
 	public boolean atTarget() {

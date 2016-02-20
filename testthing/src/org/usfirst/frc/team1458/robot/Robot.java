@@ -3,6 +3,7 @@ package org.usfirst.frc.team1458.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -16,7 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-    Victor v = new Victor(1);
+    Relay s = new Relay(0);
     Joystick j = new Joystick(0);
     /**
      * This function is run when the robot is first started up and should be
@@ -47,7 +48,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        v.set(j.getAxis(Joystick.AxisType.kY));
+        //v.set(j.getAxis(Joystick.AxisType.kY));
     }
     
     /**
