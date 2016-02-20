@@ -76,6 +76,7 @@ public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance 
 			SmartDashboard.putNumber("Area min %", AREA_MINIMUM);
 			SmartDashboard.putBoolean("use binary", false);
 		} catch (Exception e) {
+			TurtleLogger.critical("Camera Not found");
 			e.printStackTrace();
 		}
 
@@ -84,72 +85,78 @@ public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance 
 	@Override
 	public void update() {
 		// SmartDashboard.putNumber("ImageAddress", image.getAddress());
-		NIVision.IMAQdxGrab(session, image, 1);// problem righhere!!!!
+		try {
+			NIVision.IMAQdxGrab(session, image, 1);// problem righhere!!!!
 
-		if (!SmartDashboard.getBoolean("use binary")) {
-			sendImage = image;
-			TurtleCameraServer.getInstance().setImage(image);
-		}
-		if (TurtleSafeDriverStation.canAuto()) {
-			// Update threshold values from SmartDashboard. For performance
-			// reasons
-			// it is recommended to remove this after calibration is finished.
-			TARGET_HUE_RANGE.minValue = (int) SmartDashboard.getNumber("Tote hue min", TARGET_HUE_RANGE.minValue);
-			TARGET_HUE_RANGE.maxValue = (int) SmartDashboard.getNumber("Tote hue max", TARGET_HUE_RANGE.maxValue);
-			TARGET_SAT_RANGE.minValue = (int) SmartDashboard.getNumber("Tote sat min", TARGET_SAT_RANGE.minValue);
-			TARGET_SAT_RANGE.maxValue = (int) SmartDashboard.getNumber("Tote sat max", TARGET_SAT_RANGE.maxValue);
-			TARGET_VAL_RANGE.minValue = (int) SmartDashboard.getNumber("Tote val min", TARGET_VAL_RANGE.minValue);
-			TARGET_VAL_RANGE.maxValue = (int) SmartDashboard.getNumber("Tote val max", TARGET_VAL_RANGE.maxValue);
-
-			NIVision.imaqColorThreshold(binaryFrame, image, 255, NIVision.ColorMode.HSV, TARGET_HUE_RANGE,
-					TARGET_SAT_RANGE, TARGET_VAL_RANGE);
-			if (SmartDashboard.getBoolean("use binary")) {
-				sendImage = binaryFrame;
-				TurtleCameraServer.getInstance().setImage(binaryFrame);
+			if (!SmartDashboard.getBoolean("use binary")) {
+				sendImage = image;
+				TurtleCameraServer.getInstance().setImage(image);
 			}
-			// Send particle count to dashboard
-			int numParticles = NIVision.imaqCountParticles(binaryFrame, 1);
-			SmartDashboard.putNumber("Masked particles", numParticles);
-			// filter out small particles
-			float areaMin = (float) SmartDashboard.getNumber("Area min %", AREA_MINIMUM);
-			criteria[0].lower = areaMin;
-			imaqError = NIVision.imaqParticleFilter4(binaryFrame, binaryFrame, criteria, filterOptions, null);
+			if (TurtleSafeDriverStation.canAuto()) {
+				// Update threshold values from SmartDashboard. For performance
+				// reasons
+				// it is recommended to remove this after calibration is
+				// finished.
+				TARGET_HUE_RANGE.minValue = (int) SmartDashboard.getNumber("Tote hue min", TARGET_HUE_RANGE.minValue);
+				TARGET_HUE_RANGE.maxValue = (int) SmartDashboard.getNumber("Tote hue max", TARGET_HUE_RANGE.maxValue);
+				TARGET_SAT_RANGE.minValue = (int) SmartDashboard.getNumber("Tote sat min", TARGET_SAT_RANGE.minValue);
+				TARGET_SAT_RANGE.maxValue = (int) SmartDashboard.getNumber("Tote sat max", TARGET_SAT_RANGE.maxValue);
+				TARGET_VAL_RANGE.minValue = (int) SmartDashboard.getNumber("Tote val min", TARGET_VAL_RANGE.minValue);
+				TARGET_VAL_RANGE.maxValue = (int) SmartDashboard.getNumber("Tote val max", TARGET_VAL_RANGE.maxValue);
 
-			// Send particle count after filtering to dashboard
-			numParticles = NIVision.imaqCountParticles(binaryFrame, 1);
-			SmartDashboard.putNumber("Filtered particles", numParticles);
-
-			if (numParticles > 0) {
-				// Measure particles and sort by particle size
-				ArrayList<Particle> particles = new ArrayList<Particle>();
-				for (int particleIndex = 0; particleIndex < numParticles; particleIndex++) {
-					Particle par = new Particle(binaryFrame, particleIndex);
-					particles.add(par);
+				NIVision.imaqColorThreshold(binaryFrame, image, 255, NIVision.ColorMode.HSV, TARGET_HUE_RANGE,
+						TARGET_SAT_RANGE, TARGET_VAL_RANGE);
+				if (SmartDashboard.getBoolean("use binary")) {
+					sendImage = binaryFrame;
+					TurtleCameraServer.getInstance().setImage(binaryFrame);
 				}
-				particles.sort(null);
+				// Send particle count to dashboard
+				int numParticles = NIVision.imaqCountParticles(binaryFrame, 1);
+				SmartDashboard.putNumber("Masked particles", numParticles);
+				// filter out small particles
+				float areaMin = (float) SmartDashboard.getNumber("Area min %", AREA_MINIMUM);
+				criteria[0].lower = areaMin;
+				imaqError = NIVision.imaqParticleFilter4(binaryFrame, binaryFrame, criteria, filterOptions, null);
 
-				Particle particle = particles.get(0);
+				// Send particle count after filtering to dashboard
+				numParticles = NIVision.imaqCountParticles(binaryFrame, 1);
+				SmartDashboard.putNumber("Filtered particles", numParticles);
 
-				Scores scores = new Scores(particle);
-				SmartDashboard.putNumber("AreaScore", scores.areaToConvexArea);
-				SmartDashboard.putNumber("PerimeterScore", scores.perimeterToConvexPerimeter);
-				SmartDashboard.putNumber("PlenimeterScore", scores.plenimeter);
-				SmartDashboard.putNumber("RectanglinessScore", scores.rectangliness);
-				SmartDashboard.putBoolean("IsAcceptable", ScoreAnalyser.isAcceptable(scores));
-				targetRecognised = ScoreAnalyser.isAcceptable(scores);
-				if (targetRecognised) {
-					distance = (89 - TurtwigConstants.cameraHeight)
-							* (Math.sin(
-									Math.PI - (VisionMaths.yToTheta(particle.yCentre) - TurtwigConstants.cameraAngle)))
-							/ (Math.sin((VisionMaths.yToTheta(particle.yCentre) - TurtwigConstants.cameraAngle)));
-					angle = VisionMaths.xToTheta(particle.xCentre);
+				if (numParticles > 0) {
+					// Measure particles and sort by particle size
+					ArrayList<Particle> particles = new ArrayList<Particle>();
+					for (int particleIndex = 0; particleIndex < numParticles; particleIndex++) {
+						Particle par = new Particle(binaryFrame, particleIndex);
+						particles.add(par);
+					}
+					particles.sort(null);
+
+					Particle particle = particles.get(0);
+
+					Scores scores = new Scores(particle);
+					SmartDashboard.putNumber("AreaScore", scores.areaToConvexArea);
+					SmartDashboard.putNumber("PerimeterScore", scores.perimeterToConvexPerimeter);
+					SmartDashboard.putNumber("PlenimeterScore", scores.plenimeter);
+					SmartDashboard.putNumber("RectanglinessScore", scores.rectangliness);
+					SmartDashboard.putBoolean("IsAcceptable", ScoreAnalyser.isAcceptable(scores));
+					targetRecognised = ScoreAnalyser.isAcceptable(scores);
+					if (targetRecognised) {
+						distance = (89 - TurtwigConstants.cameraHeight)
+								* (Math.sin(Math.PI
+										- (VisionMaths.yToTheta(particle.yCentre) - TurtwigConstants.cameraAngle)))
+								/ (Math.sin((VisionMaths.yToTheta(particle.yCentre) - TurtwigConstants.cameraAngle)));
+						angle = VisionMaths.xToTheta(particle.xCentre);
+					}
+
+				} else {
+					TurtleLogger.verbose("No vision target found");
 				}
 
-			} else {
-				TurtleLogger.verbose("No vision target found");
+				Output.outputNumber("Vision Distance", this.getDistance());
 			}
 
-			Output.outputNumber("Vision Distance", this.getDistance());
+		} catch (Exception e) {
+			TurtleLogger.severe("Camera code failed");
 		}
 
 	}
