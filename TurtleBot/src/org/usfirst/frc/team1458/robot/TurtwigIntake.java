@@ -41,7 +41,7 @@ public class TurtwigIntake implements TurtleRobotComponent {
     private TurtleMotor sMotor = new TurtleVictorSP(TurtwigConstants.SPININTAKEVICTORSPPORT, false);
     private TurtleDualPID pid;
 
-    private TurtleLimitSwitch ballLimit = new TurtleDigitalLimitSwitch(TurtwigConstants.BALLLIMITSWITCHPORT);
+    private TurtleLimitSwitch ballLimit = new TurtleDigitalLimitSwitch(TurtwigConstants.BALLLIMITSWITCHPORT, true);
     private TurtleLimitSwitch intakeTopLimit = new TurtleEncoderLimit(rEncoder, 0, false);
     private boolean intakeTopLimitFlag = false;
 
@@ -91,16 +91,20 @@ public class TurtwigIntake implements TurtleRobotComponent {
 	if (Input.getXboxButton(XboxButton.LBUMP)) {
 	    // should intake
 	    if (ballLimit.isPressed()) {
+		SmartDashboard.putString("Spinny", "limit");
 		TurtleLogger.warning("Trying to spin intake, but already pressed");
 		sMotor.set(MotorValue.zero);
 	    } else {
+		SmartDashboard.putString("Spinny", "in");
 		sMotor.set(MotorValue.fullForward);
 	    }
 	} else if (Input.getXboxButton(XboxButton.RBUMP)) {
 	    // should outtake
+	    SmartDashboard.putString("Spinny", "out");
 	    sMotor.set(MotorValue.fullBackward);
 	} else {
 	    // neithe rpressed, should stop
+	    SmartDashboard.putString("Spinny", "stop");
 	    sMotor.set(MotorValue.zero);
 	}
     }
