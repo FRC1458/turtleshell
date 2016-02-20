@@ -29,13 +29,16 @@ public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance 
 	
 	
 	
-	int session;
-	Image image;
-	Image binaryFrame;
-	int imaqError;
+	private int session;
+	private Image image;
+	private Image binaryFrame;
+	
+	private Image sendImage;
+	
+	private int imaqError;
 
 	// Constants
-	NIVision.Range TARGET_HUE_RANGE = new NIVision.Range(220, 14); // Default
+	private NIVision.Range TARGET_HUE_RANGE = new NIVision.Range(220, 14); // Default
 																	// hue
 	NIVision.Range TARGET_SAT_RANGE = new NIVision.Range(249, 55); // Default
 	NIVision.Range TARGET_VAL_RANGE = new NIVision.Range(81, 255); // Default
@@ -96,7 +99,8 @@ public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance 
 
 		// Send masked image to dashboard to assist in tweaking mask.
 		if (SmartDashboard.getBoolean("use binary")) {
-			CameraServer.getInstance().setImage(binaryFrame);
+			sendImage=binaryFrame;
+			//CameraServer.getInstance().setImage(binaryFrame);
 		}
 
 		// filter out small particles
@@ -137,7 +141,8 @@ public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance 
 		}
 
 		if (!SmartDashboard.getBoolean("use binary")) {
-			CameraServer.getInstance().setImage(image);
+			sendImage=image;
+			//CameraServer.getInstance().setImage(image);
 		}
 		Output.outputNumber("Vision Distance", this.getDistance());
 	}
@@ -165,5 +170,10 @@ public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance 
 	@Override
 	public boolean targetRecognised() {
 		return targetRecognised;
+	}
+
+	@Override
+	public Image getImage() {
+		return sendImage;
 	}
 }
