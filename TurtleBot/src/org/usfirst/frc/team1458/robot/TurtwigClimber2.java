@@ -56,7 +56,7 @@ public class TurtwigClimber2 implements TurtleRobotComponent {
 	// Determine using user input and measurements whether it should switch
 	// state
 	switch (state) {
-	
+
 	case CLIMBED:
 	    break;
 	case CLIMBING:
@@ -70,6 +70,7 @@ public class TurtwigClimber2 implements TurtleRobotComponent {
 	case UNFOLDED:
 	    break;
 	case UNFOLDING:
+	    
 	    break;
 	case FOLDED:
 	    if (Input.getXboxButton(XboxButton.Y)) {
@@ -85,70 +86,14 @@ public class TurtwigClimber2 implements TurtleRobotComponent {
 	switch (state) {
 
 	}
-	// execute actions for state change
-	if (pid != null) {
-	    driveMotors(pid.newValue(new double[] { /* powerEncoder.getTicks() */0, hookEncoder.getTicks(),
-	    /* powerEncoder.getRate() */0, hookEncoder.getRate() }));
-	}
-
-	// check if move to new state
-	switch (state) {
-	case UNFOLDING:
-	    if (unfoldTimer.get() > TurtwigConstants.unfoldTime) {
-		TurtleLogger.info("Unfolding finished");
-		state = ClimberState.UNFOLDED;
-		unfoldTimer.stop();
-	    }
-
-	    break;
-	case UNFOLDED: // starts the raising
-	    TurtleLogger.info("Starting to raise");
-	    state = ClimberState.RAISING;
-	    pid = new TurtleManualDualPID(TurtleZeroPID.getInstance(), new TurtlePDD2(TurtwigConstants.hookRaiseConstants,
-		    TurtwigConstants.hookLiftEncoderTicks, TurtwigConstants.pidTolerance));
-	    break;
-	case RAISING:// checks if it is done raising
-
-	    if (pid.atTarget()) {
-		TurtleLogger.info("Raising done");
-		pid = null;
-		state = ClimberState.RAISED;
-
-	    }
-	    break;
-	case RETRACTING:
-	    if (pid.atTarget()) {
-		// start climbing
-		TurtleLogger.info("Retracting done, starting climbing");
-		state = ClimberState.CLIMBING;
-		// powerWinch.set();
-		/*
-		 * pid = new TurtleManualDualPID(new
-		 * TurtlePDD2(TurtwigConstants.robotRaiseConstants,
-		 * TurtwigConstants.robotLiftEncoderTicks,
-		 * TurtwigConstants.pidTolerance), TurtleZeroPID.getInstance());
-		 */
-	    }
-	case CLIMBING:
-	    if (pid.atTarget()) {
-		TurtleLogger.info("Done climbing, yay!");
-		pid = null;
-		state = ClimberState.CLIMBED;
-	    }
-	    break;
-	default:
-	    break;
-	}
     }
 
-    /**
-     * Power, hook
-     * 
-     * @param v
-     */
-    private void driveMotors(MotorValue[] v) {
-	powerWinch.set(v[0]);
-	hookWinch.set(v[1]);
+    private void drivePowerWinch(MotorValue motorValue) {
+	powerWinch.set(motorValue);
+    }
+
+    private void driveHookWinch(MotorValue motorValue) {
+	hookWinch.set(motorValue);
     }
 
     @Override

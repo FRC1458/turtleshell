@@ -24,13 +24,13 @@ import com.team1458.turtleshell.util.Input.XboxButton;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class TurtwigIntake implements TurtleRobotComponent {
+public class TurtwigPIDIntake implements TurtleRobotComponent {
 
-    private static TurtwigIntake instance;
+    private static TurtwigPIDIntake instance;
 
-    public static TurtwigIntake getInstance() {
+    public static TurtwigPIDIntake getInstance() {
 	if (instance == null) {
-	    instance = new TurtwigIntake();
+	    instance = new TurtwigPIDIntake();
 	}
 	return instance;
     }

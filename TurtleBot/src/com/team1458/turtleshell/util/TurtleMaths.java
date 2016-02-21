@@ -194,5 +194,9 @@ public class TurtleMaths {
 		}
 		return sum / num.length;
 	}
+	
+	public static double quadraticMotorScale(double toScale) {
+	    return (toScale*toScale)/Math.abs(toScale);
+	}
 
 }
