@@ -28,7 +28,7 @@ public class Robot extends TurtleRobot {
 		// Put the code to initialise operator control here.
 		TurtleLogger.info("Teleop starting");
 		tele = thingGiver.giveTeleop();
-
+		((TurtwigIntake)physicalRobot.getComponent("Intake")).resetEncoders();
 		while (TurtleSafeDriverStation.canTele()) {
 			tele.tick();
 		}

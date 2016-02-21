@@ -51,6 +51,11 @@ public class TurtwigIntake implements TurtleRobotComponent {
     public void init() {
 
     }
+    
+    public void resetEncoders() {
+	lEncoder.reset();
+	rEncoder.reset();
+    }
 
     @Override
     public void teleUpdate() {
@@ -68,7 +73,7 @@ public class TurtwigIntake implements TurtleRobotComponent {
 
 	    if (intakeTopLimit.isPressed() && !intakeTopLimitFlag) { //
 		// First press of top limit
-		TurtleLogger.severe("Hit top limit");
+		TurtleLogger.warning("Hit top limit");
 		intakeTopLimitFlag = true;
 	    } else if (!intakeTopLimit.isPressed()) { // Intake top limit has
 						      // been released
