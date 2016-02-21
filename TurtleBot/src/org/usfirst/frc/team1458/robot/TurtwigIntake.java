@@ -51,7 +51,7 @@ public class TurtwigIntake implements TurtleRobotComponent {
     public void init() {
 
     }
-    
+
     public void resetEncoders() {
 	lEncoder.reset();
 	rEncoder.reset();
@@ -79,6 +79,7 @@ public class TurtwigIntake implements TurtleRobotComponent {
 						      // been released
 		intakeTopLimitFlag = false;
 	    }
+
 	    if (intakeTopLimit.isPressed() && Input.getXboxAxis(XboxAxis.LY) < 0) {
 		TurtleLogger.warning("Attempting to move intake up while limit switch is preventing it");
 	    } else {
@@ -89,7 +90,7 @@ public class TurtwigIntake implements TurtleRobotComponent {
 	    TurtleLogger.info("Holding position");
 	    double currentPos = TurtleMaths.fitRange(TurtleMaths.avg(lEncoder.getTicks(), rEncoder.getTicks()), 0, TurtwigConstants.INTAKEENCODERMAX);
 	    pid = new TurtlePDD2(TurtwigConstants.intakePIDConstants, currentPos, 0);
-	    
+
 	} else {
 	    driveMotors(pid.newValue(new double[] { TurtleMaths.avg(lEncoder.getTicks(), rEncoder.getTicks()),
 		    TurtleMaths.avg(lEncoder.getRate(), rEncoder.getRate()) }));
@@ -97,7 +98,7 @@ public class TurtwigIntake implements TurtleRobotComponent {
 	    Output.outputNumber("rIntakePower", rMotor.get().getValue());
 	}
 	Output.outputBoolean("ballLimit", ballLimit.isPressed());
-	
+
 	if (Input.getXboxButton(XboxButton.LBUMP)) {
 	    // should intake
 	    if (ballLimit.isPressed()) {
@@ -117,7 +118,7 @@ public class TurtwigIntake implements TurtleRobotComponent {
 	    SmartDashboard.putString("Spinny", "stop");
 	    sMotor.set(MotorValue.zero);
 	}
-	//sMotor.set(new MotorValue(Input.getXboxAxis(XboxAxis.RY)));
+	// sMotor.set(new MotorValue(Input.getXboxAxis(XboxAxis.RY)));
     }
 
     @Override
@@ -129,10 +130,17 @@ public class TurtwigIntake implements TurtleRobotComponent {
     }
 
     private void driveMotors(MotorValue power) {
+
 	lMotor.set(power);
 	rMotor.set(power);
+	Output.outputNumber("lIntakePower", lMotor.get().getValue());
+	Output.outputNumber("rIntakePower", rMotor.get().getValue());
     }
 
+    /**
+     * left, right
+     * @param powers
+     */
     private void driveMotors(MotorValue[] powers) {
 	lMotor.set(powers[0]);
 	rMotor.set(powers[1]);
