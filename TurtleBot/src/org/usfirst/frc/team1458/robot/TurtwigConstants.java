@@ -76,6 +76,7 @@ public class TurtwigConstants {
     public static final int BALLLIMITSWITCHPORT = 8;
 
     public static final double INTAKEENCODERMAX = 220;
+	public static final double yankTime = .3;
 
     // Constructor so can't be initialised
     private TurtwigConstants() {
