@@ -49,6 +49,7 @@ public class TurtwigClimber2 implements TurtleRobotComponent {
 
 	@Override
 	public void teleUpdate() {
+		
 		// Determine using user input and measurements whether it should switch
 		// state
 		switch (state) {
@@ -58,6 +59,10 @@ public class TurtwigClimber2 implements TurtleRobotComponent {
 		case CLIMBING:
 			break;
 		case RETRACTING:
+			if(pid.atTarget()) {
+				this.state=ClimberState.CLIMBING;
+				pid = null;
+			}
 			break;
 		case YANKING:
 			if(timer.get() > TurtwigConstants.yankTime) {
@@ -107,6 +112,11 @@ public class TurtwigClimber2 implements TurtleRobotComponent {
 		case CLIMBED:
 			break;
 		case CLIMBING:
+			if(Input.getXboxButton(XboxButton.Y)) {
+				powerWinch.set(MotorValue.fullForward);
+			} else {
+				powerWinch.set(MotorValue.zero);
+			}
 			break;
 		case RETRACTING:
 			powerWinch.set(MotorValue.zero);

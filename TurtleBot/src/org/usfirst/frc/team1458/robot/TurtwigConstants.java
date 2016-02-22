@@ -27,13 +27,13 @@ public class TurtwigConstants {
 
     public static final int LEFTINTAKEENCODERPORT1 = 6;
     public static final int LEFTINTAKEENCODERPORT2 = 7;
-    public static final int RIGHTINTAKEENCODERPORT1 = 4;
-    public static final int RIGHTINTAKEENCODERPORT2 = 5;
+    public static final int RIGHTINTAKEENCODERPORT1 = 10;
+    public static final int RIGHTINTAKEENCODERPORT2 = 11;
 
     // public static final int POWERWINCHENCODERPORT1 = 8;
     // public static final int POWERWINCHENCODERPORT2 = 9;
-    public static final int HOOKWINCHENCODERPORT1 = 10;
-    public static final int HOOKWINCHENCODERPORT2 = 11;
+    public static final int HOOKWINCHENCODERPORT1 = 4;
+    public static final int HOOKWINCHENCODERPORT2 = 5;
 
     public static final int SOLENOIDPORT = 0;
 
@@ -53,7 +53,7 @@ public class TurtwigConstants {
     public static final TurtlePIDConstants robotRaiseConstants = new TurtlePDD2Constants(.008, .00035, .00045);
 
     public static final double hookLiftEncoderTicks = 1000;
-    public static final double robotLiftEncoderTicks = 100;
+    //public static final double robotLiftEncoderTicks = 100;
 
     public static final double cameraHeight = 8;
     /**
