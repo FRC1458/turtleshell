@@ -70,7 +70,7 @@ public class TurtwigClimber implements TurtleRobotComponent {
 				TurtleLogger.info("Starting to retract the hook");
 				this.state = ClimberState.RETRACTING;
 				pid = new TurtleManualDualPID(TurtleZeroPID.getInstance(),
-						new TurtlePDD2(TurtwigConstants.hookLowerConstants, 0, TurtwigConstants.pidTolerance));
+						new TurtlePDD2(TurtwigConstants.hookLowerConstants, 0, TurtwigConstants.drivePIDTolerance));
 				break;
 			case CLIMBING:
 			    powerWinch.set(MotorValue.fullForward);
@@ -101,7 +101,7 @@ public class TurtwigClimber implements TurtleRobotComponent {
 			state = ClimberState.RAISING;
 			pid = new TurtleManualDualPID(TurtleZeroPID.getInstance(),
 					new TurtlePDD2(TurtwigConstants.hookRaiseConstants, TurtwigConstants.hookLiftEncoderTicks,
-							TurtwigConstants.pidTolerance));
+							TurtwigConstants.drivePIDTolerance));
 			break;
 		case RAISING:// checks if it is done raising
 			

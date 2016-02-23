@@ -76,7 +76,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 		rEncoder.reset();
 		theta.reset();
 		pid = new TurtleStraightDrivePID(TurtwigConstants.straightConstants,
-				target * 360 / (TurtwigConstants.WHEELDIAMETER * Math.PI), 0.00005, TurtwigConstants.pidTolerance);
+				target * 360 / (TurtwigConstants.WHEELDIAMETER * Math.PI), 0.00005, TurtwigConstants.drivePIDTolerance);
 
 	}
 
@@ -95,7 +95,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 		theta = maggie;
 		theta.reset();
 		pid = new TurtleTurnPID(TurtwigConstants.turnConstants, target, .45, 8, 26.5,
-				TurtwigConstants.turnGyroConstants, 1.26, TurtwigConstants.pidTolerance);
+				TurtwigConstants.turnGyroConstants, 1.26, TurtwigConstants.drivePIDTolerance);
 
 	}
 	public void setCameraThetaTarget(double target) {
@@ -105,7 +105,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 		theta = cameraTheta;
 		theta.reset();
 		pid = new TurtleTurnPID(TurtwigConstants.turnConstants, target, .45, 8, 26.5,
-				TurtwigConstants.turnGyroConstants, 1.26, TurtwigConstants.pidTolerance);
+				TurtwigConstants.turnGyroConstants, 1.26, TurtwigConstants.drivePIDTolerance);
 
 	}
 	

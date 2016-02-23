@@ -66,7 +66,7 @@ public class TurtwigClimber2 implements TurtleRobotComponent {
 	case YANKING:
 	    if (timer.get() > TurtwigConstants.yankTime) {
 		this.state = ClimberState.RETRACTING;
-		pid = new TurtlePDD2(TurtwigConstants.hookLowerConstants, TurtwigConstants.hookDownEncoderTicks, TurtwigConstants.pidTolerance);
+		pid = new TurtlePDD2(TurtwigConstants.hookLowerConstants, TurtwigConstants.hookDownEncoderTicks, TurtwigConstants.drivePIDTolerance);
 	    }
 	    break;
 
@@ -85,7 +85,7 @@ public class TurtwigClimber2 implements TurtleRobotComponent {
 	case UNFOLDED:
 	    state = ClimberState.RAISING;
 	    hookEncoder.reset();
-	    pid = new TurtlePDD2(TurtwigConstants.hookRaiseConstants, TurtwigConstants.hookLiftEncoderTicks, TurtwigConstants.pidTolerance);
+	    pid = new TurtlePDD2(TurtwigConstants.hookRaiseConstants, TurtwigConstants.hookLiftEncoderTicks, TurtwigConstants.drivePIDTolerance);
 	    break;
 	case UNFOLDING:
 	    if (timer.get() > TurtwigConstants.unfoldTime) {

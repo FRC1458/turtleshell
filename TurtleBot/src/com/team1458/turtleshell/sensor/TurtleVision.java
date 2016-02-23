@@ -2,7 +2,7 @@ package com.team1458.turtleshell.sensor;
 
 import com.ni.vision.NIVision.Image;
 
-public interface TurtleVision {
+public interface TurtleVision extends TurtleSensor {
 	/**
 	 * Whether or not the target has been recognised.
 	 * @return

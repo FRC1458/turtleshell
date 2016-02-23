@@ -41,15 +41,16 @@ public class TurtwigConstants {
 	public static final TurtlePIDConstants turnConstants = new TurtlePDD2Constants(.008, .00035, .00045);
 	public static final TurtlePIDConstants turnGyroConstants = new TurtlePDD2Constants(.015, .00035, .0004);
 
-	public static final TurtlePIDConstants intakePIDConstants = new TurtlePDD2Constants(.03, .00035, .0003);
+	public static final TurtlePIDConstants intakePIDConstants = new TurtlePDD2Constants(.05, .002, .0003);
 
 	public static final double intakePIDkLR = 0.001;
 
 	public static final TurtlePIDConstants hookRaiseConstants = new TurtlePDD2Constants(.008, .00035, .00045);
 	public static final TurtlePIDConstants hookLowerConstants = new TurtlePDD2Constants(.008, .00035, .00045);
-	public static final TurtlePIDConstants robotRaiseConstants = new TurtlePDD2Constants(.008, .00035, .00045);
+	public static final TurtlePIDConstants robotRaiseConstants = new TurtlePDD2Constants(.008, .002, .001);
 
-	public static final double pidTolerance = 20;
+	public static final double drivePIDTolerance = 20;
+	public static final double hookPIDTolerance = 150;
 
 	public static final double hookLiftEncoderTicks = 8360;
 	public static final double hookDownEncoderTicks = 2046;
@@ -74,9 +75,11 @@ public class TurtwigConstants {
 	public static final double roughTerrainMinFlatTime = 0.2;
 	public static final double unfoldTime = .1;
 
-	public static final double INTAKEENCODERMAX = 220;
+	public static final double INTAKEENCODERMAX = 250;
 	public static final double yankTime = .3;
-	public static final double intakePIDScale = 2.5;
+	public static final double intakePIDScale = 100;
+	
+	public static final double intakePIDCurrentWeight = .75;
 
 	// Constructor so can't be initialised
 	private TurtwigConstants() {

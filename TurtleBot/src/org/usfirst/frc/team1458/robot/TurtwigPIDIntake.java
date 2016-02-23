@@ -5,7 +5,6 @@ import com.team1458.turtleshell.logging.TurtleLogger;
 import com.team1458.turtleshell.movement.TurtleMotor;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;
 import com.team1458.turtleshell.physical.TurtleDigitalLimitSwitch;
-import com.team1458.turtleshell.physical.TurtleEncoderLimit;
 import com.team1458.turtleshell.physical.TurtleVictor;
 import com.team1458.turtleshell.physical.TurtleVictorSP;
 import com.team1458.turtleshell.pid.TurtlePDD2;
@@ -37,14 +36,14 @@ public class TurtwigPIDIntake implements TurtleRobotComponent {
     private TurtleMotor rMotor = new TurtleVictor(TurtwigConstants.RIGHTINTAKEVICTORPORT, true);
 
     private TurtleEncoder lEncoder = new Turtle4PinEncoder(TurtwigConstants.LEFTINTAKEENCODERPORT1, TurtwigConstants.LEFTINTAKEENCODERPORT2, true);
-    private TurtleEncoder rEncoder = new Turtle4PinEncoder(TurtwigConstants.RIGHTINTAKEENCODERPORT1, TurtwigConstants.RIGHTINTAKEENCODERPORT2, false);
+    private TurtleEncoder rEncoder = new Turtle4PinEncoder(TurtwigConstants.RIGHTINTAKEENCODERPORT1, TurtwigConstants.RIGHTINTAKEENCODERPORT2, true);
 
     private TurtleMotor sMotor = new TurtleVictorSP(TurtwigConstants.SPININTAKEVICTORSPPORT, false);
     private TurtlePID pid;
 
     private TurtleLimitSwitch ballLimit = new TurtleDigitalLimitSwitch(TurtwigConstants.BALLLIMITSWITCHPORT, true);
-    private TurtleLimitSwitch intakeTopLimit = new TurtleEncoderLimit(rEncoder, 0, false);
-    private boolean intakeTopLimitFlag = false;
+
+    private MotorValue smoother = MotorValue.zero;
 
     private Timer inputTimer = new Timer();
     private double intakeIdealPosition = 0;
@@ -63,24 +62,26 @@ public class TurtwigPIDIntake implements TurtleRobotComponent {
 
     @Override
     public void teleUpdate() {
-	Output.outputNumber("lEncoder", lEncoder.getTicks());
-	Output.outputNumber("rEncoder", rEncoder.getTicks());
+	Output.outputNumber("lIntakeEncoder", lEncoder.getTicks());
+	Output.outputNumber("rIntakeEncoder", rEncoder.getTicks());
 
 	// driveMotors(new MotorValue(Input.getXboxAxis(XboxAxis.LY)));
 
 	if (Input.getXboxAxis(XboxAxis.LY) != 0) {
-	    SmartDashboard.putBoolean("Intake top limit hit", intakeTopLimit.isPressed());
-	    Output.outputNumber("IntakePID TArget",inputTimer.get() * TurtwigConstants.intakePIDScale + TurtleMaths.avg(lEncoder.getTicks(), rEncoder.getTicks()));
-	    intakeIdealPosition += inputTimer.get() * TurtwigConstants.intakePIDScale;
+	    intakeIdealPosition += -Input.getXboxAxis(XboxAxis.LY) * inputTimer.get() * TurtwigConstants.intakePIDScale;
 	    intakeIdealPosition = TurtleMaths.fitRange(intakeIdealPosition, 0, TurtwigConstants.INTAKEENCODERMAX);
-	    pid = new TurtlePDD2(TurtwigConstants.intakePIDConstants, TurtleMaths.fitRange(
-		    intakeIdealPosition, 0,
-		    TurtwigConstants.INTAKEENCODERMAX), 0.0);
-	    inputTimer.reset();
+	    Output.outputNumber("IntakePID Target", intakeIdealPosition);
+	    pid = new TurtlePDD2(TurtwigConstants.intakePIDConstants, TurtleMaths.fitRange(intakeIdealPosition, 0, TurtwigConstants.INTAKEENCODERMAX), 0.0);
 
 	}
-	driveMotors(pid.newValue(new double[] { TurtleMaths.avg(lEncoder.getTicks(), rEncoder.getTicks()),
-		TurtleMaths.avg(lEncoder.getRate(), rEncoder.getRate()) }));
+	inputTimer.reset();
+	smoother = new MotorValue(smoother.getValue()
+		* TurtwigConstants.intakePIDCurrentWeight
+		+ (1 - TurtwigConstants.intakePIDCurrentWeight)
+		* pid.newValue(
+			new double[] { TurtleMaths.avg(lEncoder.getTicks(), rEncoder.getTicks()), TurtleMaths.avg(lEncoder.getRate(), rEncoder.getRate()) })
+			.getValue());
+	driveMotors(smoother);
 	Output.outputNumber("lIntakePower", lMotor.get().getValue());
 	Output.outputNumber("rIntakePower", rMotor.get().getValue());
 

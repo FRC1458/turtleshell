@@ -1,12 +1,16 @@
 package org.usfirst.frc.team1458.robot;
 
+
 import com.team1458.turtleshell.core.TurtleRobot;
 import com.team1458.turtleshell.logging.TurtleLogger;
+import com.team1458.turtleshell.util.Output;
 import com.team1458.turtleshell.util.TurtleSafeDriverStation;
+
+import edu.wpi.first.wpilibj.Timer;
 
 
 public class Robot extends TurtleRobot {
-	
+	private Timer heartbeat = new Timer();
 
 	public Robot() {
 
@@ -25,12 +29,15 @@ public class Robot extends TurtleRobot {
 	}
 
 	public void operatorControl() {
+	    heartbeat.start();
 		// Put the code to initialise operator control here.
 		TurtleLogger.info("Teleop starting");
 		tele = thingGiver.giveTeleop();
-		((TurtwigIntake)physicalRobot.getComponent("Intake")).resetEncoders();
+		((TurtwigPIDIntake)physicalRobot.getComponent("Intake")).resetEncoders();
 		while (TurtleSafeDriverStation.canTele()) {
 			tele.tick();
+			Output.outputNumber("Heartbeat",heartbeat.get());
+			heartbeat.reset();
 		}
 	}
 

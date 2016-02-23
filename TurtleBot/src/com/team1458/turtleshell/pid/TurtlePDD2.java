@@ -2,6 +2,8 @@ package com.team1458.turtleshell.pid;
 
 import com.team1458.turtleshell.util.MotorValue;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * Implemntation of PID for a Proportional-Derivative-2nd Derivative controller.
  * @author mehnadnerd
@@ -37,6 +39,9 @@ public class TurtlePDD2 implements TurtlePID {
 	 */
 	public MotorValue newValue(double[] inputs) {
 		double newValue = kP * (target - inputs[0]) - kD * inputs[1] + kDD * (prevdValue - inputs[1]);
+		//SmartDashboard.putNumber("kPart", kP * (target - inputs[0]));
+		//SmartDashboard.putNumber("dPart", kD * (inputs[1]));
+		//SmartDashboard.putNumber("ddPart", kDD * (prevdValue - inputs[1]));
 		prevdValue = inputs[1];
 		savedpValue = inputs[0];
 		return new MotorValue(newValue);
