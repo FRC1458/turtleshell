@@ -14,7 +14,7 @@ public class TurtwigConstants {
 	public static final int RIGHT2VICTORPORT = 7;
 
 	public static final int LEFTINTAKEVICTORPORT = 4;
-	public static final int RIGHTINTAKEVICTORPORT = 6;
+	public static final int RIGHTINTAKEVICTORPORT = 9;
 	public static final int SPININTAKEVICTORSPPORT = 8;
 
 	public static final int POWERWINCHVICTORPORT = 1;

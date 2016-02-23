@@ -24,7 +24,9 @@ public class Robot extends IterativeRobot {
 	Talon t = new Talon(0);
 	Victor v = new Victor(1);
 	Victor vL = new Victor(4);
-	Victor vR = new Victor(6);
+	Victor vR = new Victor(9);
+	// KE, 2/23
+	// Victor vR = new Victor(6);
 	Encoder e = new Encoder(4, 5);
 	Joystick j = new Joystick(0);
 	Joystick j2 = new Joystick(1);
@@ -71,7 +73,11 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during operator control
 	 */
 	public void teleopPeriodic() {
-		t.set(j.getAxis(Joystick.AxisType.kY));
+	    	vL.set(-j.getAxis(Joystick.AxisType.kY));
+		vR.set(j.getAxis(Joystick.AxisType.kY));
+		
+	    	// Commented out by KE, 0 Period 2/23
+	    	/*t.set(j.getAxis(Joystick.AxisType.kY));
 		v.set(j2.getAxis(Joystick.AxisType.kY));
 		vL.set(jXB.getRawAxis(1));
 		vR.set(-jXB.getRawAxis(1));
@@ -82,7 +88,7 @@ public class Robot extends IterativeRobot {
 		} catch (Exception e) {
 
 		}
-
+	    	*/
 	}
 
 	/**

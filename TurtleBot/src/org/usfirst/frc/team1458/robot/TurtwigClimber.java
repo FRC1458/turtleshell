@@ -37,7 +37,7 @@ public class TurtwigClimber implements TurtleRobotComponent {
 	private TurtleEncoder hookEncoder = new Turtle4PinEncoder(TurtwigConstants.HOOKWINCHENCODERPORT1,
 			TurtwigConstants.HOOKWINCHENCODERPORT2, false);
 
-	private TurtleSolenoid folder = new TurtleElectricalSolenoid(TurtwigConstants.SOLENOIDPORT);
+	//private TurtleSolenoid folder = new TurtleElectricalSolenoid(TurtwigConstants.SOLENOIDPORT);
 
 	private TurtleDualPID pid;
 
@@ -51,7 +51,7 @@ public class TurtwigClimber implements TurtleRobotComponent {
 
 	@Override
 	public void init() {
-		folder.set(true);
+	//	folder.set(true);
 
 	}
 
@@ -63,7 +63,7 @@ public class TurtwigClimber implements TurtleRobotComponent {
 			case FOLDED:
 				TurtleLogger.info("Starting unfolding");
 				this.state = ClimberState.UNFOLDING;
-				folder.set(false);
+	//			folder.set(false);
 				unfoldTimer.start();
 				break;
 			case RAISED:
