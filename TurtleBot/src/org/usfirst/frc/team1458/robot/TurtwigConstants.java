@@ -51,7 +51,8 @@ public class TurtwigConstants {
 
 	public static final double pidTolerance = 20;
 
-	public static final double hookLiftEncoderTicks = 1000;
+	public static final double hookLiftEncoderTicks = 8360;
+	public static final double hookDownEncoderTicks = 2046;
 	// public static final double robotLiftEncoderTicks = 100;
 
 	public static final double cameraHeight = 8;
@@ -75,6 +76,7 @@ public class TurtwigConstants {
 
 	public static final double INTAKEENCODERMAX = 220;
 	public static final double yankTime = .3;
+	public static final double intakePIDScale = 2.5;
 
 	// Constructor so can't be initialised
 	private TurtwigConstants() {

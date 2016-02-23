@@ -73,11 +73,11 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during operator control
 	 */
 	public void teleopPeriodic() {
-	    	vL.set(-j.getAxis(Joystick.AxisType.kY));
-		vR.set(j.getAxis(Joystick.AxisType.kY));
+	    	//vL.set(-j.getAxis(Joystick.AxisType.kY));
+		//vR.set(j.getAxis(Joystick.AxisType.kY));
 		
 	    	// Commented out by KE, 0 Period 2/23
-	    	/*t.set(j.getAxis(Joystick.AxisType.kY));
+	    	t.set(j.getAxis(Joystick.AxisType.kY));
 		v.set(j2.getAxis(Joystick.AxisType.kY));
 		vL.set(jXB.getRawAxis(1));
 		vR.set(-jXB.getRawAxis(1));
@@ -88,7 +88,7 @@ public class Robot extends IterativeRobot {
 		} catch (Exception e) {
 
 		}
-	    	*/
+	    	
 	}
 
 	/**

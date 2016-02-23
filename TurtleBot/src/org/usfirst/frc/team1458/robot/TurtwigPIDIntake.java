@@ -19,6 +19,7 @@ import com.team1458.turtleshell.util.TurtleMaths;
 import com.team1458.turtleshell.util.Input.XboxAxis;
 import com.team1458.turtleshell.util.Input.XboxButton;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TurtwigPIDIntake implements TurtleRobotComponent {
@@ -45,15 +46,19 @@ public class TurtwigPIDIntake implements TurtleRobotComponent {
     private TurtleLimitSwitch intakeTopLimit = new TurtleEncoderLimit(rEncoder, 0, false);
     private boolean intakeTopLimitFlag = false;
 
+    private Timer inputTimer = new Timer();
+    private double intakeIdealPosition = 0;
+
     @Override
     public void init() {
-
+	inputTimer.start();
     }
 
     public void resetEncoders() {
 	lEncoder.reset();
 	rEncoder.reset();
-	pid = null;
+	pid = new TurtlePDD2(TurtwigConstants.intakePIDConstants, 0, 0);
+	inputTimer.reset();
     }
 
     @Override
@@ -65,37 +70,20 @@ public class TurtwigPIDIntake implements TurtleRobotComponent {
 
 	if (Input.getXboxAxis(XboxAxis.LY) != 0) {
 	    SmartDashboard.putBoolean("Intake top limit hit", intakeTopLimit.isPressed());
-	    if (pid != null) {
-		TurtleLogger.info("Started moving, not holding");
-		pid = null;
-	    }
+	    Output.outputNumber("IntakePID TArget",inputTimer.get() * TurtwigConstants.intakePIDScale + TurtleMaths.avg(lEncoder.getTicks(), rEncoder.getTicks()));
+	    intakeIdealPosition += inputTimer.get() * TurtwigConstants.intakePIDScale;
+	    intakeIdealPosition = TurtleMaths.fitRange(intakeIdealPosition, 0, TurtwigConstants.INTAKEENCODERMAX);
+	    pid = new TurtlePDD2(TurtwigConstants.intakePIDConstants, TurtleMaths.fitRange(
+		    intakeIdealPosition, 0,
+		    TurtwigConstants.INTAKEENCODERMAX), 0.0);
+	    inputTimer.reset();
 
-	    if (intakeTopLimit.isPressed() && !intakeTopLimitFlag) { //
-		// First press of top limit
-		TurtleLogger.warning("Hit top limit");
-		intakeTopLimitFlag = true;
-	    } else if (!intakeTopLimit.isPressed()) { // Intake top limit has
-						      // been released
-		intakeTopLimitFlag = false;
-	    }
-
-	    if (intakeTopLimit.isPressed() && Input.getXboxAxis(XboxAxis.LY) < 0) {
-		TurtleLogger.warning("Attempting to move intake up while limit switch is preventing it");
-	    } else {
-		driveMotors(new MotorValue(Math.pow(Input.getXboxAxis(XboxAxis.LY),3)));
-	    }
-
-	} else if (pid == null) {
-	    TurtleLogger.info("Holding position");
-	    double currentPos = TurtleMaths.fitRange(TurtleMaths.avg(lEncoder.getTicks(), rEncoder.getTicks()), 0, TurtwigConstants.INTAKEENCODERMAX);
-	    pid = new TurtlePDD2(TurtwigConstants.intakePIDConstants, currentPos, 0);
-
-	} else {
-	    driveMotors(pid.newValue(new double[] { TurtleMaths.avg(lEncoder.getTicks(), rEncoder.getTicks()),
-		    TurtleMaths.avg(lEncoder.getRate(), rEncoder.getRate()) }));
-	    Output.outputNumber("lIntakePower", lMotor.get().getValue());
-	    Output.outputNumber("rIntakePower", rMotor.get().getValue());
 	}
+	driveMotors(pid.newValue(new double[] { TurtleMaths.avg(lEncoder.getTicks(), rEncoder.getTicks()),
+		TurtleMaths.avg(lEncoder.getRate(), rEncoder.getRate()) }));
+	Output.outputNumber("lIntakePower", lMotor.get().getValue());
+	Output.outputNumber("rIntakePower", rMotor.get().getValue());
+
 	Output.outputBoolean("ballLimit", ballLimit.isPressed());
 
 	if (Input.getXboxButton(XboxButton.LBUMP)) {

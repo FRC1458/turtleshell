@@ -66,7 +66,7 @@ public class TurtwigClimber2 implements TurtleRobotComponent {
 	case YANKING:
 	    if (timer.get() > TurtwigConstants.yankTime) {
 		this.state = ClimberState.RETRACTING;
-		pid = new TurtlePDD2(TurtwigConstants.hookLowerConstants, 0, TurtwigConstants.pidTolerance);
+		pid = new TurtlePDD2(TurtwigConstants.hookLowerConstants, TurtwigConstants.hookDownEncoderTicks, TurtwigConstants.pidTolerance);
 	    }
 	    break;
 
