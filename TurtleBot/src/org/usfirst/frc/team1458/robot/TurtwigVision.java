@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.Image;
 import com.ni.vision.NIVision.ImageType;
+import com.ni.vision.VisionException;
 import com.team1458.turtleshell.logging.TurtleLogger;
 import com.team1458.turtleshell.sensor.TurtleDistance;
 import com.team1458.turtleshell.sensor.TurtleTheta;
@@ -75,7 +76,7 @@ public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance 
 			SmartDashboard.putNumber("Val max", TARGET_VAL_RANGE.maxValue);
 			SmartDashboard.putNumber("Area min %", AREA_MINIMUM);
 			SmartDashboard.putBoolean("use binary", false);
-		} catch (Exception e) {
+		} catch (VisionException e) {
 			TurtleLogger.critical("Camera Not found");
 			e.printStackTrace();
 		}
@@ -155,7 +156,7 @@ public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance 
 				Output.outputNumber("Vision Distance", this.getDistance());
 			}
 
-		} catch (Exception e) {
+		} catch (VisionException e) {
 			TurtleLogger.severe("Camera code failed");
 		}
 

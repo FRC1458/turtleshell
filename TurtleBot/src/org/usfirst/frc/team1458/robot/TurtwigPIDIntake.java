@@ -6,13 +6,10 @@ import com.team1458.turtleshell.movement.TurtleMotor;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;
 import com.team1458.turtleshell.physical.TurtleDigitalLimitSwitch;
 import com.team1458.turtleshell.physical.TurtleEncoderLimit;
-import com.team1458.turtleshell.physical.TurtleFakeMotor;
 import com.team1458.turtleshell.physical.TurtleVictor;
 import com.team1458.turtleshell.physical.TurtleVictorSP;
-import com.team1458.turtleshell.pid.TurtleDualPID;
 import com.team1458.turtleshell.pid.TurtlePDD2;
 import com.team1458.turtleshell.pid.TurtlePID;
-import com.team1458.turtleshell.pid.TurtleStraightDrivePID;
 import com.team1458.turtleshell.sensor.TurtleEncoder;
 import com.team1458.turtleshell.sensor.TurtleLimitSwitch;
 import com.team1458.turtleshell.util.Input;
@@ -137,15 +134,6 @@ public class TurtwigPIDIntake implements TurtleRobotComponent {
 	rMotor.set(power);
 	Output.outputNumber("lIntakePower", lMotor.get().getValue());
 	Output.outputNumber("rIntakePower", rMotor.get().getValue());
-    }
-
-    /**
-     * left, right
-     * @param powers
-     */
-    private void driveMotors(MotorValue[] powers) {
-	lMotor.set(powers[0]);
-	rMotor.set(powers[1]);
     }
 
 }
