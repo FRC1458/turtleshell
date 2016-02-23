@@ -21,11 +21,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	// Talon t = new Talon(0);
-	Victor v = new Victor(4);
+	Talon t = new Talon(0);
+	Victor v = new Victor(1);
+	Victor vL = new Victor(4);
+	Victor vR = new Victor(6);
 	Encoder e = new Encoder(4, 5);
 	Joystick j = new Joystick(0);
 	Joystick j2 = new Joystick(1);
+	Joystick jXB = new Joystick(3);
 	int session;
 	Image image;
 
@@ -68,13 +71,15 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during operator control
 	 */
 	public void teleopPeriodic() {
-		// t.set(j.getAxis(Joystick.AxisType.kY));
-		v.set(j.getAxis(Joystick.AxisType.kY));
+		t.set(j.getAxis(Joystick.AxisType.kY));
+		v.set(j2.getAxis(Joystick.AxisType.kY));
+		vL.set(jXB.getRawAxis(1));
+		vR.set(-jXB.getRawAxis(1));
 		SmartDashboard.putNumber("ENCODERTHING", e.get());
 		try {
 			NIVision.IMAQdxGrab(session, image, 1);
 			CameraServer.getInstance().setImage(image);
-		} catch (VisionException e) {
+		} catch (Exception e) {
 
 		}
 
