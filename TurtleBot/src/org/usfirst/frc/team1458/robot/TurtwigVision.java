@@ -1,7 +1,5 @@
 package org.usfirst.frc.team1458.robot;
 
-import java.util.ArrayList;
-
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.Image;
 import com.ni.vision.NIVision.ImageType;
@@ -10,13 +8,7 @@ import com.team1458.turtleshell.logging.TurtleLogger;
 import com.team1458.turtleshell.sensor.TurtleDistance;
 import com.team1458.turtleshell.sensor.TurtleTheta;
 import com.team1458.turtleshell.sensor.TurtleVision;
-import com.team1458.turtleshell.util.Output;
-import com.team1458.turtleshell.util.TurtleSafeDriverStation;
-import com.team1458.turtleshell.vision.Particle;
-import com.team1458.turtleshell.vision.ScoreAnalyser;
-import com.team1458.turtleshell.vision.Scores;
 import com.team1458.turtleshell.vision.TurtleCameraServer;
-import com.team1458.turtleshell.vision.VisionMaths;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -34,9 +26,6 @@ public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance 
     private Image image;
 
     private Image sendImage;
-
-    private int imaqError;
-
 
     private double distance;
     private double angle;
