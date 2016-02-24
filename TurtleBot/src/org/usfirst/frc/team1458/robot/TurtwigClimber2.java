@@ -6,16 +6,12 @@ import com.team1458.turtleshell.movement.TurtleMotor;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;
 import com.team1458.turtleshell.physical.TurtleTalon;
 import com.team1458.turtleshell.physical.TurtleVictor;
-import com.team1458.turtleshell.pid.TurtlePDD2;
-import com.team1458.turtleshell.pid.TurtlePID;
 import com.team1458.turtleshell.sensor.TurtleEncoder;
 import com.team1458.turtleshell.util.Input;
 import com.team1458.turtleshell.util.Input.POV;
 import com.team1458.turtleshell.util.Input.XboxAxis;
 import com.team1458.turtleshell.util.MotorValue;
-import com.team1458.turtleshell.util.Input.XboxButton;
-
-import edu.wpi.first.wpilibj.Timer;
+import com.team1458.turtleshell.util.Output;
 
 public class TurtwigClimber2 implements TurtleRobotComponent {
 
@@ -40,7 +36,7 @@ public class TurtwigClimber2 implements TurtleRobotComponent {
 
     @Override
     public void teleUpdate() {
-
+	Output.outputNumber("Hook encoder", hookEncoder.getTicks());
 	if (Input.getXBoxPOV() == POV.N) {
 	    if (hookEncoder.getTicks() > TurtwigConstants.hookLiftEncoderTicks) {
 		TurtleLogger.warning("Trying to put arm beyond limit");
@@ -49,6 +45,8 @@ public class TurtwigClimber2 implements TurtleRobotComponent {
 	    }
 	} else if (Input.getXBoxPOV() == POV.S) {
 	    hookWinch.set(MotorValue.fullForward);
+	} else {
+	    hookWinch.set(MotorValue.zero);
 	}
 
 	powerWinch.set(new MotorValue(-Input.getXboxAxis(XboxAxis.RY)));

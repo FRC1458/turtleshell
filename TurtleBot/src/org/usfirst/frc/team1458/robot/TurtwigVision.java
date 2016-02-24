@@ -5,14 +5,12 @@ import com.ni.vision.NIVision.Image;
 import com.ni.vision.NIVision.ImageType;
 import com.ni.vision.VisionException;
 import com.team1458.turtleshell.logging.TurtleLogger;
-import com.team1458.turtleshell.sensor.TurtleDistance;
-import com.team1458.turtleshell.sensor.TurtleTheta;
 import com.team1458.turtleshell.sensor.TurtleVision;
 import com.team1458.turtleshell.vision.TurtleCameraServer;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance {
+public class TurtwigVision implements TurtleVision {
     private static TurtwigVision instance;
 
     public static TurtwigVision getInstance() {
@@ -27,8 +25,6 @@ public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance 
 
     private Image sendImage;
 
-    private double distance;
-    private double angle;
     private boolean targetRecognised;
 
     private TurtwigVision() {
@@ -61,31 +57,12 @@ public class TurtwigVision implements TurtleVision, TurtleTheta, TurtleDistance 
 		sendImage = image;
 		TurtleCameraServer.getInstance().setImage(image);
 	    }
-	} catch (VisionException e) {
+	} catch (Exception e) {
 	    TurtleLogger.severe("Camera code failed");
 	}
 
     }
 
-    @Override
-    public double getDistance() {
-	return distance;
-    }
-
-    @Override
-    public double getContinousTheta() {
-	return angle;
-    }
-
-    @Override
-    public double getRate() {
-	return 0;
-    }
-
-    @Override
-    public void reset() {
-	// Not applicable
-    }
 
     @Override
     public boolean targetRecognised() {

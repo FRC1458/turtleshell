@@ -42,10 +42,9 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 			TurtwigConstants.LEFTENCODERPORT2, true);
 	private final TurtleEncoder rEncoder = new Turtle4PinEncoder(TurtwigConstants.RIGHTENCODERPORT1,
 			TurtwigConstants.RIGHTENCODERPORT2, false);
-	private TurtleTheta theta;
+	
 	private final TurtleTheta maggie = new TurtleXtrinsicMagnetometer(I2C.Port.kOnboard);
-	private final TurtleTheta cameraTheta = TurtwigVision.getInstance();
-
+private TurtleTheta theta = maggie;
 	private TurtleDualPID pid;
 
 	private final TurtleSmartAccelerometer accel = new TurtleOnboardAccelerometer();
@@ -98,16 +97,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 				TurtwigConstants.turnGyroConstants, 1.26, TurtwigConstants.drivePIDTolerance);
 
 	}
-	public void setCameraThetaTarget(double target) {
-		TurtleLogger.info("Setting camera theta target: " + target);
-		lEncoder.reset();
-		rEncoder.reset();
-		theta = cameraTheta;
-		theta.reset();
-		pid = new TurtleTurnPID(TurtwigConstants.turnConstants, target, .45, 8, 26.5,
-				TurtwigConstants.turnGyroConstants, 1.26, TurtwigConstants.drivePIDTolerance);
 
-	}
 	
 
 	@Override
