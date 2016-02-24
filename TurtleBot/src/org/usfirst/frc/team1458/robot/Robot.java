@@ -25,11 +25,13 @@ public class Robot extends TurtleRobot {
 		// Put the code to initialise autonomous here.
 		TurtleLogger.info("Autonomous Starting");
 		auto = thingGiver.giveAutonomous();
+		physicalRobot.refreshAll();
 		auto.doAuto();
 	}
 
 	public void operatorControl() {
 	    heartbeat.start();
+	    physicalRobot.refreshAll();
 		// Put the code to initialise operator control here.
 		TurtleLogger.info("Teleop starting");
 		tele = thingGiver.giveTeleop();

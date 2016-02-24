@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.team1458.turtleshell.component.TurtleRobotComponent;
 import com.team1458.turtleshell.component.TurtleSmartRobotComponent;
+import com.team1458.turtleshell.util.TurtleRefreshable;
 import com.team1458.turtleshell.util.TurtleUpdatable;
 
 /**
@@ -81,6 +82,19 @@ public class TurtlePhysicalRobot {
 	}
     }
 
+    public void refreshAll() {
+	for (TurtleRobotComponent c : robotComponents.values()) {
+	    if (c instanceof TurtleRefreshable) {
+		((TurtleRefreshable) c).refresh();
+	    }
+	}
+	for (TurtleUpdatable u : robotUpdatable.values()) {
+	    if (u instanceof TurtleRefreshable) {
+		((TurtleRefreshable) u).refresh();
+	    }
+	}
+    }
+
     /**
 	 * 
 	 */
@@ -98,8 +112,11 @@ public class TurtlePhysicalRobot {
     }
 
     /**
-     * Horribly hacky way of getting all components that implement a certain interface
-     * @param interfac The interface/class to check against
+     * Horribly hacky way of getting all components that implement a certain
+     * interface
+     * 
+     * @param interfac
+     *            The interface/class to check against
      * @return An ArrayList of all updatables that implement it
      */
     public List<TurtleRobotComponent> getComponent(Class<? extends TurtleRobotComponent> interfac) {
@@ -112,10 +129,13 @@ public class TurtlePhysicalRobot {
 
 	return toRet;
     }
-    
+
     /**
-     * Horribly hacky way of getting all updatables that implement a certain interface
-     * @param interfac The interface/class to check against
+     * Horribly hacky way of getting all updatables that implement a certain
+     * interface
+     * 
+     * @param interfac
+     *            The interface/class to check against
      * @return An ArrayList of all updatables that implement it
      */
     public List<TurtleUpdatable> getUpdatable(Class<? extends TurtleUpdatable> interfac) {
