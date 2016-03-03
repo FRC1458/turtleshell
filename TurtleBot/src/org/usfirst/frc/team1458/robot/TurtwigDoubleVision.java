@@ -51,7 +51,7 @@ public class TurtwigDoubleVision implements TurtleVision {
 		// disabling current camera
 		cameras.get(currentCamera).stopCapture();
 		cameras.get(currentCamera).closeCamera();
-
+		
 		// enabling new camera
 		cameras.get(i).openCamera();
 		cameras.get(i).startCapture();

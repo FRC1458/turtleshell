@@ -1,0 +1,30 @@
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Introduction}{chapter.1}% 2
+\BOOKMARK [0][-]{chapter.2}{Physical Hardware}{}% 3
+\BOOKMARK [1][-]{section.2.1}{A Note On The Separation of Programming and Electrical}{chapter.2}% 4
+\BOOKMARK [1][-]{section.2.2}{Motor Controllers}{chapter.2}% 5
+\BOOKMARK [2][-]{subsection.2.2.1}{Victor 88x}{section.2.2}% 6
+\BOOKMARK [2][-]{subsection.2.2.2}{Victor SP}{section.2.2}% 7
+\BOOKMARK [2][-]{subsection.2.2.3}{Talon SR}{section.2.2}% 8
+\BOOKMARK [2][-]{subsection.2.2.4}{Talon SRX}{section.2.2}% 9
+\BOOKMARK [2][-]{subsection.2.2.5}{Jaguar}{section.2.2}% 10
+\BOOKMARK [2][-]{subsection.2.2.6}{Note on Programmer Control}{section.2.2}% 11
+\BOOKMARK [1][-]{section.2.3}{Chassis/Drive Train}{chapter.2}% 12
+\BOOKMARK [1][-]{section.2.4}{Electrical Devices}{chapter.2}% 13
+\BOOKMARK [2][-]{subsection.2.4.1}{Power Distribution Panel \(PDP\)}{section.2.4}% 14
+\BOOKMARK [2][-]{subsection.2.4.2}{Pneumatic Control Module \(PCM\)}{section.2.4}% 15
+\BOOKMARK [2][-]{subsection.2.4.3}{Voltage Regulator Module \(VRM\)}{section.2.4}% 16
+\BOOKMARK [1][-]{section.2.5}{Sensors}{chapter.2}% 17
+\BOOKMARK [2][-]{subsection.2.5.1}{Distance}{section.2.5}% 18
+\BOOKMARK [2][-]{subsection.2.5.2}{Rotation}{section.2.5}% 19
+\BOOKMARK [2][-]{subsection.2.5.3}{Vision}{section.2.5}% 20
+\BOOKMARK [2][-]{subsection.2.5.4}{Contact}{section.2.5}% 21
+\BOOKMARK [2][-]{subsection.2.5.5}{Position}{section.2.5}% 22
+\BOOKMARK [1][-]{section.2.6}{roboRio}{chapter.2}% 23
+\BOOKMARK [2][-]{subsection.2.6.1}{MXP \(MyRio eXpansion Port\)}{section.2.6}% 24
+\BOOKMARK [2][-]{subsection.2.6.2}{Digital I/O}{section.2.6}% 25
+\BOOKMARK [2][-]{subsection.2.6.3}{Analog Input}{section.2.6}% 26
+\BOOKMARK [2][-]{subsection.2.6.4}{PWM}{section.2.6}% 27
+\BOOKMARK [2][-]{subsection.2.6.5}{I2C}{section.2.6}% 28
+\BOOKMARK [2][-]{subsection.2.6.6}{SPI}{section.2.6}% 29
+\BOOKMARK [2][-]{subsection.2.6.7}{CANbus}{section.2.6}% 30
