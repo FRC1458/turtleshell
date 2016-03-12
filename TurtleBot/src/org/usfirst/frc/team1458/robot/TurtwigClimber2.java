@@ -44,7 +44,7 @@ public class TurtwigClimber2 implements TurtleRobotComponent {
 		hookWinch.set(MotorValue.fullBackward);
 	    }
 	} else if (Input.getXBoxPOV() == POV.S) {
-	    hookWinch.set(MotorValue.fullForward);
+	    hookWinch.set(new MotorValue(0.3));
 	} else {
 	    hookWinch.set(MotorValue.zero);
 	}

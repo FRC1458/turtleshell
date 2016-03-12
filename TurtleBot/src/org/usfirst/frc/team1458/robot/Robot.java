@@ -19,6 +19,7 @@ public class Robot extends TurtleRobot {
 	public void initRobot() {
 		thingGiver=new Turtwig2016RobotGiver();
 		physicalRobot=thingGiver.givePhysicalRobot();
+		((TurtwigPIDIntake)physicalRobot.getComponent("Intake")).resetEncoders();
 	}
 
 	public void autonomous() {
@@ -26,6 +27,7 @@ public class Robot extends TurtleRobot {
 		TurtleLogger.info("Autonomous Starting");
 		auto = thingGiver.giveAutonomous();
 		physicalRobot.refreshAll();
+		((TurtwigPIDIntake)physicalRobot.getComponent("Intake")).resetEncoders();
 		auto.doAuto();
 	}
 
@@ -35,7 +37,7 @@ public class Robot extends TurtleRobot {
 		// Put the code to initialise operator control here.
 		TurtleLogger.info("Teleop starting");
 		tele = thingGiver.giveTeleop();
-		((TurtwigPIDIntake)physicalRobot.getComponent("Intake")).resetEncoders();
+		//((TurtwigPIDIntake)physicalRobot.getComponent("Intake")).resetEncoders();
 		while (TurtleSafeDriverStation.canTele()) {
 			tele.tick();
 			Output.outputNumber("Heartbeat",heartbeat.get());
@@ -45,5 +47,6 @@ public class Robot extends TurtleRobot {
 
 	public void test() {
 		// Code for testing mode
+	    ((TurtwigPIDIntake)physicalRobot.getComponent("Intake")).resetEncoders();
 	}
 }
