@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell.component.TurtleRobotComponent;
+import com.team1458.turtleshell.component.TurtleSmartRobotComponent;
 import com.team1458.turtleshell.logging.TurtleLogger;
 import com.team1458.turtleshell.movement.TurtleMotor;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;
@@ -21,7 +22,7 @@ import com.team1458.turtleshell.util.Input.XboxButton;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class TurtwigPIDIntake implements TurtleRobotComponent {
+public class TurtwigPIDIntake implements TurtleSmartRobotComponent {
 
     private static TurtwigPIDIntake instance;
 
@@ -51,6 +52,7 @@ public class TurtwigPIDIntake implements TurtleRobotComponent {
     @Override
     public void init() {
 	inputTimer.start();
+	resetEncoders();
     }
 
     public void resetEncoders() {
@@ -125,4 +127,23 @@ public class TurtwigPIDIntake implements TurtleRobotComponent {
 	Output.outputNumber("rIntakePower", rMotor.get().getValue());
     }
 
+    @Override
+    public void autoUpdate() {
+	Output.outputNumber("lIntakeEncoder", lEncoder.getTicks());
+	Output.outputNumber("rIntakeEncoder", rEncoder.getTicks());
+	smoother = new MotorValue(smoother.getValue()
+		* TurtwigConstants.intakePIDCurrentWeight
+		+ (1 - TurtwigConstants.intakePIDCurrentWeight)
+		* pid.newValue(
+			new double[] { TurtleMaths.avg(lEncoder.getTicks(), rEncoder.getTicks()), TurtleMaths.avg(lEncoder.getRate(), rEncoder.getRate()) })
+			.getValue());
+	driveMotors(smoother);
+	Output.outputNumber("lIntakePower", lMotor.get().getValue());
+	Output.outputNumber("rIntakePower", rMotor.get().getValue());
+
+    }
+    
+    public void setPosition(double pos) {
+	pid = new TurtlePDD2(TurtwigConstants.intakePIDConstants, TurtleMaths.fitRange(pos, 0, TurtwigConstants.INTAKEENCODERMAX), 0.0);
+    }
 }
