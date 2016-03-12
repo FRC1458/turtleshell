@@ -1,5 +1,6 @@
 package com.team1458.turtleshell.pid;
 
+import com.team1458.turtleshell.logging.TurtleLogger;
 import com.team1458.turtleshell.util.MotorValue;
 import com.team1458.turtleshell.util.Output;
 import com.team1458.turtleshell.util.TurtleMaths;
@@ -52,6 +53,8 @@ public class TurtleStraightDrivePID implements TurtleDualPID {
     public MotorValue[] newValue(double[] inputs) {
 	Output.outputNumber("lDist", inputs[0]);
 	Output.outputNumber("rDist", inputs[1]);
+	TurtleLogger.info("lDist: "+inputs[0]);
+	TurtleLogger.info("rDist: "+inputs[1]);
 	lDist = inputs[0];
 	rDist = inputs[1];
 	lRate = inputs[2];
@@ -59,6 +62,10 @@ public class TurtleStraightDrivePID implements TurtleDualPID {
 	double leftRaw = lPID.newValue(new double[] { lDist, lRate }).getValue();
 	double rightRaw = rPID.newValue(new double[] { rDist, rRate }).getValue();
 	double lrDelta = (lDist - rDist);
+	TurtleLogger.info("LeftRaw: " + leftRaw);
+	TurtleLogger.info("Right raw: " + rightRaw);
+	TurtleLogger.info("lrDelta: " + lrDelta);
+
 	return new MotorValue[] { new MotorValue(0.7 * (leftRaw - kLR * lrDelta)), new MotorValue(0.7 * (rightRaw + kLR * lrDelta)) };
     }
 
