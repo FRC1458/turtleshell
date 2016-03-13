@@ -41,6 +41,9 @@ public class Robot extends TurtleRobot {
 		while (TurtleSafeDriverStation.canTele()) {
 			tele.tick();
 			Output.outputNumber("Heartbeat",heartbeat.get());
+			if(heartbeat.get()>0.1) {
+			    TurtleLogger.warning("Large Heartbeat: "+heartbeat.get());
+			}
 			heartbeat.reset();
 		}
 	}

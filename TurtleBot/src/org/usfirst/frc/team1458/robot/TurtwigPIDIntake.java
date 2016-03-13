@@ -1,11 +1,11 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.team1458.turtleshell.component.TurtleRobotComponent;
 import com.team1458.turtleshell.component.TurtleSmartRobotComponent;
 import com.team1458.turtleshell.logging.TurtleLogger;
 import com.team1458.turtleshell.movement.TurtleMotor;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;
 import com.team1458.turtleshell.physical.TurtleDigitalLimitSwitch;
+import com.team1458.turtleshell.physical.TurtleTalon;
 import com.team1458.turtleshell.physical.TurtleVictor;
 import com.team1458.turtleshell.physical.TurtleVictorSP;
 import com.team1458.turtleshell.pid.TurtlePDD2;
@@ -39,10 +39,12 @@ public class TurtwigPIDIntake implements TurtleSmartRobotComponent {
     private TurtleEncoder lEncoder = new Turtle4PinEncoder(TurtwigConstants.LEFTINTAKEENCODERPORT1, TurtwigConstants.LEFTINTAKEENCODERPORT2, true);
     private TurtleEncoder rEncoder = new Turtle4PinEncoder(TurtwigConstants.RIGHTINTAKEENCODERPORT1, TurtwigConstants.RIGHTINTAKEENCODERPORT2, true);
 
-    private TurtleMotor sMotor = new TurtleVictorSP(TurtwigConstants.SPININTAKEVICTORSPPORT, false);
+    private TurtleMotor sMotor = new TurtleTalon(TurtwigConstants.SPININTAKEVICTORSPPORT, false);
     private TurtlePID pid;
 
     private TurtleLimitSwitch ballLimit = new TurtleDigitalLimitSwitch(TurtwigConstants.BALLLIMITSWITCHPORT, true);
+
+    private TurtleLimitSwitch intakeTopLimit = new TurtleDigitalLimitSwitch(TurtwigConstants.INTAKETOPLIMITPORT, true);
 
     private MotorValue smoother = MotorValue.zero;
 
@@ -71,9 +73,10 @@ public class TurtwigPIDIntake implements TurtleSmartRobotComponent {
 
 	if (Input.getXboxAxis(XboxAxis.LY) != 0) {
 	    intakeIdealPosition += -Input.getXboxAxis(XboxAxis.LY) * inputTimer.get() * TurtwigConstants.intakePIDScale;
-	    intakeIdealPosition = TurtleMaths.fitRange(intakeIdealPosition, 0, TurtwigConstants.INTAKEENCODERMAX);
+	    // intakeIdealPosition = TurtleMaths.fitRange(intakeIdealPosition,
+	    // 0, TurtwigConstants.INTAKEENCODERMAX);
 	    Output.outputNumber("IntakePID Target", intakeIdealPosition);
-	    pid = new TurtlePDD2(TurtwigConstants.intakePIDConstants, TurtleMaths.fitRange(intakeIdealPosition, 0, TurtwigConstants.INTAKEENCODERMAX), 0.0);
+	    pid = new TurtlePDD2(TurtwigConstants.intakePIDConstants, intakeIdealPosition, 0.0);
 
 	}
 	inputTimer.reset();
@@ -120,9 +123,11 @@ public class TurtwigPIDIntake implements TurtleSmartRobotComponent {
     }
 
     private void driveMotors(MotorValue power) {
-
-	lMotor.set(power);
-	rMotor.set(power);
+	if (!intakeTopLimit.isPressed()) {
+	    // can move up
+	    lMotor.set(power);
+	    rMotor.set(power);
+	}
 	Output.outputNumber("lIntakePower", lMotor.get().getValue());
 	Output.outputNumber("rIntakePower", rMotor.get().getValue());
     }
@@ -142,8 +147,8 @@ public class TurtwigPIDIntake implements TurtleSmartRobotComponent {
 	Output.outputNumber("rIntakePower", rMotor.get().getValue());
 
     }
-    
+
     public void setPosition(double pos) {
-	pid = new TurtlePDD2(TurtwigConstants.intakePIDConstants, TurtleMaths.fitRange(pos, 0, TurtwigConstants.INTAKEENCODERMAX), 0.0);
+	pid = new TurtlePDD2(TurtwigConstants.intakePIDConstants, pos, 0.0);
     }
 }

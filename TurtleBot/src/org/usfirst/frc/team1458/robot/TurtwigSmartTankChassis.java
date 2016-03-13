@@ -63,6 +63,8 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 
     @Override
     public void teleUpdate() {
+	Output.outputNumber("lEncoderTele", lEncoder.getTicks());
+	Output.outputNumber("rEncoderTele", rEncoder.getTicks());
 	this.driveMotors(new MotorValue[] { new MotorValue(Input.getLPower()), new MotorValue(Input.getRPower()) });
     }
 

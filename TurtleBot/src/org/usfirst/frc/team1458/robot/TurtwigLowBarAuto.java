@@ -14,7 +14,7 @@ public class TurtwigLowBarAuto implements TurtleAutonomous {
 	public void doAuto() {
 		chassis = (TurtwigSmartTankChassis) physicalRobot
 				.getComponent("Chassis");
-		((TurtwigPIDIntake) physicalRobot.getComponent("Intake")).setPosition(TurtwigConstants.INTAKEENCODERMAX);
+		((TurtwigPIDIntake) physicalRobot.getComponent("Intake")).setPosition(240);
 		chassis.setLinearTarget(120);
 		safeDo();
 

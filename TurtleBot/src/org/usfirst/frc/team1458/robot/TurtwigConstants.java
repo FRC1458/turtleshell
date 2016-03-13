@@ -35,11 +35,13 @@ public class TurtwigConstants {
 	public static final int HOOKWINCHENCODERPORT1 = 4;
 	public static final int HOOKWINCHENCODERPORT2 = 5;
 
+	public static final int INTAKETOPLIMITPORT = 25;
+	
 	public static final int BALLLIMITSWITCHPORT = 8;
 
 	public static final TurtlePIDConstants straightConstants = new TurtlePDD2Constants(.00325, .001, .00008);
 	
-	public static final double straightPIDkLR = 0.001;
+	public static final double straightPIDkLR = 0.0005;
 	
 	public static final TurtlePIDConstants turnConstants = new TurtlePDD2Constants(.008, .00035, .00045);
 	public static final TurtlePIDConstants turnGyroConstants = new TurtlePDD2Constants(.015, .00035, .0004);
@@ -78,7 +80,7 @@ public class TurtwigConstants {
 	public static final double roughTerrainMinFlatTime = 0.2;
 	public static final double unfoldTime = .1;
 
-	public static final double INTAKEENCODERMAX = 250;
+	//public static final double INTAKEENCODERMAX = 250;
 	public static final double yankTime = .3;
 	public static final double intakePIDScale = 100;
 	
