@@ -121,6 +121,13 @@ public class Input {
     public static double getRPower() {
 	switch (inputDriveConfig) {
 	case TANK:
+	    if (steering1.getRawButton(2)) {
+		return -0.5*steering1.getAxis(Joystick.AxisType.kY);
+	    }
+	    if (steering2.getRawButton(2)) {
+		return 0.5*steering2.getAxis(Joystick.AxisType.kY);
+	    }
+	    
 	    if (steering1.getRawButton(1)) {
 		return -steering1.getAxis(Joystick.AxisType.kY);
 	    }
@@ -144,6 +151,12 @@ public class Input {
     public static double getLPower() {
 	switch (inputDriveConfig) {
 	case TANK:
+	    if(steering1.getRawButton(2)) {
+		return -0.5*steering1.getAxis(Joystick.AxisType.kY);
+	    }
+	    if(steering2.getRawButton(2)) {
+		return -0.5*steering2.getAxis(Joystick.AxisType.kY);
+	    }
 	    if (steering1.getRawButton(1)) {
 		return -steering1.getAxis(Joystick.AxisType.kY);
 	    }

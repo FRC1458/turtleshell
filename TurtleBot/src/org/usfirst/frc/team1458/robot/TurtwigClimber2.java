@@ -38,11 +38,11 @@ public class TurtwigClimber2 implements TurtleRobotComponent {
     public void teleUpdate() {
 	Output.outputNumber("Hook encoder", hookEncoder.getTicks());
 	if (Input.getXBoxPOV() == POV.N) {
-	    if (hookEncoder.getTicks() > TurtwigConstants.hookLiftEncoderTicks) {
+	    /*if (hookEncoder.getTicks() > TurtwigConstants.hookLiftEncoderTicks) {
 		TurtleLogger.warning("Trying to put arm beyond limit");
-	    } else {
+	    } else {*/
 		hookWinch.set(MotorValue.fullBackward);
-	    }
+	    //}
 	} else if (Input.getXBoxPOV() == POV.S) {
 	    hookWinch.set(new MotorValue(0.3));
 	} else {
