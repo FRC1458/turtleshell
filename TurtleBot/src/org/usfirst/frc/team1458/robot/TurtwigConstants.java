@@ -14,10 +14,10 @@ public class TurtwigConstants {
 	public static final int RIGHT2VICTORPORT = 7;
 
 	public static final int LEFTINTAKEVICTORPORT = 4;
-	public static final int RIGHTINTAKEVICTORPORT = 9;
-	public static final int SPININTAKEVICTORSPPORT = 8;
+	public static final int RIGHTINTAKEVICTORPORT = 9;//labelled 6
+	public static final int SPININTAKETALONPORT = 1;
 
-	public static final int POWERWINCHVICTORPORT = 1;
+	public static final int POWERWINCHVICTORPORT = 8;
 	public static final int HOOKWINCHTALONPORT = 0;
 
 	public static final int LEFTENCODERPORT1 = 2;
@@ -46,7 +46,7 @@ public class TurtwigConstants {
 	public static final TurtlePIDConstants turnConstants = new TurtlePDD2Constants(.008, .00035, .00045);
 	public static final TurtlePIDConstants turnGyroConstants = new TurtlePDD2Constants(.015, .00035, .0004);
 
-	public static final TurtlePIDConstants intakePIDConstants = new TurtlePDD2Constants(.05, .002, .0003);
+	public static final TurtlePIDConstants intakePIDConstants = new TurtlePDD2Constants(.05, .01, .0003);
 
 	public static final double intakePIDkLR = 0.001;
 
@@ -85,6 +85,8 @@ public class TurtwigConstants {
 	public static final double intakePIDScale = 100;
 	
 	public static final double intakePIDCurrentWeight = .75;
+	public static final double INTAKEENCODERMAX = 300;
+	public static final double INTAKEENCODERMIN = -50;
 
 	// Constructor so can't be initialised
 	private TurtwigConstants() {

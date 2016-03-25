@@ -19,7 +19,7 @@ public class Robot extends TurtleRobot {
 	public void initRobot() {
 		thingGiver=new Turtwig2016RobotGiver();
 		physicalRobot=thingGiver.givePhysicalRobot();
-		((TurtwigPIDIntake)physicalRobot.getComponent("Intake")).resetEncoders();
+		//((TurtwigPIDIntake)physicalRobot.getComponent("Intake")).resetEncoders();
 	}
 
 	public void autonomous() {
@@ -27,7 +27,7 @@ public class Robot extends TurtleRobot {
 		TurtleLogger.info("Autonomous Starting");
 		auto = thingGiver.giveAutonomous();
 		physicalRobot.refreshAll();
-		((TurtwigPIDIntake)physicalRobot.getComponent("Intake")).resetEncoders();
+		//((TurtwigPIDIntake)physicalRobot.getComponent("Intake")).resetEncoders();
 		auto.doAuto();
 	}
 

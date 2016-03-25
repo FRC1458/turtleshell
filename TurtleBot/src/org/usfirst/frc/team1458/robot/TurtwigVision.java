@@ -35,6 +35,7 @@ public class TurtwigVision implements TurtleVision {
 	try {
 	    session = NIVision.IMAQdxOpenCamera("cam0", NIVision.IMAQdxCameraControlMode.CameraControlModeController);
 	    NIVision.IMAQdxConfigureGrab(session);
+	  //  NIVision.IMAQdx
 
 	    // create images
 	    image = NIVision.imaqCreateImage(ImageType.IMAGE_RGB, 0);

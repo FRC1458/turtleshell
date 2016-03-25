@@ -66,7 +66,7 @@ public class TurtleStraightDrivePID implements TurtleDualPID {
 	TurtleLogger.info("Right raw: " + rightRaw);
 	TurtleLogger.info("lrDelta: " + lrDelta);
 
-	return new MotorValue[] { new MotorValue(1.00 * (leftRaw - kLR * lrDelta)), new MotorValue(1.0 * (rightRaw + kLR * lrDelta)) };
+	return new MotorValue[] { new MotorValue(1.0 * (leftRaw - kLR * lrDelta)), new MotorValue(1.0 * (rightRaw + kLR * lrDelta)) };
     }
 
 }

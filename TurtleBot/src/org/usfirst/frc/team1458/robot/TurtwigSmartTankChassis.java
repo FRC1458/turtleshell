@@ -4,6 +4,7 @@ import com.team1458.turtleshell.component.TurtleSmartChassis;
 import com.team1458.turtleshell.logging.TurtleLogger;
 import com.team1458.turtleshell.movement.TurtleMotor;
 import com.team1458.turtleshell.physical.Turtle4PinEncoder;
+import com.team1458.turtleshell.physical.TurtleBrokenEncoder;
 import com.team1458.turtleshell.physical.TurtleFakeTheta;
 import com.team1458.turtleshell.physical.TurtleOnboardAccelerometer;
 import com.team1458.turtleshell.physical.TurtleVictor;
@@ -41,7 +42,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
     private final TurtleMotor rMotor2 = new TurtleVictor(TurtwigConstants.RIGHT2VICTORPORT, true);
 
     private final TurtleEncoder lEncoder = new Turtle4PinEncoder(TurtwigConstants.LEFTENCODERPORT1, TurtwigConstants.LEFTENCODERPORT2, true);
-    private final TurtleEncoder rEncoder = new Turtle4PinEncoder(TurtwigConstants.RIGHTENCODERPORT1, TurtwigConstants.RIGHTENCODERPORT2, false);
+    private final TurtleEncoder rEncoder = new TurtleBrokenEncoder(TurtwigConstants.RIGHTENCODERPORT1, TurtwigConstants.RIGHTENCODERPORT2, false, .599808);
 
     private final TurtleTheta maggie = new TurtleXtrinsicMagnetometer(I2C.Port.kOnboard);
     private TurtleTheta theta = new TurtleFakeTheta();
@@ -75,7 +76,7 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 	lEncoder.reset();
 	rEncoder.reset();
 	theta.reset();
-	pid = new TurtleStraightDrivePID(TurtwigConstants.straightConstants, target * 360 / (TurtwigConstants.WHEELDIAMETER * Math.PI),
+	pid = new TurtleStraightDrivePID(TurtwigConstants.straightConstants, target * 21.1259,
 		TurtwigConstants.straightPIDkLR, TurtwigConstants.drivePIDTolerance);
 
     }
@@ -124,6 +125,10 @@ public class TurtwigSmartTankChassis implements TurtleSmartChassis {
 	lMotor2.set(MotorValue.zero);
 	rMotor1.set(MotorValue.zero);
 	rMotor2.set(MotorValue.zero);
+    }
+    
+    public void forceMotors(MotorValue[] motorPowers) {
+	driveMotors(motorPowers);
     }
 
     private class RoughTerrainPID implements TurtleDualPID {

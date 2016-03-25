@@ -7,7 +7,6 @@ import com.team1458.turtleshell.physical.Turtle4PinEncoder;
 import com.team1458.turtleshell.physical.TurtleDigitalLimitSwitch;
 import com.team1458.turtleshell.physical.TurtleTalon;
 import com.team1458.turtleshell.physical.TurtleVictor;
-import com.team1458.turtleshell.physical.TurtleVictorSP;
 import com.team1458.turtleshell.pid.TurtlePDD2;
 import com.team1458.turtleshell.pid.TurtlePID;
 import com.team1458.turtleshell.sensor.TurtleEncoder;
@@ -39,7 +38,7 @@ public class TurtwigPIDIntake implements TurtleSmartRobotComponent {
     private TurtleEncoder lEncoder = new Turtle4PinEncoder(TurtwigConstants.LEFTINTAKEENCODERPORT1, TurtwigConstants.LEFTINTAKEENCODERPORT2, true);
     private TurtleEncoder rEncoder = new Turtle4PinEncoder(TurtwigConstants.RIGHTINTAKEENCODERPORT1, TurtwigConstants.RIGHTINTAKEENCODERPORT2, true);
 
-    private TurtleMotor sMotor = new TurtleTalon(TurtwigConstants.SPININTAKEVICTORSPPORT, false);
+    private TurtleMotor sMotor = new TurtleTalon(TurtwigConstants.SPININTAKETALONPORT, false);
     private TurtlePID pid;
 
     private TurtleLimitSwitch ballLimit = new TurtleDigitalLimitSwitch(TurtwigConstants.BALLLIMITSWITCHPORT, true);
@@ -73,8 +72,8 @@ public class TurtwigPIDIntake implements TurtleSmartRobotComponent {
 
 	if (Input.getXboxAxis(XboxAxis.LY) != 0) {
 	    intakeIdealPosition += -Input.getXboxAxis(XboxAxis.LY) * inputTimer.get() * TurtwigConstants.intakePIDScale;
-	    // intakeIdealPosition = TurtleMaths.fitRange(intakeIdealPosition,
-	    // 0, TurtwigConstants.INTAKEENCODERMAX);
+	    intakeIdealPosition = TurtleMaths.fitRange(intakeIdealPosition, getEncoderTicks() - 120,
+		    getEncoderTicks() + 120);
 	    Output.outputNumber("IntakePID Target", intakeIdealPosition);
 	    pid = new TurtlePDD2(TurtwigConstants.intakePIDConstants, intakeIdealPosition, 0.0);
 
@@ -84,7 +83,7 @@ public class TurtwigPIDIntake implements TurtleSmartRobotComponent {
 		* TurtwigConstants.intakePIDCurrentWeight
 		+ (1 - TurtwigConstants.intakePIDCurrentWeight)
 		* pid.newValue(
-			new double[] { TurtleMaths.avg(lEncoder.getTicks(), rEncoder.getTicks()), TurtleMaths.avg(lEncoder.getRate(), rEncoder.getRate()) })
+			new double[] { getEncoderTicks(), getEncoderRate() })
 			.getValue());
 	driveMotors(smoother);
 	Output.outputNumber("lIntakePower", lMotor.get().getValue());
@@ -140,12 +139,20 @@ public class TurtwigPIDIntake implements TurtleSmartRobotComponent {
 		* TurtwigConstants.intakePIDCurrentWeight
 		+ (1 - TurtwigConstants.intakePIDCurrentWeight)
 		* pid.newValue(
-			new double[] { TurtleMaths.avg(lEncoder.getTicks(), rEncoder.getTicks()), TurtleMaths.avg(lEncoder.getRate(), rEncoder.getRate()) })
+			new double[] { getEncoderTicks(), getEncoderRate() })
 			.getValue());
 	driveMotors(smoother);
 	Output.outputNumber("lIntakePower", lMotor.get().getValue());
 	Output.outputNumber("rIntakePower", rMotor.get().getValue());
 
+    }
+
+    private double getEncoderTicks() {
+	return TurtleMaths.avg(lEncoder.getTicks(), rEncoder.getTicks());
+    }
+    
+    private double getEncoderRate() {
+	return TurtleMaths.avg(lEncoder.getRate(), rEncoder.getRate());
     }
 
     public void setPosition(double pos) {
