@@ -1,11 +1,8 @@
 package com.team1458.turtleshell.vision;
 
 import com.ni.vision.NIVision.Image;
-import com.team1458.turtleshell.logging.TurtleLogger;
-import com.team1458.turtleshell.sensor.TurtleVision;
 
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Multiple camera server Extended from

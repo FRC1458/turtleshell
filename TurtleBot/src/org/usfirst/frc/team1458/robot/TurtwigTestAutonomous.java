@@ -34,12 +34,12 @@ public class TurtwigTestAutonomous implements TurtleAutonomous {
 		this.physicalRobot = physicalRobot;
 
 	}
-
+	/*
 	private void safeDo() {
 		while (TurtleSafeDriverStation.canAuto() && !chassis.atTarget()) {
 			chassis.autoUpdate();
 		}
 		chassis.stop();
-	}
+	}*/
 
 }
