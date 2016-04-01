@@ -1,15 +1,12 @@
 \documentclass[]{report}
 \usepackage{textcomp}
 \usepackage{graphicx}
-\usepackage{listings}
 \usepackage{hyperref}
 
 %opening
 \title{Programming Bible with TurtleShell}
 \author{Sweeney \and Salzmann}
 \date{2016}
-\lstset{language=Java}
-
 
 \begin{document}
 \newcommand{\ITwoC}{I$^{2}$C}
@@ -18,7 +15,11 @@
 \tableofcontents
 
 \chapter{Introduction}
+Hello.
 \section{Introduction}
+Hello!
+
+
 
 \chapter{Physical Hardware}
 	This section covers the physical devices associated with the robot that must be understood in order to properly program the robot.
@@ -163,7 +164,7 @@ The chassis/drivetrain refers to the physical structure of the robot. This is th
 \subsection{\ITwoC}
 	\ITwoC (Pronounced Eye-two-see) is another communication protocol.
 	It is very advanced, and is capable of exchanging large amounts of information and connecting multiple devices, but is very complicated (An interviewed company contracted it out rather than work with it).
-	Luckily, some of the very low-level communication is done with the libraries, so the programmer “only” has to work with the bytes that are being transferred, rather than the process of transferring them.
+	Luckily, some of the very low-level communication is done with the libraries, so the programmer only�� has to work with the bytes that are being transferred, rather than the process of transferring them.
 \subsection{SPI}
 	SPI is another complicated communications protocol, one which is not commonly used in FRC.
 	Wikipedia states:
@@ -177,27 +178,78 @@ The chassis/drivetrain refers to the physical structure of the robot. This is th
 	The SPI may be accurately described as a synchronous serial interface, but it is different from the Synchronous Serial Interface (SSI) protocol, which is also a four-wire synchronous serial communication protocol, but employs differential signaling and provides only a single simplex communication channel.
 \end{quotation}
 \subsection{CANbus}
-The CAN (controller area network) bus is yet another way of interfacing with devices. The system has two wires, a green and yellow one. They probably have names. They can be used with Jaguars, but their main purpose is to connect to the pneumatics system and the PDP. We are not given control over the interface, and so we don’t need to worry about the details. They are handled with libraries below our layer, so we just interact with the pneumatics and PDP classes.
+The CAN (controller area network) bus is another way of interfacing with devices.
+It is commonly used in industry, and it is found in modern cars.
+It involves the high, yellow wire and the low, green wire.
+They can be used for Jaguars, and other advanced electronics.
+One key aspect is their use in of pneumatics and the PDP,  CAN is the only way to connect to those.
+All workings with the CAN system are hidden in WPILib, a reasonable approach given its complexity.
+The PDP and respective pneumatic classes can be used to interact with those systems.
 
-Ethernet
-	There is an Ethernet port on the roboRIO. Ethernet is a standard for communication, often used as a wired way to obtain internet access. For the robot, the Ethernet port is used to connect to the router that provides wireless connectivity.
+\subsection{Ethernet}
+There is an Ethernet port on the roboRIO.
+Ethernet is a standard for communication, often used as a wired way to obtain internet access.
+For the robot, the Ethernet port is used to connect to the router that provides wireless connectivity.
+Cat 5e or above is recommended, as well remember to make sure there are not significant kinks in the cable, it degrades performance.
 
-USB
-	There is a USB Type-B (The weird other end with the pentagon-thing that is used on printers) port on the roboRIO. When the roboRIO  is connected directly to the computer, it is done through this. It can supposedly also be used to connect to a camera.
+\subsection{USB}
+	There are three USB ports on the roboRIO.
+	Two are USB Type-A, the standard USB port.
+	Devices such as cameras should be connected here, as well as any sensors that work over USB.
+	\newline
+	The USB Type-B (The cable with the pentagonal other end, often used for printers) port is useful for connecting to the computer, use it instead of Ethernet for direct connections to the roboRIO.
 
-The Human Body Analogy
-	For many people, an analogy comparing the parts of the robot to parts of the human body is useful for understanding the way the robot works and how things interact. Henceforth, let the analogy commence:
-Skeletal system: The frame and mechanical portions of the robot.
-Muscular system: The motors.
-Circulatory system: The power-carrying wires
-Heart: The PDP
-Arteries: Red cables
-Veins: Black cables
-Lungs: Battery? I don’t know, it’s an analogy
-Nervous system: Signal-carrying wires
-Other-coloured wires: axons
-Sensors: nerve endings
-Brain: roboRIO
-
+\section{The Human Body Analogy}
+	For many people, an analogy comparing the parts of the robot to parts of the human body is useful for understanding the way the robot works and how things interact.
+	Henceforth, let the analogy commence:
+\subsection*{Skeletal System}
+The frame and mechanical portions of the robot.
+\subsection*{Muscular System}
+Motors and solenoids.
+\subsection*{Circulatory System}
+Components carrying electricity for the purpose of powering components (not signals).
+\subsubsection*{Heart}
+The PDP.
+\subsubsection*{Arteries}
+Red cables, where power flows out.
+\subsubsection*{Veins}
+Black cables, where power flows back.
+\subsubsection*{Lungs}
+The battery, the source of all electrical power on the robot.
+\subsection*{Nervous System}
+"Smart" components as well as signal-carrying wires.
+\subsubsection*{Axons}
+Signal-carrying wires, most colours but red and black, especially white, yellow, and green.
+\subsubsection*{Nerve Endings}
+Sensors.
+\subsubsection*{Brain}
+The roboRIO, other computing devices would be secondary brains.
 
+
+
+\chapter{Programming on the roboRIO}
+This chapter will cover the roboRIO, languages running on it, the Java language,
+and some basic Java code on the robot.
+This chapter will not cover TurtleShell, and some things introduced in \ref{SimpleJavaontheroboRIO} will be overridden in \ref{TurtleShell}.
+\section{The roboRIO}
+linux
+\section{Languages}
+java
+\section{Basic Java}
+period
+\section{Simple Java on the roboRIO}
+\label{SimpleJavaontheroboRIO}
+easy
+
+
+
+\chapter{TurtleShell}
+\label{TurtleShell}
+best
+\section{Design Philosophy}
+Turtwig
+\section{Basic Functionality}
+sensors, motors, etc
+\section{Advanced Features}
+pid
 \end{document}
