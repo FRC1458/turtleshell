@@ -10,6 +10,8 @@
 
 \begin{document}
 \newcommand{\ITwoC}{I$^{2}$C}
+\newcommand{\trademark}{$^{TM}$}
+\newcommand{\goodcopyright}{$^{\copyright}$}
 \maketitle
 
 \tableofcontents
@@ -24,11 +26,11 @@ Hello!
 \chapter{Physical Hardware}
 	This section covers the physical devices associated with the robot that must be understood in order to properly program the robot.
 	A basic familiarity with all parts of the robot is required, but certain parts, namely those associated with the control system must be understood in greater depth.
-	This section will dedicate time to each class in rough proportion to their importance to programming.
+	This section will dedicate time to each class of components in rough proportion to their importance to programming.
 \section{A Note On The Separation of Programming and Electrical}
 	The boundary between programming and electrical, especially with sensors, can be unclear.
 	The generally accepted split is that electrical is in charge (no pun intended) of the hardware and wiring, while programming is responsible for the control logic.
-	However, programming is often given control over some aspects of hardware for the placement of sensors, although it is still electrical’s responsibility to wire the sensors.
+	However, programming is often given control over some aspects of hardware for the placement of sensors, although it is still electrical'��s responsibility to wire the sensors.
 \section{Motor Controllers}
 	Motor controllers are what regulate the motors.
 	They have a connection to the Power Distribution Panel (PDP), the motors themselves, and the roboRio through a PWM (or Pulse Width Modulation) control.
@@ -98,7 +100,7 @@ The chassis/drivetrain refers to the physical structure of the robot. This is th
 \subsubsection{Magnetometer}
 		Magnetometers measure the strength of magnetic fields on certain axes.
 		In the context of the FRC, they are used to measure the Earth’s magnetic field and thus act as a compass, providing a reference point for rotation.
-		While they don’t have the same problem with drift, they are much more difficult to calibrate, with the calibration changing based on where the robot is located and what ambient magnetic fields exist.
+		While they don't have the same problem with drift, they are much more difficult to calibrate, with the calibration changing based on where the robot is located and what ambient magnetic fields exist.
 		This can prove a problem, as the robot’s motors generate magnetic fields which can interfere with proper function.
 		They are also much more difficult to program.
 \subsection{Vision}
@@ -120,8 +122,8 @@ The chassis/drivetrain refers to the physical structure of the robot. This is th
 		They are useful in safety for moving devices, to ensure they don’t go too far and damage something.
 \subsection{Position}
 	\subsubsection{Accelerometer}
-		Accelerometers don’t actually measure position, they measure acceleration.
-		It’s technically possible to derive (well, integrate) position from acceleration, but it is a difficult process.
+		Accelerometers don't actually measure position, they measure acceleration.
+		It'��s technically possible to derive (well, integrate) position from acceleration, but it is a difficult process.
 		Accelerometers can still be used in autonomous for positioning, but aren’t very useful beyond that.
 		In years where the robot is tilting, it can be used to determine whether or not the robot is flat.
 	\subsubsection{Rotary Encoder}
@@ -134,8 +136,8 @@ The chassis/drivetrain refers to the physical structure of the robot. This is th
 \section{roboRio}
 	The roboRio is the brain of the robot.
 	The code runs on the roboRio, which runs a modified version of Linux.
-	The roboRio is one of the few “smart” devices on the robot, with most of the remaining devices serving to interface between it and the physical world.
-	It has digital, analog, I2C, SPI, USB, CAN and Ethernet I/O (Input/Output), along with PWM output and the MXP. (Don’t worry, all of those acronyms will be explained shortly)
+	The roboRio is one of the few "smart" devices on the robot, with most of the remaining devices serving to interface between it and the physical world.
+	It has digital, analog, \ITwoC, SPI, USB, CAN and Ethernet I/O (Input/Output), along with PWM output and the MXP. (Don’t worry, all of those acronyms will be explained shortly)
 	By the FRC rules, all control of motors has be done through the roboRio.
 	
 \subsection{MXP (MyRio eXpansion Port)}
@@ -199,6 +201,9 @@ Cat 5e or above is recommended, as well remember to make sure there are not sign
 	\newline
 	The USB Type-B (The cable with the pentagonal other end, often used for printers) port is useful for connecting to the computer, use it instead of Ethernet for direct connections to the roboRIO.
 
+\section{Radio}
+	The radio is used on the robot to communicate with the FMS and Driver Station. 
+
 \section{The Human Body Analogy}
 	For many people, an analogy comparing the parts of the robot to parts of the human body is useful for understanding the way the robot works and how things interact.
 	Henceforth, let the analogy commence:
@@ -231,8 +236,17 @@ The roboRIO, other computing devices would be secondary brains.
 This chapter will cover the roboRIO, languages running on it, the Java language,
 and some basic Java code on the robot.
 This chapter will not cover TurtleShell, and some things introduced in \ref{SimpleJavaontheroboRIO} will be overridden in \ref{TurtleShell}.
-\section{The roboRIO}
-linux
+\section{roboRIO Basics}
+The roboRIO is a proper computer.
+It is produced by National Instruments, based on the Xilinix\goodcopyright{} Zynq\trademark{}-7020 platform.
+It has as its processor an ARM Cortex\trademark{}-A9, with 256MB of RAM and 512MB of flash storage.
+It runs a real-time variant of Linux, and supports LabVIEW, C++, and Java.
+This may be a restatement of the fact sheet.
+\newline
+It is possible to connect to the roboRIO over both Ethernet and USB. 
+\section{roboRIO Intermediates}
+
+
 \section{Languages}
 java
 \section{Basic Java}

@@ -43,10 +43,11 @@
 \contentsline {subsection}{\numberline {2.6.9}USB}{11}{subsection.2.6.9}
 \contentsline {section}{\numberline {2.7}The Human Body Analogy}{11}{section.2.7}
 \contentsline {chapter}{\numberline {3}Programming on the roboRIO}{13}{chapter.3}
-\contentsline {section}{\numberline {3.1}The roboRIO}{13}{section.3.1}
-\contentsline {section}{\numberline {3.2}Languages}{13}{section.3.2}
-\contentsline {section}{\numberline {3.3}Basic Java}{13}{section.3.3}
-\contentsline {section}{\numberline {3.4}Simple Java on the roboRIO}{13}{section.3.4}
+\contentsline {section}{\numberline {3.1}roboRIO Basics}{13}{section.3.1}
+\contentsline {section}{\numberline {3.2}roboRIO Intermediates}{13}{section.3.2}
+\contentsline {section}{\numberline {3.3}Languages}{13}{section.3.3}
+\contentsline {section}{\numberline {3.4}Basic Java}{13}{section.3.4}
+\contentsline {section}{\numberline {3.5}Simple Java on the roboRIO}{13}{section.3.5}
 \contentsline {chapter}{\numberline {4}TurtleShell}{14}{chapter.4}
 \contentsline {section}{\numberline {4.1}Design Philosophy}{14}{section.4.1}
 \contentsline {section}{\numberline {4.2}Basic Functionality}{14}{section.4.2}
