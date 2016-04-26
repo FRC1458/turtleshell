@@ -8,9 +8,9 @@ public class TurtlePIDConstants {
 	
 	public TurtlePIDConstants(double kP, double kI, double kD, double kDD) {
 		this.kP=kP;
-		this.kI=kI;
-		this.kD=kD;
-		this.kDD=kDD;
+		this.kI=kI;//kI is for intergral
+		this.kD=kD;//kD is derititive
+		this.kDD=kDD;//kDD is double derivitive
 	}
 
 }
