@@ -6,5 +6,9 @@ package com.team1458.turtleshell2.util.types;
  *
  */
 public interface Unit {
+	/**
+	 * 
+	 * @return the value stored by this value
+	 */
 	public double getValue();
 }

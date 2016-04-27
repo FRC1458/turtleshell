@@ -155,11 +155,13 @@ public class TurtleXtrinsicMagnetometer {
 	 */
 	private int[] inputs = new int[3];
 	/**
-	 * array storing the magnetic fields, corrected to -1 to 1 (x, y, z respectively)
+	 * array storing the magnetic fields, corrected to -1 to 1 (x, y, z
+	 * respectively)
 	 */
 	private double[] axes = new double[3]; // x y z
 	/**
-	 * Array for how many times has rotated around each axis (yaw, pitch, roll respectively)
+	 * Array for how many times has rotated around each axis (yaw, pitch, roll
+	 * respectively)
 	 */
 	private int[] rotations = new int[3];// yaw pitch roll
 
@@ -217,7 +219,7 @@ public class TurtleXtrinsicMagnetometer {
 		// initial update
 		rateTimer.start();
 		update();
-		
+
 		// Schedule the java.util.Timer to repeatedly update this sensor
 		updateTimer.schedule(new TurtleXtrinsicMagnetometerUpdater(), UPDATETIME, UPDATETIME);
 	}
@@ -247,7 +249,7 @@ public class TurtleXtrinsicMagnetometer {
 	/**
 	 * Update the magnetometer
 	 */
-	//TODO: Figure out what synchronized means
+	// TODO: Figure out what synchronized means
 	private synchronized void update() {
 		// Set old values to new values
 		for (int i = 0; i < axes.length; i++) {
@@ -255,7 +257,9 @@ public class TurtleXtrinsicMagnetometer {
 		}
 		// do the read
 		i2c.read(0x01, 6, rawInput);
-		
+
+		// reads the axes two at a time, so 0 and 1 are combined to inputs[0], 2
+		// and 3 to inputs[1], etc.
 		for (int i = 0; i < 3; i++) {
 			inputs[i] = doubleByteToInt(new byte[] { rawInput[2 * i], rawInput[2 * i + 1] });
 		}

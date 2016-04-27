@@ -5,7 +5,7 @@
 
 %opening
 \title{Programming Bible with TurtleShell}
-\author{Sweeney \and Salzmann}
+\author{Sweeney}
 \date{2016}
 
 \begin{document}
@@ -30,7 +30,7 @@ Hello!
 \section{A Note On The Separation of Programming and Electrical}
 	The boundary between programming and electrical, especially with sensors, can be unclear.
 	The generally accepted split is that electrical is in charge (no pun intended) of the hardware and wiring, while programming is responsible for the control logic.
-	However, programming is often given control over some aspects of hardware for the placement of sensors, although it is still electrical'��s responsibility to wire the sensors.
+	However, programming is often given control over some aspects of hardware for the placement of sensors, although it is still electrical's responsibility to wire the sensors.
 \section{Motor Controllers}
 	Motor controllers are what regulate the motors.
 	They have a connection to the Power Distribution Panel (PDP), the motors themselves, and the roboRio through a PWM (or Pulse Width Modulation) control.
@@ -76,10 +76,10 @@ The chassis/drivetrain refers to the physical structure of the robot. This is th
 	It provides power for the compressor and regulates it, along with controlling any solenoids.
 \subsection{Voltage Regulator Module (VRM)}
 	The VRM is connected to the PDP, and provides lower-voltage power.
-	It provides power to the router on board, as well as other devices that don’t require high amperages (so not most motors), such as LED lights.
+	It provides power to the router on board, as well as other devices that don't require high amperages (so not most motors), such as LED lights.
 \section{Sensors}
 	This section discusses a variety of types of different sensors available on the robot, and their possible uses and drawbacks.
-	It doesn’t cover their coding or integration into software.
+	It doesnât cover their coding or integration into software.
 	This section is divided based on utility, however some sensors may fit under multiple categories.
 \subsection{Distance}
 	Distance sensors determine how far away something is from the sensor.
@@ -99,9 +99,9 @@ The chassis/drivetrain refers to the physical structure of the robot. This is th
 		They are widely available, but they have a problem in accuracy called yaw drift, where the angle will shift by 2-3 degrees per minute, even while stationary for the best gyros, and larger drift for lower quality.
 \subsubsection{Magnetometer}
 		Magnetometers measure the strength of magnetic fields on certain axes.
-		In the context of the FRC, they are used to measure the Earth’s magnetic field and thus act as a compass, providing a reference point for rotation.
+		In the context of the FRC, they are used to measure the Earthâs magnetic field and thus act as a compass, providing a reference point for rotation.
 		While they don't have the same problem with drift, they are much more difficult to calibrate, with the calibration changing based on where the robot is located and what ambient magnetic fields exist.
-		This can prove a problem, as the robot’s motors generate magnetic fields which can interfere with proper function.
+		This can prove a problem, as the robotâs motors generate magnetic fields which can interfere with proper function.
 		They are also much more difficult to program.
 \subsection{Vision}
 	These sensors work with vision, which can be used for a variety of tasks depending on the year.
@@ -119,12 +119,12 @@ The chassis/drivetrain refers to the physical structure of the robot. This is th
 	\subsubsection{Limit Switch}
 		Limit switches have some sort of object that when it is pressed down, it triggers.
 		They are electronically identical to pushbuttons, but they have a switch rather than a button.
-		They are useful in safety for moving devices, to ensure they don’t go too far and damage something.
+		They are useful in safety for moving devices, to ensure they don't go too far and damage something.
 \subsection{Position}
 	\subsubsection{Accelerometer}
 		Accelerometers don't actually measure position, they measure acceleration.
-		It'��s technically possible to derive (well, integrate) position from acceleration, but it is a difficult process.
-		Accelerometers can still be used in autonomous for positioning, but aren’t very useful beyond that.
+		It's technically possible to derive (well, integrate) position from acceleration, but it is a difficult process.
+		Accelerometers can still be used in autonomous for positioning, but arenât very useful beyond that.
 		In years where the robot is tilting, it can be used to determine whether or not the robot is flat.
 	\subsubsection{Rotary Encoder}
 		Rotary encoders (usually just called encoders) are one of the most useful sensors.
@@ -137,7 +137,7 @@ The chassis/drivetrain refers to the physical structure of the robot. This is th
 	The roboRio is the brain of the robot.
 	The code runs on the roboRio, which runs a modified version of Linux.
 	The roboRio is one of the few "smart" devices on the robot, with most of the remaining devices serving to interface between it and the physical world.
-	It has digital, analog, \ITwoC, SPI, USB, CAN and Ethernet I/O (Input/Output), along with PWM output and the MXP. (Don’t worry, all of those acronyms will be explained shortly)
+	It has digital, analog, \ITwoC, SPI, USB, CAN and Ethernet I/O (Input/Output), along with PWM output and the MXP. (Don't worry, all of those acronyms will be explained shortly)
 	By the FRC rules, all control of motors has be done through the roboRio.
 	
 \subsection{MXP (MyRio eXpansion Port)}
@@ -166,7 +166,7 @@ The chassis/drivetrain refers to the physical structure of the robot. This is th
 \subsection{\ITwoC}
 	\ITwoC (Pronounced Eye-two-see) is another communication protocol.
 	It is very advanced, and is capable of exchanging large amounts of information and connecting multiple devices, but is very complicated (An interviewed company contracted it out rather than work with it).
-	Luckily, some of the very low-level communication is done with the libraries, so the programmer only�� has to work with the bytes that are being transferred, rather than the process of transferring them.
+	Luckily, some of the very low-level communication is done with the libraries, so the programmer only has to work with the bytes that are being transferred, rather than the process of transferring them.
 \subsection{SPI}
 	SPI is another complicated communications protocol, one which is not commonly used in FRC.
 	Wikipedia states:
@@ -202,7 +202,11 @@ Cat 5e or above is recommended, as well remember to make sure there are not sign
 	The USB Type-B (The cable with the pentagonal other end, often used for printers) port is useful for connecting to the computer, use it instead of Ethernet for direct connections to the roboRIO.
 
 \section{Radio}
-	The radio is used on the robot to communicate with the FMS and Driver Station. 
+	The radio is used on the robot to communicate with the FMS and Driver Station. It is a router running specialised software.
+	The model is OM5P-AN.
+	It has a power plug which connects to the VRM, as well as two Ethernet ports, one for connection to the roboRIO and one for connection to the computer.
+	 The Radio Configuration Utility, included with LabView, will install and flash the firmware.
+	 Note that the configuration for home and competition use are different.
 
 \section{The Human Body Analogy}
 	For many people, an analogy comparing the parts of the robot to parts of the human body is useful for understanding the way the robot works and how things interact.
@@ -236,19 +240,192 @@ The roboRIO, other computing devices would be secondary brains.
 This chapter will cover the roboRIO, languages running on it, the Java language,
 and some basic Java code on the robot.
 This chapter will not cover TurtleShell, and some things introduced in \ref{SimpleJavaontheroboRIO} will be overridden in \ref{TurtleShell}.
+
+
 \section{roboRIO Basics}
+This section covers basic roboRIO functionality from a programming perspective.
+
+\subsection{Basic Specifications}
 The roboRIO is a proper computer.
 It is produced by National Instruments, based on the Xilinix\goodcopyright{} Zynq\trademark{}-7020 platform.
 It has as its processor an ARM Cortex\trademark{}-A9, with 256MB of RAM and 512MB of flash storage.
 It runs a real-time variant of Linux, and supports LabVIEW, C++, and Java.
 This may be a restatement of the fact sheet.
-\newline
-It is possible to connect to the roboRIO over both Ethernet and USB. 
-\section{roboRIO Intermediates}
+
+\subsection{Connecting}
+It is possible to connect to the roboRIO over both Ethernet and USB.
+Either is acceptable, Ethernet should have a higher throughput but this is often not the case.
+Whichever is more accessible (USB Type-B or Ethernet) is likely simpler to use.
+The standard mDNS address is "roboRIO-\#\#\#\#-FRC.local", where \#\#\#\# is the team number. (No leading zeroes)
+
+\subsubsection{mDNS}
+The mDNS protocol is used for robot connection, reducing the need for static IP and other network setups.
+It allows the use of host names rather than IP addresses on small networks without the need for a nameserver (such as Google's 8.8.8.8 and 8.8.4.4).
+In order for computers to make use of it, they require external software, Apple's Bonjour works on Windows and Mac, and LabView comes with its own version.
+Linux mDNS software also exists.
+
+\subsubsection{Browser Use}
+For some ungodly reason, NI decided to use Microsoft Silverlight to create the web interface for the roboRIO.
+This restricts browser use to browsers which still allow that mess of a plugin, and NI happily recommends IE.
+Team 1458 uses Firefox for this purpose.
+
+\subsubsection{USB}
+The driver for the roboRIO should automatically install. If not, it should install with LabView.
+The mDNS address should work, alternatively the USB IP is "172.22.11.2".
+Again note the USB port that should be used is the USB Type B port, often found on printers.
+It is a house-looking hexagon.
+
+\subsubsection{Ethernet}
+The mDNS address can be used over Ethernet as well.
+The radio uses the IP address 10.TE.AM.1 (Where TE.AM is the zero-padded team number), and gives other devices IP addresses in the range 10.TE.AM.10 to 10.TE.AM.99 through DHCP.
+
+\subsection{Updating roboRIO Programs}
+The roboRIO's firmware and image may need to be updated.
+The firmware rarely needs to be updated, unless the device is being wiped, but the image is usually updated once per year.
+
+\subsubsection{Updating the Firmware}
+\begin{enumerate}
+\item Connect to the roboRIO using USB, \textbf{not Ethernet}.
+\item Connect to the web interface and log in with the Username "admin" and a blank password.
+\item Click the update firmware button, and navigate to the location where the firmware is stored
+(C:\textbackslash Program Files (x86)\textbackslash National Instruments\textbackslash Shared\textbackslash Firmware\textbackslash cRIO\textbackslash 76F2 on Windows 64-bit),
+and select the most recent firmware (should be the numerically largest version).
+\item Click the begin update button and let it complete the update.
+\end{enumerate}
+
+\subsubsection{Updating the Image}
+\begin{enumerate}
+\item Connect to the roboRIO using USB, \textbf{not Ethernet}.
+\item Launch the imaging tool, located at C:\textbackslash Program Files (x86)\textbackslash National Instruments\textbackslash LabVIEW 2015\textbackslash project\textbackslash roboRIO Tool\textbackslash roboRIO\textunderscore ImagingTool.exe for 64-bit Windows.
+\item Scan for roboRIOs and select the appropriate one.
+\item Enter your Team Number in the box.
+\item Check the box Console Out under Startup Settings and \textbf{uncheck} the box Disable RT Startup App.
+\item Check the Format Target box and select the most recent image.
+\item Click Reformat.
+\item After the reformatting, press the reset button on the roboRIO to complete the process.
+\end{enumerate}
+
+\subsubsection{Installing Java on the roboRIO}
+This step is only neccesary to run Java programs.
+\begin{enumerate}
+\item Java 8 must be installed on the computer used to connect to the roboRIO.
+\item Connect to the roboRIO using USB, \textbf{not Ethernet}.
+\item Open the FRC Java Installer, located at "~/wpilib/tools/java-installer.jar", where ~ is the home directory.
+\item Follow the listed instructions in the Java Installer.
+\item Java 8 is now installed on the roboRIO. This will be needed to be repeated each time the roboRIO is imaged.
+\end{enumerate}
+
+\subsection{The roboRIO Web Interface}
+The web interface allows use and customisation of many features on the roboRIO.
+Many of these features require logging in, the default login is "admin" with no password.
+However, a password must be set to access the file browser.
+It is a good idea to create a second account with the same permissions and a password so that the file browser can be used, and the admin account is still available with the default settings.
+For changing files in the lvuser account, the lvuser account must be logged in to, it has the password "password".
+Other than the file browser, the main configuration tool is the permission manager.
+Other than creating new accounts, the use and function is relatively complex and unimportant.
+Although there are a variety of tabs, most of them are not important.
+However, the main tab has the ability to update the firmware for the roboRIO, PCM, and PDP.
+
+
+\section{roboRIO Intermediate and Advanced}
+This section covers more advanced topics with the roboRIO such as the command line and processing capabilities.
+
+\subsection{Moving Beyond the Web Interface}
+While the web interface is easy to use, it is quite clunky and is often less intuitive than other options.
+Most of these are command line based, such as scp and and ssh, and are from Unix.
+
+\subsubsection{ssh}
+One of the most powerful tools is ssh, the remote shell program.
+It allows logins over a network connection, giving full access to the command line.
+PuTTY is a Windows program available that can fufill this function.
+The command line is a fairly standard Linux environment, but one important difference is the lack of a sudo or su command.
+Thus, in order to modify the code or output files, the "lvuser" account usually must be logged into.
+
+\subsubsection{scp}
+Another tool available is scp, which stands for secure copy.
+It allows the copying of files to and from the roboRIO, the ANT script that compiles the code uses scp to move the code onto the roboRIO.
+As a standard Unix command, documentation is available elsewhere.
+
+\subsection{Processing Capabilities and Limitations}
+The roboRIO is a moderately powerful computer.
+It is less powerful than a smartphone, but is comparable to portable game systems like the Nintendo 3DS.
+This is relevant from a programmer's perspective because it limits what a programmer can do.
+For example, if several million floating point calculations need to be done in order to execute a single motor movement, the code will be far too ineffecient to be effective.
+However, eking every last bit of effeciency out of code requires destroying any pretense of readibality or maintainability.
+For the roboRIO, and for modern programming on non-embedded systems in general, the balance is usually to simply neither do wildly wasteful things nor condense the code.
+However, this balance shifts in locations like loops. There, since the code must be repeatedly, it is usually beneficial to optimise the code at the expense of ease of use.
+For example, declaring a variable that would normally be declared inside a loop outside instead adds in an extra variable to work with, but it stops that variable from having to be allocated every time that code is run, and as such saves processing time.
+A key field where this is an issue is vision code.
+With hundreds of thousands of pixels, a slight mistake can greatly increase the amount of time required.
+
+However, even optimally designed vision programs are quite possibly too much for the roboRIO.
+Thus, other computers can be used on the robot, such as Nvidia's Jetson TK1, to supplement it and offload vision processing, not only speeding up the processing but ensuring that the vision processing cannot hog time from more important tasks.
 
 
 \section{Languages}
-java
+Many languages are supported on the roboRIO.
+The officially supported languages are Java, C++, and LabVIEW, although unofficial libraries for other languages such as Python are available.
+This guide primarily covers Java, although this section will attempt to provide a brief overview of the languages and aid in the selection of the best language for the team.
+
+\subsection{Java}
+Java is a C-like language developed at Sun Microsystems and currently maintained by Oracle.
+Java's main feature is its cross-platform support, available because of the JVM, or Java Virtual Machine, which runs the code, rather than the operating system itself.
+This additional layer of abstraction comes with a cost however, Java code is almost always less effecient than code written in C or C++.
+Java is quite often used for commercial applications, the cross platform nature reduces development costs and the relative ease with which it can be used make it quite popular as a server-side language, although it is being supplanted by Ruby and Python in many of these applications.
+As well, Java is a part of the Advanced Placement Computer Science A course, which many students enrolled in FIRST may take, and can serve as a breeding ground for programmers.
+
+On the robot, virtually all Java features are available, and the additional overhead is only an issue in vision processing.
+Plenty of libraries and sample code are available for Java on the roboRIO.
+
+\subsection{C++}
+C++ is an industry-standard language that has stood the test of time.
+It is an expansion on the earlier C language, adding object-oriented programming.
+Most native programs are written with C++ or similar, likely including the program being used to view this file.
+C++ can be difficult to work with because of its use of pointers, but the difficulty increase compared to Java is relatively minor.
+C++ and other lower-level languages run more quickly than languages like Java or Python.
+
+C++ is fully supported on the roboRIO and is a fine choice for robot development.
+Plenty of libraries and sample code are available for C++ on the roboRIO.
+
+\subsection{LabVIEW}
+LabVIEW is National Instruments's graphical programming language.
+It is primarily used for working with NI's products in robotics and research.
+The language is visual, rather than text, based, and is designed with blocks to represent operation and wires for data flow.
+The language suffers from extremely long compile times, often stretching into multiple minutes, and poorer performance than Java.
+It also suffers from limited applicability, NI's products are the only use of the language and while the visual aspect may be appealing to beginners, it is drastically unlike other programming languages and so skills are often not transferable.
+It can also be very difficult to debug, and the tangled mess the wires form is infamous.
+
+LabVIEW is heavily optimised for the roboRIO, and includes utilities to ease development.
+NI provides support and software for the product.
+
+\subsection{Direct Comparisons}
+
+Overall, C++ and Java are relatively equal.
+Although C++ is more difficult to use, it makes up for this in performance.
+However, Java is more often used in server-based technology, and as such can be more useful in the career field.
+Java is also commonly taught with the Advanced Placement Computer Science A class, which can serve as a valuable source of programming experience.
+The choice between these languages should depend largely on the particular team, and the experience they have.
+While both languages have minor advantages over the other, mentor, student, school or sponsor experience can override this advantage and should be the deciding factor.
+
+LabVIEW is overall inferior for robot development.
+It has limited applicibality outside of FRC and lacks the massive repository of libraries that other languages have.
+Much of the skills and code are not transferable, making the learning wasted.
+It is also more difficult to develop and debug.
+
+\begin{table}[h!]
+	\begin{tabular}{c|l|l|l|}
+		& Java & C++ & LabVIEW \\ \hline \hline
+		Performance & 3 & 5 & 1 \\ \hline
+		Power & 5 & 5 & 3 \\ \hline
+		Support & 4 & 4 & 3 \\ \hline
+		Learning Curve & 3 & 1 & 2 \\ \hline
+		Ease of Use & 4 & 3 & 2 \\ \hline
+		Career Utility & 4 & 3 & 2 \\ \hline
+		Overall Recommendation & 5 & 4 & 2 \\ \hline
+	\end{tabular}
+	\caption{Side by side comparison of languages on a 1-5 scale, with 1 being the worst and 5 being the best}
+\end{table}
+
 \section{Basic Java}
 period
 \section{Simple Java on the roboRIO}

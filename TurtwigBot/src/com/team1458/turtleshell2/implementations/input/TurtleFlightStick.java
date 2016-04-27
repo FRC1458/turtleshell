@@ -8,7 +8,13 @@ public class TurtleFlightStick {
 	public TurtleFlightStick(int usbport) {
 		j = new Joystick(usbport);
 	}
-
+	
+	
+	/**
+	 * Enum holding mappings from axis names to numbers
+	 * @author mehnadnerd
+	 *
+	 */
 	public static enum FlightAxis {
 		ROLL(0), PITCH(1), THROTTLE(2), YAW(3), FOUR(4), FIVE(5);
 		public final int val;
