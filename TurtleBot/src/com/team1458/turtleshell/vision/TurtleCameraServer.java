@@ -5,9 +5,7 @@ import com.ni.vision.NIVision.Image;
 import edu.wpi.first.wpilibj.CameraServer;
 
 /**
- * Multiple camera server Extended from
- * https://gist.github.com/Wazzaps/bb9e72696f8980e7e727
- * 
+ * Multiple camera server
  * @author mehnadnerd
  */
 public class TurtleCameraServer {
@@ -25,40 +23,6 @@ public class TurtleCameraServer {
     private TurtleCameraServer() {
 	cs = CameraServer.getInstance();
     }
-
-    /**
-     * Send the image to the dashboard
-     */
-    /*
-    @Override
-    public void run() {
-	try {
-	    wait(100);
-	} catch (InterruptedException e1) {
-	    // TODO Auto-generated catch block
-	    e1.printStackTrace();
-	}
-	SmartDashboard.putBoolean("Doing Camera Server Loop", true);
-	while (true) {
-	    try {
-		SmartDashboard.putBoolean("Doing Camera Server Loop three", true);
-		System.out.println("Camera Server looping");
-		SmartDashboard.putString("Image", v.getImage().toString());
-		cs.setImage(v.getImage());
-		SmartDashboard.putBoolean("Doing Camera Server Loop four", true);
-
-		SmartDashboard.putBoolean("Doing Camera Server Set", true);
-	    } catch (NullPointerException e) {
-		TurtleLogger.warning("Vision not providing image");
-	    }
-
-	    try {
-		wait(50);
-	    } catch (InterruptedException e) {
-		e.printStackTrace();
-	    }
-	}
-    }*/
 
     public void setImage(Image i) {
 	cs.setImage(i);

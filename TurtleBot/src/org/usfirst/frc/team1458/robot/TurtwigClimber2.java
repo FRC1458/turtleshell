@@ -23,6 +23,24 @@ public class TurtwigClimber2 implements TurtleRobotComponent {
 	return instance;
     }
 
+    @Override
+    public void teleUpdate() {
+	Output.outputNumber("Hook encoder", hookEncoder.getTicks());
+	if (Input.getXBoxPOV() == POV.N) {
+	    /*
+	     * if (hookEncoder.getTicks() >
+	     * TurtwigConstants.hookLiftEncoderTicks) {
+	     * TurtleLogger.warning("Trying to put arm beyond limit"); } else {
+	     */
+	    hookWinch.set(MotorValue.fullBackward);
+	    // }
+	} else if (Input.getXBoxPOV() == POV.S) {
+	    hookWinch.set(new MotorValue(0.3));
+	} else {
+	    hookWinch.set(MotorValue.zero);
+	}
+    }
+
     private TurtleMotor powerWinch = new TurtleVictor(TurtwigConstants.POWERWINCHVICTORPORT, false);
     private TurtleMotor hookWinch = new TurtleTalon(TurtwigConstants.HOOKWINCHTALONPORT, false);
 
@@ -30,25 +48,6 @@ public class TurtwigClimber2 implements TurtleRobotComponent {
 
     @Override
     public void init() {
-
-    }
-
-    @Override
-    public void teleUpdate() {
-	Output.outputNumber("Hook encoder", hookEncoder.getTicks());
-	if (Input.getXBoxPOV() == POV.N) {
-	    /*if (hookEncoder.getTicks() > TurtwigConstants.hookLiftEncoderTicks) {
-		TurtleLogger.warning("Trying to put arm beyond limit");
-	    } else {*/
-		hookWinch.set(MotorValue.fullBackward);
-	    //}
-	} else if (Input.getXBoxPOV() == POV.S) {
-	    hookWinch.set(new MotorValue(0.3));
-	} else {
-	    hookWinch.set(MotorValue.zero);
-	}
-
-	powerWinch.set(new MotorValue(-Input.getXboxAxis(XboxAxis.RY)));
 
     }
 
