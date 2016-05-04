@@ -67,8 +67,12 @@
 \contentsline {subsection}{\numberline {3.3.3}LabVIEW}{18}{subsection.3.3.3}
 \contentsline {subsection}{\numberline {3.3.4}Direct Comparisons}{18}{subsection.3.3.4}
 \contentsline {section}{\numberline {3.4}Basic Java}{19}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Resources for Learning Java}{19}{subsection.3.4.1}
 \contentsline {section}{\numberline {3.5}Simple Java on the roboRIO}{19}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Sample, Command-Based, and Iterative Robot}{19}{subsection.3.5.1}
+\contentsline {subsubsection}{Sample Robot}{19}{section*.33}
 \contentsline {chapter}{\numberline {4}TurtleShell}{20}{chapter.4}
 \contentsline {section}{\numberline {4.1}Design Philosophy}{20}{section.4.1}
 \contentsline {section}{\numberline {4.2}Basic Functionality}{20}{section.4.2}
 \contentsline {section}{\numberline {4.3}Advanced Features}{20}{section.4.3}
+\contentsline {section}{\numberline {4.4}Code Style}{20}{section.4.4}

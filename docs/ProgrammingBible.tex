@@ -2,6 +2,7 @@
 \usepackage{textcomp}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{listings}
 
 %opening
 \title{Programming Bible with TurtleShell}
@@ -79,7 +80,7 @@ The chassis/drivetrain refers to the physical structure of the robot. This is th
 	It provides power to the router on board, as well as other devices that don't require high amperages (so not most motors), such as LED lights.
 \section{Sensors}
 	This section discusses a variety of types of different sensors available on the robot, and their possible uses and drawbacks.
-	It doesnât cover their coding or integration into software.
+	It doesn't cover their coding or integration into software.
 	This section is divided based on utility, however some sensors may fit under multiple categories.
 \subsection{Distance}
 	Distance sensors determine how far away something is from the sensor.
@@ -99,9 +100,9 @@ The chassis/drivetrain refers to the physical structure of the robot. This is th
 		They are widely available, but they have a problem in accuracy called yaw drift, where the angle will shift by 2-3 degrees per minute, even while stationary for the best gyros, and larger drift for lower quality.
 \subsubsection{Magnetometer}
 		Magnetometers measure the strength of magnetic fields on certain axes.
-		In the context of the FRC, they are used to measure the Earthâs magnetic field and thus act as a compass, providing a reference point for rotation.
+		In the context of the FRC, they are used to measure the Earth's magnetic field and thus act as a compass, providing a reference point for rotation.
 		While they don't have the same problem with drift, they are much more difficult to calibrate, with the calibration changing based on where the robot is located and what ambient magnetic fields exist.
-		This can prove a problem, as the robotâs motors generate magnetic fields which can interfere with proper function.
+		This can prove a problem, as the robot's motors generate magnetic fields which can interfere with proper function.
 		They are also much more difficult to program.
 \subsection{Vision}
 	These sensors work with vision, which can be used for a variety of tasks depending on the year.
@@ -124,7 +125,7 @@ The chassis/drivetrain refers to the physical structure of the robot. This is th
 	\subsubsection{Accelerometer}
 		Accelerometers don't actually measure position, they measure acceleration.
 		It's technically possible to derive (well, integrate) position from acceleration, but it is a difficult process.
-		Accelerometers can still be used in autonomous for positioning, but arenât very useful beyond that.
+		Accelerometers can still be used in autonomous for positioning, but aren't very useful beyond that.
 		In years where the robot is tilting, it can be used to determine whether or not the robot is flat.
 	\subsubsection{Rotary Encoder}
 		Rotary encoders (usually just called encoders) are one of the most useful sensors.
@@ -177,7 +178,7 @@ The chassis/drivetrain refers to the physical structure of the robot. This is th
 	SPI devices communicate in full duplex mode using a master-slave architecture with a single master.
 	The master device originates the frame for reading and writing. Multiple slave devices are supported through selection with individual slave select (SS) lines.
 	Sometimes SPI is called a four-wire serial bus, contrasting with three-, two-, and one-wire serial buses.
-	The SPI may be accurately described as a synchronous serial interface, but it is different from the Synchronous Serial Interface (SSI) protocol, which is also a four-wire synchronous serial communication protocol, but employs differential signaling and provides only a single simplex communication channel.
+	The SPI may be accurately described as a synchronous serial interface, but it is different from the Synchronous Serial Interface (SSI) protocol, which is also a four-wire synchronous serial communication protocol, but employs differential signalling and provides only a single simplex communication channel.
 \end{quotation}
 \subsection{CANbus}
 The CAN (controller area network) bus is another way of interfacing with devices.
@@ -306,7 +307,7 @@ and select the most recent firmware (should be the numerically largest version).
 \end{enumerate}
 
 \subsubsection{Installing Java on the roboRIO}
-This step is only neccesary to run Java programs.
+This step is only necessary to run Java programs.
 \begin{enumerate}
 \item Java 8 must be installed on the computer used to connect to the roboRIO.
 \item Connect to the roboRIO using USB, \textbf{not Ethernet}.
@@ -337,7 +338,7 @@ Most of these are command line based, such as scp and and ssh, and are from Unix
 \subsubsection{ssh}
 One of the most powerful tools is ssh, the remote shell program.
 It allows logins over a network connection, giving full access to the command line.
-PuTTY is a Windows program available that can fufill this function.
+PuTTY is a Windows program available that can fulfil this function.
 The command line is a fairly standard Linux environment, but one important difference is the lack of a sudo or su command.
 Thus, in order to modify the code or output files, the "lvuser" account usually must be logged into.
 
@@ -350,8 +351,8 @@ As a standard Unix command, documentation is available elsewhere.
 The roboRIO is a moderately powerful computer.
 It is less powerful than a smartphone, but is comparable to portable game systems like the Nintendo 3DS.
 This is relevant from a programmer's perspective because it limits what a programmer can do.
-For example, if several million floating point calculations need to be done in order to execute a single motor movement, the code will be far too ineffecient to be effective.
-However, eking every last bit of effeciency out of code requires destroying any pretense of readibality or maintainability.
+For example, if several million floating point calculations need to be done in order to execute a single motor movement, the code will be far too inefficient to be effective.
+However, eking every last bit of efficiency out of code requires destroying any pretense of readability or maintainability.
 For the roboRIO, and for modern programming on non-embedded systems in general, the balance is usually to simply neither do wildly wasteful things nor condense the code.
 However, this balance shifts in locations like loops. There, since the code must be repeatedly, it is usually beneficial to optimise the code at the expense of ease of use.
 For example, declaring a variable that would normally be declared inside a loop outside instead adds in an extra variable to work with, but it stops that variable from having to be allocated every time that code is run, and as such saves processing time.
@@ -370,7 +371,7 @@ This guide primarily covers Java, although this section will attempt to provide 
 \subsection{Java}
 Java is a C-like language developed at Sun Microsystems and currently maintained by Oracle.
 Java's main feature is its cross-platform support, available because of the JVM, or Java Virtual Machine, which runs the code, rather than the operating system itself.
-This additional layer of abstraction comes with a cost however, Java code is almost always less effecient than code written in C or C++.
+This additional layer of abstraction comes with a cost however, Java code is almost always less efficient than code written in C or C++.
 Java is quite often used for commercial applications, the cross platform nature reduces development costs and the relative ease with which it can be used make it quite popular as a server-side language, although it is being supplanted by Ruby and Python in many of these applications.
 As well, Java is a part of the Advanced Placement Computer Science A course, which many students enrolled in FIRST may take, and can serve as a breeding ground for programmers.
 
@@ -408,7 +409,7 @@ The choice between these languages should depend largely on the particular team,
 While both languages have minor advantages over the other, mentor, student, school or sponsor experience can override this advantage and should be the deciding factor.
 
 LabVIEW is overall inferior for robot development.
-It has limited applicibality outside of FRC and lacks the massive repository of libraries that other languages have.
+It has limited applicability outside of FRC and lacks the massive repository of libraries that other languages have.
 Much of the skills and code are not transferable, making the learning wasted.
 It is also more difficult to develop and debug.
 
@@ -427,11 +428,40 @@ It is also more difficult to develop and debug.
 \end{table}
 
 \section{Basic Java}
-period
+This section covers the basics of the Java programming language which are necessary for roboRIO programming.
+These basics are approximately covered by the AP Computer Science A (AP Java) class, those enrolled in the class at the same time as their participation in programming should find they have the knowledge necessary.
+
+\subsection{Resources for Learning Java}
+A full introduction to Java is outside the scope of this guide, it will only be able to serve as a quick reference.
+Resources for learning Java include:
+\begin{itemize}
+\item AP Java Barron's Book (\url{http://www.amazon.com/Barrons-AP-Computer-Science-7th/dp/1438005946})
+\item Oracle (\url{https://docs.oracle.com/javase/tutorial/java/})
+\item Codecademy (\url{https://www.codecademy.com/learn/learn-java})
+\end{itemize}
+
 \section{Simple Java on the roboRIO}
 \label{SimpleJavaontheroboRIO}
-easy
+This section examines basic programming using Java on the roboRIO.
+Some information introduced here will be overridden in \ref{TurtleShell}.
 
+\subsection{Sample, Command-Based, and Iterative Robot}
+In order for the robot code to run, a class in the package org.usfirst.frc.team\#\#\#\#.robot.Robot.java must exist (Where \#\#\#\# is the team number) and extend RobotBase in some fashion.
+To do this, WPILib provides SampleRobot.java, CommandBasedRobot.java, and IterativeRobot.java, and most robot code should extend one of these three classes.
+Each of them has particular advantages and disadvantages.
+
+\subsubsection{Sample Robot}
+Sample Robot, previously known as Simple Robot, is quite simple, and allows the most control over program flow.
+It features a method that is called \textbf{once} at the beginning of each period.
+For example, the method that all teleoperated is contained in is:
+\begin{lstlisting}
+public void teleOperated() { ... }
+\end{lstlisting}
+Of note is that a loop must be contained within this method in order to get the teleoperated code to run more than once.
+Sample Robot is easy to use for both very simple and very complex programs, but suffers for those of intermediate complexity.
+
+\subsubsection{Command-Based Robot}
+Command Based Robot is a very different paradigm than others.
 
 
 \chapter{TurtleShell}
@@ -443,4 +473,6 @@ Turtwig
 sensors, motors, etc
 \section{Advanced Features}
 pid
+\section{Code Style}
+
 \end{document}
