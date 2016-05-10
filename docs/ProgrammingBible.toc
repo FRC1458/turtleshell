@@ -1,5 +1,4 @@
 \contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}
-\contentsline {section}{\numberline {1.1}Introduction}{3}{section.1.1}
 \contentsline {chapter}{\numberline {2}Physical Hardware}{4}{chapter.2}
 \contentsline {section}{\numberline {2.1}A Note On The Separation of Programming and Electrical}{4}{section.2.1}
 \contentsline {section}{\numberline {2.2}Motor Controllers}{4}{section.2.2}
@@ -71,8 +70,16 @@
 \contentsline {section}{\numberline {3.5}Simple Java on the roboRIO}{19}{section.3.5}
 \contentsline {subsection}{\numberline {3.5.1}Sample, Command-Based, and Iterative Robot}{19}{subsection.3.5.1}
 \contentsline {subsubsection}{Sample Robot}{19}{section*.33}
-\contentsline {chapter}{\numberline {4}TurtleShell}{20}{chapter.4}
-\contentsline {section}{\numberline {4.1}Design Philosophy}{20}{section.4.1}
-\contentsline {section}{\numberline {4.2}Basic Functionality}{20}{section.4.2}
-\contentsline {section}{\numberline {4.3}Advanced Features}{20}{section.4.3}
-\contentsline {section}{\numberline {4.4}Code Style}{20}{section.4.4}
+\contentsline {subsubsection}{Command-Based Robot}{20}{section*.34}
+\contentsline {subsubsection}{Iterative Robot}{20}{section*.35}
+\contentsline {section}{\numberline {3.6}Using Eclipse with WPILib}{20}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}Installation}{20}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Creating a Project}{20}{subsection.3.6.2}
+\contentsline {subsection}{\numberline {3.6.3}Creating code}{21}{subsection.3.6.3}
+\contentsline {subsection}{\numberline {3.6.4}Importing a project}{21}{subsection.3.6.4}
+\contentsline {section}{\numberline {3.7}Useful Classes and Methods in WPILib}{22}{section.3.7}
+\contentsline {chapter}{\numberline {4}TurtleShell}{23}{chapter.4}
+\contentsline {section}{\numberline {4.1}Design Philosophy}{23}{section.4.1}
+\contentsline {section}{\numberline {4.2}Basic Functionality}{23}{section.4.2}
+\contentsline {section}{\numberline {4.3}Advanced Features}{23}{section.4.3}
+\contentsline {section}{\numberline {4.4}Code Style}{23}{section.4.4}

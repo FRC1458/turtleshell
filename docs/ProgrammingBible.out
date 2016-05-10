@@ -1,57 +1,62 @@
 \BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
-\BOOKMARK [1][-]{section.1.1}{Introduction}{chapter.1}% 2
-\BOOKMARK [0][-]{chapter.2}{Physical Hardware}{}% 3
-\BOOKMARK [1][-]{section.2.1}{A Note On The Separation of Programming and Electrical}{chapter.2}% 4
-\BOOKMARK [1][-]{section.2.2}{Motor Controllers}{chapter.2}% 5
-\BOOKMARK [2][-]{subsection.2.2.1}{Victor 88x}{section.2.2}% 6
-\BOOKMARK [2][-]{subsection.2.2.2}{Victor SP}{section.2.2}% 7
-\BOOKMARK [2][-]{subsection.2.2.3}{Talon SR}{section.2.2}% 8
-\BOOKMARK [2][-]{subsection.2.2.4}{Talon SRX}{section.2.2}% 9
-\BOOKMARK [2][-]{subsection.2.2.5}{Jaguar}{section.2.2}% 10
-\BOOKMARK [2][-]{subsection.2.2.6}{Note on Programmer Control}{section.2.2}% 11
-\BOOKMARK [1][-]{section.2.3}{Chassis/Drive Train}{chapter.2}% 12
-\BOOKMARK [1][-]{section.2.4}{Electrical Devices}{chapter.2}% 13
-\BOOKMARK [2][-]{subsection.2.4.1}{Power Distribution Panel \(PDP\)}{section.2.4}% 14
-\BOOKMARK [2][-]{subsection.2.4.2}{Pneumatic Control Module \(PCM\)}{section.2.4}% 15
-\BOOKMARK [2][-]{subsection.2.4.3}{Voltage Regulator Module \(VRM\)}{section.2.4}% 16
-\BOOKMARK [1][-]{section.2.5}{Sensors}{chapter.2}% 17
-\BOOKMARK [2][-]{subsection.2.5.1}{Distance}{section.2.5}% 18
-\BOOKMARK [2][-]{subsection.2.5.2}{Rotation}{section.2.5}% 19
-\BOOKMARK [2][-]{subsection.2.5.3}{Vision}{section.2.5}% 20
-\BOOKMARK [2][-]{subsection.2.5.4}{Contact}{section.2.5}% 21
-\BOOKMARK [2][-]{subsection.2.5.5}{Position}{section.2.5}% 22
-\BOOKMARK [1][-]{section.2.6}{roboRio}{chapter.2}% 23
-\BOOKMARK [2][-]{subsection.2.6.1}{MXP \(MyRio eXpansion Port\)}{section.2.6}% 24
-\BOOKMARK [2][-]{subsection.2.6.2}{Digital I/O}{section.2.6}% 25
-\BOOKMARK [2][-]{subsection.2.6.3}{Analog Input}{section.2.6}% 26
-\BOOKMARK [2][-]{subsection.2.6.4}{PWM}{section.2.6}% 27
-\BOOKMARK [2][-]{subsection.2.6.5}{I2C}{section.2.6}% 28
-\BOOKMARK [2][-]{subsection.2.6.6}{SPI}{section.2.6}% 29
-\BOOKMARK [2][-]{subsection.2.6.7}{CANbus}{section.2.6}% 30
-\BOOKMARK [2][-]{subsection.2.6.8}{Ethernet}{section.2.6}% 31
-\BOOKMARK [2][-]{subsection.2.6.9}{USB}{section.2.6}% 32
-\BOOKMARK [1][-]{section.2.7}{Radio}{chapter.2}% 33
-\BOOKMARK [1][-]{section.2.8}{The Human Body Analogy}{chapter.2}% 34
-\BOOKMARK [0][-]{chapter.3}{Programming on the roboRIO}{}% 35
-\BOOKMARK [1][-]{section.3.1}{roboRIO Basics}{chapter.3}% 36
-\BOOKMARK [2][-]{subsection.3.1.1}{Basic Specifications}{section.3.1}% 37
-\BOOKMARK [2][-]{subsection.3.1.2}{Connecting}{section.3.1}% 38
-\BOOKMARK [2][-]{subsection.3.1.3}{Updating roboRIO Programs}{section.3.1}% 39
-\BOOKMARK [2][-]{subsection.3.1.4}{The roboRIO Web Interface}{section.3.1}% 40
-\BOOKMARK [1][-]{section.3.2}{roboRIO Intermediate and Advanced}{chapter.3}% 41
-\BOOKMARK [2][-]{subsection.3.2.1}{Moving Beyond the Web Interface}{section.3.2}% 42
-\BOOKMARK [2][-]{subsection.3.2.2}{Processing Capabilities and Limitations}{section.3.2}% 43
-\BOOKMARK [1][-]{section.3.3}{Languages}{chapter.3}% 44
-\BOOKMARK [2][-]{subsection.3.3.1}{Java}{section.3.3}% 45
-\BOOKMARK [2][-]{subsection.3.3.2}{C++}{section.3.3}% 46
-\BOOKMARK [2][-]{subsection.3.3.3}{LabVIEW}{section.3.3}% 47
-\BOOKMARK [2][-]{subsection.3.3.4}{Direct Comparisons}{section.3.3}% 48
-\BOOKMARK [1][-]{section.3.4}{Basic Java}{chapter.3}% 49
-\BOOKMARK [2][-]{subsection.3.4.1}{Resources for Learning Java}{section.3.4}% 50
-\BOOKMARK [1][-]{section.3.5}{Simple Java on the roboRIO}{chapter.3}% 51
-\BOOKMARK [2][-]{subsection.3.5.1}{Sample, Command-Based, and Iterative Robot}{section.3.5}% 52
-\BOOKMARK [0][-]{chapter.4}{TurtleShell}{}% 53
-\BOOKMARK [1][-]{section.4.1}{Design Philosophy}{chapter.4}% 54
-\BOOKMARK [1][-]{section.4.2}{Basic Functionality}{chapter.4}% 55
-\BOOKMARK [1][-]{section.4.3}{Advanced Features}{chapter.4}% 56
-\BOOKMARK [1][-]{section.4.4}{Code Style}{chapter.4}% 57
+\BOOKMARK [0][-]{chapter.2}{Physical Hardware}{}% 2
+\BOOKMARK [1][-]{section.2.1}{A Note On The Separation of Programming and Electrical}{chapter.2}% 3
+\BOOKMARK [1][-]{section.2.2}{Motor Controllers}{chapter.2}% 4
+\BOOKMARK [2][-]{subsection.2.2.1}{Victor 88x}{section.2.2}% 5
+\BOOKMARK [2][-]{subsection.2.2.2}{Victor SP}{section.2.2}% 6
+\BOOKMARK [2][-]{subsection.2.2.3}{Talon SR}{section.2.2}% 7
+\BOOKMARK [2][-]{subsection.2.2.4}{Talon SRX}{section.2.2}% 8
+\BOOKMARK [2][-]{subsection.2.2.5}{Jaguar}{section.2.2}% 9
+\BOOKMARK [2][-]{subsection.2.2.6}{Note on Programmer Control}{section.2.2}% 10
+\BOOKMARK [1][-]{section.2.3}{Chassis/Drive Train}{chapter.2}% 11
+\BOOKMARK [1][-]{section.2.4}{Electrical Devices}{chapter.2}% 12
+\BOOKMARK [2][-]{subsection.2.4.1}{Power Distribution Panel \(PDP\)}{section.2.4}% 13
+\BOOKMARK [2][-]{subsection.2.4.2}{Pneumatic Control Module \(PCM\)}{section.2.4}% 14
+\BOOKMARK [2][-]{subsection.2.4.3}{Voltage Regulator Module \(VRM\)}{section.2.4}% 15
+\BOOKMARK [1][-]{section.2.5}{Sensors}{chapter.2}% 16
+\BOOKMARK [2][-]{subsection.2.5.1}{Distance}{section.2.5}% 17
+\BOOKMARK [2][-]{subsection.2.5.2}{Rotation}{section.2.5}% 18
+\BOOKMARK [2][-]{subsection.2.5.3}{Vision}{section.2.5}% 19
+\BOOKMARK [2][-]{subsection.2.5.4}{Contact}{section.2.5}% 20
+\BOOKMARK [2][-]{subsection.2.5.5}{Position}{section.2.5}% 21
+\BOOKMARK [1][-]{section.2.6}{roboRio}{chapter.2}% 22
+\BOOKMARK [2][-]{subsection.2.6.1}{MXP \(MyRio eXpansion Port\)}{section.2.6}% 23
+\BOOKMARK [2][-]{subsection.2.6.2}{Digital I/O}{section.2.6}% 24
+\BOOKMARK [2][-]{subsection.2.6.3}{Analog Input}{section.2.6}% 25
+\BOOKMARK [2][-]{subsection.2.6.4}{PWM}{section.2.6}% 26
+\BOOKMARK [2][-]{subsection.2.6.5}{I2C}{section.2.6}% 27
+\BOOKMARK [2][-]{subsection.2.6.6}{SPI}{section.2.6}% 28
+\BOOKMARK [2][-]{subsection.2.6.7}{CANbus}{section.2.6}% 29
+\BOOKMARK [2][-]{subsection.2.6.8}{Ethernet}{section.2.6}% 30
+\BOOKMARK [2][-]{subsection.2.6.9}{USB}{section.2.6}% 31
+\BOOKMARK [1][-]{section.2.7}{Radio}{chapter.2}% 32
+\BOOKMARK [1][-]{section.2.8}{The Human Body Analogy}{chapter.2}% 33
+\BOOKMARK [0][-]{chapter.3}{Programming on the roboRIO}{}% 34
+\BOOKMARK [1][-]{section.3.1}{roboRIO Basics}{chapter.3}% 35
+\BOOKMARK [2][-]{subsection.3.1.1}{Basic Specifications}{section.3.1}% 36
+\BOOKMARK [2][-]{subsection.3.1.2}{Connecting}{section.3.1}% 37
+\BOOKMARK [2][-]{subsection.3.1.3}{Updating roboRIO Programs}{section.3.1}% 38
+\BOOKMARK [2][-]{subsection.3.1.4}{The roboRIO Web Interface}{section.3.1}% 39
+\BOOKMARK [1][-]{section.3.2}{roboRIO Intermediate and Advanced}{chapter.3}% 40
+\BOOKMARK [2][-]{subsection.3.2.1}{Moving Beyond the Web Interface}{section.3.2}% 41
+\BOOKMARK [2][-]{subsection.3.2.2}{Processing Capabilities and Limitations}{section.3.2}% 42
+\BOOKMARK [1][-]{section.3.3}{Languages}{chapter.3}% 43
+\BOOKMARK [2][-]{subsection.3.3.1}{Java}{section.3.3}% 44
+\BOOKMARK [2][-]{subsection.3.3.2}{C++}{section.3.3}% 45
+\BOOKMARK [2][-]{subsection.3.3.3}{LabVIEW}{section.3.3}% 46
+\BOOKMARK [2][-]{subsection.3.3.4}{Direct Comparisons}{section.3.3}% 47
+\BOOKMARK [1][-]{section.3.4}{Basic Java}{chapter.3}% 48
+\BOOKMARK [2][-]{subsection.3.4.1}{Resources for Learning Java}{section.3.4}% 49
+\BOOKMARK [1][-]{section.3.5}{Simple Java on the roboRIO}{chapter.3}% 50
+\BOOKMARK [2][-]{subsection.3.5.1}{Sample, Command-Based, and Iterative Robot}{section.3.5}% 51
+\BOOKMARK [1][-]{section.3.6}{Using Eclipse with WPILib}{chapter.3}% 52
+\BOOKMARK [2][-]{subsection.3.6.1}{Installation}{section.3.6}% 53
+\BOOKMARK [2][-]{subsection.3.6.2}{Creating a Project}{section.3.6}% 54
+\BOOKMARK [2][-]{subsection.3.6.3}{Creating code}{section.3.6}% 55
+\BOOKMARK [2][-]{subsection.3.6.4}{Importing a project}{section.3.6}% 56
+\BOOKMARK [1][-]{section.3.7}{Useful Classes and Methods in WPILib}{chapter.3}% 57
+\BOOKMARK [0][-]{chapter.4}{TurtleShell}{}% 58
+\BOOKMARK [1][-]{section.4.1}{Design Philosophy}{chapter.4}% 59
+\BOOKMARK [1][-]{section.4.2}{Basic Functionality}{chapter.4}% 60
+\BOOKMARK [1][-]{section.4.3}{Advanced Features}{chapter.4}% 61
+\BOOKMARK [1][-]{section.4.4}{Code Style}{chapter.4}% 62

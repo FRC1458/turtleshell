@@ -19,8 +19,6 @@
 
 \chapter{Introduction}
 Hello.
-\section{Introduction}
-Hello!
 
 
 
@@ -446,6 +444,7 @@ This section examines basic programming using Java on the roboRIO.
 Some information introduced here will be overridden in \ref{TurtleShell}.
 
 \subsection{Sample, Command-Based, and Iterative Robot}
+\label{samplecommanditerative}
 In order for the robot code to run, a class in the package org.usfirst.frc.team\#\#\#\#.robot.Robot.java must exist (Where \#\#\#\# is the team number) and extend RobotBase in some fashion.
 To do this, WPILib provides SampleRobot.java, CommandBasedRobot.java, and IterativeRobot.java, and most robot code should extend one of these three classes.
 Each of them has particular advantages and disadvantages.
@@ -462,11 +461,81 @@ Sample Robot is easy to use for both very simple and very complex programs, but 
 
 \subsubsection{Command-Based Robot}
 Command Based Robot is a very different paradigm than others.
+It focuses on building complex functionality out of simpler functionality through "commands".
+Team 1458 does not have any experience with it and as such cannot offer any advice.
 
+\subsubsection{Iterative Robot}
+Iterative Robot is similar to Sample Robot, but it externalises the loop.
+Instead of a single method for each mode, an init method and a loop method are provided, with the init method called to initialise and the loop being called about every 20 ms.
+It is a more efficient class than Sample Robot, because the Driver Station only sends information every 20 ms, and so it doesn't waste processing time. However, it does restrict flexibility in design, and can require global variables.
+
+\section{Using Eclipse with WPILib}
+This section covers the use of the Eclipse IDE.
+Eclipse is one of the more popular IDEs, and is a FOSS project.
+
+
+\subsection{Installation}
+The installation instructions are available online at \url{https://wpilib.screenstepslive.com/s/4485/m/13503/l/145002-installing-eclipse-c-java}.
+
+\subsection{Creating a Project}
+\begin{enumerate}
+\item Press the "New" Button.
+\item Scroll down to "WPILib Robot Java Development".
+\item Click the arrow to drop down the options below.
+\item Select "Robot Java Project".
+\item Click "Next".
+\item Enter a project name.
+\item Select a project type (See \ref{samplecommanditerative} for choosing a Project Type).
+\item Press "Finish".
+\end{enumerate}
+
+\subsection{Creating code}
+To create a class, do the following:
+
+\begin{enumerate}
+\item Right click on the project in the Package Explorer.
+\item Navigate to "New".
+\item Click "Class".
+\end{enumerate}
+
+\subsection{Importing a project}
+\begin{enumerate}
+\item Right click in the Package Explorer.
+\item Select Import.
+\item Under "General", select "Existing Projects into Workspace".
+\item Click "Next".
+\item Click on "Browse" next to "Select root directory".
+\item Navigate to the directory containing the root directory of the project.
+\item Click "Open".
+\item Click "Finish".
+
+The project is now imported, but for it to work properly, several additional steps must be taken.
+\item Right click on the project in the Package Explorer.
+\item Click on the "Properties" item.
+\item Click on the "Java Build Path" item.
+\item Click on the "Libraries" tab.
+\item Click on the "Add External JARs..." button.
+\item Navigate to \href{run:~/wpilib/java/current/java/lib}{~/wpilib/java/current/java/lib}.
+\item Navigate to "~/wpilib/java/current/java/lib". (~ refers to the home directory, located at "/Users/username/" on Mac, and "C:\\Users\\username" on Windows, and "/home/username" on UNIX.)
+\item Select all four items and click "Open".
+\item Click "Apply".
+\item Click on the "Source" tab.
+\item Select all items in the view.
+\item Click the "Remove" button.
+\item Click on the "Add Folder..." button.
+\item Select the "src" folder.
+\item Click the "OK" button.
+\item Click the "Apply" button.
+\item Click the "OK" button.
+
+\end{enumerate}
+\section{Useful Classes and Methods in WPILib}
+This section covers classes and methods that are needed in WPILib.
 
 \chapter{TurtleShell}
 \label{TurtleShell}
-best
+TurtleShell is the framework designed by Team 1458 to simplify best practices in robot coding as well as address issues within WPILib.
+It is available at \url{https://github.com/FRC1458/turtleshell/}.
 \section{Design Philosophy}
 Turtwig
 \section{Basic Functionality}
