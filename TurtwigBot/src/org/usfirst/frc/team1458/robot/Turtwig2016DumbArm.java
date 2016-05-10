@@ -30,14 +30,20 @@ public class Turtwig2016DumbArm {
 		spinBackward = d;
 	}
 
-	@Override
-	public void teleUpdate(){
+	public void teleUpdate() {
 		MotorValue armPowerness = new MotorValue(armPower.get());
 		armRight.set(armPowerness);
 		armLeft.set(armPowerness);
-		
+		if (spinForward.get() == 1) {
+			armIntake.set(MotorValue.fullForward);
+		} else if (spinBackward.get() == 1) {
+			armIntake.set(MotorValue.fullBackward);
+		} else {
+			armIntake.set(MotorValue.zero);
+		}
 	}
-	public void autoUpdate(){
-		
+
+	public void autoUpdate() {
+
 	}
 }
