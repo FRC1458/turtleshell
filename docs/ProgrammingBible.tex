@@ -3,6 +3,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{listings}
+\usepackage{url}
 
 %opening
 \title{Programming Bible with TurtleShell}
@@ -337,7 +338,7 @@ This step is only necessary to run Java programs.
 \begin{enumerate}
 \item Java 8 must be installed on the computer used to connect to the roboRIO.
 \item Connect to the roboRIO using USB, \textbf{not Ethernet}.
-\item Open the FRC Java Installer, located at "~/wpilib/tools/java-installer.jar", where ~ is the home directory.
+\item Open the FRC Java Installer, located at \path{~/wpilib/tools/java-installer.jar}.
 \item Follow the listed instructions in the Java Installer.
 \item Java 8 is now installed on the roboRIO. This will be needed to be repeated each time the roboRIO is imaged.
 \end{enumerate}
@@ -543,8 +544,7 @@ The project is now imported, but for it to work properly, several additional ste
 \item Click on the "Java Build Path" item.
 \item Click on the "Libraries" tab.
 \item Click on the "Add External JARs..." button.
-\item Navigate to \href{run:~/wpilib/java/current/java/lib}{~/wpilib/java/current/java/lib}.
-\item Navigate to "~/wpilib/java/current/java/lib". (~ refers to the home directory, located at "/Users/username/" on Mac, and "C:\textbackslash{}Users\textbackslash{}username" on Windows, and "/home/username" on UNIX.)
+\item Navigate to \path{~/wpilib/java/current/java/lib}. (\textasciitilde{} refers to the home directory, located at "/Users/username/" on Mac, and "C:\textbackslash{}Users\textbackslash{}username" on Windows, and "/home/username" on UNIX.)
 \item Select all four items and click "Open".
 \item Click "Apply".
 \item Click on the "Source" tab.
@@ -653,9 +653,20 @@ TurtleAnalogGyro is a wrapper for WPILib's AnalogGyro class.
 \paragraph{TurtleJoystickAxis}
 TurtleJoystickAxis implements TurtleAnalogInput, it takes a single axis from a Joystick and turns it into an AnalogInput with the range [-1,1].
 \paragraph{TurtleJoystickButton}
-TurtleJoystick Button implements TurtleJoystickButton.
+TurtleJoystick Button implements TurtleDigitalInput.
 It returns 1 if the button is pressed, and 0 otherwise.
 \paragraph{TurtleJoystickPOVSwitch}
+TurtleJoystickPOVSwitch implements TurtleDigitalInput.
+It represents a POV switch, also known as a hat switch or a d-pad with diaganols.
+It returns -1 to 7, but it also contains an enum called "POVValue" which can accept this number and return a more usuable value, such as North, South, and Southeast.
+\paragraph{TurtleFlightStick}
+This class represents the entire joystick for a flight stick, often used by FRC teams.
+It contains several TurtleJoystickAxis, which can be retreived from it.
+It also contains a TurtleJoystickPOVSwitch and multiple TurtleJoystickButton.
+\paragraph{TurtleXboxController}
+This class represents an entire XBox controller.
+It contains several TurtleJoystickAxis, which can be retreived from it.
+It also contains a TurtleJoystickPOVSwitch and multiple TurtleJoystickButton.
 
 \section{Advanced Features}
 pid

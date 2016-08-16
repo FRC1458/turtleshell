@@ -117,8 +117,10 @@
 \contentsline {paragraph}{TurtleJoystickAxis}{27}{section*.61}
 \contentsline {paragraph}{TurtleJoystickButton}{27}{section*.62}
 \contentsline {paragraph}{TurtleJoystickPOVSwitch}{27}{section*.63}
+\contentsline {paragraph}{TurtleFlightStick}{27}{section*.64}
+\contentsline {paragraph}{TurtleXboxController}{27}{section*.65}
 \contentsline {section}{\numberline {4.3}Advanced Features}{27}{section.4.3}
 \contentsline {section}{\numberline {4.4}Code Style}{27}{section.4.4}
 \contentsline {subsection}{\numberline {4.4.1}Naming}{27}{subsection.4.4.1}
-\contentsline {subsection}{\numberline {4.4.2}Comments}{27}{subsection.4.4.2}
+\contentsline {subsection}{\numberline {4.4.2}Comments}{28}{subsection.4.4.2}
 \contentsline {subsection}{\numberline {4.4.3}Indenting, Spacing, and Braces}{28}{subsection.4.4.3}
