@@ -59,15 +59,21 @@
 \BOOKMARK [2][-]{subsection.3.6.2}{Creating a Project}{section.3.6}% 59
 \BOOKMARK [2][-]{subsection.3.6.3}{Creating code}{section.3.6}% 60
 \BOOKMARK [2][-]{subsection.3.6.4}{Importing a project}{section.3.6}% 61
-\BOOKMARK [1][-]{section.3.7}{Useful Classes and Methods in WPILib}{chapter.3}% 62
-\BOOKMARK [0][-]{chapter.4}{TurtleShell}{}% 63
-\BOOKMARK [1][-]{section.4.1}{Design Philosophy}{chapter.4}% 64
-\BOOKMARK [1][-]{section.4.2}{Basic Functionality}{chapter.4}% 65
-\BOOKMARK [2][-]{subsection.4.2.1}{Program Flow}{section.4.2}% 66
-\BOOKMARK [2][-]{subsection.4.2.2}{Key Interfaces}{section.4.2}% 67
-\BOOKMARK [2][-]{subsection.4.2.3}{Key Implementations}{section.4.2}% 68
-\BOOKMARK [1][-]{section.4.3}{Advanced Features}{chapter.4}% 69
-\BOOKMARK [1][-]{section.4.4}{Code Style}{chapter.4}% 70
-\BOOKMARK [2][-]{subsection.4.4.1}{Naming}{section.4.4}% 71
-\BOOKMARK [2][-]{subsection.4.4.2}{Comments}{section.4.4}% 72
-\BOOKMARK [2][-]{subsection.4.4.3}{Indenting, Spacing, and Braces}{section.4.4}% 73
+\BOOKMARK [1][-]{section.3.7}{Switching to IntelliJ}{chapter.3}% 62
+\BOOKMARK [2][-]{subsection.3.7.1}{Importing from Eclipse}{section.3.7}% 63
+\BOOKMARK [2][-]{subsection.3.7.2}{Creating in IntellliJ}{section.3.7}% 64
+\BOOKMARK [1][-]{section.3.8}{Useful Classes and Methods in WPILib}{chapter.3}% 65
+\BOOKMARK [0][-]{chapter.4}{TurtleShell}{}% 66
+\BOOKMARK [1][-]{section.4.1}{Design Philosophy}{chapter.4}% 67
+\BOOKMARK [1][-]{section.4.2}{Basic Functionality}{chapter.4}% 68
+\BOOKMARK [2][-]{subsection.4.2.1}{Program Flow}{section.4.2}% 69
+\BOOKMARK [2][-]{subsection.4.2.2}{Key Interfaces}{section.4.2}% 70
+\BOOKMARK [2][-]{subsection.4.2.3}{Key Implementations}{section.4.2}% 71
+\BOOKMARK [2][-]{subsection.4.2.4}{Utility}{section.4.2}% 72
+\BOOKMARK [1][-]{section.4.3}{Advanced Features}{chapter.4}% 73
+\BOOKMARK [2][-]{subsection.4.3.1}{PID}{section.4.3}% 74
+\BOOKMARK [2][-]{subsection.4.3.2}{Vision Processing}{section.4.3}% 75
+\BOOKMARK [1][-]{section.4.4}{Code Style}{chapter.4}% 76
+\BOOKMARK [2][-]{subsection.4.4.1}{Naming}{section.4.4}% 77
+\BOOKMARK [2][-]{subsection.4.4.2}{Comments}{section.4.4}% 78
+\BOOKMARK [2][-]{subsection.4.4.3}{Indenting, Spacing, and Braces}{section.4.4}% 79

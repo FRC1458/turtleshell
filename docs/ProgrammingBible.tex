@@ -245,21 +245,21 @@ The frame and mechanical portions of the robot.
 Motors and solenoids.
 \subsection*{Circulatory System}
 Components carrying electricity for the purpose of powering components (not signals).
-\subsubsection*{Heart}
+\paragraph{Heart}
 The PDP.
-\subsubsection*{Arteries}
+\paragraph{Arteries}
 Red cables, where power flows out.
-\subsubsection*{Veins}
+\paragraph{Veins}
 Black cables, where power flows back.
-\subsubsection*{Lungs}
+\paragraph{Lungs}
 The battery, the source of all electrical power on the robot.
 \subsection*{Nervous System}
 "Smart" components as well as signal-carrying wires.
-\subsubsection*{Axons}
+\paragraph{Axons}
 Signal-carrying wires, most colours but red and black, especially white, yellow, and green.
-\subsubsection*{Nerve Endings}
+\paragraph{Nerve Endings}
 Sensors.
-\subsubsection*{Brain}
+\paragraph{Brain}
 The roboRIO, other computing devices would be secondary brains.
 
 
@@ -316,7 +316,7 @@ The firmware rarely needs to be updated, unless the device is being wiped, but t
 \item Connect to the roboRIO using USB, \textbf{not Ethernet}.
 \item Connect to the web interface and log in with the Username "admin" and a blank password.
 \item Click the update firmware button, and navigate to the location where the firmware is stored
-(C:\textbackslash Program Files (x86)\textbackslash National Instruments\textbackslash Shared\textbackslash Firmware\textbackslash cRIO\textbackslash 76F2 on Windows 64-bit),
+(\path{C:\Program Files (x86)\National Instruments\Shared\Firmware\cRIO\76F2} on Windows 64-bit),
 and select the most recent firmware (should be the numerically largest version).
 \item Click the begin update button and let it complete the update.
 \end{enumerate}
@@ -324,7 +324,7 @@ and select the most recent firmware (should be the numerically largest version).
 \subsubsection{Updating the Image}
 \begin{enumerate}
 \item Connect to the roboRIO using USB, \textbf{not Ethernet}.
-\item Launch the imaging tool, located at C:\textbackslash Program Files (x86)\textbackslash National Instruments\textbackslash LabVIEW 2015\textbackslash project\textbackslash roboRIO Tool\textbackslash roboRIO\textunderscore ImagingTool.exe for 64-bit Windows.
+\item Launch the imaging tool, located at \path{C:\Program Files (x86)\National Instruments\LabVIEW 2015\project\roboRIO Tool\roboRIO_ImagingTool.exe} for 64-bit Windows.
 \item Scan for roboRIOs and select the appropriate one.
 \item Enter your Team Number in the box.
 \item Check the box Console Out under Startup Settings and \textbf{uncheck} the box Disable RT Startup App.
@@ -544,7 +544,7 @@ The project is now imported, but for it to work properly, several additional ste
 \item Click on the "Java Build Path" item.
 \item Click on the "Libraries" tab.
 \item Click on the "Add External JARs..." button.
-\item Navigate to \path{~/wpilib/java/current/java/lib}. (\textasciitilde{} refers to the home directory, located at "/Users/username/" on Mac, and "C:\textbackslash{}Users\textbackslash{}username" on Windows, and "/home/username" on UNIX.)
+\item Navigate to \path{~/wpilib/java/current/java/lib}. (\path{~} refers to the home directory, located at \path{/Users/username/} on Mac, \path{C:\Users\username} on Windows, and \path{/home/username} on UNIX.)
 \item Select all four items and click "Open".
 \item Click "Apply".
 \item Click on the "Source" tab.
@@ -557,6 +557,37 @@ The project is now imported, but for it to work properly, several additional ste
 \item Click the "OK" button.
 
 \end{enumerate}
+
+\section{Switching to IntelliJ}
+After working with Eclipse, you may become tired with its idiosyncrasies, such as an inability to handle basic importing and a need to manage imports.
+IntelliJ, created by JetBrains, has acheived large adoption in commercial Java programming.
+This section covers using IntelliJ rather than Eclipse for development.
+
+\subsection{Importing from Eclipse}
+If there is a project already created in Eclipse, it can be imported into IntelliJ.
+\begin{enumerate}
+\item Open IntelliJ.
+\item Import the Eclipse project.
+\item Continue to import it as an .idea project.
+\item When it is imported as an IntelliJ module, go to View \textgreater{} Tool Windows \textgreater{} Ant Build.
+\item Press the "+" button.
+\item Navigate to the build.xml file and select it.
+\item On the top bar, click Edit Configurations.
+\item Create a new Ant Target.
+\item Set a descriptive name.
+\item With the bar directly below the name, set the Ant target to "deploy".
+\item Remove "Make" from the "Before Launch" items.
+\item Click "OK".
+\item Go to "Module Settings" for the imported module.
+\item Go to "Dependencies".
+\item For "wpilib" and "networktables", IntelliJ cannot handle the Ant references for their locations.
+\item Therefore, edit them and set the "Classes" and "Sources" to their location on disk (\path{~/wpilib/java/current/lib}).
+\end{enumerate}
+
+
+\subsection{Creating in IntellliJ}
+This is currently not possible.
+
 \section{Useful Classes and Methods in WPILib}
 This section covers classes and methods that are needed in WPILib.
 
@@ -610,20 +641,6 @@ An interface representing a sensor that measures rotation around an axis.
 \paragraph{TurtleDistanceSensor}
 An interface representing a sensor that measures distance travelled by something.
 
-\subsubsection{Unit}
-This interface is used for classes the represent some type of measurement, such as distance, time, or angle.
-All implementations wrap doubles, primarily for type safety.
-
-\paragraph{Time}
-This implements Unit, and represents time in seconds.
-\paragraph{MotorValue}
-This implements Unit, and represents a motor power, from -1 to 1.
-\paragraph{Distance}
-This implements Unit, and represents a distance in inches.
-\paragraph{Angle}
-This implements Unit, and represents an angle in degrees.
-\paragraph{Rate}
-This implements Unit. It is generified, so it represents another Unit per Time.
 
 \subsubsection{Input}
 \paragraph{TurtleDigitalInput}
@@ -668,12 +685,42 @@ This class represents an entire XBox controller.
 It contains several TurtleJoystickAxis, which can be retreived from it.
 It also contains a TurtleJoystickPOVSwitch and multiple TurtleJoystickButton.
 
+\subsection{Utility}
+This section covers utilities included in TurtleShell, found in the "util" package.
+
+\subsubsection{Unit}
+This interface is used for classes the represent some type of measurement, such as distance, time, or angle.
+All implementations wrap doubles, primarily for type safety.
+
+\paragraph{Time}
+This implements Unit, and represents time in seconds.
+\paragraph{MotorValue}
+This implements Unit, and represents a motor power, from -1 to 1.
+\paragraph{Distance}
+This implements Unit, and represents a distance in inches.
+\paragraph{Angle}
+This implements Unit, and represents an angle in degrees.
+\paragraph{Rate}
+This implements Unit. It is generified, so it represents another Unit per Time.
+
+\subsubsection{TurtleMaths}
+TurtleMaths is full of mathematical functions which have proven useful. All are public static, see the JavaDocs for documentation.
+
+
 \section{Advanced Features}
-pid
+This section covers advanced features of TurtleShell, such as PID and vision processing.
+
+\subsection{PID}
+PID (Proportional Integral Derivative) is a form of closed-loop control system.
+
+
+\subsection{Vision Processing}
+This is not currently implemented through TurtleShell. NIVision, as well as GRIP, may be used.
 
 
 \section{Code Style}
 This section covers the code style used throughout TurtleShell and the code of Team 1458.
+
 \subsection{Naming}
 The naming convention is very similar to the standard Java naming convention.
 Classes begin with a capital letter, and camel case is used throughout, with the first letter lower case for instance variables.
@@ -686,6 +733,10 @@ This helps to avoid namespace collisions (having the same name for two different
 The main use of comments should be for JavaDocs on publicly accessible classes, methods, and constructors.
 They should detail the interactions with the object, but the object itself should be able to be considered as a black box.
 Comments inside methods or other blocks of code are in general discouraged, because if they become out of sync with the code they add to confusion, but should be used for complicated or seemingly illogical methods or algorithms.
+
+\subsubsection{Variables}
+Variables may be commented with their purpose or expected values.
+If possible, variables should be restricted to that range by type.
 
 \subsection{Indenting, Spacing, and Braces}
 The default Eclipse settings should be close to suitable for formatting, Control-Shift-F, Command-Shift-F, or Meta-Shift-F should automatically format the code correctly.

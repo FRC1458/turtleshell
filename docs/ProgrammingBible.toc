@@ -1,126 +1,141 @@
-\contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}
-\contentsline {section}{\numberline {1.1}Welcome to Programming!}{3}{section.1.1}
-\contentsline {section}{\numberline {1.2}A Programming Lead}{3}{section.1.2}
-\contentsline {section}{\numberline {1.3}Programmer Etiquette}{3}{section.1.3}
-\contentsline {subsection}{\numberline {1.3.1}Cookies}{3}{subsection.1.3.1}
-\contentsline {subsection}{\numberline {1.3.2}Turtwig and Turtles}{4}{subsection.1.3.2}
-\contentsline {chapter}{\numberline {2}Physical Hardware}{5}{chapter.2}
-\contentsline {section}{\numberline {2.1}A Note On The Separation of Programming and Electrical}{5}{section.2.1}
-\contentsline {section}{\numberline {2.2}Motor Controllers}{5}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}Victor 88x}{5}{subsection.2.2.1}
-\contentsline {subsection}{\numberline {2.2.2}Victor SP}{6}{subsection.2.2.2}
-\contentsline {subsection}{\numberline {2.2.3}Talon SR}{6}{subsection.2.2.3}
-\contentsline {subsection}{\numberline {2.2.4}Talon SRX}{6}{subsection.2.2.4}
-\contentsline {subsection}{\numberline {2.2.5}Jaguar}{6}{subsection.2.2.5}
-\contentsline {subsection}{\numberline {2.2.6}Note on Programmer Control}{6}{subsection.2.2.6}
-\contentsline {section}{\numberline {2.3}Chassis/Drive Train}{6}{section.2.3}
-\contentsline {section}{\numberline {2.4}Electrical Devices}{7}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}Power Distribution Panel (PDP)}{7}{subsection.2.4.1}
-\contentsline {subsection}{\numberline {2.4.2}Pneumatic Control Module (PCM)}{7}{subsection.2.4.2}
-\contentsline {subsection}{\numberline {2.4.3}Voltage Regulator Module (VRM)}{7}{subsection.2.4.3}
-\contentsline {section}{\numberline {2.5}Sensors}{7}{section.2.5}
-\contentsline {subsection}{\numberline {2.5.1}Distance}{7}{subsection.2.5.1}
-\contentsline {subsubsection}{Infrared}{8}{section*.2}
-\contentsline {subsubsection}{Ultrasonic}{8}{section*.3}
-\contentsline {subsubsection}{Laser}{8}{section*.4}
-\contentsline {subsection}{\numberline {2.5.2}Rotation}{8}{subsection.2.5.2}
-\contentsline {subsubsection}{Gyroscope}{8}{section*.5}
-\contentsline {subsubsection}{Magnetometer}{8}{section*.6}
-\contentsline {subsection}{\numberline {2.5.3}Vision}{8}{subsection.2.5.3}
-\contentsline {subsubsection}{Camera}{9}{section*.7}
-\contentsline {subsubsection}{Light}{9}{section*.8}
-\contentsline {subsection}{\numberline {2.5.4}Contact}{9}{subsection.2.5.4}
-\contentsline {subsubsection}{Pushbutton}{9}{section*.9}
-\contentsline {subsubsection}{Limit Switch}{9}{section*.10}
-\contentsline {subsection}{\numberline {2.5.5}Position}{9}{subsection.2.5.5}
-\contentsline {subsubsection}{Accelerometer}{9}{section*.11}
-\contentsline {subsubsection}{Rotary Encoder}{9}{section*.12}
-\contentsline {section}{\numberline {2.6}roboRio}{10}{section.2.6}
-\contentsline {subsection}{\numberline {2.6.1}MXP (MyRio eXpansion Port)}{10}{subsection.2.6.1}
-\contentsline {subsection}{\numberline {2.6.2}Digital I/O}{10}{subsection.2.6.2}
-\contentsline {subsection}{\numberline {2.6.3}Analog Input}{10}{subsection.2.6.3}
-\contentsline {subsection}{\numberline {2.6.4}PWM}{10}{subsection.2.6.4}
-\contentsline {subsection}{\numberline {2.6.5}I$^{2}$C}{11}{subsection.2.6.5}
-\contentsline {subsection}{\numberline {2.6.6}SPI}{11}{subsection.2.6.6}
-\contentsline {subsection}{\numberline {2.6.7}CANbus}{11}{subsection.2.6.7}
-\contentsline {subsection}{\numberline {2.6.8}Ethernet}{11}{subsection.2.6.8}
-\contentsline {subsection}{\numberline {2.6.9}USB}{12}{subsection.2.6.9}
-\contentsline {section}{\numberline {2.7}Radio}{12}{section.2.7}
-\contentsline {section}{\numberline {2.8}The Human Body Analogy}{12}{section.2.8}
-\contentsline {chapter}{\numberline {3}Programming on the roboRIO}{14}{chapter.3}
-\contentsline {section}{\numberline {3.1}roboRIO Basics}{14}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Basic Specifications}{14}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}Connecting}{14}{subsection.3.1.2}
-\contentsline {subsubsection}{mDNS}{15}{section*.24}
-\contentsline {subsubsection}{Browser Use}{15}{section*.25}
-\contentsline {subsubsection}{USB}{15}{section*.26}
-\contentsline {subsubsection}{Ethernet}{15}{section*.27}
-\contentsline {subsection}{\numberline {3.1.3}Updating roboRIO Programs}{15}{subsection.3.1.3}
-\contentsline {subsubsection}{Updating the Firmware}{15}{section*.28}
-\contentsline {subsubsection}{Updating the Image}{16}{section*.29}
-\contentsline {subsubsection}{Installing Java on the roboRIO}{16}{section*.30}
-\contentsline {subsection}{\numberline {3.1.4}The roboRIO Web Interface}{16}{subsection.3.1.4}
-\contentsline {section}{\numberline {3.2}roboRIO Intermediate and Advanced}{17}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Moving Beyond the Web Interface}{17}{subsection.3.2.1}
-\contentsline {subsubsection}{ssh}{17}{section*.31}
-\contentsline {subsubsection}{scp}{17}{section*.32}
-\contentsline {subsection}{\numberline {3.2.2}Processing Capabilities and Limitations}{17}{subsection.3.2.2}
-\contentsline {section}{\numberline {3.3}Languages}{18}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Java}{18}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}C++}{18}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}LabVIEW}{19}{subsection.3.3.3}
-\contentsline {subsection}{\numberline {3.3.4}Direct Comparisons}{19}{subsection.3.3.4}
-\contentsline {section}{\numberline {3.4}Basic Java}{20}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Resources for Learning Java}{20}{subsection.3.4.1}
-\contentsline {section}{\numberline {3.5}Simple Java on the roboRIO}{20}{section.3.5}
-\contentsline {subsection}{\numberline {3.5.1}Sample, Command-Based, and Iterative Robot}{20}{subsection.3.5.1}
-\contentsline {subsubsection}{Sample Robot}{20}{section*.33}
-\contentsline {subsubsection}{Command-Based Robot}{21}{section*.34}
-\contentsline {subsubsection}{Iterative Robot}{21}{section*.35}
-\contentsline {section}{\numberline {3.6}Using Eclipse with WPILib}{21}{section.3.6}
-\contentsline {subsection}{\numberline {3.6.1}Installation}{21}{subsection.3.6.1}
-\contentsline {subsection}{\numberline {3.6.2}Creating a Project}{21}{subsection.3.6.2}
-\contentsline {subsection}{\numberline {3.6.3}Creating code}{22}{subsection.3.6.3}
-\contentsline {subsection}{\numberline {3.6.4}Importing a project}{22}{subsection.3.6.4}
-\contentsline {section}{\numberline {3.7}Useful Classes and Methods in WPILib}{23}{section.3.7}
-\contentsline {chapter}{\numberline {4}TurtleShell}{24}{chapter.4}
-\contentsline {section}{\numberline {4.1}Design Philosophy}{24}{section.4.1}
-\contentsline {section}{\numberline {4.2}Basic Functionality}{24}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Program Flow}{24}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Key Interfaces}{25}{subsection.4.2.2}
-\contentsline {subsubsection}{RobotComponent}{25}{section*.36}
-\contentsline {subsubsection}{ObjectHolder}{25}{section*.37}
-\contentsline {subsubsection}{Movement}{25}{section*.38}
-\contentsline {paragraph}{TurtleMotor}{25}{section*.39}
-\contentsline {paragraph}{TurtleServo}{25}{section*.40}
-\contentsline {paragraph}{TurtleSolenoid}{25}{section*.41}
-\contentsline {subsubsection}{Sensor}{25}{section*.42}
-\contentsline {paragraph}{TurtleButtonSensor}{25}{section*.43}
-\contentsline {paragraph}{TurtleRotationSensor}{25}{section*.44}
-\contentsline {paragraph}{TurtleDistanceSensor}{25}{section*.45}
-\contentsline {subsubsection}{Unit}{25}{section*.46}
-\contentsline {paragraph}{Time}{26}{section*.47}
-\contentsline {paragraph}{MotorValue}{26}{section*.48}
-\contentsline {paragraph}{Distance}{26}{section*.49}
-\contentsline {paragraph}{Angle}{26}{section*.50}
-\contentsline {paragraph}{Rate}{26}{section*.51}
-\contentsline {subsubsection}{Input}{26}{section*.52}
-\contentsline {paragraph}{TurtleDigitalInput}{26}{section*.53}
-\contentsline {paragraph}{TurtleAnalogInput}{26}{section*.54}
-\contentsline {subsection}{\numberline {4.2.3}Key Implementations}{26}{subsection.4.2.3}
-\contentsline {subsubsection}{SampleRobotObjectHolder}{26}{section*.55}
-\contentsline {subsubsection}{Movement}{26}{section*.56}
-\contentsline {subsubsection}{Sensors}{26}{section*.57}
-\contentsline {paragraph}{TurtleXtrinsicMagnetometer}{26}{section*.58}
-\contentsline {paragraph}{TurtleAnalogGyro}{27}{section*.59}
-\contentsline {subsubsection}{Input}{27}{section*.60}
-\contentsline {paragraph}{TurtleJoystickAxis}{27}{section*.61}
-\contentsline {paragraph}{TurtleJoystickButton}{27}{section*.62}
-\contentsline {paragraph}{TurtleJoystickPOVSwitch}{27}{section*.63}
-\contentsline {paragraph}{TurtleFlightStick}{27}{section*.64}
-\contentsline {paragraph}{TurtleXboxController}{27}{section*.65}
-\contentsline {section}{\numberline {4.3}Advanced Features}{27}{section.4.3}
-\contentsline {section}{\numberline {4.4}Code Style}{27}{section.4.4}
-\contentsline {subsection}{\numberline {4.4.1}Naming}{27}{subsection.4.4.1}
-\contentsline {subsection}{\numberline {4.4.2}Comments}{28}{subsection.4.4.2}
-\contentsline {subsection}{\numberline {4.4.3}Indenting, Spacing, and Braces}{28}{subsection.4.4.3}
+\contentsline {chapter}{\numberline {1}Introduction}{4}{chapter.1}
+\contentsline {section}{\numberline {1.1}Welcome to Programming!}{4}{section.1.1}
+\contentsline {section}{\numberline {1.2}A Programming Lead}{4}{section.1.2}
+\contentsline {section}{\numberline {1.3}Programmer Etiquette}{4}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Cookies}{4}{subsection.1.3.1}
+\contentsline {subsection}{\numberline {1.3.2}Turtwig and Turtles}{5}{subsection.1.3.2}
+\contentsline {chapter}{\numberline {2}Physical Hardware}{6}{chapter.2}
+\contentsline {section}{\numberline {2.1}A Note On The Separation of Programming and Electrical}{6}{section.2.1}
+\contentsline {section}{\numberline {2.2}Motor Controllers}{6}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Victor 88x}{6}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Victor SP}{7}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Talon SR}{7}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}Talon SRX}{7}{subsection.2.2.4}
+\contentsline {subsection}{\numberline {2.2.5}Jaguar}{7}{subsection.2.2.5}
+\contentsline {subsection}{\numberline {2.2.6}Note on Programmer Control}{7}{subsection.2.2.6}
+\contentsline {section}{\numberline {2.3}Chassis/Drive Train}{7}{section.2.3}
+\contentsline {section}{\numberline {2.4}Electrical Devices}{8}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Power Distribution Panel (PDP)}{8}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Pneumatic Control Module (PCM)}{8}{subsection.2.4.2}
+\contentsline {subsection}{\numberline {2.4.3}Voltage Regulator Module (VRM)}{8}{subsection.2.4.3}
+\contentsline {section}{\numberline {2.5}Sensors}{8}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Distance}{8}{subsection.2.5.1}
+\contentsline {subsubsection}{Infrared}{9}{section*.2}
+\contentsline {subsubsection}{Ultrasonic}{9}{section*.3}
+\contentsline {subsubsection}{Laser}{9}{section*.4}
+\contentsline {subsection}{\numberline {2.5.2}Rotation}{9}{subsection.2.5.2}
+\contentsline {subsubsection}{Gyroscope}{9}{section*.5}
+\contentsline {subsubsection}{Magnetometer}{9}{section*.6}
+\contentsline {subsection}{\numberline {2.5.3}Vision}{9}{subsection.2.5.3}
+\contentsline {subsubsection}{Camera}{10}{section*.7}
+\contentsline {subsubsection}{Light}{10}{section*.8}
+\contentsline {subsection}{\numberline {2.5.4}Contact}{10}{subsection.2.5.4}
+\contentsline {subsubsection}{Pushbutton}{10}{section*.9}
+\contentsline {subsubsection}{Limit Switch}{10}{section*.10}
+\contentsline {subsection}{\numberline {2.5.5}Position}{10}{subsection.2.5.5}
+\contentsline {subsubsection}{Accelerometer}{10}{section*.11}
+\contentsline {subsubsection}{Rotary Encoder}{10}{section*.12}
+\contentsline {section}{\numberline {2.6}roboRio}{11}{section.2.6}
+\contentsline {subsection}{\numberline {2.6.1}MXP (MyRio eXpansion Port)}{11}{subsection.2.6.1}
+\contentsline {subsection}{\numberline {2.6.2}Digital I/O}{11}{subsection.2.6.2}
+\contentsline {subsection}{\numberline {2.6.3}Analog Input}{11}{subsection.2.6.3}
+\contentsline {subsection}{\numberline {2.6.4}PWM}{11}{subsection.2.6.4}
+\contentsline {subsection}{\numberline {2.6.5}I$^{2}$C}{12}{subsection.2.6.5}
+\contentsline {subsection}{\numberline {2.6.6}SPI}{12}{subsection.2.6.6}
+\contentsline {subsection}{\numberline {2.6.7}CANbus}{12}{subsection.2.6.7}
+\contentsline {subsection}{\numberline {2.6.8}Ethernet}{12}{subsection.2.6.8}
+\contentsline {subsection}{\numberline {2.6.9}USB}{13}{subsection.2.6.9}
+\contentsline {section}{\numberline {2.7}Radio}{13}{section.2.7}
+\contentsline {section}{\numberline {2.8}The Human Body Analogy}{13}{section.2.8}
+\contentsline {paragraph}{Heart}{13}{section*.16}
+\contentsline {paragraph}{Arteries}{13}{section*.17}
+\contentsline {paragraph}{Veins}{14}{section*.18}
+\contentsline {paragraph}{Lungs}{14}{section*.19}
+\contentsline {paragraph}{Axons}{14}{section*.21}
+\contentsline {paragraph}{Nerve Endings}{14}{section*.22}
+\contentsline {paragraph}{Brain}{14}{section*.23}
+\contentsline {chapter}{\numberline {3}Programming on the roboRIO}{15}{chapter.3}
+\contentsline {section}{\numberline {3.1}roboRIO Basics}{15}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Basic Specifications}{15}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Connecting}{15}{subsection.3.1.2}
+\contentsline {subsubsection}{mDNS}{16}{section*.24}
+\contentsline {subsubsection}{Browser Use}{16}{section*.25}
+\contentsline {subsubsection}{USB}{16}{section*.26}
+\contentsline {subsubsection}{Ethernet}{16}{section*.27}
+\contentsline {subsection}{\numberline {3.1.3}Updating roboRIO Programs}{16}{subsection.3.1.3}
+\contentsline {subsubsection}{Updating the Firmware}{16}{section*.28}
+\contentsline {subsubsection}{Updating the Image}{17}{section*.29}
+\contentsline {subsubsection}{Installing Java on the roboRIO}{17}{section*.30}
+\contentsline {subsection}{\numberline {3.1.4}The roboRIO Web Interface}{17}{subsection.3.1.4}
+\contentsline {section}{\numberline {3.2}roboRIO Intermediate and Advanced}{18}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Moving Beyond the Web Interface}{18}{subsection.3.2.1}
+\contentsline {subsubsection}{ssh}{18}{section*.31}
+\contentsline {subsubsection}{scp}{18}{section*.32}
+\contentsline {subsection}{\numberline {3.2.2}Processing Capabilities and Limitations}{18}{subsection.3.2.2}
+\contentsline {section}{\numberline {3.3}Languages}{19}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Java}{19}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}C++}{19}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}LabVIEW}{20}{subsection.3.3.3}
+\contentsline {subsection}{\numberline {3.3.4}Direct Comparisons}{20}{subsection.3.3.4}
+\contentsline {section}{\numberline {3.4}Basic Java}{21}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Resources for Learning Java}{21}{subsection.3.4.1}
+\contentsline {section}{\numberline {3.5}Simple Java on the roboRIO}{21}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Sample, Command-Based, and Iterative Robot}{21}{subsection.3.5.1}
+\contentsline {subsubsection}{Sample Robot}{21}{section*.33}
+\contentsline {subsubsection}{Command-Based Robot}{22}{section*.34}
+\contentsline {subsubsection}{Iterative Robot}{22}{section*.35}
+\contentsline {section}{\numberline {3.6}Using Eclipse with WPILib}{22}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}Installation}{22}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Creating a Project}{22}{subsection.3.6.2}
+\contentsline {subsection}{\numberline {3.6.3}Creating code}{23}{subsection.3.6.3}
+\contentsline {subsection}{\numberline {3.6.4}Importing a project}{23}{subsection.3.6.4}
+\contentsline {section}{\numberline {3.7}Switching to IntelliJ}{24}{section.3.7}
+\contentsline {subsection}{\numberline {3.7.1}Importing from Eclipse}{24}{subsection.3.7.1}
+\contentsline {subsection}{\numberline {3.7.2}Creating in IntellliJ}{25}{subsection.3.7.2}
+\contentsline {section}{\numberline {3.8}Useful Classes and Methods in WPILib}{25}{section.3.8}
+\contentsline {chapter}{\numberline {4}TurtleShell}{26}{chapter.4}
+\contentsline {section}{\numberline {4.1}Design Philosophy}{26}{section.4.1}
+\contentsline {section}{\numberline {4.2}Basic Functionality}{26}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Program Flow}{26}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Key Interfaces}{27}{subsection.4.2.2}
+\contentsline {subsubsection}{RobotComponent}{27}{section*.36}
+\contentsline {subsubsection}{ObjectHolder}{27}{section*.37}
+\contentsline {subsubsection}{Movement}{27}{section*.38}
+\contentsline {paragraph}{TurtleMotor}{27}{section*.39}
+\contentsline {paragraph}{TurtleServo}{27}{section*.40}
+\contentsline {paragraph}{TurtleSolenoid}{27}{section*.41}
+\contentsline {subsubsection}{Sensor}{27}{section*.42}
+\contentsline {paragraph}{TurtleButtonSensor}{27}{section*.43}
+\contentsline {paragraph}{TurtleRotationSensor}{27}{section*.44}
+\contentsline {paragraph}{TurtleDistanceSensor}{27}{section*.45}
+\contentsline {subsubsection}{Input}{27}{section*.46}
+\contentsline {paragraph}{TurtleDigitalInput}{27}{section*.47}
+\contentsline {paragraph}{TurtleAnalogInput}{28}{section*.48}
+\contentsline {subsection}{\numberline {4.2.3}Key Implementations}{28}{subsection.4.2.3}
+\contentsline {subsubsection}{SampleRobotObjectHolder}{28}{section*.49}
+\contentsline {subsubsection}{Movement}{28}{section*.50}
+\contentsline {subsubsection}{Sensors}{28}{section*.51}
+\contentsline {paragraph}{TurtleXtrinsicMagnetometer}{28}{section*.52}
+\contentsline {paragraph}{TurtleAnalogGyro}{28}{section*.53}
+\contentsline {subsubsection}{Input}{28}{section*.54}
+\contentsline {paragraph}{TurtleJoystickAxis}{28}{section*.55}
+\contentsline {paragraph}{TurtleJoystickButton}{28}{section*.56}
+\contentsline {paragraph}{TurtleJoystickPOVSwitch}{28}{section*.57}
+\contentsline {paragraph}{TurtleFlightStick}{29}{section*.58}
+\contentsline {paragraph}{TurtleXboxController}{29}{section*.59}
+\contentsline {subsection}{\numberline {4.2.4}Utility}{29}{subsection.4.2.4}
+\contentsline {subsubsection}{Unit}{29}{section*.60}
+\contentsline {paragraph}{Time}{29}{section*.61}
+\contentsline {paragraph}{MotorValue}{29}{section*.62}
+\contentsline {paragraph}{Distance}{29}{section*.63}
+\contentsline {paragraph}{Angle}{29}{section*.64}
+\contentsline {paragraph}{Rate}{29}{section*.65}
+\contentsline {subsubsection}{TurtleMaths}{29}{section*.66}
+\contentsline {section}{\numberline {4.3}Advanced Features}{29}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}PID}{29}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Vision Processing}{30}{subsection.4.3.2}
+\contentsline {section}{\numberline {4.4}Code Style}{30}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Naming}{30}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Comments}{30}{subsection.4.4.2}
+\contentsline {subsubsection}{Variables}{30}{section*.67}
+\contentsline {subsection}{\numberline {4.4.3}Indenting, Spacing, and Braces}{30}{subsection.4.4.3}
