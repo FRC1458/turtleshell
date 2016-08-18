@@ -5,7 +5,7 @@ import com.team1458.turtleshell2.interfaces.input.TurtleDigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class TurtleJoystickPOVSwitch implements TurtleDigitalInput {
-	public static enum POVValue {
+	public enum POVValue {
 		NONE(-1), N(0), NW(1), W(2), SW(3), S(4), SE(5), E(6), NE(7);
 		public final int val;
 

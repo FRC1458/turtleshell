@@ -8,7 +8,8 @@ package com.team1458.turtleshell2.util;
  */
 public class TurtleMaths {
 	/**
-	 * Fit the double to a specified range.
+	 * Fit the double to a specified range. Equivalent to:
+	 * (toFit > max ? max : toFit < min ? min: toFit)
 	 * 
 	 * @param toFit
 	 *            number to fit in range
@@ -43,6 +44,8 @@ public class TurtleMaths {
 
 	/**
 	 * Returns the bigger of the two double values.
+	 * Equivalent to:
+	 * (a > b ? a : b)
 	 * 
 	 * @param a
 	 * @param b
@@ -227,6 +230,9 @@ public class TurtleMaths {
 	/**
 	 * Scales a value in a logistic step format, the exact function approximates
 	 * a linear function but has logistic-like steps in every interval of 1/2
+	 *
+	 * Function is:
+	 * y = x - sin(4pi*x)/4pi
 	 * 
 	 * @param toScale
 	 *            The number to be scaled
