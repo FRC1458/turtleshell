@@ -23,11 +23,10 @@ public class TurtleStraightDrivePID implements TurtleDualPID {
 
 	/**
 	 * Constructs a new TurtleStraightDrivePID
-	 * @param kP
-	 * @param kD
-	 * @param kDD
-	 * @param target
-	 * @param kLR
+	 * @param constants The constants for the PID
+	 * @param target The target value
+	 * @param kLR The constant for left-right difference
+	 * @param kError The error constant passed to the TurtlePDD2
 	 */
 	public TurtleStraightDrivePID(TurtlePIDConstants constants, double target, double kLR, double kError) {
 		//Output.outputNumber("targetLinear", target);

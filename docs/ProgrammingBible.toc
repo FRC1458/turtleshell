@@ -43,12 +43,12 @@
 \contentsline {subsection}{\numberline {2.6.5}I$^{2}$C}{12}{subsection.2.6.5}
 \contentsline {subsection}{\numberline {2.6.6}SPI}{12}{subsection.2.6.6}
 \contentsline {subsection}{\numberline {2.6.7}CANbus}{12}{subsection.2.6.7}
-\contentsline {subsection}{\numberline {2.6.8}Ethernet}{12}{subsection.2.6.8}
+\contentsline {subsection}{\numberline {2.6.8}Ethernet}{13}{subsection.2.6.8}
 \contentsline {subsection}{\numberline {2.6.9}USB}{13}{subsection.2.6.9}
 \contentsline {section}{\numberline {2.7}Radio}{13}{section.2.7}
 \contentsline {section}{\numberline {2.8}The Human Body Analogy}{13}{section.2.8}
-\contentsline {paragraph}{Heart}{13}{section*.16}
-\contentsline {paragraph}{Arteries}{13}{section*.17}
+\contentsline {paragraph}{Heart}{14}{section*.16}
+\contentsline {paragraph}{Arteries}{14}{section*.17}
 \contentsline {paragraph}{Veins}{14}{section*.18}
 \contentsline {paragraph}{Lungs}{14}{section*.19}
 \contentsline {paragraph}{Axons}{14}{section*.21}
@@ -132,10 +132,20 @@
 \contentsline {paragraph}{Rate}{29}{section*.65}
 \contentsline {subsubsection}{TurtleMaths}{29}{section*.66}
 \contentsline {section}{\numberline {4.3}Advanced Features}{29}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}PID}{29}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}Vision Processing}{30}{subsection.4.3.2}
-\contentsline {section}{\numberline {4.4}Code Style}{30}{section.4.4}
-\contentsline {subsection}{\numberline {4.4.1}Naming}{30}{subsection.4.4.1}
-\contentsline {subsection}{\numberline {4.4.2}Comments}{30}{subsection.4.4.2}
-\contentsline {subsubsection}{Variables}{30}{section*.67}
-\contentsline {subsection}{\numberline {4.4.3}Indenting, Spacing, and Braces}{30}{subsection.4.4.3}
+\contentsline {subsection}{\numberline {4.3.1}PID}{30}{subsection.4.3.1}
+\contentsline {subsubsection}{Explanation}{30}{section*.67}
+\contentsline {subsubsection}{Constants}{30}{section*.68}
+\contentsline {subsubsection}{Tuning}{30}{section*.69}
+\contentsline {subsubsection}{Interfaces}{30}{section*.70}
+\contentsline {subsubsection}{Implementations}{31}{section*.71}
+\contentsline {paragraph}{TurtlePDD2}{31}{section*.72}
+\contentsline {paragraph}{TurtleZeroPID}{31}{section*.73}
+\contentsline {paragraph}{TurtleStraightDrivePID}{31}{section*.74}
+\contentsline {paragraph}{TurtleTurnPID}{31}{section*.75}
+\contentsline {subsection}{\numberline {4.3.2}Vision Processing}{31}{subsection.4.3.2}
+\contentsline {section}{\numberline {4.4}Code Style}{31}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Naming}{31}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Comments}{32}{subsection.4.4.2}
+\contentsline {subsubsection}{Variables}{32}{section*.76}
+\contentsline {subsection}{\numberline {4.4.3}Language}{32}{subsection.4.4.3}
+\contentsline {subsection}{\numberline {4.4.4}Indenting, Spacing, and Braces}{32}{subsection.4.4.4}

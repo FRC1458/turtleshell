@@ -12,6 +12,18 @@ import com.team1458.turtleshell2.util.types.MotorValue;
  */
 public class TurtleZeroPID implements TurtlePID{
 
+	public TurtleZeroPID() {
+
+	}
+
+	/**
+	 * Constructor that can take any amount of objects, so can disable more easily
+	 * @param o
+     */
+	public TurtleZeroPID(Object... o) {
+
+	}
+
 	@Override
 	public boolean atTarget() {
 		return true;

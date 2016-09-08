@@ -2,6 +2,10 @@ package com.team1458.turtleshell2.interfaces.pid;
 
 import com.team1458.turtleshell2.util.types.MotorValue;
 
+/**
+ * Interface for PID controllers. PID controllers take sensor inputs and
+ * use that to determine what actions to take in order to reach a target.
+ */
 public interface TurtlePID {
 	/**
 	 * Checks whether or not the target has been reached.

@@ -11,6 +11,7 @@
 \date{2016}
 
 \begin{document}
+
 \newcommand{\ITwoC}{I$^{2}$C}
 \newcommand{\trademark}{$^{TM}$}
 \newcommand{\goodcopyright}{$^{\copyright}$}
@@ -43,6 +44,7 @@ This section covers the standard programmer and behaviour at Team 1458, which ma
 Programmers have a well-known sweet tooth, in particular for cookies.
 The best type of cookies are chocolate chip cookies, with the subtype of chocolate chip with M\&Ms being the only improvement.
 "Cookies" with nuts, raisins, or oatmeal are not real cookies, they should be safely disposed of in the trash.
+"Cookies" containing meat should be disposed of following standards, it should be treated as a health hazard if ingested.
 Programmers are known to consume copious amounts of cookies in one session, particularly during build season.
 \subsection{Turtwig and Turtles}
 Turtwig, a \pokemon{} with the National Pok\'edex Number 387, is the cutest and the best \pokemon.
@@ -124,7 +126,7 @@ The chassis/drivetrain refers to the physical structure of the robot. This is th
 	\subsubsection{Gyroscope}
 		Gyroscopes are the best known rotation sensors.
 		They are actually unable to measure the way the robot is facing, instead it measures the change and uses that to determine the direction relative to the start.
-		They are widely available, but they have a problem in accuracy called yaw drift, where the angle will shift by 2-3 degrees per minute, even while stationary for the best gyros, and larger drift for lower quality.
+		They are widely available, but they have a problem in accuracy called yaw drift, where the angle will shift by 2-3 degrees per minute, even while stationary, for the best gyros, and larger drift for lower quality.
 \subsubsection{Magnetometer}
 		Magnetometers measure the strength of magnetic fields on certain axes.
 		In the context of the FRC, they are used to measure the Earth's magnetic field and thus act as a compass, providing a reference point for rotation.
@@ -151,9 +153,10 @@ The chassis/drivetrain refers to the physical structure of the robot. This is th
 \subsection{Position}
 	\subsubsection{Accelerometer}
 		Accelerometers don't actually measure position, they measure acceleration.
-		It's technically possible to derive (well, integrate) position from acceleration, but it is a difficult process.
+		It's technically possible to derive\footnote{Well, integrate.} position from acceleration, but it is a difficult process.
 		Accelerometers can still be used in autonomous for positioning, but aren't very useful beyond that.
 		In years where the robot is tilting, it can be used to determine whether or not the robot is flat.
+		
 	\subsubsection{Rotary Encoder}
 		Rotary encoders (usually just called encoders) are one of the most useful sensors.
 		They record rotations of a shaft, which can be used to do everything from measuring the distance the robot has moved forward to the rotation of an appendage.
@@ -165,7 +168,7 @@ The chassis/drivetrain refers to the physical structure of the robot. This is th
 	The roboRio is the brain of the robot.
 	The code runs on the roboRio, which runs a modified version of Linux.
 	The roboRio is one of the few "smart" devices on the robot, with most of the remaining devices serving to interface between it and the physical world.
-	It has digital, analog, \ITwoC, SPI, USB, CAN and Ethernet I/O (Input/Output), along with PWM output and the MXP. (Don't worry, all of those acronyms will be explained shortly)
+	It has digital, analog, \ITwoC, SPI, USB, CAN and Ethernet I/O (Input/Output), along with PWM output and the MXP.\footnote{Don't worry, all of those acronyms will be explained shortly}
 	By the FRC rules, all control of motors has be done through the roboRio.
 	
 \subsection{MXP (MyRio eXpansion Port)}
@@ -196,7 +199,7 @@ The chassis/drivetrain refers to the physical structure of the robot. This is th
 	It is very advanced, and is capable of exchanging large amounts of information and connecting multiple devices, but is very complicated (An interviewed company contracted it out rather than work with it).
 	Luckily, some of the very low-level communication is done with the libraries, so the programmer only has to work with the bytes that are being transferred, rather than the process of transferring them.
 \subsection{SPI}
-	SPI is another complicated communications protocol, one which is not commonly used in FRC.
+	SPI is another complicated communications protocol, one which is not commonly used by Team 1458.
 	Wikipedia states:
 	\begin{quotation}
 	The Serial Peripheral Interface (SPI) bus is a synchronous serial communication interface specification used for short distance communication, primarily in embedded systems.
@@ -227,7 +230,7 @@ Cat 5e or above is recommended, as well remember to make sure there are not sign
 	Two are USB Type-A, the standard USB port.
 	Devices such as cameras should be connected here, as well as any sensors that work over USB.
 	\newline
-	The USB Type-B (The cable with the pentagonal other end, often used for printers) port is useful for connecting to the computer, use it instead of Ethernet for direct connections to the roboRIO.
+	The USB Type-B\footnote{The cable with the house-shaped hexagon other end, often used for printers} port is useful for connecting to the computer, use it instead of Ethernet for direct connections to the roboRIO.
 
 \section{Radio}
 	The radio is used on the robot to communicate with the FMS and Driver Station. It is a router running specialised software.
@@ -544,7 +547,7 @@ The project is now imported, but for it to work properly, several additional ste
 \item Click on the "Java Build Path" item.
 \item Click on the "Libraries" tab.
 \item Click on the "Add External JARs..." button.
-\item Navigate to \path{~/wpilib/java/current/java/lib}. (\path{~} refers to the home directory, located at \path{/Users/username/} on Mac, \path{C:\Users\username} on Windows, and \path{/home/username} on UNIX.)
+\item Navigate to \path{~/wpilib/java/current/java/lib}.\footnote{\path{~} refers to the home directory, located at \path{/Users/username/} on Mac, \path{C:\Users\username} on Windows, and \path{/home/username} on UNIX.}
 \item Select all four items and click "Open".
 \item Click "Apply".
 \item Click on the "Source" tab.
@@ -589,7 +592,7 @@ If there is a project already created in Eclipse, it can be imported into Intell
 This is currently not possible.
 
 \section{Useful Classes and Methods in WPILib}
-This section covers classes and methods that are needed in WPILib.
+This section covers classes and methods that are needed in WPILib.\footnote{This is not a joke saying that WPILib is useless, this section is simply not yet written.}
 
 \chapter{TurtleShell}
 \label{TurtleShell}
@@ -668,7 +671,7 @@ TurtleAnalogGyro is a wrapper for WPILib's AnalogGyro class.
 
 \subsubsection{Input}
 \paragraph{TurtleJoystickAxis}
-TurtleJoystickAxis implements TurtleAnalogInput, it takes a single axis from a Joystick and turns it into an AnalogInput with the range [-1,1].
+TurtleJoystickAxis implements TurtleAnalogInput, it takes a single axis from a Joystick and turns it into an AnalogInput with the range $[-1,1]$.
 \paragraph{TurtleJoystickButton}
 TurtleJoystick Button implements TurtleDigitalInput.
 It returns 1 if the button is pressed, and 0 otherwise.
@@ -678,11 +681,11 @@ It represents a POV switch, also known as a hat switch or a d-pad with diaganols
 It returns -1 to 7, but it also contains an enum called "POVValue" which can accept this number and return a more usuable value, such as North, South, and Southeast.
 \paragraph{TurtleFlightStick}
 This class represents the entire joystick for a flight stick, often used by FRC teams.
-It contains several TurtleJoystickAxis, which can be retreived from it.
+It contains several TurtleJoystickAxis, which can be retrieved from it.
 It also contains a TurtleJoystickPOVSwitch and multiple TurtleJoystickButton.
 \paragraph{TurtleXboxController}
 This class represents an entire XBox controller.
-It contains several TurtleJoystickAxis, which can be retreived from it.
+It contains several TurtleJoystickAxis, which can be retrieved from it.
 It also contains a TurtleJoystickPOVSwitch and multiple TurtleJoystickButton.
 
 \subsection{Utility}
@@ -706,16 +709,70 @@ This implements Unit. It is generified, so it represents another Unit per Time.
 \subsubsection{TurtleMaths}
 TurtleMaths is full of mathematical functions which have proven useful. All are public static, see the JavaDocs for documentation.
 
-
 \section{Advanced Features}
 This section covers advanced features of TurtleShell, such as PID and vision processing.
 
 \subsection{PID}
 PID (Proportional Integral Derivative) is a form of closed-loop control system.
+It uses sensor inputs to determine the proper actions to take in order to reach a target.
+It is commonly used in industrial control mechanisms for its relative simplicity and accuracy.
+
+\subsubsection{Explanation}
+PID control works by comparing sensor input to a target.
+It usually uses the error (difference between actual and target), derivative (rate of change of error)\footnote{n.b. Technically,
+it is looking for the error in the derivative, but the desired is assumed to be zero.}, and integral (summed error).
+Sometimes, the double derivative (rate of change of derivative) is used as well.
+Additionally, the integral is often not used in practice as it is often not relevant to the control system.
+
+The PID controller has a set of constants that it uses, along with the error, derivative, and integral (from sensors) to calculate the motor movements.
+These constants are empirically tuned.
+The constants are multiplied by the error in each (PID), and the result is constrained to $[-1,1]$.
+This output is then fed to the motor, and the cycle begins anew.
+
+\subsubsection{Constants}
+The behaviour of the PID controller, whether it effectively guides the error to zero or makes it wildly swing, is controlled by the constants.
+They are multiplied by each of the values to produce the output.
+One is provided for each value, i.e. one for P, one for I, etc.
+In TurtleShell, a class in the util package, TurtlePIDConstants, is provided.
+This class can be used to pass kP, kI, kD, and kDD in a convenient manner, PID constructors should accept it.\footnote{The prefix k for constants is extremely common.}
+
+\subsubsection{Tuning}
+PID tuning is more of an art than a science.
+
+\subsubsection{Interfaces}
+Two interfaces are provided in TurtleShell.
+They are both quite simple, providing a boolean to check whether the target has been reached, and a method to put in inputs and return MotorValue(s).
+TurtlePID returns a single MotorValue, while TurtleDualPID returns an array (with two values).
+The order of the inputs and outputs is ultimately up to the implementation, but the standard is:
+\begin{itemize}
+\item Inputs should be in the order P \textrightarrow{} I \textrightarrow{} D \textrightarrow{} DD.\footnote{DD and D2 are used interchangebly, they both mean double derivative, or the second derivative.}
+If there are both left and right, they should be interspersed with left \textrightarrow{} right \textrightarrow{} left \textrightarrow{} etc.
+\item Outputs, if there are multiple, should be left \textrightarrow{} right \textrightarrow{} other (if applicable).
+\end{itemize}
+
+\subsubsection{Implementations}
+
+\paragraph{TurtlePDD2}
+TurtlePDD2, or Turtle Proportional-Derivative-Double Derivative, is the main single-motor implementation.\footnote{Fun Fact: The use of PDD2, rather than PID, was learned from the SAS in Kerbal Space Program.}
+It uses the error, the derivative, and second derivative.
+It attempts to make all of these zero.
+
+\paragraph{TurtleZeroPID}
+TurtleZeroPID is a dummy controller, it always returns zero.
+It can be used to disable a PID controller.
+
+\paragraph{TurtleStraightDrivePID}
+TurtleStraightDrivePID uses two TurtlePDD2, along with the differences between them, to drive the robot straight for a certain difference.
+It only uses the encoder readings, it does not have gyro support.
+
+\paragraph{TurtleTurnPID}
+TurtleTurnPID is similar to TurtleStraightDrivePID, but it turns in place rather than moving straight.
+It again only uses the encoder readings, it does not have gyro support.
 
 
 \subsection{Vision Processing}
-This is not currently implemented through TurtleShell. NIVision, as well as GRIP, may be used.
+This is not currently implemented through TurtleShell.
+NIVision, as well as GRIP, may be used.
 
 
 \section{Code Style}
@@ -737,6 +794,11 @@ Comments inside methods or other blocks of code are in general discouraged, beca
 \subsubsection{Variables}
 Variables may be commented with their purpose or expected values.
 If possible, variables should be restricted to that range by type.
+
+\subsection{Language}
+All code and naming should be done in English.
+Minimal amounts of Latin are acceptable.
+The spelling should be international, i.e. metre rather than meter, organise rather than organize.
 
 \subsection{Indenting, Spacing, and Braces}
 The default Eclipse settings should be close to suitable for formatting, Control-Shift-F, Command-Shift-F, or Meta-Shift-F should automatically format the code correctly.
