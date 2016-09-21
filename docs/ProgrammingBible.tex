@@ -16,6 +16,7 @@
 \newcommand{\trademark}{$^{TM}$}
 \newcommand{\goodcopyright}{$^{\copyright}$}
 \newcommand{\pokemon}{Pok\'emon}
+\newcommand{\ilc}[1]{\texttt{#1}}%InLineCode, for names of classes and such in standard text.
 \maketitle
 
 \tableofcontents
@@ -43,8 +44,8 @@ This section covers the standard programmer and behaviour at Team 1458, which ma
 \subsection{Cookies}
 Programmers have a well-known sweet tooth, in particular for cookies.
 The best type of cookies are chocolate chip cookies, with the subtype of chocolate chip with M\&Ms being the only improvement.
-"Cookies" with nuts, raisins, or oatmeal are not real cookies, they should be safely disposed of in the trash.
-"Cookies" containing meat should be disposed of following standards, it should be treated as a health hazard if ingested.
+``Cookies" with nuts, raisins, or oatmeal are not real cookies, they should be safely disposed of in the trash.
+``Cookies" containing meat should be disposed of following standards, it should be treated as a health hazard if ingested.
 Programmers are known to consume copious amounts of cookies in one session, particularly during build season.
 \subsection{Turtwig and Turtles}
 Turtwig, a \pokemon{} with the National Pok\'edex Number 387, is the cutest and the best \pokemon.
@@ -477,8 +478,8 @@ Some information introduced here will be overridden in \ref{TurtleShell}.
 
 \subsection{Sample, Command-Based, and Iterative Robot}
 \label{samplecommanditerative}
-In order for the robot code to run, a class in the package org.usfirst.frc.team\#\#\#\#.robot.Robot.java must exist (Where \#\#\#\# is the team number) and extend RobotBase in some fashion.
-To do this, WPILib provides SampleRobot.java, CommandBasedRobot.java, and IterativeRobot.java, and most robot code should extend one of these three classes.
+In order for the robot code to run, a class in the package \ilc{org.usfirst.frc.team\#\#\#\#.robot.Robot.java} must exist (Where \#\#\#\# is the team number) and extend \ilc{RobotBase} in some fashion.
+To do this, WPILib provides \ilc{SampleRobot.java}, \ilc{CommandBasedRobot.java}, and \ilc{IterativeRobot.java}, and most robot code should extend one of these three classes.
 Each of them has particular advantages and disadvantages.
 
 \subsubsection{Sample Robot}
@@ -588,7 +589,7 @@ If there is a project already created in Eclipse, it can be imported into Intell
 \end{enumerate}
 
 
-\subsection{Creating in IntellliJ}
+\subsection{Creating in IntelliJ}
 This is currently not possible.
 
 \section{Useful Classes and Methods in WPILib}
@@ -607,30 +608,30 @@ The advantage of using modular components are that the code is more resuseable, 
 This section covers basic functionality of TurtleShell, and should allow a reader to successfully create basic robot code.
 
 \subsection{Program Flow}
-Similarly to WPILib, a Robot.class must exist, and it still extends RobotBase indirectly.
-However, instead of defining its own components, the ObjectHolder interface is used to define and hold all robot components.
-The Robot class calls the teleUpdateAll() method on the ObjectHolder in order to teleUpdate() all of the components.
+Similarly to WPILib, a \ilc{Robot.class} must exist, and it still extends \ilc{RobotBase} indirectly.
+However, instead of defining its own components, the \ilc{ObjectHolder} interface is used to define and hold all robot components.
+The \ilc{Robot} class calls the \ilc{teleUpdateAll()} method on the \ilc{ObjectHolder} in order to \ilc{teleUpdate()} all of the components.
 
-The ObjectHolder can either be entirely custom written, or can extend SampleRobotObjectHolder, which defines an ArrayList to store the components and iterates over each element in the list and calls update on them when nessecary.
-In the constructor of the ObjectHolder, it should declare all of the RobotComponents and pass in all data to properly initialise them.
+The \ilc{ObjectHolder} can either be entirely custom written, or can extend \ilc{SampleRobotObjectHolder}, which defines an \ilc{ArrayList} to store the components and iterates over each element in the list and calls update on them when necessary.
+In the constructor of the \ilc{ObjectHolder}, it should declare all of the \ilc{RobotComponents} and pass in all data to properly initialise them.
 
-The body of Robot.class should initialise an ObjectHolder, and in the teleOperated() method it should repeatedly call teleUpdateAll() on it.
+The body of \ilc{Robot.class} should initialise an \ilc{ObjectHolder}, and in the \ilc{teleOperated()} method it should repeatedly call \ilc{teleUpdateAll()} on it.
 
 \subsection{Key Interfaces}
 This section covers key interfaces that must be understood to properly make use of TurtleShell.
 
 \subsubsection{RobotComponent}
 All components on the robot, from the chassis to an arm, implement this interface.
-It provides the teleUpdate() and autoUpdate() methods.
-These should all be contained in the ObjectHolder.
+It provides the \ilc{teleUpdate()} and \ilc{autoUpdate()} methods.
+These should all be contained in the \ilc{ObjectHolder}.
 
 \subsubsection{ObjectHolder}
-This interface is for containers for RobotComponents and similar.
-It contains methods to call the teleUpdate() and autoUpdate() methods for its RobotComponents.
+This interface is for containers for \ilc{RobotComponent}s and similar.
+It contains methods to call the \ilc{teleUpdate()} and \ilc{autoUpdate()} methods for its \ilc{RobotComponent}s.
 
 \subsubsection{Movement}
 \paragraph{TurtleMotor}
-An interface representing a motor that is given a MotorValue to move, representing full forward to full backwards.
+An interface representing a motor that is given a \ilc{MotorValue} to move, representing full forward to full backwards.
 \paragraph{TurtleServo}
 An interface representing servos, which are given an angle and move to it.
 \paragraph{TurtleSolenoid}
@@ -647,67 +648,73 @@ An interface representing a sensor that measures distance travelled by something
 
 \subsubsection{Input}
 \paragraph{TurtleDigitalInput}
-TurtleDigitalInput represents an input which has discrete values.
+\ilc{TurtleDigitalInput} represents an input which has discrete values.
 \paragraph{TurtleAnalogInput}
-TurtleAnalogInput represents an input which has continuous values.
+\ilc{TurtleAnalogInput} represents an input which has continuous values.
 
 \subsection{Key Implementations}
 This section explains provided implementations for the above implementations and how they can be used.
 
 \subsubsection{SampleRobotObjectHolder}
-SampleRobotObjectHolder implements ObjectHolder, it is abstract and defines an ArrayList to store RobotComponents.
-It also defines the teleUpdateAll() and autoUpdateAll() methods which simply iterate over the ArrayList and update each component.
+\ilc{SampleRobotObjectHolder} implements \ilc{ObjectHolder}, it is abstract and defines an \ilc{ArrayList} to store \ilc{RobotComponent}s.
+It also defines the \ilc{teleUpdateAll()} and \ilc{autoUpdateAll()} methods which simply iterate over the \ilc{ArrayList} and update each component.
 
 \subsubsection{Movement}
 All of the currently legal FRC motor controllers are implemented, with two separate implementations for the Talon SRX, one for PWM and one for CAN.
-There is also a "FakeMotor" which emulates a motor controller but in fact does nothing.
+There is also a \ilc{FakeMotor} which emulates a motor controller but in fact does nothing.
 
 \subsubsection{Sensors}
 \paragraph{TurtleXtrinsicMagnetometer}
-TurtleXtrinsicMagnetometer is a class for an Xtrinsic magnetometer.
-It has 3 TurtleRotationSensors representing the pitch, yaw, and roll axes.
+\ilc{TurtleXtrinsicMagnetometer} is a class for an Xtrinsic magnetometer.
+It has 3 \ilc{TurtleRotationSensor}s representing the pitch, yaw, and roll axes.
 \paragraph{TurtleAnalogGyro}
-TurtleAnalogGyro is a wrapper for WPILib's AnalogGyro class.
+\ilc{TurtleAnalogGyro} is a wrapper for WPILib's \ilc{AnalogGyro} class.
+\paragraph{TurtleDistanceEncoder}
+\ilc{TurtleDistanceEncoder} is an encoder that measures distance travelled.
+The scale between encoder ticks and inches must be passed in.
+\paragraph{TurtleRotationEncoder}
+\ilc{TurtleRotationEncoder} is an encoder that measures amount rotated.
+The scale between encoder ticks and degrees must be passed in.
 
 \subsubsection{Input}
 \paragraph{TurtleJoystickAxis}
-TurtleJoystickAxis implements TurtleAnalogInput, it takes a single axis from a Joystick and turns it into an AnalogInput with the range $[-1,1]$.
+\ilc{TurtleJoystickAxis} implements \ilc{TurtleAnalogInput}, it takes a single axis from a Joystick and turns it into an \ilc{AnalogInput} with the range $[-1,1]$.
 \paragraph{TurtleJoystickButton}
-TurtleJoystick Button implements TurtleDigitalInput.
+\ilc{TurtleJoystickButton} implements \ilc{TurtleDigitalInput}.
 It returns 1 if the button is pressed, and 0 otherwise.
 \paragraph{TurtleJoystickPOVSwitch}
-TurtleJoystickPOVSwitch implements TurtleDigitalInput.
-It represents a POV switch, also known as a hat switch or a d-pad with diaganols.
-It returns -1 to 7, but it also contains an enum called "POVValue" which can accept this number and return a more usuable value, such as North, South, and Southeast.
+\ilc{TurtleJoystickPOVSwitch} implements \ilc{TurtleDigitalInput}.
+It represents a POV switch, also known as a hat switch or a d-pad with diagonals.
+It returns -1 to 7, but it also contains an enum called \ilc{POVValue} which can accept this number and return a more usable value, such as North, South, and Southeast.
 \paragraph{TurtleFlightStick}
 This class represents the entire joystick for a flight stick, often used by FRC teams.
-It contains several TurtleJoystickAxis, which can be retrieved from it.
-It also contains a TurtleJoystickPOVSwitch and multiple TurtleJoystickButton.
+It contains several \ilc{TurtleJoystickAxis}, which can be retrieved from it.
+It also contains a \ilc{TurtleJoystickPOVSwitch} and multiple \ilc{TurtleJoystickButton}.
 \paragraph{TurtleXboxController}
 This class represents an entire XBox controller.
-It contains several TurtleJoystickAxis, which can be retrieved from it.
-It also contains a TurtleJoystickPOVSwitch and multiple TurtleJoystickButton.
+It contains several \ilc{TurtleJoystickAxis}, which can be retrieved from it.
+It also contains a \ilc{TurtleJoystickPOVSwitch} and multiple \ilc{TurtleJoystickButton}.
 
 \subsection{Utility}
-This section covers utilities included in TurtleShell, found in the "util" package.
+This section covers utilities included in TurtleShell, found in the \ilc{util} package.
 
 \subsubsection{Unit}
 This interface is used for classes the represent some type of measurement, such as distance, time, or angle.
 All implementations wrap doubles, primarily for type safety.
 
 \paragraph{Time}
-This implements Unit, and represents time in seconds.
+This implements \ilc{Unit}, and represents time in seconds.
 \paragraph{MotorValue}
-This implements Unit, and represents a motor power, from -1 to 1.
+This implements \ilc{Unit}, and represents a motor power, from -1 to 1.
 \paragraph{Distance}
-This implements Unit, and represents a distance in inches.
+This implements \ilc{Unit}, and represents a distance in inches.
 \paragraph{Angle}
-This implements Unit, and represents an angle in degrees.
+This implements \ilc{Unit}, and represents an angle in degrees.
 \paragraph{Rate}
-This implements Unit. It is generified, so it represents another Unit per Time.
+This implements \ilc{Unit}. It is generified, so it represents another \ilc{Unit} per \ilc{Time}.
 
 \subsubsection{TurtleMaths}
-TurtleMaths is full of mathematical functions which have proven useful. All are public static, see the JavaDocs for documentation.
+\ilc{TurtleMaths} is full of mathematical functions which have proven useful. All are public static, see the JavaDocs for documentation.
 
 \section{Advanced Features}
 This section covers advanced features of TurtleShell, such as PID and vision processing.
@@ -738,14 +745,19 @@ This class can be used to pass kP, kI, kD, and kDD in a convenient manner, PID c
 
 \subsubsection{Tuning}
 PID tuning is more of an art than a science.
+This will cover tuning a PDD2, with the P and D being the primary parameters used.
+If the system is not closing fast enough, the P should be increased or the D decreased.
+If the system is oscillating around the desired value, the D should be increased.
+The DD should work slightly against the D, and can be sued to give it a bit extra ability to reach the target.
+However, the DD should be far smaller (about 2 orders of magnitude) than D, which should be smaller (one order of magnitude) than P.
 
 \subsubsection{Interfaces}
 Two interfaces are provided in TurtleShell.
 They are both quite simple, providing a boolean to check whether the target has been reached, and a method to put in inputs and return MotorValue(s).
-TurtlePID returns a single MotorValue, while TurtleDualPID returns an array (with two values).
+\ilc{TurtlePID} returns a single \ilc{MotorValue}, while \ilc{TurtleDualPID} returns an array of \ilc{MotorValue}s (with two values).
 The order of the inputs and outputs is ultimately up to the implementation, but the standard is:
 \begin{itemize}
-\item Inputs should be in the order P \textrightarrow{} I \textrightarrow{} D \textrightarrow{} DD.\footnote{DD and D2 are used interchangebly, they both mean double derivative, or the second derivative.}
+\item Inputs should be in the order P \textrightarrow{} I \textrightarrow{} D \textrightarrow{} DD.\footnote{DD and D2 are used interchangeably, they both mean double derivative, or the second derivative.}
 If there are both left and right, they should be interspersed with left \textrightarrow{} right \textrightarrow{} left \textrightarrow{} etc.
 \item Outputs, if there are multiple, should be left \textrightarrow{} right \textrightarrow{} other (if applicable).
 \end{itemize}
@@ -753,20 +765,20 @@ If there are both left and right, they should be interspersed with left \textrig
 \subsubsection{Implementations}
 
 \paragraph{TurtlePDD2}
-TurtlePDD2, or Turtle Proportional-Derivative-Double Derivative, is the main single-motor implementation.\footnote{Fun Fact: The use of PDD2, rather than PID, was learned from the SAS in Kerbal Space Program.}
+\ilc{TurtlePDD2}, or Turtle Proportional-Derivative-Double Derivative, is the main single-motor implementation.\footnote{Fun Fact: The use of PDD2, rather than PID, was learned from the SAS in Kerbal Space Program.}
 It uses the error, the derivative, and second derivative.
 It attempts to make all of these zero.
 
 \paragraph{TurtleZeroPID}
-TurtleZeroPID is a dummy controller, it always returns zero.
+\ilc{TurtleZeroPID} is a dummy controller, it always returns zero.
 It can be used to disable a PID controller.
 
 \paragraph{TurtleStraightDrivePID}
-TurtleStraightDrivePID uses two TurtlePDD2, along with the differences between them, to drive the robot straight for a certain difference.
+\ilc{TurtleStraightDrivePID} uses two \ilc{TurtlePDD2}s, along with the differences between them, to drive the robot straight for a certain difference.
 It only uses the encoder readings, it does not have gyro support.
 
 \paragraph{TurtleTurnPID}
-TurtleTurnPID is similar to TurtleStraightDrivePID, but it turns in place rather than moving straight.
+\ilc{TurtleTurnPID} is similar to \ilc{TurtleStraightDrivePID}, but it turns in place rather than moving straight.
 It again only uses the encoder readings, it does not have gyro support.
 
 
@@ -784,7 +796,7 @@ Classes begin with a capital letter, and camel case is used throughout, with the
 Global constants should be in all capitals.
 
 The prefix "Turtle" is used for most classes in TurtleShell.
-This helps to avoid namespace collisions (having the same name for two different classes), and also serves to easily catergorise classes which are a part of the library.
+This helps to avoid namespace collisions (having the same name for two different classes), and also serves to easily categorise classes which are a part of the library.
 
 \subsection{Comments}
 The main use of comments should be for JavaDocs on publicly accessible classes, methods, and constructors.

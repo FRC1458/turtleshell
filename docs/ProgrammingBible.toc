@@ -91,7 +91,7 @@
 \contentsline {subsection}{\numberline {3.6.4}Importing a project}{23}{subsection.3.6.4}
 \contentsline {section}{\numberline {3.7}Switching to IntelliJ}{24}{section.3.7}
 \contentsline {subsection}{\numberline {3.7.1}Importing from Eclipse}{24}{subsection.3.7.1}
-\contentsline {subsection}{\numberline {3.7.2}Creating in IntellliJ}{25}{subsection.3.7.2}
+\contentsline {subsection}{\numberline {3.7.2}Creating in IntelliJ}{25}{subsection.3.7.2}
 \contentsline {section}{\numberline {3.8}Useful Classes and Methods in WPILib}{25}{section.3.8}
 \contentsline {chapter}{\numberline {4}TurtleShell}{26}{chapter.4}
 \contentsline {section}{\numberline {4.1}Design Philosophy}{26}{section.4.1}
@@ -117,35 +117,37 @@
 \contentsline {subsubsection}{Sensors}{28}{section*.51}
 \contentsline {paragraph}{TurtleXtrinsicMagnetometer}{28}{section*.52}
 \contentsline {paragraph}{TurtleAnalogGyro}{28}{section*.53}
-\contentsline {subsubsection}{Input}{28}{section*.54}
-\contentsline {paragraph}{TurtleJoystickAxis}{28}{section*.55}
-\contentsline {paragraph}{TurtleJoystickButton}{28}{section*.56}
-\contentsline {paragraph}{TurtleJoystickPOVSwitch}{28}{section*.57}
-\contentsline {paragraph}{TurtleFlightStick}{29}{section*.58}
-\contentsline {paragraph}{TurtleXboxController}{29}{section*.59}
+\contentsline {paragraph}{TurtleDistanceEncoder}{28}{section*.54}
+\contentsline {paragraph}{TurtleRotationEncoder}{28}{section*.55}
+\contentsline {subsubsection}{Input}{28}{section*.56}
+\contentsline {paragraph}{TurtleJoystickAxis}{28}{section*.57}
+\contentsline {paragraph}{TurtleJoystickButton}{28}{section*.58}
+\contentsline {paragraph}{TurtleJoystickPOVSwitch}{29}{section*.59}
+\contentsline {paragraph}{TurtleFlightStick}{29}{section*.60}
+\contentsline {paragraph}{TurtleXboxController}{29}{section*.61}
 \contentsline {subsection}{\numberline {4.2.4}Utility}{29}{subsection.4.2.4}
-\contentsline {subsubsection}{Unit}{29}{section*.60}
-\contentsline {paragraph}{Time}{29}{section*.61}
-\contentsline {paragraph}{MotorValue}{29}{section*.62}
-\contentsline {paragraph}{Distance}{29}{section*.63}
-\contentsline {paragraph}{Angle}{29}{section*.64}
-\contentsline {paragraph}{Rate}{29}{section*.65}
-\contentsline {subsubsection}{TurtleMaths}{29}{section*.66}
-\contentsline {section}{\numberline {4.3}Advanced Features}{29}{section.4.3}
+\contentsline {subsubsection}{Unit}{29}{section*.62}
+\contentsline {paragraph}{Time}{29}{section*.63}
+\contentsline {paragraph}{MotorValue}{29}{section*.64}
+\contentsline {paragraph}{Distance}{29}{section*.65}
+\contentsline {paragraph}{Angle}{29}{section*.66}
+\contentsline {paragraph}{Rate}{29}{section*.67}
+\contentsline {subsubsection}{TurtleMaths}{29}{section*.68}
+\contentsline {section}{\numberline {4.3}Advanced Features}{30}{section.4.3}
 \contentsline {subsection}{\numberline {4.3.1}PID}{30}{subsection.4.3.1}
-\contentsline {subsubsection}{Explanation}{30}{section*.67}
-\contentsline {subsubsection}{Constants}{30}{section*.68}
-\contentsline {subsubsection}{Tuning}{30}{section*.69}
-\contentsline {subsubsection}{Interfaces}{30}{section*.70}
-\contentsline {subsubsection}{Implementations}{31}{section*.71}
-\contentsline {paragraph}{TurtlePDD2}{31}{section*.72}
-\contentsline {paragraph}{TurtleZeroPID}{31}{section*.73}
-\contentsline {paragraph}{TurtleStraightDrivePID}{31}{section*.74}
-\contentsline {paragraph}{TurtleTurnPID}{31}{section*.75}
+\contentsline {subsubsection}{Explanation}{30}{section*.69}
+\contentsline {subsubsection}{Constants}{30}{section*.70}
+\contentsline {subsubsection}{Tuning}{30}{section*.71}
+\contentsline {subsubsection}{Interfaces}{31}{section*.72}
+\contentsline {subsubsection}{Implementations}{31}{section*.73}
+\contentsline {paragraph}{TurtlePDD2}{31}{section*.74}
+\contentsline {paragraph}{TurtleZeroPID}{31}{section*.75}
+\contentsline {paragraph}{TurtleStraightDrivePID}{31}{section*.76}
+\contentsline {paragraph}{TurtleTurnPID}{31}{section*.77}
 \contentsline {subsection}{\numberline {4.3.2}Vision Processing}{31}{subsection.4.3.2}
 \contentsline {section}{\numberline {4.4}Code Style}{31}{section.4.4}
-\contentsline {subsection}{\numberline {4.4.1}Naming}{31}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.1}Naming}{32}{subsection.4.4.1}
 \contentsline {subsection}{\numberline {4.4.2}Comments}{32}{subsection.4.4.2}
-\contentsline {subsubsection}{Variables}{32}{section*.76}
+\contentsline {subsubsection}{Variables}{32}{section*.78}
 \contentsline {subsection}{\numberline {4.4.3}Language}{32}{subsection.4.4.3}
 \contentsline {subsection}{\numberline {4.4.4}Indenting, Spacing, and Braces}{32}{subsection.4.4.4}

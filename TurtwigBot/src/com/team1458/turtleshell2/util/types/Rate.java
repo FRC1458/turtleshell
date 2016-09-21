@@ -7,7 +7,7 @@ package com.team1458.turtleshell2.util.types;
  *
  * @param <T> The Unit this is a rate of, this will have T/s as its units
  */
-public class Rate<T extends Unit> implements Unit {
+public final class Rate<T extends Unit> implements Unit {
 	private final double value;
 	@Override
 	/**
