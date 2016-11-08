@@ -5,7 +5,7 @@ package com.team1458.turtleshell2.util.types;
  * @author mehnadnerd
  *
  */
-public class Time implements Unit {
+public final class Time implements Unit {
 	private final double value;
 
 	/**
