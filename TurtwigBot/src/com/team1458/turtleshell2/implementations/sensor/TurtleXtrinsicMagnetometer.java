@@ -248,8 +248,9 @@ public class TurtleXtrinsicMagnetometer {
 
 	/**
 	 * Update the magnetometer
+	 *
+	 * Is a synchronized method, which means that it can only be accessed by one thread at a time.
 	 */
-	// TODO: Figure out what synchronized means
 	private synchronized void update() {
 		// Set old values to new values
 		for (int i = 0; i < axes.length; i++) {

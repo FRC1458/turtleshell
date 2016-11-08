@@ -1,41 +1,63 @@
 package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell2.implementations.input.TurtleFlightStick;
-import com.team1458.turtleshell2.implementations.sample.SampleRobotObjectHolder;
-import com.team1458.turtleshell2.interfaces.AutoMode;
-import com.team1458.turtleshell2.interfaces.TestMode;
+import com.team1458.turtleshell2.util.TurtleLogger;
+import edu.wpi.first.wpilibj.SampleRobot;
 
 /**
- * Test Robot
+ * New Test Robot
  *
  * @author asinghani
  */
-public class BlastoiseRobot extends SampleRobotObjectHolder {
+public class BlastoiseRobot extends SampleRobot {
 
+    BlastoiseChassis chassis;
+    TurtleLogger logger;
+
+    /**
+     * Constructor for robot
+     */
     public BlastoiseRobot() {
-        TurtleFlightStick left = new TurtleFlightStick(
-                Constants.LJOYSTICKPORT);
-        TurtleFlightStick right = new TurtleFlightStick(
-                Constants.RJOYSTICKPORT);
-
-        components.add(chassis);
+        logger = new TurtleLogger(Constants.LOGGER_MODE);
     }
 
-    /**
-     * TODO: Add functionality
-     * @return null
-     */
     @Override
-    public TestMode getTest() {
-        return null;
+    protected void robotInit() {
+        TurtleFlightStick left = new TurtleFlightStick(Constants.LEFT_JOYSTICK_PORT);
+        TurtleFlightStick right = new TurtleFlightStick(Constants.RIGHT_JOYSTICK_PORT);
+
+        chassis = new BlastoiseChassis();
+        chassis.setLeftJoystick(left.getAxis(TurtleFlightStick.FlightAxis.PITCH));
+        chassis.setRightJoystick(right.getAxis(TurtleFlightStick.FlightAxis.PITCH));
     }
 
-    /**
-     * TODO: Add functionality
-     * @return null
-     */
-    @Override
-    public AutoMode getAuto() {
-        return null;
+    private void teleUpdate() {
+        logger.warn("Teleop mode not implemented");
     }
+
+    @Override
+    protected void disabled() {
+        logger.info("Robot disabled");
+    }
+
+    @Override
+    public void autonomous() {
+        logger.warn("Autonomous mode not implemented");
+    }
+
+    @Override
+    public void operatorControl() {
+        logger.info("Entered operator control");
+
+        while (isOperatorControl() && isEnabled()) {
+            //logger.verbose("Running teleUpdate");
+            teleUpdate();
+        }
+    }
+
+    @Override
+    public void test() {
+        logger.warn("Test mode not implemented");
+    }
+
 }
