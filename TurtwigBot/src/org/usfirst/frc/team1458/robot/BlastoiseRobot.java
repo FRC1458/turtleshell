@@ -18,13 +18,13 @@ public class BlastoiseRobot extends SampleRobot {
      * Constructor for robot
      */
     public BlastoiseRobot() {
-        logger = new TurtleLogger(Constants.LOGGER_MODE);
+        logger = new TurtleLogger(BlastoiseConstants.LOGGER_MODE);
     }
 
     @Override
     protected void robotInit() {
-        TurtleFlightStick left = new TurtleFlightStick(Constants.LEFT_JOYSTICK_PORT);
-        TurtleFlightStick right = new TurtleFlightStick(Constants.RIGHT_JOYSTICK_PORT);
+        TurtleFlightStick left = new TurtleFlightStick(BlastoiseConstants.LEFT_JOYSTICK_PORT);
+        TurtleFlightStick right = new TurtleFlightStick(BlastoiseConstants.RIGHT_JOYSTICK_PORT);
 
         chassis = new BlastoiseChassis();
         chassis.setLeftJoystick(left.getAxis(TurtleFlightStick.FlightAxis.PITCH));
@@ -32,7 +32,7 @@ public class BlastoiseRobot extends SampleRobot {
     }
 
     private void teleUpdate() {
-        logger.warn("Teleop mode not implemented");
+        chassis.teleUpdate();
     }
 
     @Override

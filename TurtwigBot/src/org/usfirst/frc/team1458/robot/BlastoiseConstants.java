@@ -3,17 +3,19 @@ package org.usfirst.frc.team1458.robot;
 import com.team1458.turtleshell2.util.TurtleLogger;
 
 /**
- * Constants for new robot
+ * BlastoiseConstants for new robot
  *
  * @author asinghani
  */
-public class Constants {
+public class BlastoiseConstants {
 
     /**
      * Drive system related constants
      */
-    public static final int RIGHT_MOTOR_PORT = -1; // TODO: Use correct value for RIGHT_MOTOR_PORT
-    public static final int LEFT_MOTOR_PORT = -1; // TODO: Use correct value for LEFT_MOTOR_PORT
+    public static final int RIGHT_MOTOR1_PORT = -1; // TODO: Use correct value for RIGHT_MOTOR1_PORT
+    public static final int RIGHT_MOTOR2_PORT = -1; // TODO: Use correct value for RIGHT_MOTOR2_PORT
+    public static final int LEFT_MOTOR1_PORT = -1; // TODO: Use correct value for LEFT_MOTOR1_PORT
+    public static final int LEFT_MOTOR2_PORT = -1; // TODO: Use correct value for LEFT_MOTOR2_PORT
 
     /**
      * Control system related constants
@@ -29,5 +31,5 @@ public class Constants {
 	/**
 	 * Constructor so can't be initialised
  	 */
-	private Constants() {}
+	private BlastoiseConstants() {}
 }

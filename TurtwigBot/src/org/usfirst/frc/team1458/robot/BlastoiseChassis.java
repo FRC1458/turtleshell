@@ -12,8 +12,10 @@ import com.team1458.turtleshell2.util.types.MotorValue;
  */
 public class BlastoiseChassis {
 
-    private final TurtleMotor leftDriveTrain = new TurtleVictor888(Constants.LEFT_MOTOR_PORT);
-    private final TurtleMotor rightDriveTrain = new TurtleVictor888(Constants.RIGHT_MOTOR_PORT);
+    private final TurtleMotor leftDriveTrain1 = new TurtleVictor888(BlastoiseConstants.LEFT_MOTOR1_PORT);
+    private final TurtleMotor leftDriveTrain2 = new TurtleVictor888(BlastoiseConstants.LEFT_MOTOR2_PORT);
+    private final TurtleMotor rightDriveTrain1 = new TurtleVictor888(BlastoiseConstants.RIGHT_MOTOR1_PORT);
+    private final TurtleMotor rightDriveTrain2 = new TurtleVictor888(BlastoiseConstants.RIGHT_MOTOR2_PORT);
 
     private TurtleAnalogInput rightJoystick;
     private TurtleAnalogInput leftJoystick;
@@ -33,8 +35,10 @@ public class BlastoiseChassis {
         MotorValue leftPower = new MotorValue(leftJoystick.get());
         MotorValue rightPower = new MotorValue(rightJoystick.get());
 
-        leftDriveTrain.set(leftPower);
-        rightDriveTrain.set(rightPower);
+        leftDriveTrain1.set(leftPower);
+        leftDriveTrain2.set(leftPower);
+        rightDriveTrain1.set(rightPower);
+        rightDriveTrain2.set(rightPower);
     }
 
     /**
