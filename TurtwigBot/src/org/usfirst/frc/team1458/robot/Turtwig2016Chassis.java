@@ -29,7 +29,7 @@ public class Turtwig2016Chassis implements TurtleComponent {
 
 	@Override
 	public void teleUpdate() {
-		MotorValue leftPower = new MotorValue(leftJoystickPower.get());
+		MotorValue leftPower = new MotorValue( leftJoystickPower.get());
 		MotorValue rightPower = new MotorValue(rightJoystickPower.get());
 		lDrive1.set(leftPower);
 		lDrive2.set(leftPower);

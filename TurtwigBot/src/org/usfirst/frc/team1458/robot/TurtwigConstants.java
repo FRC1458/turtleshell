@@ -1,11 +1,15 @@
 package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell2.util.TurtlePIDConstants;
+import com.team1458.turtleshell2.util.types.Angle;
+import com.team1458.turtleshell2.util.types.Distance;
+import com.team1458.turtleshell2.util.types.Time;
 
 public class TurtwigConstants {
 	public static final int RJOYSTICKPORT = 0;
 	public static final int LJOYSTICKPORT = 1;
 	public static final int BUTTONPANELPORT = 2;
+	public static final int XBOXCONTROLLERPORT = 3;
 
 	public static final int LEFT1VICTORPORT = 2;
 	public static final int LEFT2VICTORPORT = 3;
@@ -53,27 +57,34 @@ public class TurtwigConstants {
 	public static final double hookDownEncoderTicks = 2046;
 	// public static final double robotLiftEncoderTicks = 100;
 
+
+	/**
+	 *
+	 */
+	public static final double INTAKEJOYSTICKSCALE = 1;
+
+
 	public static final double cameraHeight = 8;
 	/**
 	 * Elevation of camera in radians
 	 */
-	public static final double cameraAngle = 0;
+	public static final Angle cameraAngle = Angle.createRadians(0);
 
-	public static final double WHEELDIAMETER = 3.5;
-	public static final double WHEELBASE = 24.70;
+	public static final Distance WHEELDIAMETER = new Distance(3.5);
+	public static final Distance WHEELBASE = new Distance(24.70);
 	/**
 	 * In degrees
 	 */
-	public static final double roughTerrainFlatAngle = 5;
+	public static final Angle roughTerrainFlatAngle = Angle.createDegrees(5);
 
 	/**
 	 * In seconds
 	 */
-	public static final double roughTerrainMinFlatTime = 0.2;
-	public static final double unfoldTime = .1;
+	public static final Time roughTerrainMinFlatTime = new Time(0.2);
+	public static final Time unfoldTime = new Time(.1);
 
 	public static final double INTAKEENCODERMAX = 250;
-	public static final double yankTime = .3;
+	public static final Time yankTime = new Time(.3);
 	public static final double intakePIDScale = 100;
 
 	public static final double intakePIDCurrentWeight = .75;
