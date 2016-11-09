@@ -103,36 +103,20 @@ public class TurtleLogger {
     public void verbose(String text){
         log(text, VERBOSE);
     }
-    public void v(String text){
-        verbose(text);
-    }
 
     public void debug(String text){
         log(text, DEBUG);
     }
-    public void d(String text){
-        debug(text);
-    }
-
+   
     public void info(String text){
         log(text, INFO);
-    }
-    public void i(String text){
-        info(text);
     }
 
     public void warn(String text){
         log(text, WARN);
     }
-    public void w(String text){
-        warn(text);
-    }
 
     public void error(String text){
         log(text, ERROR);
-    }
-    public void e(String text){
-        error(text);
-    }
-
+    
 }
