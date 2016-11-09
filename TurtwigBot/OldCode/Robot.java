@@ -9,7 +9,7 @@ public class Robot extends SampleRobot {
 	private ObjectHolder objholder;
 
 	protected void robotInit() {
-		objholder = new Competition2016Robot();
+		objholder = new BlastoiseRobot();
 	}
 
 	protected void disabled() {
