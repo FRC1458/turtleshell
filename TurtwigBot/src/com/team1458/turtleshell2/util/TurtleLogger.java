@@ -36,14 +36,46 @@ public class TurtleLogger {
 
     private String[] severityArray = {"VERBOSE", "DEBUG", "INFO", "WARN", "ERROR"};
 
+    private static TurtleLogger instance;
+
     /**
      * Constructor for TurtleLogger
      *
      * @param mode Mode for log format
      */
-    public TurtleLogger(int mode) {
+    private TurtleLogger(int mode) {
         this.mode = mode;
     }
+
+    /**
+     * Get instance of TurtleLogger, to be used project-wide
+     * @param mode Mode for log format
+     * @return TurtleLogger
+     */
+    public static TurtleLogger getLogger(int mode) {
+        if(instance != null){
+            if(instance.mode != mode){
+                instance.warn("Trying to reinstantiate with different mode");
+            }
+            return instance;
+        } else {
+            instance = new TurtleLogger(mode);
+            return instance;
+        }
+    }
+
+	/**
+	 * Get instance of TurtleLogger, to be used project-wide
+	 * @return TurtleLogger
+	 */
+	public static TurtleLogger getLogger() {
+		if(instance != null){
+			return instance;
+		} else {
+			instance = new TurtleLogger(PLAINTEXT);
+			return instance;
+		}
+	}
 
     /**
      * Logs a message
@@ -116,7 +148,7 @@ public class TurtleLogger {
         log(text, WARN);
     }
 
-    public void error(String text){
-        log(text, ERROR);
-    
+    public void error(String text) {
+	    log(text, ERROR);
+    }
 }
