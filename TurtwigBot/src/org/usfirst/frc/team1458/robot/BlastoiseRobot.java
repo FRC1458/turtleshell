@@ -26,7 +26,7 @@ public class BlastoiseRobot extends SampleRobot {
     protected void robotInit() {
         chassis = new BlastoiseChassis();
 
-        TurtleXboxController xboxController = new TurtleXboxController(BlastoiseConstants.XBOX_CONTROLLER_PORT);
+        TurtleXboxController xboxController = new TurtleXboxController(BlastoiseConstants.UsbPorts.XBOX_CONTROLLER);
         controller = new BlastoiseController(xboxController, chassis);
     }
 

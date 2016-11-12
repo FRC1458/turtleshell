@@ -1,6 +1,3 @@
-package com.team1458.turtleshell2.interfaces.pid;
-
-import com.team1458.turtleshell2.util.types.MotorValue;
 
 /**
  * An interface for a PID that should manage two motors.
@@ -19,5 +16,5 @@ public interface TurtleDualPID {
 	 * @param inputs array of sensor values to input
 	 * @return array storing motor values to use
 	 */
-	public MotorValue[] newValue(double... inputs);
+	public MotorValue[] newValue(double[] inputs);
 }

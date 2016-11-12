@@ -1,4 +1,3 @@
-package com.team1458.turtleshell2.util.types;
 
 /**
  * An immutable class for moving around distances. Uses inches :(
@@ -10,9 +9,9 @@ public final class Distance implements Unit {
 	private final double value;
 
 	/**
-	 * Create a distance with a certain amount of inches
+	 * Create an angle with a certain amount of degrees
 	 * 
-	 * @param inches
+	 * @param degrees
 	 */
 	public Distance(double inches) {
 		value = inches;
@@ -63,7 +62,7 @@ public final class Distance implements Unit {
 	}
 	
 	/**
-	 * Get the value in centimetres
+	 * Get the value in feet
 	 * 
 	 * @return
 	 */
