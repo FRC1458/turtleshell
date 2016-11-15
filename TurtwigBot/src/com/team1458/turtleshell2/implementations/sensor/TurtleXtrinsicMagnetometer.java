@@ -13,21 +13,11 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/* THIS SPAWNS A THREAD TO CONTINOUSLY UPDATE THE MAGNETOMETER
- * USE AT OWN RISK
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
+/* 
+ * THIS SPAWNS A THREAD TO CONTINOUSLY UPDATE THE MAGNETOMETER
+ * USE AT YOUR OWN RISK
  */
+
 /**
  * A Xtrinsic Magnetometer, implementation of TurtleTheta. Should be plugged
  * into the I2C port.
