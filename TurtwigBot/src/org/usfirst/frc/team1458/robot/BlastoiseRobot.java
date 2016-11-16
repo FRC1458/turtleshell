@@ -2,7 +2,9 @@ package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
 import com.team1458.turtleshell2.util.TurtleLogger;
+
 import edu.wpi.first.wpilibj.SampleRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Base Robot Code
@@ -20,6 +22,8 @@ public class BlastoiseRobot extends SampleRobot {
      */
     public BlastoiseRobot() {
         logger = TurtleLogger.getLogger(BlastoiseConstants.LOGGER_MODE);
+        SmartDashboard.putNumber("RightMotor", 1);
+        SmartDashboard.putNumber("LeftMotor", 1);
     }
 
     @Override

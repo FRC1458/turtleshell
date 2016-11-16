@@ -15,7 +15,7 @@ public class BlastoiseConstants {
      * Right drive system
      */
     static class RightDrive {
-	    public static final int MOTOR1 = -1; // TODO: Use correct value for right MOTOR1 port
+	    public static final int MOTOR1 = 1; // TODO: Use correct value for right MOTOR1 port
 	    //public static final int MOTOR2 = -1
 
 		public static final int ENCODER_A = -1; // TODO: Use correct value for right ENCODER_A port
@@ -27,7 +27,7 @@ public class BlastoiseConstants {
 	 * Left drive system
 	 */
 	static class LeftDrive {
-		public static final int MOTOR1 = -1; // TODO: Use correct value for left MOTOR1 port
+		public static final int MOTOR1 = 5; // TODO: Use correct value for left MOTOR1 port
 		//public static final int MOTOR2 = -1
 
 		public static final int ENCODER_A = -1; // TODO: Use correct value for left ENCODER_A port

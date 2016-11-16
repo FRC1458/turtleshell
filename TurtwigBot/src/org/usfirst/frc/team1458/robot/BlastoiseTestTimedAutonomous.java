@@ -29,9 +29,9 @@ public class BlastoiseTestTimedAutonomous {
 	 * Runs the autonomous program
 	 */
 	public void run(){
-		autonomous.moveMillis(1000, SPEED);
-		autonomous.turnMillis(1000, SPEED);
-		autonomous.moveMillis(1000, -SPEED);
-		autonomous.turnMillis(1000, -SPEED);
+		//autonomous.moveMillis(2000, SPEED);
+		autonomous.turnMillis(2000, SPEED);
+		//autonomous.moveMillis(2000, -SPEED);
+		autonomous.turnMillis(2000, -SPEED);
 	}
 }
