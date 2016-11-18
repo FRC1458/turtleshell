@@ -43,7 +43,7 @@ public class TurtleLogger {
      *
      * @param mode Mode for log format
      */
-    private TurtleLogger(int mode) {
+    public TurtleLogger(int mode) {
         this.mode = mode;
     }
 
@@ -52,7 +52,7 @@ public class TurtleLogger {
      * @param mode Mode for log format
      * @return TurtleLogger
      */
-    public static TurtleLogger getLogger(int mode) {
+    /*public static TurtleLogger getLogger(int mode) {
         if(instance != null){
             if(instance.mode != mode){
                 instance.warn("Trying to reinstantiate with different mode");
@@ -62,20 +62,20 @@ public class TurtleLogger {
             instance = new TurtleLogger(mode);
             return instance;
         }
-    }
+    }*/
 
 	/**
 	 * Get instance of TurtleLogger, to be used project-wide
 	 * @return TurtleLogger
 	 */
-	public static TurtleLogger getLogger() {
+	/*public static TurtleLogger getLogger() {
 		if(instance != null){
 			return instance;
 		} else {
 			instance = new TurtleLogger(PLAINTEXT);
 			return instance;
 		}
-	}
+	}*/
 
     /**
      * Logs a message

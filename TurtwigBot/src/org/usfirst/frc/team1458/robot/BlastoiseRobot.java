@@ -1,10 +1,10 @@
 package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
+import com.team1458.turtleshell2.interfaces.AutoMode;
+import com.team1458.turtleshell2.interfaces.TestMode;
 import com.team1458.turtleshell2.util.TurtleLogger;
-
 import edu.wpi.first.wpilibj.SampleRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Base Robot Code
@@ -14,28 +14,25 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class BlastoiseRobot extends SampleRobot {
 
     BlastoiseChassis chassis;
-    BlastoiseController controller;
     TurtleLogger logger;
+
+    BlastoiseObjectHolder objectHolder;
 
     /**
      * Constructor for robot
      */
     public BlastoiseRobot() {
-        logger = TurtleLogger.getLogger(BlastoiseConstants.LOGGER_MODE);
-        SmartDashboard.putNumber("RightMotor", 1);
-        SmartDashboard.putNumber("LeftMotor", 1);
+        logger = new TurtleLogger(BlastoiseConstants.LOGGER_MODE);
+        objectHolder = new BlastoiseObjectHolder(null, null);
     }
 
     @Override
     protected void robotInit() {
-        chassis = new BlastoiseChassis();
-
         TurtleXboxController xboxController = new TurtleXboxController(BlastoiseConstants.UsbPorts.XBOX_CONTROLLER);
-        controller = new BlastoiseController(xboxController, chassis);
-    }
+        chassis = new BlastoiseChassis(xboxController, logger);
 
-    private void teleUpdate() {
-        controller.teleUpdate();
+	    objectHolder.addComponent(chassis);
+	    objectHolder.setAutoMode(new BlastoiseTestTimedAutonomous(chassis));
     }
 
     @Override
@@ -46,7 +43,13 @@ public class BlastoiseRobot extends SampleRobot {
     @Override
     public void autonomous() {
         logger.info("Entered autonomous control");
-        controller.autonomous();
+
+        AutoMode autoMode = objectHolder.getAuto();
+        if(autoMode == null) {
+            logger.warn("Autonomous mode not implemented");
+        } else {
+            autoMode.auto();
+        }
     }
 
     @Override
@@ -55,13 +58,20 @@ public class BlastoiseRobot extends SampleRobot {
 
         while (isOperatorControl() && isEnabled()) {
             //logger.verbose("Running teleUpdate");
-            teleUpdate();
+            objectHolder.teleUpdateAll();
         }
     }
 
     @Override
     public void test() {
-        logger.warn("Test mode not implemented");
+        logger.info("Entered test mode");
+
+        TestMode testMode = objectHolder.getTest();
+        if(testMode == null) {
+            logger.warn("Test mode not implemented");
+        } else {
+            testMode.test();
+        }
     }
 
 }

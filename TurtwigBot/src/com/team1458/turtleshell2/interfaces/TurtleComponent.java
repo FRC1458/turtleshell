@@ -7,5 +7,5 @@ package com.team1458.turtleshell2.interfaces;
  */
 public interface TurtleComponent {
 	public void teleUpdate();
-	public void autoUpdate();
+	//public void autoUpdate();
 }

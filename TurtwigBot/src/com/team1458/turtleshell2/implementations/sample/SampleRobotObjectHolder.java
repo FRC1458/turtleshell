@@ -1,9 +1,9 @@
 package com.team1458.turtleshell2.implementations.sample;
 
-import java.util.ArrayList;
-
 import com.team1458.turtleshell2.interfaces.ObjectHolder;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
+
+import java.util.ArrayList;
 
 public abstract class SampleRobotObjectHolder implements ObjectHolder {
 	protected ArrayList<TurtleComponent> components = new ArrayList<TurtleComponent>();
@@ -17,9 +17,9 @@ public abstract class SampleRobotObjectHolder implements ObjectHolder {
 
 	@Override
 	public void autoUpdateAll() {
-		for (TurtleComponent c : components) {
+		/*for (TurtleComponent c : components) {
 			c.autoUpdate();
-		}
+		}*/
 
 	}
 }

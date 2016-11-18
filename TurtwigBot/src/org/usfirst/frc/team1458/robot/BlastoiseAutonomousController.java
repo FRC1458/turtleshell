@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.Timer;
 
 /**
  * Command-based controller for autonomous mode.
+ * Does not actually do anything on it's own, rather it is a utility whose functions must be called in the AutoMode
+ * Use only for the chassis drive, not for other mechanisms on the robot
  *
  * @author asinghani
  */
@@ -44,8 +46,8 @@ public class BlastoiseAutonomousController {
 
 		// Create PID
 		TurtleDualPID pid = new TurtleStraightDrivePID(
-				BlastoiseConstants.StraightDrive.PID_CONSTANTS, distance,
-				BlastoiseConstants.StraightDrive.kLR, BlastoiseConstants.StraightDrive.TOLERANCE);
+				BlastoiseConstants.StraightDrivePID.PID_CONSTANTS, distance,
+				BlastoiseConstants.StraightDrivePID.kLR, BlastoiseConstants.StraightDrivePID.TOLERANCE);
 
 		TurtleDistanceEncoder leftEncoder = chassis.getLeftDistance();
 		TurtleDistanceEncoder rightEncoder = chassis.getRightDistance();

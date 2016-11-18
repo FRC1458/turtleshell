@@ -45,7 +45,7 @@ public class BlastoiseConstants {
 	/**
 	 * Straight Drive PID
 	 */
-	static class StraightDrive {
+	static class StraightDrivePID {
 		public static final TurtlePIDConstants PID_CONSTANTS = new TurtlePIDConstants(.0015, 0, .0001, .0001);
 		public static final double kLR = 0.00005;
 		public static final double TOLERANCE = 0.05;
@@ -54,7 +54,7 @@ public class BlastoiseConstants {
 	/**
 	 * Turning PID
 	 */
-	static class Turning {
+	static class TurningPID {
 		public static final TurtlePIDConstants PID_CONSTANTS = new TurtlePIDConstants(.0015, 0, .0001, .0001);
 		public static final double kLR = 0.00005;
 		public static final double TOLERANCE = 0.05;
