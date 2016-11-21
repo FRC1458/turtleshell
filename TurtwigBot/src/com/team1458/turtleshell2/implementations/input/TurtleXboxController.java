@@ -2,6 +2,9 @@ package com.team1458.turtleshell2.implementations.input;
 
 import edu.wpi.first.wpilibj.Joystick;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class TurtleXboxController {
 	private Joystick j;
 
@@ -40,5 +43,32 @@ public class TurtleXboxController {
 	
 	public TurtleJoystickPOVSwitch getDPad() {
 		return new TurtleJoystickPOVSwitch(j,0);
+	}
+
+	public void rumbleRight(float strength, long millis) {
+		j.setRumble(Joystick.RumbleType.kRightRumble, strength);
+
+		new Timer().schedule(new TimerTask() {
+			@Override
+			public void run() {
+				j.setRumble(Joystick.RumbleType.kRightRumble, 0);
+			}
+		}, millis);
+	}
+
+	public void rumbleLeft(float strength, long millis) {
+		j.setRumble(Joystick.RumbleType.kLeftRumble, strength);
+
+		new Timer().schedule(new TimerTask() {
+			@Override
+			public void run() {
+				j.setRumble(Joystick.RumbleType.kLeftRumble, 0);
+			}
+		}, millis);
+	}
+
+	public void rumble(float strength, long millis) {
+		rumbleRight(strength, millis);
+		rumbleLeft(strength, millis);
 	}
 }
