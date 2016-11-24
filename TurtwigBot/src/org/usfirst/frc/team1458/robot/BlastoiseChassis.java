@@ -8,6 +8,7 @@ import com.team1458.turtleshell2.interfaces.Chassis;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
 import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
 import com.team1458.turtleshell2.interfaces.movement.TurtleMotor;
+import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.types.MotorValue;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -63,6 +64,7 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 	public BlastoiseChassis(TurtleAnalogInput leftJoystick, TurtleAnalogInput rightJoystick, TurtleLogger logger) {
 		this.leftJoystick = leftJoystick;
 		this.rightJoystick = rightJoystick;
+		TurtleDashboard.logAxis(leftJoystick, rightJoystick);
 
 		this.logger = logger;
 	}
