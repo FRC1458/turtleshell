@@ -3,11 +3,13 @@ package org.usfirst.frc.team1458.robot;
 import com.team1458.turtleshell2.implementations.input.TurtleFlightStick;
 import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
 import com.team1458.turtleshell2.implementations.movement.TurtleVictor888;
+import com.team1458.turtleshell2.implementations.sensor.TurtleAnalogGyro;
 import com.team1458.turtleshell2.implementations.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.interfaces.Chassis;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
 import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
 import com.team1458.turtleshell2.interfaces.movement.TurtleMotor;
+import com.team1458.turtleshell2.interfaces.sensor.TurtleRotationSensor;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.types.MotorValue;
@@ -47,6 +49,8 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 			BlastoiseConstants.RightDrive.ENCODER_B,
 			BlastoiseConstants.RightDrive.ENCODER_RATIO
 	);*/
+
+	private final TurtleRotationSensor orientationSensor = new TurtleAnalogGyro(BlastoiseConstants.GYRO_PORT);
 
 	// Fix for bugs with SmartDashboard
 	Random r = new Random();
@@ -108,6 +112,10 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 	 */
 	public TurtleDistanceEncoder getRightDistance() {
 		return rightDistance;
+	}
+
+	public TurtleRotationSensor getOrientationSensor() {
+		return orientationSensor;
 	}
 
 	@Override

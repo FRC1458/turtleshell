@@ -86,4 +86,36 @@ public class BlastoiseAutonomousController {
 		Timer.delay(millis / 1000.0); // WPILib Timer, not java.util.Timer
 		chassis.stopMotors();
 	}
+
+	/**
+	 * Turn robot left/right for a certain amount of degrees
+	 *
+	 * @param degrees Degrees to turn, clockwise
+	 * @param speed Speed for the robot, between -1 and 1
+	 */
+	public void turnDegrees(double degrees, double speed) {
+
+		// Create PID
+		//TurtleDualPID pid = new TurtleTurnPID();
+
+		/*TurtleDistanceEncoder leftEncoder = chassis.getLeftDistance();
+		TurtleDistanceEncoder rightEncoder = chassis.getRightDistance();
+
+
+		double leftSpeed = 0, rightSpeed = 0, leftDistance, rightDistance;
+		MotorValue[] motors;
+
+		while (!pid.atTarget()) {
+			leftDistance = leftEncoder.getDistance().getInches();
+			rightDistance = rightEncoder.getDistance().getInches();
+
+			motors = pid.newValue(leftDistance, rightDistance, leftSpeed, rightSpeed);
+			leftSpeed = .3 * motors[0].getValue() + .7 * speed;
+			rightSpeed = .3 * motors[1].getValue() + .7 * speed;
+
+			chassis.updateMotors(new MotorValue(leftSpeed), new MotorValue(rightSpeed));
+		}
+*/
+		chassis.stopMotors();
+	}
 }

@@ -64,6 +64,7 @@ public class BlastoiseConstants {
 	 * Misc
 	 */
 	public static final int LOGGER_MODE = TurtleLogger.PLAINTEXT;
+	public static final int GYRO_PORT = -1; // TODO: Make this not crash as soon as the program runs
 
 	/**
 	 * Constructor so can't be initialised
