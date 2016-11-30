@@ -14,12 +14,4 @@ public abstract class SampleRobotObjectHolder implements ObjectHolder {
 		}
 
 	}
-
-	@Override
-	public void autoUpdateAll() {
-		/*for (TurtleComponent c : components) {
-			c.autoUpdate();
-		}*/
-
-	}
 }

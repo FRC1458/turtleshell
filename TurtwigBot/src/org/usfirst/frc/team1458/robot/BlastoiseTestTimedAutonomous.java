@@ -16,7 +16,7 @@ public class BlastoiseTestTimedAutonomous implements AutoMode {
 	private BlastoiseChassis chassis;
 	private BlastoiseAutonomousController autonomous;
 
-	private static double SPEED = 0.25;
+	private static double SPEED = 0.5;
 
 	public BlastoiseTestTimedAutonomous(BlastoiseChassis chassis) {
 		this.chassis = chassis;
@@ -28,9 +28,9 @@ public class BlastoiseTestTimedAutonomous implements AutoMode {
 	 */
 	@Override
 	public void auto(){
-		//autonomous.moveMillis(2000, SPEED);
-		autonomous.turnMillis(2000, SPEED);
-		//autonomous.moveMillis(2000, -SPEED);
-		autonomous.turnMillis(2000, -SPEED);
+		//autonomous.moveMillis(500, SPEED);
+		autonomous.turnMillis(1000, SPEED);
+		//autonomous.moveMillis(500, -SPEED);
+		autonomous.turnMillis(1000, -SPEED);
 	}
 }

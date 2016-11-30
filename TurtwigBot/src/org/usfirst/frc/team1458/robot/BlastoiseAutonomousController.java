@@ -49,16 +49,13 @@ public class BlastoiseAutonomousController {
 				BlastoiseConstants.StraightDrivePID.PID_CONSTANTS, distance,
 				BlastoiseConstants.StraightDrivePID.kLR, BlastoiseConstants.StraightDrivePID.TOLERANCE);
 
-		TurtleDistanceEncoder leftEncoder = chassis.getLeftDistance();
-		TurtleDistanceEncoder rightEncoder = chassis.getRightDistance();
-
 
 		double leftSpeed = 0, rightSpeed = 0, leftDistance, rightDistance;
 		MotorValue[] motors;
 
 		while (!pid.atTarget()) {
-			leftDistance = leftEncoder.getDistance().getInches();
-			rightDistance = rightEncoder.getDistance().getInches();
+			leftDistance = chassis.getLeftDistance().getInches();
+			rightDistance = chassis.getRightDistance().getInches();
 
 			motors = pid.newValue(leftDistance, rightDistance, leftSpeed, rightSpeed);
 			leftSpeed = .3 * motors[0].getValue() + .7 * speed;

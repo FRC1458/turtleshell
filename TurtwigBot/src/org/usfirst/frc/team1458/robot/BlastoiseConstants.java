@@ -14,38 +14,38 @@ public class BlastoiseConstants {
     /**
      * Right drive system
      */
-    static class RightDrive {
+    static final class RightDrive {
 	    public static final int MOTOR1 = 1; // TODO: Use correct value for right MOTOR1 port
 	    //public static final int MOTOR2 = -1
 
-		public static final int ENCODER_A = -1; // TODO: Use correct value for right ENCODER_A port
-	    public static final int ENCODER_B = -1; // TODO: Use correct value for right ENCODER_B port
-	    public static final double ENCODER_RATIO = 1; // TODO: Use correct value for right ENCODER_RATIO
+		public static final int ENCODER_A = 0; // TODO: Use correct value for right ENCODER_A port
+	    public static final int ENCODER_B = 1; // TODO: Use correct value for right ENCODER_B port
+	    public static final double ENCODER_RATIO = 0.0697777777; // TODO: Use correct value for right ENCODER_RATIO
     }
 
 	/**
 	 * Left drive system
 	 */
-	static class LeftDrive {
+	static final class LeftDrive {
 		public static final int MOTOR1 = 5; // TODO: Use correct value for left MOTOR1 port
 		//public static final int MOTOR2 = -1
 
-		public static final int ENCODER_A = -1; // TODO: Use correct value for left ENCODER_A port
-		public static final int ENCODER_B = -1; // TODO: Use correct value for left ENCODER_B port
-		public static final double ENCODER_RATIO = 1; // TODO: Use correct value for left ENCODER_RATIO
+		public static final int ENCODER_A = 2; // TODO: Use correct value for left ENCODER_A port
+		public static final int ENCODER_B = 3; // TODO: Use correct value for left ENCODER_B port
+		public static final double ENCODER_RATIO = 0.0697777777; // TODO: Use correct value for left ENCODER_RATIO
 	}
 
     /**
      * USB ports
      */
-    static class UsbPorts {
+    static final class UsbPorts {
 	    public static final int XBOX_CONTROLLER = 1;
     }
 
 	/**
 	 * Straight Drive PID
 	 */
-	static class StraightDrivePID {
+	static final class StraightDrivePID {
 		public static final TurtlePIDConstants PID_CONSTANTS = new TurtlePIDConstants(.0015, 0, .0001, .0001);
 		public static final double kLR = 0.00005;
 		public static final double TOLERANCE = 0.05;
@@ -54,7 +54,7 @@ public class BlastoiseConstants {
 	/**
 	 * Turning PID
 	 */
-	static class TurningPID {
+	static final class TurningPID {
 		public static final TurtlePIDConstants PID_CONSTANTS = new TurtlePIDConstants(.0015, 0, .0001, .0001);
 		public static final double kLR = 0.00005;
 		public static final double TOLERANCE = 0.05;

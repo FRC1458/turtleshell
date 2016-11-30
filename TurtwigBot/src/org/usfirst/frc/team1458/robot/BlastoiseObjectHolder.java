@@ -1,9 +1,11 @@
 package org.usfirst.frc.team1458.robot;
 
+import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
 import com.team1458.turtleshell2.implementations.sample.SampleRobotObjectHolder;
 import com.team1458.turtleshell2.interfaces.AutoMode;
 import com.team1458.turtleshell2.interfaces.TestMode;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
+import com.team1458.turtleshell2.util.TurtleLogger;
 
 /**
  * Object Holder for BlastoiseRobot
@@ -12,29 +14,29 @@ import com.team1458.turtleshell2.interfaces.TurtleComponent;
  */
 public class BlastoiseObjectHolder extends SampleRobotObjectHolder {
 
-	AutoMode autoMode;
-	TestMode testMode;
+	private AutoMode autoMode;
+	private TestMode testMode;
+	
+	private TurtleLogger logger;
 
+	private BlastoiseChassis chassis;
+	
 	/**
 	 * Instantiates BlastoiseObjectHolder
-	 * @param autoMode Can be null
-	 * @param testMode Can be null
+	 * @param logger The Logger
 	 */
-	public BlastoiseObjectHolder(AutoMode autoMode, TestMode testMode) {
-		this.autoMode = autoMode;
-		this.testMode = testMode;
+	public BlastoiseObjectHolder(TurtleLogger logger) {
+		this.logger = logger;
+
+        TurtleXboxController xboxController = new TurtleXboxController(BlastoiseConstants.UsbPorts.XBOX_CONTROLLER);
+        chassis = new BlastoiseChassis(xboxController, logger);
+
+	    addComponent(chassis);
+	    this.autoMode = new BlastoiseTestTimedAutonomous(chassis);
 	}
 
-	public void addComponent(TurtleComponent component) {
-		components.add(component);
-	}
-
-	public void setAutoMode(AutoMode autoMode) {
-		this.autoMode = autoMode;
-	}
-
-	public void setTestMode(TestMode testMode) {
-		this.testMode = testMode;
+	private void addComponent(TurtleComponent component) {
+		if (component != null) components.add(component);
 	}
 
 	@Override

@@ -6,6 +6,4 @@ public interface ObjectHolder {
     public AutoMode getAuto();
 
     public void teleUpdateAll();
-
-    public void autoUpdateAll();
 }

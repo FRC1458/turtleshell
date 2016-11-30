@@ -14,9 +14,7 @@ import edu.wpi.first.wpilibj.SampleRobot;
  */
 public class BlastoiseRobot extends SampleRobot {
 
-    BlastoiseChassis chassis;
     TurtleLogger logger;
-
     BlastoiseObjectHolder objectHolder;
 
     /**
@@ -24,16 +22,11 @@ public class BlastoiseRobot extends SampleRobot {
      */
     public BlastoiseRobot() {
         logger = new TurtleLogger(BlastoiseConstants.LOGGER_MODE);
-        objectHolder = new BlastoiseObjectHolder(null, null);
     }
 
     @Override
     protected void robotInit() {
-        TurtleXboxController xboxController = new TurtleXboxController(BlastoiseConstants.UsbPorts.XBOX_CONTROLLER);
-        chassis = new BlastoiseChassis(xboxController, logger);
-
-	    objectHolder.addComponent(chassis);
-	    objectHolder.setAutoMode(new BlastoiseTestTimedAutonomous(chassis));
+        objectHolder = new BlastoiseObjectHolder(logger);
 
 	    TurtleDashboard.setup();
     }
