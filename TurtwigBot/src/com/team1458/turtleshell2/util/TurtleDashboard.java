@@ -1,5 +1,6 @@
 package com.team1458.turtleshell2.util;
 
+import com.team1458.turtleshell2.interfaces.AutoModeHolder;
 import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
 import com.team1458.turtleshell2.interfaces.sensor.TurtleDistanceSensor;
 import com.team1458.turtleshell2.interfaces.sensor.TurtleRotationSensor;
@@ -11,12 +12,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.getNumber;
+
 /**
  * Sends important data to SmartDashboard
  *
  * @author asinghani
  */
 public class TurtleDashboard {
+
+	private static AutoModeHolder autoModeHolder = null;
 
 	/**
 	 * Cannot be instantiated
@@ -58,6 +63,23 @@ public class TurtleDashboard {
 				// Show Timer and Battery
 				SmartDashboard.putNumber("Time", driverStation.getMatchTime());
 				SmartDashboard.putNumber("Battery", driverStation.getBatteryVoltage());
+			}
+		}, 0, 100);
+	}
+
+	public static void setAutoModeHolder(AutoModeHolder autoModeHolder) {
+		if(TurtleDashboard.autoModeHolder != null) return;
+
+		TurtleDashboard.autoModeHolder = autoModeHolder;
+
+		SmartDashboard.putString("AutoModes", autoModeHolder.getAutoModes().toString());
+		SmartDashboard.putNumber("SelectedAutoMode", autoModeHolder.getSelectedAutoModeIndex());
+
+		new Timer().schedule(new TimerTask() {
+			@Override
+			public void run() {
+				int newIndex = (int) SmartDashboard.getNumber("SelectedAutoMode", autoModeHolder.getSelectedAutoModeIndex());
+				autoModeHolder.setSelectedAutoModeIndex(newIndex);
 			}
 		}, 0, 100);
 	}
@@ -145,10 +167,10 @@ public class TurtleDashboard {
 	 */
 	public static TurtlePIDConstants getPidConstants(String name) {
 		return new TurtlePIDConstants(
-				SmartDashboard.getNumber(name+"_PID_kP", 0.0),
-				SmartDashboard.getNumber(name+"_PID_kI", 0.0),
-				SmartDashboard.getNumber(name+"_PID_kD", 0.0),
-				SmartDashboard.getNumber(name+"_PID_kDD", 0.0)
+				getNumber(name+"_PID_kP", 0.0),
+				getNumber(name+"_PID_kI", 0.0),
+				getNumber(name+"_PID_kD", 0.0),
+				getNumber(name+"_PID_kDD", 0.0)
 		);
 	}
 }

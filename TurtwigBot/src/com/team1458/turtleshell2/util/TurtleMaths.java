@@ -254,7 +254,6 @@ public class TurtleMaths {
 	/**
 	 * Hiding the constructor so cannot be initialised
 	 */
-	private TurtleMaths() {
-	};
+	private TurtleMaths() {}
 
 }

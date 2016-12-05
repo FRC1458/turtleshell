@@ -1,24 +1,42 @@
 package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell2.implementations.pid.TurtleStraightDrivePID;
-import com.team1458.turtleshell2.implementations.sensor.TurtleDistanceEncoder;
+import com.team1458.turtleshell2.interfaces.AutoMode;
 import com.team1458.turtleshell2.interfaces.pid.TurtleDualPID;
+import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.types.MotorValue;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
  * Command-based controller for autonomous mode.
- * Does not actually do anything on it's own, rather it is a utility whose functions must be called in the AutoMode
- * Use only for the chassis drive, not for other mechanisms on the robot
+ * This is an abstract implementation of AutoMode with some utility functions, but it must be extended to be used.
  *
  * @author asinghani
  */
-public class BlastoiseAutonomousController {
+public abstract class BlastoiseAutoMode implements AutoMode {
 	BlastoiseChassis chassis;
+	TurtleLogger logger;
 
-	public BlastoiseAutonomousController(BlastoiseChassis chassis) {
+	public BlastoiseAutoMode(BlastoiseChassis chassis, TurtleLogger logger) {
 		this.chassis = chassis;
+		this.logger = logger;
 	}
+
+	@Override
+	public String getName() {
+		return getClass().getName();
+	}
+
+	@Override
+	public String toString() {
+		return getName();
+	}
+
+	/**
+	 * The {@link #auto()} function must be implemented by the class extending BlastoiseAutoMode
+	 */
+	@Override
+	public abstract void auto();
 
 	/**
 	 * Move robot forward/backward for a certain amount of time at a certain speed.
