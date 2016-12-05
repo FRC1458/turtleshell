@@ -1,6 +1,8 @@
-package org.usfirst.frc.team1458.robot;
+package org.usfirst.frc.team1458.robot.autonomous;
 
 import com.team1458.turtleshell2.util.TurtleLogger;
+import org.usfirst.frc.team1458.robot.BlastoiseAutoMode;
+import org.usfirst.frc.team1458.robot.BlastoiseChassis;
 
 /**
  * Time-based autonomous test program
