@@ -29,6 +29,7 @@ public class BlastoiseRobot extends SampleRobot {
 		objectHolder = new BlastoiseObjectHolder(logger);
 
 		TurtleDashboard.setup();
+
 	}
 
 	@Override
