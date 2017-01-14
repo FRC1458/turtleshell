@@ -40,6 +40,8 @@ public class BlastoiseConstants {
      */
     static final class UsbPorts {
 	    public static final int XBOX_CONTROLLER = 1;
+	    public static final int LEFT_STICK = 2;
+	    public static final int RIGHT_STICK = 3;
     }
 
 	/**
@@ -48,7 +50,7 @@ public class BlastoiseConstants {
 	static final class StraightDrivePID {
 		public static final TurtlePIDConstants PID_CONSTANTS = new TurtlePIDConstants(.0015, 0, .0001, .0001);
 		public static final double kLR = 0.00005;
-		public static final double TOLERANCE = 0.05;
+		public static final double TOLERANCE = 2;
 	}
 
 	/**

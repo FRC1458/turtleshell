@@ -2,11 +2,13 @@ package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell2.implementations.input.TurtleFlightStick;
 import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
+import com.team1458.turtleshell2.implementations.input.TurtleXboxController.XboxButton;
 import com.team1458.turtleshell2.implementations.movement.TurtleVictor888;
 import com.team1458.turtleshell2.implementations.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.interfaces.Chassis;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
 import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
+import com.team1458.turtleshell2.interfaces.input.TurtleDigitalInput;
 import com.team1458.turtleshell2.interfaces.movement.TurtleMotor;
 import com.team1458.turtleshell2.interfaces.sensor.TurtleRotationSensor;
 import com.team1458.turtleshell2.util.TurtleDashboard;
@@ -14,6 +16,7 @@ import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.Random;
@@ -58,15 +61,27 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 	private TurtleAnalogInput rightJoystick;
 	private TurtleAnalogInput leftJoystick;
 
+	private TurtleDigitalInput straightButton;
+	private TurtleDigitalInput turnButton;
+
+	private TurtleDigitalInput resetButton;
+	
+
 	private TurtleLogger logger;
 
 	/**
 	 * Main constructor for BlastoiseChassis
 	 * Accepts two TurtleAnalogInputs
 	 */
-	public BlastoiseChassis(TurtleAnalogInput leftJoystick, TurtleAnalogInput rightJoystick, TurtleLogger logger) {
+	public BlastoiseChassis(TurtleAnalogInput leftJoystick, TurtleAnalogInput rightJoystick,
+			TurtleDigitalInput straightButton, TurtleDigitalInput turnButton, TurtleDigitalInput resetButton, TurtleLogger logger) {
 		this.leftJoystick = leftJoystick;
 		this.rightJoystick = rightJoystick;
+
+		this.straightButton = straightButton;
+		this.turnButton = turnButton;
+		this.resetButton = resetButton;
+		
 		TurtleDashboard.logAxis(leftJoystick, rightJoystick);
 
 		this.logger = logger;
@@ -81,6 +96,9 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 		this(
 				controller.getAxis(TurtleXboxController.XboxAxis.LY),
 				controller.getAxis(TurtleXboxController.XboxAxis.RY),
+				controller.getButton(TurtleXboxController.XboxButton.RBUMP),
+				controller.getButton(TurtleXboxController.XboxButton.LBUMP),
+				controller.getButton(TurtleXboxController.XboxButton.A),
 				logger
 		);
 	}
@@ -94,6 +112,9 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 		this(
 				leftFlightStick.getAxis(TurtleFlightStick.FlightAxis.PITCH),
 				rightFlightStick.getAxis(TurtleFlightStick.FlightAxis.PITCH),
+				rightFlightStick.getButton(TurtleFlightStick.FlightButton.TRIGGER),
+				leftFlightStick.getButton(TurtleFlightStick.FlightButton.TRIGGER),
+				rightFlightStick.getButton(TurtleFlightStick.FlightButton.TWO),
 				logger
 		);
 	}
@@ -122,10 +143,21 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 		MotorValue leftPower = new MotorValue(TurtleMaths.deadband(leftJoystick.get(), BlastoiseConstants.JOYSTICK_DEADBAND));
 		MotorValue rightPower = new MotorValue(TurtleMaths.deadband(rightJoystick.get(), BlastoiseConstants.JOYSTICK_DEADBAND));
 
-		updateMotors(leftPower, rightPower);
+		if(turnButton.get() == 1) {
+			updateMotors(leftPower, leftPower.invert());
+		} else if(straightButton.get() == 1){
+			updateMotors(leftPower, leftPower);
+		} else{
+			updateMotors(leftPower, rightPower);
+		}
 		
-		SmartDashboard.putNumber("Left", leftDistance.getDistance().getInches()+(0.0000001*r.nextDouble()));
-		SmartDashboard.putNumber("Right", rightDistance.getDistance().getInches()+(0.0000001*r.nextDouble()));
+		if(resetButton.get() == 1){
+			leftDistance.reset();
+			rightDistance.reset();
+		}
+		
+		SmartDashboard.putNumber("Left", leftDistance.getDistance().getInches());
+		SmartDashboard.putNumber("Right", rightDistance.getDistance().getInches());
 	}
 
     /**

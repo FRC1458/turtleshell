@@ -1,9 +1,12 @@
 package org.usfirst.frc.team1458.robot;
 
+import java.io.IOException;
+
 import com.team1458.turtleshell2.interfaces.AutoMode;
 import com.team1458.turtleshell2.interfaces.TestMode;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleLogger;
+
 import edu.wpi.first.wpilibj.SampleRobot;
 
 /**
@@ -22,6 +25,12 @@ public class BlastoiseRobot extends SampleRobot {
 	 */
 	public BlastoiseRobot() {
 		logger = new TurtleLogger(BlastoiseConstants.LOGGER_MODE);
+		try {
+			logger.attachServer(new TurtleLogger.ColoredLogServer(5901, "/"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

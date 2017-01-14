@@ -4,15 +4,15 @@ import com.team1458.turtleshell2.interfaces.movement.TurtleMotor;
 import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.MotorValue;
 
-import edu.wpi.first.wpilibj.CANTalon;
+//import edu.wpi.first.wpilibj.CANTalon;
 
-
+// TODO Fix this stuff
 public class TurtleTalonSRXCAN implements TurtleMotor {
-	private final CANTalon v;
+	//private final CANTalon v;
 	private final boolean isReversed;
 
 	public TurtleTalonSRXCAN(int id, boolean isReversed) {
-		v = new CANTalon(id);
+		//v = new CANTalon(id);
 		this.isReversed = isReversed;
 	}
 	
@@ -22,13 +22,14 @@ public class TurtleTalonSRXCAN implements TurtleMotor {
 
 	@Override
 	public void set(MotorValue val) {
-		v.set(TurtleMaths.reverseBool(isReversed)*val.getValue());
+		//v.set(TurtleMaths.reverseBool(isReversed)*val.getValue());
 
 	}
 
 	@Override
 	public MotorValue get() {
-		return new MotorValue(TurtleMaths.reverseBool(isReversed)*v.get());
+		return null;
+		//return new MotorValue(TurtleMaths.reverseBool(isReversed)*v.get());
 	}
 
 }

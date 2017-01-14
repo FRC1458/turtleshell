@@ -5,7 +5,10 @@ import com.team1458.turtleshell2.interfaces.AutoMode;
 import com.team1458.turtleshell2.interfaces.pid.TurtleDualPID;
 import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.types.MotorValue;
+
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Command-based controller for autonomous mode.
@@ -24,7 +27,7 @@ public abstract class BlastoiseAutoMode implements AutoMode {
 
 	@Override
 	public String getName() {
-		return getClass().getName();
+		return "\""+getClass().getSimpleName()+"\"";
 	}
 
 	@Override
@@ -71,14 +74,17 @@ public abstract class BlastoiseAutoMode implements AutoMode {
 		double leftSpeed = 0, rightSpeed = 0, leftDistance, rightDistance;
 		MotorValue[] motors;
 
-		while (!pid.atTarget()) {
+		while (!pid.atTarget() && RobotState.isAutonomous()) {
 			leftDistance = chassis.getLeftDistance().getInches();
 			rightDistance = chassis.getRightDistance().getInches();
 
 			motors = pid.newValue(leftDistance, rightDistance, leftSpeed, rightSpeed);
-			leftSpeed = .3 * motors[0].getValue() + .7 * speed;
-			rightSpeed = .3 * motors[1].getValue() + .7 * speed;
+			leftSpeed = speed * motors[0].getValue();
+			rightSpeed = speed * motors[1].getValue();
 
+			SmartDashboard.putString("StatusOfPidLeft", leftDistance+"/"+distance);
+			SmartDashboard.putString("StatusOfPidRight", rightDistance+"/"+distance);
+			
 			chassis.updateMotors(new MotorValue(leftSpeed), new MotorValue(rightSpeed));
 		}
 

@@ -49,4 +49,8 @@ public final class MotorValue implements Comparable<MotorValue>, Unit {
 	public int compareTo(MotorValue o) {
 		return new Double(this.getValue()).compareTo(o.getValue());
 	}
+	
+	public MotorValue invert(){
+		return new MotorValue(this.getValue() * -1);
+	}
 }

@@ -1,6 +1,9 @@
 package org.usfirst.frc.team1458.robot.autonomous;
 
 import com.team1458.turtleshell2.util.TurtleLogger;
+
+import edu.wpi.first.wpilibj.Timer;
+
 import org.usfirst.frc.team1458.robot.BlastoiseAutoMode;
 import org.usfirst.frc.team1458.robot.BlastoiseChassis;
 
@@ -16,7 +19,7 @@ import org.usfirst.frc.team1458.robot.BlastoiseChassis;
  */
 public class BlastoiseTestDistanceAutonomous extends BlastoiseAutoMode {
 
-	private static double SPEED = 0.1;
+	private static double SPEED = 0.5;
 
 	public BlastoiseTestDistanceAutonomous(BlastoiseChassis chassis, TurtleLogger logger) {
 		super(chassis, logger);
@@ -28,8 +31,9 @@ public class BlastoiseTestDistanceAutonomous extends BlastoiseAutoMode {
 	@Override
 	public void auto(){
 		moveDistance(48, SPEED);
-		turnMillis(1000, SPEED);
-		moveDistance(-48, SPEED);
-		turnMillis(1000, -SPEED);
+		//turnMillis(1000, SPEED);
+		//Timer.delay(2);
+		//moveDistance(-48, SPEED);
+		//turnMillis(1000, -SPEED);
 	}
 }
