@@ -1,40 +1,85 @@
 package org.usfirst.frc.team1458.robot;
 
+import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
 import com.team1458.turtleshell2.implementations.sample.SampleRobotObjectHolder;
 import com.team1458.turtleshell2.interfaces.AutoMode;
+import com.team1458.turtleshell2.interfaces.AutoModeHolder;
 import com.team1458.turtleshell2.interfaces.TestMode;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
+import com.team1458.turtleshell2.util.TurtleDashboard;
+import com.team1458.turtleshell2.util.TurtleLogger;
+import org.usfirst.frc.team1458.robot.autonomous.BlastoiseTestDistanceAutonomous;
+import org.usfirst.frc.team1458.robot.autonomous.BlastoiseTestTimedAutonomous;
+
+import java.util.ArrayList;
 
 /**
- * Object Holder for BlastoiseRobot
+ * Object Holder for BlastoiseRobot.
+ * This controls switching between multiple autonomous modes.
  *
  * @author asinghani
  */
-public class BlastoiseObjectHolder extends SampleRobotObjectHolder {
+public class BlastoiseObjectHolder extends SampleRobotObjectHolder implements AutoModeHolder {
 
-	AutoMode autoMode;
-	TestMode testMode;
+	private ArrayList<BlastoiseAutoMode> autoModes = new ArrayList<>();
+	private int selectedAutoMode = 0;
 
+	private TestMode testMode;
+
+	private TurtleLogger logger;
+	private BlastoiseChassis chassis;
+	
 	/**
 	 * Instantiates BlastoiseObjectHolder
-	 * @param autoMode Can be null
-	 * @param testMode Can be null
+	 * @param logger Logger
 	 */
-	public BlastoiseObjectHolder(AutoMode autoMode, TestMode testMode) {
-		this.autoMode = autoMode;
-		this.testMode = testMode;
+	public BlastoiseObjectHolder(TurtleLogger logger) {
+		this.logger = logger;
+
+		// Setup controller and chassis
+        TurtleXboxController xboxController = new TurtleXboxController(BlastoiseConstants.UsbPorts.XBOX_CONTROLLER);
+        chassis = new BlastoiseChassis(xboxController, logger);
+	    addComponent(chassis);
+
+		// Setup AutoModes
+	    autoModes.add(new BlastoiseTestDistanceAutonomous(chassis, logger));
+		autoModes.add(new BlastoiseTestTimedAutonomous(chassis, logger));
+
+		selectedAutoMode = 0;
+
+		// Setup TestMode
+		testMode = () -> {}; // Creates a TestMode with empty test() function
+
+		TurtleDashboard.setAutoModeHolder(this);
 	}
 
-	public void addComponent(TurtleComponent component) {
-		components.add(component);
+	private void addComponent(TurtleComponent component) {
+		if (component != null) components.add(component);
 	}
 
-	public void setAutoMode(AutoMode autoMode) {
-		this.autoMode = autoMode;
+	/**
+	 * Get the list of auto modes
+	 */
+	public ArrayList<BlastoiseAutoMode> getAutoModes() {
+		return autoModes;
 	}
 
-	public void setTestMode(TestMode testMode) {
-		this.testMode = testMode;
+	/**
+	 * Set the index of the selected auto mode
+	 * @param index
+	 */
+	public void setSelectedAutoModeIndex(int index) {
+		if(index < autoModes.size()){
+			selectedAutoMode = index;
+			logger.info("Selected auto mode "+index+": "+autoModes.get(index).getName());
+		}
+	}
+
+	/**
+	 * Get index of selected AutoMode
+	 */
+	public int getSelectedAutoModeIndex() {
+		return selectedAutoMode;
 	}
 
 	@Override
@@ -44,6 +89,6 @@ public class BlastoiseObjectHolder extends SampleRobotObjectHolder {
 
 	@Override
 	public AutoMode getAuto() {
-		return autoMode;
+		return autoModes.get(selectedAutoMode);
 	}
 }

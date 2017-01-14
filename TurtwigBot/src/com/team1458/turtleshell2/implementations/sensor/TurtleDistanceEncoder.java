@@ -16,6 +16,18 @@ public class TurtleDistanceEncoder implements TurtleDistanceSensor {
      * @param portA The DIO port the A channel is connected to
      * @param portB The DIO port the B channel is connected to
      * @param ratio The ratio, in inches/tick, of the Encoder
+     * @param isReversed Encoder is reversed
+     */
+    public TurtleDistanceEncoder(int portA, int portB, double ratio, boolean isReversed) {
+        enc = new Encoder(portA, portB);
+        enc.setDistancePerPulse(1);
+        this.ratio = (isReversed ? -1.0 : 1.0) * ratio;
+    }
+
+    /**
+     * @param portA The DIO port the A channel is connected to
+     * @param portB The DIO port the B channel is connected to
+     * @param ratio The ratio, in inches/tick, of the Encoder
      */
     public TurtleDistanceEncoder(int portA, int portB, double ratio) {
         enc = new Encoder(portA, portB);

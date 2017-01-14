@@ -111,6 +111,14 @@ public class TurtleMaths {
 	}
 
 	/**
+	 * Quickly shift numbers using RangeShifter
+	 * @return The shifted value.
+	 */
+	public static double shift(double value, double minA, double maxA, double minB, double maxB){
+		return new RangeShifter(minA, maxA, minB, maxB).shift(value);
+	}
+
+	/**
 	 * Rounds a double to a certain number of places past the decimal point
 	 * 
 	 * @param toRound
@@ -254,7 +262,6 @@ public class TurtleMaths {
 	/**
 	 * Hiding the constructor so cannot be initialised
 	 */
-	private TurtleMaths() {
-	};
+	private TurtleMaths() {}
 
 }

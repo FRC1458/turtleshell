@@ -3,7 +3,6 @@ package org.usfirst.frc.team1458.robot;
 import com.team1458.turtleshell2.implementations.input.TurtleFlightStick;
 import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
 import com.team1458.turtleshell2.implementations.movement.TurtleVictor888;
-import com.team1458.turtleshell2.implementations.sensor.TurtleAnalogGyro;
 import com.team1458.turtleshell2.implementations.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.interfaces.Chassis;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
@@ -12,6 +11,8 @@ import com.team1458.turtleshell2.interfaces.movement.TurtleMotor;
 import com.team1458.turtleshell2.interfaces.sensor.TurtleRotationSensor;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleLogger;
+import com.team1458.turtleshell2.util.TurtleMaths;
+import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -36,25 +37,23 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 	private final TurtleMotor rightDriveMotor1 = new TurtleVictor888(BlastoiseConstants.RightDrive.MOTOR1, true);
 	//private final TurtleMotor rightDriveMotor2 = new TurtleVictor888(BlastoiseConstants.RightDrive.MOTOR2, true);
 
-	private final TurtleDistanceEncoder leftDistance = null;
-	/*new TurtleDistanceEncoder(
+	private final TurtleDistanceEncoder leftDistance = new TurtleDistanceEncoder(
 			BlastoiseConstants.LeftDrive.ENCODER_A,
 			BlastoiseConstants.LeftDrive.ENCODER_B,
-			BlastoiseConstants.LeftDrive.ENCODER_RATIO
-	);*/
+			BlastoiseConstants.LeftDrive.ENCODER_RATIO,
+			true
+	);
 
-	private final TurtleDistanceEncoder rightDistance = null;
-	/*new TurtleDistanceEncoder(
+	private final TurtleDistanceEncoder rightDistance = new TurtleDistanceEncoder(
 			BlastoiseConstants.RightDrive.ENCODER_A,
 			BlastoiseConstants.RightDrive.ENCODER_B,
 			BlastoiseConstants.RightDrive.ENCODER_RATIO
-	);*/
+	);
 
-	private final TurtleRotationSensor orientationSensor = new TurtleAnalogGyro(BlastoiseConstants.GYRO_PORT);
+	private final TurtleRotationSensor orientationSensor = null; //new TurtleAnalogGyro(BlastoiseConstants.GYRO_PORT);
 
 	// Fix for bugs with SmartDashboard
 	Random r = new Random();
-
 
 	private TurtleAnalogInput rightJoystick;
 	private TurtleAnalogInput leftJoystick;
@@ -101,17 +100,17 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 
 
 	/**
-	 * @return Left distance encoder
+	 * @return Left distance
 	 */
-	public TurtleDistanceEncoder getLeftDistance() {
-		return leftDistance;
+	public Distance getLeftDistance() {
+		return leftDistance.getDistance();
 	}
 
 	/**
-	 * @return Right distance encoder
+	 * @return Right distance
 	 */
-	public TurtleDistanceEncoder getRightDistance() {
-		return rightDistance;
+	public Distance getRightDistance() {
+		return rightDistance.getDistance();
 	}
 
 	public TurtleRotationSensor getOrientationSensor() {
@@ -120,10 +119,13 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 
 	@Override
 	public void teleUpdate() {
-		MotorValue leftPower = new MotorValue(leftJoystick.get());
-		MotorValue rightPower = new MotorValue(rightJoystick.get());
+		MotorValue leftPower = new MotorValue(TurtleMaths.deadband(leftJoystick.get(), BlastoiseConstants.JOYSTICK_DEADBAND));
+		MotorValue rightPower = new MotorValue(TurtleMaths.deadband(rightJoystick.get(), BlastoiseConstants.JOYSTICK_DEADBAND));
 
 		updateMotors(leftPower, rightPower);
+		
+		SmartDashboard.putNumber("Left", leftDistance.getDistance().getInches()+(0.0000001*r.nextDouble()));
+		SmartDashboard.putNumber("Right", rightDistance.getDistance().getInches()+(0.0000001*r.nextDouble()));
 	}
 
     /**
