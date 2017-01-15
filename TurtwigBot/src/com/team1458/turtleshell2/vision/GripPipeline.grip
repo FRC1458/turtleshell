@@ -1,0 +1,135 @@
+<grip:Pipeline>
+  <sources>
+    <grip:MultiImageFile>
+      <property name="path[31]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH150ftD0Angle0Brightness.jpg"/>
+      <property name="path[2]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH3ftD2Angle0Brightness.jpg"/>
+      <property name="path[5]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH4ftD1Angle0Brightness.jpg"/>
+      <property name="path[8]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH5ftD1Angle0Brightness.jpg"/>
+      <property name="path[20]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH9ftD2Angle0Brightness.jpg"/>
+      <property name="path[23]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH10ftD2Angle0Brightness.jpg"/>
+      <property name="path[26]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH11ftD3Angle0Brightness.jpg"/>
+      <property name="path[29]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH13ftD3Angle0Brightness.jpg"/>
+      <property name="path[12]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH6ftD3Angle0Brightness.jpg"/>
+      <property name="path[15]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH7ftD3Angle0Brightness.jpg"/>
+      <property name="index" value="30"/>
+      <property name="path[18]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH8ftD3Angle0Brightness.jpg"/>
+      <property name="path[0]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH2ftD0Angle0Brightness.jpg"/>
+      <property name="path[3]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH3ftD3Angle0Brightness.jpg"/>
+      <property name="path[6]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH4ftD2Angle0Brightness.jpg"/>
+      <property name="path[9]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH5ftD2Angle0Brightness.jpg"/>
+      <property name="path[21]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH9ftD3Angle0Brightness.jpg"/>
+      <property name="path[24]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH10ftD3Angle0Brightness.jpg"/>
+      <property name="path[27]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH12ftD2Angle0Brightness.jpg"/>
+      <property name="path[10]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH5ftD3Angle0Brightness.jpg"/>
+      <property name="path[13]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH7ftD1Angle0Brightness.jpg"/>
+      <property name="path[16]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH8ftD1Angle0Brightness.jpg"/>
+      <property name="path[19]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH9ftD1Angle0Brightness.jpg"/>
+      <property name="numImages" value="32"/>
+      <property name="path[30]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH14ftD3Angle0Brightness.jpg"/>
+      <property name="path[1]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH3ftD0Angle0Brightness.jpg"/>
+      <property name="path[4]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH4ftD0Angle0Brightness.jpg"/>
+      <property name="path[7]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH4ftD3Angle0Brightness.jpg"/>
+      <property name="path[22]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH10ftD1Angle0Brightness.jpg"/>
+      <property name="path[25]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH11ftD2Angle0Brightness.jpg"/>
+      <property name="path[28]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH12ftD3Angle0Brightness.jpg"/>
+      <property name="path[11]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH6ftD1Angle0Brightness.jpg"/>
+      <property name="path[14]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH7ftD2Angle0Brightness.jpg"/>
+      <property name="path[17]" value="/Users/jshiffer/Downloads/2017VisionExample/Vision Images/LED Boiler/1ftH8ftD2Angle0Brightness.jpg"/>
+    </grip:MultiImageFile>
+  </sources>
+  <steps>
+    <grip:Step name="CV resize">
+      <grip:Input step="0" socket="0"/>
+      <grip:Input step="0" socket="1"/>
+      <grip:Input step="0" socket="2">
+        <value>0.5</value>
+      </grip:Input>
+      <grip:Input step="0" socket="3">
+        <value>0.5</value>
+      </grip:Input>
+      <grip:Input step="0" socket="4">
+        <value>INTER_LINEAR</value>
+      </grip:Input>
+      <grip:Output step="0" socket="0" previewed="true"/>
+    </grip:Step>
+    <grip:Step name="HSL Threshold">
+      <grip:Input step="1" socket="0"/>
+      <grip:Input step="1" socket="1">
+        <value>
+          <double>0.0</double>
+          <double>180.0</double>
+        </value>
+      </grip:Input>
+      <grip:Input step="1" socket="2">
+        <value>
+          <double>80.26079136690647</double>
+          <double>255.0</double>
+        </value>
+      </grip:Input>
+      <grip:Input step="1" socket="3">
+        <value>
+          <double>34.39748201438849</double>
+          <double>255.0</double>
+        </value>
+      </grip:Input>
+      <grip:Output step="1" socket="0" previewed="true"/>
+    </grip:Step>
+    <grip:Step name="CV erode">
+      <grip:Input step="2" socket="0"/>
+      <grip:Input step="2" socket="1"/>
+      <grip:Input step="2" socket="2"/>
+      <grip:Input step="2" socket="3">
+        <value>1.0</value>
+      </grip:Input>
+      <grip:Input step="2" socket="4">
+        <value>BORDER_DEFAULT</value>
+      </grip:Input>
+      <grip:Input step="2" socket="5"/>
+      <grip:Output step="2" socket="0" previewed="true"/>
+    </grip:Step>
+    <grip:Step name="Mask">
+      <grip:Input step="3" socket="0"/>
+      <grip:Input step="3" socket="1"/>
+      <grip:Output step="3" socket="0" previewed="true"/>
+    </grip:Step>
+  </steps>
+  <connections>
+    <grip:Connection>
+      <grip:Output step="1" socket="0" previewed="true"/>
+      <grip:Input step="2" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output source="0" socket="0" previewed="false"/>
+      <grip:Input step="0" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="0" socket="0" previewed="true"/>
+      <grip:Input step="3" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="0" socket="0" previewed="true"/>
+      <grip:Input step="1" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="2" socket="0" previewed="true"/>
+      <grip:Input step="3" socket="1"/>
+    </grip:Connection>
+  </connections>
+  <settings>
+    <teamNumber>1458</teamNumber>
+    <publishAddress>roboRIO-1458-FRC.local</publishAddress>
+    <deployAddress>roboRIO-1458-FRC.local</deployAddress>
+    <deployDir>/home/lvuser</deployDir>
+    <deployUser>lvuser</deployUser>
+    <deployJavaHome>/usr/local/frc/JRE/</deployJavaHome>
+    <deployJvmOptions>-Xmx50m -XX:-OmitStackTraceInFastThrow -XX:+HeapDumpOnOutOfMemoryError -XX:MaxNewSize=16m</deployJvmOptions>
+  </settings>
+  <codeGenerationSettings>
+    <language>Java</language>
+    <className>BoilerGRIP</className>
+    <implementWpilibPipeline>true</implementWpilibPipeline>
+    <saveDir>/Users/jshiffer/Documents/GitHub/turtleshell/2016season/TurtleBot/src/com/team1458/turtleshell/vision</saveDir>
+    <packageName>com.team1458.turtleshell.vision</packageName>
+    <moduleName>grip</moduleName>
+  </codeGenerationSettings>
+</grip:Pipeline>
