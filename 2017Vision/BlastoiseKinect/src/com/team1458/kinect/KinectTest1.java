@@ -12,12 +12,25 @@ public class KinectTest1 {
 
         Device camera = getCamera(context);
 
+
         // Tilt up and down
-        /*camera.setTiltAngle(20);
+        camera.setTiltAngle(20);
         Thread.sleep(4000);
         camera.setTiltAngle(-20);
         Thread.sleep(4000);
-        camera.setTiltAngle(0);*/
+        camera.setTiltAngle(0);
+        Thread.sleep(4000);
+        camera.setTiltAngle(20);
+        Thread.sleep(4000);
+        camera.setTiltAngle(-20);
+        Thread.sleep(4000);
+        camera.setTiltAngle(0);
+        Thread.sleep(4000);
+        camera.setTiltAngle(20);
+        Thread.sleep(4000);
+        camera.setTiltAngle(-20);
+        Thread.sleep(4000);
+        camera.setTiltAngle(0);
 
         // Accelerometer test
         /*while(System.in.available() == 0){
@@ -26,20 +39,21 @@ public class KinectTest1 {
             Thread.sleep(250);
         }*/
 
-        camera.setDepthFormat(DepthFormat.D10BIT, Resolution.LOW);
-
+        //camera.setDepthFormat(DepthFormat.D10BIT, Resolution.LOW);
 
 
         camera.startDepth((FrameMode frameMode, ByteBuffer byteBuffer, int i) -> {
-            System.out.println(frameMode+" "+i);
-            //System.out.println(byteBuffer.toString());
+            //System.out.println(frameMode+" "+i);
+            System.out.println(byteBuffer);
         });
 
-        Thread.sleep(50000);
+        while(true) Thread.sleep(500);
 
-        camera.close();
+        //Thread.sleep(50000);
 
-        context.shutdown(); // Clean up
+        //camera.close();
+
+        //context.shutdown(); // Clean up
     }
 
     static Device getCamera(Context context){
