@@ -26,7 +26,7 @@ public class BlastoiseRobot extends SampleRobot {
 	public BlastoiseRobot() {
 		logger = new TurtleLogger(BlastoiseConstants.LOGGER_MODE);
 		try {
-			logger.attachServer(new TurtleLogger.ColoredLogServer(5901, "/"));
+			logger.attachServer(new TurtleLogger.ColoredLogServer(5901, "/log"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

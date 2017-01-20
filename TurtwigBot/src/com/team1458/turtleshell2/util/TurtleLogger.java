@@ -135,7 +135,7 @@ public class TurtleLogger {
 	    log(text, LogEvent.ERROR);
     }
 
-    static class LogEvent {
+    static class LogEvent {//TODO: Make Enum
         public static final int VERBOSE = 0;
         public static final int DEBUG = 1;
         public static final int INFO = 2;
