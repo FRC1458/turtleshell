@@ -15,8 +15,8 @@ public class BlastoiseConstants {
      * Right drive system
      */
     static final class RightDrive {
-	    public static final int MOTOR1 = 0; // Spark
-	    public static final int MOTOR2 = 2; // Talon SR
+	    public static final int MOTOR1 = 1;
+	    //public static final int MOTOR2 = -1
 
 		public static final int ENCODER_A = 0;
 	    public static final int ENCODER_B = 1;
@@ -27,8 +27,8 @@ public class BlastoiseConstants {
 	 * Left drive system
 	 */
 	static final class LeftDrive {
-		public static final int MOTOR1 = 1; // Spark
-		public static final int MOTOR2 = 3; // Talon SR
+		public static final int MOTOR1 = 5;
+		//public static final int MOTOR2 = -1
 
 		public static final int ENCODER_A = 2;
 		public static final int ENCODER_B = 3;
@@ -39,9 +39,9 @@ public class BlastoiseConstants {
      * USB ports
      */
     static final class UsbPorts {
-	    public static final int XBOX_CONTROLLER = 3;
-	    public static final int LEFT_STICK = 1;
-	    public static final int RIGHT_STICK = 0;
+	    public static final int XBOX_CONTROLLER = 1;
+	    public static final int LEFT_STICK = 2;
+	    public static final int RIGHT_STICK = 3;
     }
 
 	/**
@@ -67,8 +67,7 @@ public class BlastoiseConstants {
 	 */
 	public static final int LOGGER_MODE = TurtleLogger.PLAINTEXT;
 	public static final int GYRO_PORT = -1; // TODO: Find correct port
-	public static final double JOYSTICK_DEADBAND = 0.09;
-	public static final boolean USE_FLIGHT_STICK = true;
+	public static final double JOYSTICK_DEADBAND = 0.05;
 
 	/**
 	 * Constructor so BlastoiceConstants can't be initialised
