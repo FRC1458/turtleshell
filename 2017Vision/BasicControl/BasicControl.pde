@@ -9,14 +9,14 @@ void setup()
 {
   size(200, 200);
   background(255);
-  String portName = Serial.list()[2];
+  String portName = Serial.list()[1];
 
   System.out.println(Arrays.toString(Serial.list()));
 
   port = new Serial(this, portName, 9600);
 
 
-  float kP = 2.5;
+  float kP = 4;
   float kD = 0;
   float lastValue = 0;
   while (true) {
@@ -26,6 +26,9 @@ void setup()
     } 
     catch(Exception e) {
     }
+    
+    
+    //if(1==1) continue;
 
     if (value == -1) {
       port.write("0");
@@ -42,6 +45,9 @@ void setup()
     lastValue = value;
 
     int v = -1*(int)Math.round(value);
+    
+    
+    System.out.println(value+" v="+v);
 
     //System.out.println(v);
     port.write(v+"");
@@ -98,4 +104,3 @@ static float getXvalue() throws Exception {
 
   return Float.parseFloat(reader.readLine().replace(",", ""));
 }
-

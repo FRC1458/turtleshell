@@ -1,9 +1,13 @@
 #import <Servo.h>
+#include <Adafruit_NeoPixel.h>
 
 #define FORWARD 1
 #define BACKWARD 2
 #define BRAKE 3
 #define RELEASE 4
+
+
+Adafruit_NeoPixel ledRing = Adafruit_NeoPixel(12, 4, NEO_GRB + NEO_KHZ800);
 
 Servo s;
 
@@ -12,7 +16,10 @@ void setup() {
 
   s.attach(9);
 
-  s.write(91);
+  s.write(90);
+  
+  ledRing.begin();
+  ledRing.show();
 }
 
 boolean newline = false;
@@ -25,11 +32,11 @@ void loop()
   if(newline){
 
   int i = inputString.toInt();
-  i = constrain(i, -91, 89);
+  i = constrain(i, -90, 90);
 
   //if(i == 0) return;
 
-  i += 91;
+  i += 90;
 
 
   s.write(i);
@@ -41,8 +48,13 @@ void loop()
     inputString = "";
   }
 
+  for(int i = 0; i < 12; i++) {
+    ledRing.setPixelColor(i, ledRing.Color(0, 255, 0));
+  }
+
+  ledRing.show();
   
-   serialEvt();
+  serialEvt();
 }
 
 void serialEvt() {
