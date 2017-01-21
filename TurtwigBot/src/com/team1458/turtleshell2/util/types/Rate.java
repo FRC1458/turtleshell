@@ -9,6 +9,10 @@ package com.team1458.turtleshell2.util.types;
  */
 public final class Rate<T extends Unit> implements Unit {
 	private final double value;
+
+	public static final Rate<Distance> distanceZero = new Rate<>(0);
+	public static final Rate<Angle> angleZero = new Rate<>(0);
+
 	@Override
 	/**
 	 * Get the value in the units T/second
@@ -16,9 +20,13 @@ public final class Rate<T extends Unit> implements Unit {
 	public double getValue() {
 		return value;
 	}
-	
+
+	public Rate(T numerator) {
+		value = (numerator.getValue() / Time.one.getValue());
+	}
+
 	public Rate(T numerator, Time denominator) {
-		value=(numerator.getValue()/denominator.getValue());
+		value=(numerator.getValue() / denominator.getValue());
 	}
 	
 	/**
@@ -26,6 +34,6 @@ public final class Rate<T extends Unit> implements Unit {
 	 * @param value
 	 */
 	public Rate(double value) {
-		this.value=value;
+		this.value = value;
 	}
 }

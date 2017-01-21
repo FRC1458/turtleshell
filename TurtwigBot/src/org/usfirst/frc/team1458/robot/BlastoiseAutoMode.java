@@ -67,8 +67,8 @@ public abstract class BlastoiseAutoMode implements AutoMode {
 
 		// Create PID
 		TurtleDualPID pid = new TurtleStraightDrivePID(
-				BlastoiseConstants.StraightDrivePID.PID_CONSTANTS, distance,
-				BlastoiseConstants.StraightDrivePID.kLR, BlastoiseConstants.StraightDrivePID.TOLERANCE);
+				RobotConstants.StraightDrivePID.PID_CONSTANTS, distance,
+				RobotConstants.StraightDrivePID.kLR, RobotConstants.StraightDrivePID.TOLERANCE);
 
 
 		double leftSpeed = 0, rightSpeed = 0, leftDistance, rightDistance;

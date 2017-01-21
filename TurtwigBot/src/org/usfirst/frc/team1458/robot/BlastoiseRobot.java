@@ -7,6 +7,7 @@ import com.team1458.turtleshell2.interfaces.TestMode;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleLogger;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SampleRobot;
 
 /**
@@ -24,7 +25,7 @@ public class BlastoiseRobot extends SampleRobot {
 	 * Constructor for robot
 	 */
 	public BlastoiseRobot() {
-		logger = new TurtleLogger(BlastoiseConstants.LOGGER_MODE);
+		logger = new TurtleLogger(RobotConstants.LOGGER_MODE);
 		try {
 			logger.attachServer(new TurtleLogger.ColoredLogServer(5901, "/"));
 		} catch (IOException e) {
@@ -81,5 +82,12 @@ public class BlastoiseRobot extends SampleRobot {
 		} else {
 			testMode.test();
 		}
+	}
+
+	public static boolean isPracticeRobot() {
+		DigitalInput practiceRobot = new DigitalInput(RobotConstants.Sensors.PRACTICE_ROBOT_DIO);
+
+		// Only trigger practice chassis when port PRACTICE_ROBOT_DIO is pulled to ground
+		return practiceRobot.get() == false;
 	}
 }

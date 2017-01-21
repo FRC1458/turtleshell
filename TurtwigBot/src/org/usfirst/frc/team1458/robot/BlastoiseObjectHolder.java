@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell2.implementations.input.TurtleFlightStick;
-import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
 import com.team1458.turtleshell2.implementations.sample.SampleRobotObjectHolder;
 import com.team1458.turtleshell2.interfaces.AutoMode;
 import com.team1458.turtleshell2.interfaces.AutoModeHolder;
@@ -39,9 +38,9 @@ public class BlastoiseObjectHolder extends SampleRobotObjectHolder implements Au
 		this.logger = logger;
 
 		// Setup controller and chassis
-        //TurtleXboxController xboxController = new TurtleXboxController(BlastoiseConstants.UsbPorts.XBOX_CONTROLLER);
-        TurtleFlightStick leftStick = new TurtleFlightStick(BlastoiseConstants.UsbPorts.LEFT_STICK);
-        TurtleFlightStick rightStick = new TurtleFlightStick(BlastoiseConstants.UsbPorts.RIGHT_STICK);
+        //TurtleXboxController xboxController = new TurtleXboxController(RobotConstants.UsbPorts.XBOX_CONTROLLER);
+        TurtleFlightStick leftStick = new TurtleFlightStick(RobotConstants.UsbPorts.LEFT_STICK);
+        TurtleFlightStick rightStick = new TurtleFlightStick(RobotConstants.UsbPorts.RIGHT_STICK);
 		
 		chassis = new BlastoiseChassis(leftStick, rightStick, logger);
 	    addComponent(chassis);

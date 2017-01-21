@@ -9,6 +9,8 @@ package com.team1458.turtleshell2.util.types;
 public final class Angle implements Unit {
 	private final double value;
 
+	public static final Angle zero = new Angle(0);
+
 	/**
 	 * Create an angle with a certain amount of degrees
 	 * 

@@ -9,6 +9,8 @@ package com.team1458.turtleshell2.util.types;
 public final class Distance implements Unit {
 	private final double value;
 
+	public static final Distance zero = new Distance(0);
+
 	/**
 	 * Create a distance with a certain amount of inches
 	 * 
