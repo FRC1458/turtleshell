@@ -7,7 +7,7 @@ import com.team1458.turtleshell2.implementations.movement.TurtleSpark;
 import com.team1458.turtleshell2.implementations.movement.TurtleTalonSR;
 import com.team1458.turtleshell2.implementations.movement.TurtleVictor888;
 import com.team1458.turtleshell2.implementations.sensor.TurtleDistanceEncoder;
-import com.team1458.turtleshell2.implementations.sensor.TurtleFakeDistanceEncoder;
+import com.team1458.turtleshell2.implementations.sensor.fake.TurtleFakeDistanceEncoder;
 import com.team1458.turtleshell2.interfaces.Chassis;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
 import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
@@ -21,7 +21,6 @@ import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.Random;

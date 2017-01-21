@@ -8,6 +8,8 @@ package com.team1458.turtleshell2.util.types;
 public final class Time implements Unit {
 	private final double value;
 
+	public static final Time one = new Time(1);
+
 	/**
 	 * Create a time, with the amount in seconds
 	 */
