@@ -16,7 +16,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="wpilib">
         <CLASSES>
           <root url="jar://$USER_HOME$/wpilib/java/current/lib/WPILib.jar!/" />
@@ -27,7 +27,7 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="networktables">
         <CLASSES>
           <root url="jar://$USER_HOME$/wpilib/java/current/lib/NetworkTables.jar!/" />
@@ -39,5 +39,6 @@
       </library>
     </orderEntry>
     <orderEntry type="inheritedJdk" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>

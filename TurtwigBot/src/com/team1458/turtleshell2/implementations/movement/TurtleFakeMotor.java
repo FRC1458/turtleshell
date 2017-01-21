@@ -16,10 +16,13 @@ public class TurtleFakeMotor implements TurtleMotor {
 		this(port, false);
 	}
 
+	public TurtleFakeMotor() {
+		this(0, false);
+	}
+
 	@Override
 	public void set(MotorValue val) {
-		value=TurtleMaths.reverseBool(isReversed)*val.getValue();
-
+		value = TurtleMaths.reverseBool(isReversed)*val.getValue();
 	}
 
 	@Override
