@@ -1,4 +1,4 @@
-package com.team1458.turtleshell2.implementations.sensor;
+package com.team1458.turtleshell2.implementations.sensor.fake;
 
 import com.team1458.turtleshell2.interfaces.sensor.TurtleDistanceSensor;
 import com.team1458.turtleshell2.interfaces.sensor.TurtleRotationSensor;
