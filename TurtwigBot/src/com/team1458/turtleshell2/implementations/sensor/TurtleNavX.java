@@ -19,6 +19,9 @@ import edu.wpi.first.wpilibj.SerialPort;
 public class TurtleNavX {
     AHRS navX;
 
+    double last_world_linear_accel_x = 0;
+    double last_world_linear_accel_y = 0;
+
     /**
      * Create NavX with specified I2C port
      * @param i2cPort
@@ -237,6 +240,18 @@ public class TurtleNavX {
     public float getTempC() {
         return navX.getTempC();
         
+    }
+
+    public boolean isInCollision(double threshold) {
+        double curr_world_linear_accel_x = getWorldLinearAccelX();
+        double currentJerkX = curr_world_linear_accel_x - last_world_linear_accel_x;
+        last_world_linear_accel_x = curr_world_linear_accel_x;
+        double curr_world_linear_accel_y = getWorldLinearAccelY();
+        double currentJerkY = curr_world_linear_accel_y - last_world_linear_accel_y;
+        last_world_linear_accel_y = curr_world_linear_accel_y;
+
+        return (Math.abs(currentJerkX) > threshold) ||
+                (Math.abs(currentJerkY) > threshold);
     }
 
     public String getFirmwareVersion() {

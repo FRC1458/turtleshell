@@ -32,6 +32,7 @@ public class RobotConstants {
 	 */
 	static final class Sensors {
 		public static final int GYRO_PORT = -1; // TODO: Find correct port
+		public static final int PRACTICE_ROBOT_DIO = 0;
 	}
 
 	/**
@@ -59,8 +60,7 @@ public class RobotConstants {
 	public static final double JOYSTICK_DEADBAND = 0.05;
 
 	public static final double MOTOR_DEADBAND = 0.05; // Only for logging to SmartDashboard
-
-	public static final int PRACTICE_ROBOT_DIO = 0;
+	public static final double COLLISION_THRESHOLD = 0.5f;
 
 	/**
 	 * Constructor so RobotConstants can't be initialised

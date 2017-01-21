@@ -85,7 +85,7 @@ public class BlastoiseRobot extends SampleRobot {
 	}
 
 	public static boolean isPracticeRobot() {
-		DigitalInput practiceRobot = new DigitalInput(RobotConstants.PRACTICE_ROBOT_DIO);
+		DigitalInput practiceRobot = new DigitalInput(RobotConstants.Sensors.PRACTICE_ROBOT_DIO);
 
 		// Only trigger practice chassis when port PRACTICE_ROBOT_DIO is pulled to ground
 		return practiceRobot.get() == false;

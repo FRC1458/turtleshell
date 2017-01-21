@@ -7,6 +7,7 @@ import com.team1458.turtleshell2.implementations.movement.TurtleSpark;
 import com.team1458.turtleshell2.implementations.movement.TurtleTalonSR;
 import com.team1458.turtleshell2.implementations.movement.TurtleVictor888;
 import com.team1458.turtleshell2.implementations.sensor.TurtleDistanceEncoder;
+import com.team1458.turtleshell2.implementations.sensor.TurtleNavX;
 import com.team1458.turtleshell2.implementations.sensor.fake.TurtleFakeDistanceEncoder;
 import com.team1458.turtleshell2.interfaces.Chassis;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
@@ -14,7 +15,6 @@ import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
 import com.team1458.turtleshell2.interfaces.input.TurtleDigitalInput;
 import com.team1458.turtleshell2.interfaces.movement.TurtleMotor;
 import com.team1458.turtleshell2.interfaces.sensor.TurtleDistanceSensor;
-import com.team1458.turtleshell2.interfaces.sensor.TurtleRotationSensor;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.TurtleMaths;
@@ -47,7 +47,7 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 	private final TurtleDistanceSensor leftDistance;
 	private final TurtleDistanceSensor rightDistance;
 
-	private final TurtleRotationSensor orientationSensor = null; //new TurtleAnalogGyro(RobotConstants.GYRO_PORT);
+	private final TurtleNavX navX = TurtleNavX.getInstanceI2C();
 
 	/**
 	 * Chassis Specific Initialization
@@ -86,6 +86,7 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 	// Fix for bugs with SmartDashboard
 	Random r = new Random();
 
+	// Input joysticks and buttons
 	private TurtleAnalogInput rightJoystick;
 	private TurtleAnalogInput leftJoystick;
 
@@ -93,13 +94,14 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 	private TurtleDigitalInput turnButton;
 
 	private TurtleDigitalInput resetButton;
-	
+
+	private TurtleXboxController rumbleController; // Very experimental
 
 	private TurtleLogger logger;
 
 	/**
 	 * Main constructor for BlastoiseChassis
-	 * Accepts two TurtleAnalogInputs
+	 * Accepts TurtleAnalogInputs and TurtleDigitalInputs
 	 */
 	public BlastoiseChassis(TurtleAnalogInput leftJoystick, TurtleAnalogInput rightJoystick,
 			TurtleDigitalInput straightButton, TurtleDigitalInput turnButton, TurtleDigitalInput resetButton, TurtleLogger logger) {
@@ -129,6 +131,7 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 				controller.getButton(TurtleXboxController.XboxButton.A),
 				logger
 		);
+		rumbleController = controller;
 	}
 
 	/**
@@ -162,10 +165,6 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 		return rightDistance.getDistance();
 	}
 
-	public TurtleRotationSensor getOrientationSensor() {
-		return orientationSensor;
-	}
-
 	@Override
 	public void teleUpdate() {
 		MotorValue leftPower = new MotorValue(TurtleMaths.deadband(leftJoystick.get(), RobotConstants.JOYSTICK_DEADBAND));
@@ -186,6 +185,11 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 		
 		SmartDashboard.putNumber("LeftEncoder", leftDistance.getDistance().getInches());
 		SmartDashboard.putNumber("RightEncoder", rightDistance.getDistance().getInches());
+
+
+		if(rumbleController != null && navX.isInCollision(RobotConstants.COLLISION_THRESHOLD)){
+			rumbleController.rumble(1.0f, 250); // Very experimental
+		}
 	}
 
     /**

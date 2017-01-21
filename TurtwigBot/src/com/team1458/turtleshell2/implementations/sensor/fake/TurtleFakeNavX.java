@@ -209,6 +209,10 @@ public class TurtleFakeNavX extends TurtleNavX {
         return 0;
     }
 
+    public boolean isInCollision(double threshold){
+        return false;
+    }
+
     public String getFirmwareVersion() {
         return "Fake NavX 1.0";
     }
