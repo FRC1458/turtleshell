@@ -15,7 +15,7 @@ public class TurtwigConstants {
      * Right drive system
      */
     static final class RightDrive {
-	    public static final int MOTOR1 = 1;
+	    public static final int MOTOR1 = 7;
 
 		public static final int ENCODER_A = 0;
 	    public static final int ENCODER_B = 1;
@@ -26,7 +26,7 @@ public class TurtwigConstants {
 	 * Left drive system
 	 */
 	static final class LeftDrive {
-		public static final int MOTOR1 = 5;
+		public static final int MOTOR1 = 8;
 
 		public static final int ENCODER_A = 2;
 		public static final int ENCODER_B = 3;

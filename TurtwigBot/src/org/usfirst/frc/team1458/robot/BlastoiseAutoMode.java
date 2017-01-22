@@ -17,8 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author asinghani
  */
 public abstract class BlastoiseAutoMode implements AutoMode {
-	BlastoiseChassis chassis;
-	TurtleLogger logger;
+	protected BlastoiseChassis chassis;
+	protected TurtleLogger logger;
 
 	public BlastoiseAutoMode(BlastoiseChassis chassis, TurtleLogger logger) {
 		this.chassis = chassis;

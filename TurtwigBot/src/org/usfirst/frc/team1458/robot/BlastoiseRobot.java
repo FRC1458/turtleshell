@@ -1,9 +1,19 @@
 package org.usfirst.frc.team1458.robot;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import org.usfirst.frc.team1458.robot.autonomous.BlastoiseTestAutonomous;
+import org.usfirst.frc.team1458.robot.autonomous.BlastoiseTestDistanceAutonomous;
+import org.usfirst.frc.team1458.robot.autonomous.BlastoiseTestTimedAutonomous;
+
+import com.team1458.turtleshell2.implementations.input.TurtleFlightStick;
+import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
+import com.team1458.turtleshell2.implementations.sensor.TurtleNavX;
 import com.team1458.turtleshell2.interfaces.AutoMode;
+import com.team1458.turtleshell2.interfaces.AutoModeHolder;
 import com.team1458.turtleshell2.interfaces.TestMode;
+import com.team1458.turtleshell2.interfaces.TurtleComponent;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleLogger;
 
@@ -12,14 +22,20 @@ import edu.wpi.first.wpilibj.SampleRobot;
 
 /**
  * This is the base robot code.
- * It should only call functions of {@link BlastoiseObjectHolder}, {@link TurtleLogger}, and {@link TurtleDashboard}
- *
  * @author asinghani
  */
-public class BlastoiseRobot extends SampleRobot {
+public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
 
-	TurtleLogger logger;
-	BlastoiseObjectHolder objectHolder;
+	// Robot Modes
+	private ArrayList<BlastoiseAutoMode> autoModes = new ArrayList<>();
+	private int selectedAutoMode = 0;
+	private TestMode testMode;
+
+	// Robot Components
+	private BlastoiseChassis chassis;
+	
+	// Misc
+	private TurtleLogger logger;
 
 	/**
 	 * Constructor for robot
@@ -27,7 +43,7 @@ public class BlastoiseRobot extends SampleRobot {
 	public BlastoiseRobot() {
 		logger = new TurtleLogger(RobotConstants.LOGGER_MODE);
 		try {
-			logger.attachServer(new TurtleLogger.ColoredLogServer(5901, "/"));
+			logger.attachServer(new TurtleLogger.ColoredLogServer(5802, "/log"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,10 +52,29 @@ public class BlastoiseRobot extends SampleRobot {
 
 	@Override
 	protected void robotInit() {
-		objectHolder = new BlastoiseObjectHolder(logger);
+		// Setup controller and chassis
+		
+		if(RobotConstants.USE_XBOX_CONTROLLER){
+	        TurtleXboxController xboxController = new TurtleXboxController(RobotConstants.UsbPorts.XBOX_CONTROLLER);
+	        chassis = new BlastoiseChassis(xboxController, logger);
+		} else {
+			TurtleFlightStick leftStick = new TurtleFlightStick(RobotConstants.UsbPorts.LEFT_STICK);
+	        TurtleFlightStick rightStick = new TurtleFlightStick(RobotConstants.UsbPorts.RIGHT_STICK);
+	        chassis = new BlastoiseChassis(leftStick, rightStick, logger);
+		}
 
+		// Setup AutoModes
+	    autoModes.add(new BlastoiseTestDistanceAutonomous(chassis, logger));
+		autoModes.add(new BlastoiseTestTimedAutonomous(chassis, logger));
+		autoModes.add(new BlastoiseTestAutonomous(chassis, logger, TurtleNavX.getInstanceUSB(RobotConstants.Sensors.NAVX_PORT)));
+
+		selectedAutoMode = 2;
+
+		// Setup TestMode
+		testMode = () -> {}; // Creates a TestMode with empty test() function
+
+		TurtleDashboard.setAutoModeHolder(this);
 		TurtleDashboard.setup();
-
 	}
 
 	@Override
@@ -52,8 +87,9 @@ public class BlastoiseRobot extends SampleRobot {
 	public void autonomous() {
 		logger.info("Entered autonomous control");
 		TurtleDashboard.autonomous();
-
-		AutoMode autoMode = objectHolder.getAuto();
+		
+		AutoMode autoMode = autoModes.get(selectedAutoMode);
+		
 		if(autoMode == null) {
 			logger.warn("Autonomous mode not implemented");
 		} else {
@@ -67,7 +103,7 @@ public class BlastoiseRobot extends SampleRobot {
 		TurtleDashboard.teleop();
 
 		while (isOperatorControl() && isEnabled()) {
-			objectHolder.teleUpdateAll();
+			chassis.teleUpdate();
 		}
 	}
 
@@ -76,7 +112,6 @@ public class BlastoiseRobot extends SampleRobot {
 		logger.info("Entered test mode");
 		TurtleDashboard.test();
 
-		TestMode testMode = objectHolder.getTest();
 		if(testMode == null) {
 			logger.warn("Test mode not implemented");
 		} else {
@@ -85,9 +120,35 @@ public class BlastoiseRobot extends SampleRobot {
 	}
 
 	public static boolean isPracticeRobot() {
-		DigitalInput practiceRobot = new DigitalInput(RobotConstants.Sensors.PRACTICE_ROBOT_DIO);
+		//DigitalInput practiceRobot = new DigitalInput(RobotConstants.Sensors.PRACTICE_ROBOT_DIO);
 
 		// Only trigger practice chassis when port PRACTICE_ROBOT_DIO is pulled to ground
-		return practiceRobot.get() == false;
+		//return practiceRobot.get() == false;
+		
+		return RobotConstants.PRACTICE_ROBOT;
+	}
+	
+	/**
+	 * Get the list of auto modes
+	 */
+	public ArrayList<BlastoiseAutoMode> getAutoModes() {
+		return autoModes;
+	}
+
+	/**
+	 * Set the index of the selected auto mode
+	 * @param index
+	 */
+	public void setSelectedAutoModeIndex(int index) {
+		if(index < autoModes.size()){
+			selectedAutoMode = index;
+		}
+	}
+
+	/**
+	 * Get index of selected AutoMode
+	 */
+	public int getSelectedAutoModeIndex() {
+		return selectedAutoMode;
 	}
 }

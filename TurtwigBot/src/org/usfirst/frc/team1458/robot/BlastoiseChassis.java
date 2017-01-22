@@ -18,6 +18,7 @@ import com.team1458.turtleshell2.interfaces.sensor.TurtleDistanceSensor;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.TurtleMaths;
+import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
 
@@ -47,7 +48,7 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 	private final TurtleDistanceSensor leftDistance;
 	private final TurtleDistanceSensor rightDistance;
 
-	private final TurtleNavX navX = TurtleNavX.getInstanceI2C();
+	private final TurtleNavX navX = TurtleNavX.getInstanceI2C(); //TurtleNavX.getInstanceUSB(RobotConstants.Sensors.NAVX_PORT);
 
 	/**
 	 * Chassis Specific Initialization
@@ -98,6 +99,8 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 	private TurtleXboxController rumbleController; // Very experimental
 
 	private TurtleLogger logger;
+	
+	
 
 	/**
 	 * Main constructor for BlastoiseChassis
@@ -164,12 +167,41 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 	public Distance getRightDistance() {
 		return rightDistance.getDistance();
 	}
+	
+	static final MotorValue turnSpeed = new MotorValue(0.3);
+	boolean turningRight = false; // TODO remove this test Code
+	double turningBase = 0;
 
 	@Override
 	public void teleUpdate() {
 		MotorValue leftPower = new MotorValue(TurtleMaths.deadband(leftJoystick.get(), RobotConstants.JOYSTICK_DEADBAND));
 		MotorValue rightPower = new MotorValue(TurtleMaths.deadband(rightJoystick.get(), RobotConstants.JOYSTICK_DEADBAND));
 
+		if(resetButton.get() == 1){
+			while(resetButton.get() == 1); // TODO get rid of this nonsense
+			turningRight = !turningRight;
+			turningBase = navX.getYaw().getDegrees();
+			SmartDashboard.putNumber("Turningbase", navX.getYaw().getDegrees());
+		}
+		
+		if(turningRight){
+			double diff = (navX.getYaw().getDegrees() - turningBase);
+			diff = 90-diff;
+			if(Math.abs(Math.abs(diff)) > 4){
+				double rotate = -0.8*(diff / 90.0);
+				MotorValue rotateValue = new MotorValue(rotate);
+				SmartDashboard.putNumber("RotateValue", rotate);
+				updateMotors(rotateValue, rotateValue.invert());
+				SmartDashboard.putNumber("Yaw", navX.getYaw().getDegrees());
+				SmartDashboard.putNumber("CompassHeading", navX.getCompassHeading().getDegrees());
+				SmartDashboard.putNumber("FusedHeading", navX.getFusedHeading().getDegrees());
+			} else {
+				stopMotors();
+				turningRight = false;
+			}
+			return;
+		}
+		
 		if(turnButton.get() == 1) {
 			updateMotors(leftPower, leftPower.invert());
 		} else if(straightButton.get() == 1){
@@ -178,15 +210,19 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 			updateMotors(leftPower, rightPower);
 		}
 		
-		if(resetButton.get() == 1){
+		/*if(resetButton.get() == 1){
 			leftDistance.reset();
 			rightDistance.reset();
-		}
+		}*/
 		
 		SmartDashboard.putNumber("LeftEncoder", leftDistance.getDistance().getInches());
 		SmartDashboard.putNumber("RightEncoder", rightDistance.getDistance().getInches());
 
 
+		SmartDashboard.putNumber("Yaw", navX.getYaw().getDegrees());
+		SmartDashboard.putNumber("CompassHeading", navX.getCompassHeading().getDegrees());
+		SmartDashboard.putNumber("FusedHeading", navX.getFusedHeading().getDegrees());
+		
 		if(rumbleController != null && navX.isInCollision(RobotConstants.COLLISION_THRESHOLD)){
 			rumbleController.rumble(1.0f, 250); // Very experimental
 		}
@@ -212,4 +248,5 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 	public void stopMotors() {
 	    updateMotors(MotorValue.zero, MotorValue.zero);
     }
+
 }

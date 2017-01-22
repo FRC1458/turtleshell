@@ -5,9 +5,11 @@ import com.kauailabs.navx.frc.ITimestampedDataSubscriber;
 import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.Rate;
+
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * NavX Micro & MXP wrapper
@@ -250,6 +252,9 @@ public class TurtleNavX {
         double currentJerkY = curr_world_linear_accel_y - last_world_linear_accel_y;
         last_world_linear_accel_y = curr_world_linear_accel_y;
 
+        SmartDashboard.putNumber("JerkX", currentJerkX);
+        SmartDashboard.putNumber("JerkY", currentJerkY);
+        
         return (Math.abs(currentJerkX) > threshold) ||
                 (Math.abs(currentJerkY) > threshold);
     }
