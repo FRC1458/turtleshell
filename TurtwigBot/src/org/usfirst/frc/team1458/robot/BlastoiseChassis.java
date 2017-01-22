@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1458.robot;
 
+import com.team1458.turtleshell2.implementations.drive.TankDrive;
+import com.team1458.turtleshell2.implementations.drive.TurtleMotorSet;
 import com.team1458.turtleshell2.implementations.input.TurtleFlightStick;
 import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
 import com.team1458.turtleshell2.implementations.movement.TurtleFakeMotor;
@@ -8,45 +10,27 @@ import com.team1458.turtleshell2.implementations.movement.TurtleTalonSR;
 import com.team1458.turtleshell2.implementations.movement.TurtleVictor888;
 import com.team1458.turtleshell2.implementations.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.implementations.sensor.TurtleNavX;
-import com.team1458.turtleshell2.implementations.sensor.fake.TurtleFakeDistanceEncoder;
-import com.team1458.turtleshell2.interfaces.Chassis;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
 import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
 import com.team1458.turtleshell2.interfaces.input.TurtleDigitalInput;
-import com.team1458.turtleshell2.interfaces.movement.TurtleMotor;
-import com.team1458.turtleshell2.interfaces.sensor.TurtleDistanceSensor;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.TurtleMaths;
-import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import java.util.Random;
 
 /**
  * New BlastoiseRobot Chassis
  *
  * @author asinghani
  */
-public class BlastoiseChassis implements Chassis, TurtleComponent{
+public class BlastoiseChassis implements TurtleComponent{
 
 	/**
-	 * Drive motor(s)
+	 * Drive train
 	 */
-    private final TurtleMotor leftDriveMotor1;
-	private final TurtleMotor leftDriveMotor2;
-
-	private final TurtleMotor rightDriveMotor1;
-	private final TurtleMotor rightDriveMotor2;
-
-	/**
-	 * Encoders
-	 */
-	private final TurtleDistanceSensor leftDistance;
-	private final TurtleDistanceSensor rightDistance;
+	private TankDrive tankDrive;
 
 	private final TurtleNavX navX = TurtleNavX.getInstanceI2C(); //TurtleNavX.getInstanceUSB(RobotConstants.Sensors.NAVX_PORT);
 
@@ -56,36 +40,40 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 	{
 		if(BlastoiseRobot.isPracticeRobot()) {
 			// Turtwig Chassis
-			leftDriveMotor1 = new TurtleVictor888(TurtwigConstants.LeftDrive.MOTOR1);
-			leftDriveMotor2 = new TurtleFakeMotor();
-
-			rightDriveMotor1 = new TurtleVictor888(TurtwigConstants.RightDrive.MOTOR1, true);
-			rightDriveMotor2 = new TurtleFakeMotor();
-
-			leftDistance = new TurtleDistanceEncoder(
-					TurtwigConstants.LeftDrive.ENCODER_A, TurtwigConstants.LeftDrive.ENCODER_B,
-					TurtwigConstants.LeftDrive.ENCODER_RATIO, true
-			);
-
-			rightDistance = new TurtleDistanceEncoder(
-					TurtwigConstants.RightDrive.ENCODER_A, TurtwigConstants.RightDrive.ENCODER_B,
-					TurtwigConstants.RightDrive.ENCODER_RATIO, false
+			tankDrive = new TankDrive(
+					new TurtleMotorSet(
+							new TurtleVictor888(TurtwigConstants.LeftDrive.MOTOR1),
+							new TurtleFakeMotor()
+					),
+					new TurtleMotorSet(
+							new TurtleVictor888(TurtwigConstants.RightDrive.MOTOR1, true),
+							new TurtleFakeMotor()
+					),
+					new TurtleDistanceEncoder(
+							TurtwigConstants.LeftDrive.ENCODER_A, TurtwigConstants.LeftDrive.ENCODER_B,
+							TurtwigConstants.LeftDrive.ENCODER_RATIO, true
+					),
+					new TurtleDistanceEncoder(
+							TurtwigConstants.RightDrive.ENCODER_A, TurtwigConstants.RightDrive.ENCODER_B,
+							TurtwigConstants.RightDrive.ENCODER_RATIO, false
+					),
+					navX
 			);
 		} else {
 			// Blastoise Chassis
-			leftDriveMotor1 = new TurtleSpark(BlastoiseConstants.LeftDrive.MOTOR1);
-			leftDriveMotor2 = new TurtleTalonSR(BlastoiseConstants.LeftDrive.MOTOR2);
-
-			rightDriveMotor1 = new TurtleSpark(BlastoiseConstants.RightDrive.MOTOR1, true);
-			rightDriveMotor2 = new TurtleTalonSR(BlastoiseConstants.RightDrive.MOTOR2, true);
-
-			leftDistance = new TurtleFakeDistanceEncoder();
-			rightDistance = new TurtleFakeDistanceEncoder();
+			tankDrive = new TankDrive(
+					new TurtleMotorSet(
+							new TurtleSpark(BlastoiseConstants.LeftDrive.MOTOR1),
+							new TurtleTalonSR(BlastoiseConstants.LeftDrive.MOTOR2)
+					),
+					new TurtleMotorSet(
+							new TurtleSpark(BlastoiseConstants.RightDrive.MOTOR1, true),
+							new TurtleTalonSR(BlastoiseConstants.RightDrive.MOTOR2, true)
+					),
+					navX
+			);
 		}
 	}
-
-	// Fix for bugs with SmartDashboard
-	Random r = new Random();
 
 	// Input joysticks and buttons
 	private TurtleAnalogInput rightJoystick;
@@ -99,8 +87,6 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 	private TurtleXboxController rumbleController; // Very experimental
 
 	private TurtleLogger logger;
-	
-	
 
 	/**
 	 * Main constructor for BlastoiseChassis
@@ -153,54 +139,10 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 		);
 	}
 
-
-	/**
-	 * @return Left distance
-	 */
-	public Distance getLeftDistance() {
-		return leftDistance.getDistance();
-	}
-
-	/**
-	 * @return Right distance
-	 */
-	public Distance getRightDistance() {
-		return rightDistance.getDistance();
-	}
-	
-	static final MotorValue turnSpeed = new MotorValue(0.3);
-	boolean turningRight = false; // TODO remove this test Code
-	double turningBase = 0;
-
 	@Override
 	public void teleUpdate() {
 		MotorValue leftPower = new MotorValue(TurtleMaths.deadband(leftJoystick.get(), RobotConstants.JOYSTICK_DEADBAND));
 		MotorValue rightPower = new MotorValue(TurtleMaths.deadband(rightJoystick.get(), RobotConstants.JOYSTICK_DEADBAND));
-
-		if(resetButton.get() == 1){
-			while(resetButton.get() == 1); // TODO get rid of this nonsense
-			turningRight = !turningRight;
-			turningBase = navX.getYaw().getDegrees();
-			SmartDashboard.putNumber("Turningbase", navX.getYaw().getDegrees());
-		}
-		
-		if(turningRight){
-			double diff = (navX.getYaw().getDegrees() - turningBase);
-			diff = 90-diff;
-			if(Math.abs(Math.abs(diff)) > 4){
-				double rotate = -0.8*(diff / 90.0);
-				MotorValue rotateValue = new MotorValue(rotate);
-				SmartDashboard.putNumber("RotateValue", rotate);
-				updateMotors(rotateValue, rotateValue.invert());
-				SmartDashboard.putNumber("Yaw", navX.getYaw().getDegrees());
-				SmartDashboard.putNumber("CompassHeading", navX.getCompassHeading().getDegrees());
-				SmartDashboard.putNumber("FusedHeading", navX.getFusedHeading().getDegrees());
-			} else {
-				stopMotors();
-				turningRight = false;
-			}
-			return;
-		}
 		
 		if(turnButton.get() == 1) {
 			updateMotors(leftPower, leftPower.invert());
@@ -215,8 +157,8 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 			rightDistance.reset();
 		}*/
 		
-		SmartDashboard.putNumber("LeftEncoder", leftDistance.getDistance().getInches());
-		SmartDashboard.putNumber("RightEncoder", rightDistance.getDistance().getInches());
+		SmartDashboard.putNumber("LeftEncoder", tankDrive.getLeftDistance().getInches());
+		SmartDashboard.putNumber("RightEncoder", tankDrive.getRightDistance().getInches());
 
 
 		SmartDashboard.putNumber("Yaw", navX.getYaw().getDegrees());
@@ -228,25 +170,19 @@ public class BlastoiseChassis implements Chassis, TurtleComponent{
 		}
 	}
 
-    /**
-     * Sends raw values directly to the drive system
-     */
-    public void updateMotors(MotorValue leftPower, MotorValue rightPower) {
-        leftDriveMotor1.set(leftPower);
-		leftDriveMotor2.set(leftPower);
+	public Distance getLeftDistance() {
+		return tankDrive.getLeftDistance();
+	}
 
-        rightDriveMotor1.set(rightPower);
-		rightDriveMotor2.set(rightPower);
+	public Distance getRightDistance() {
+		return tankDrive.getRightDistance();
+	}
 
-        SmartDashboard.putNumber("RightMotor", TurtleMaths.deadband(rightPower.getValue(), RobotConstants.MOTOR_DEADBAND));
-        SmartDashboard.putNumber("LeftMotor", TurtleMaths.deadband(leftPower.getValue(), RobotConstants.MOTOR_DEADBAND));
-    }
+	public void updateMotors(MotorValue leftPower, MotorValue rightPower) {
+		tankDrive.updateMotors(leftPower, rightPower);
+	}
 
-	/**
-	 * Set all drive motors to zero speed
-	 */
 	public void stopMotors() {
-	    updateMotors(MotorValue.zero, MotorValue.zero);
-    }
-
+		tankDrive.stopMotors();
+	}
 }

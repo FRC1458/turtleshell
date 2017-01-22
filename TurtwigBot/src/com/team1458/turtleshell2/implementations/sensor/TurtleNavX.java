@@ -2,6 +2,7 @@ package com.team1458.turtleshell2.implementations.sensor;
 
 import com.kauailabs.navx.frc.AHRS;
 import com.kauailabs.navx.frc.ITimestampedDataSubscriber;
+import com.team1458.turtleshell2.interfaces.sensor.TurtleRotationSensor;
 import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.Rate;
@@ -18,7 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 
 @SuppressWarnings("unused")
-public class TurtleNavX {
+public class TurtleNavX implements TurtleRotationSensor {
     AHRS navX;
 
     double last_world_linear_accel_x = 0;
@@ -242,6 +243,14 @@ public class TurtleNavX {
     public float getTempC() {
         return navX.getTempC();
         
+    }
+
+    /**
+     * TurtleRotationSensor
+     */
+    @Override
+    public Angle getRotation() {
+        return getYaw();
     }
 
     public boolean isInCollision(double threshold) {

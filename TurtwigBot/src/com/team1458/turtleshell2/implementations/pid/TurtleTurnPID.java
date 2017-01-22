@@ -60,7 +60,7 @@ public class TurtleTurnPID implements TurtleDualPID {
 	 * @return Left Motor Value, Right Motor Value
 	 */
 	@Override
-	public MotorValue[] newValue(double[] inputs) {
+	public MotorValue[] newValue(double... inputs) {
 		lDist = inputs[0];
 		rDist = inputs[1];
 		lRate = inputs[2];
