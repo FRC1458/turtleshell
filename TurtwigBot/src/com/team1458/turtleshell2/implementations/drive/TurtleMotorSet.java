@@ -11,11 +11,11 @@ import java.util.Arrays;
  * @author asinghani
  */
 public class TurtleMotorSet implements TurtleMotor {
-	ArrayList<TurtleMotor> motorSet = new ArrayList<>();
-	MotorValue value = MotorValue.zero;
+	private final ArrayList<TurtleMotor> motorSet;
+	private MotorValue value = MotorValue.zero;
 
 	public TurtleMotorSet(TurtleMotor... motors) {
-		this.motorSet = new ArrayList<>(Arrays.asList(motors));
+		motorSet = new ArrayList<>(Arrays.asList(motors));
 	}
 
 	@Override
