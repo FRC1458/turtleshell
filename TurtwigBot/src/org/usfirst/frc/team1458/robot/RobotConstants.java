@@ -51,8 +51,7 @@ public class RobotConstants {
 	 */
 	static final class TurningPID {
 		public static final TurtlePIDConstants PID_CONSTANTS = new TurtlePIDConstants(.0015, 0, .0001, .0001);
-		public static final double kLR = 0.00005;
-		public static final double TOLERANCE = 0.05;
+		public static final double TOLERANCE = 3;
 	}
 
 	/**
