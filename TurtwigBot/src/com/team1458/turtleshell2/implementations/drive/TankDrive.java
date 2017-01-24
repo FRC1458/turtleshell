@@ -9,9 +9,6 @@ import com.team1458.turtleshell2.util.TurtlePIDConstants;
 import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
-import edu.wpi.first.wpilibj.RobotState;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team1458.robot.Robot;
 
 /**
  * Represents a full tank drive
@@ -39,11 +36,16 @@ public class TankDrive implements Chassis {
 	/**
 	 * Turning
 	 */
-	MotorValue turnSpeed = MotorValue.zero;
-	Angle zeroAngle = Angle.zero;
 	boolean turning = false;
-	TurtlePDD2 turnPid;
-	MotorValue motorSpeed = MotorValue.zero;
+	MotorValue turnSpeed = MotorValue.zero;
+	TurtlePDD2 turnPID;
+
+	/**
+	 * Straight Driving
+	 */
+	boolean drivingStraight = false;
+	MotorValue straightDriveSpeed = MotorValue.zero;
+	TurtlePDD2 straightDrivePID;
 
 
 	public TankDrive(TurtleMotorSet leftDrive, TurtleMotorSet rightDrive,
@@ -68,43 +70,46 @@ public class TankDrive implements Chassis {
 		 * Turning during Teleop
 		 */
 		if(turning){
-			if(turnPid.atTarget() && RobotState.isOperatorControl() && RobotState.isEnabled()){
+			if(turnPID.atTarget()){
 				stopMotors();
 				turning = false;
 			} else {
+				MotorValue motorValue =
+						turnPID.newValue(rotationSensor.getRotation().getDegrees(), rotationSensor.getRate().getValue())
+								.mapToSpeed(turnSpeed.getValue());
 
-				turnPid.newValue(rotationSensor.getRotation().getDegrees(), rotationSensor.getRate().getValue());
-
-				leftSpeed = speed * motors[0].getValue();
-				rightSpeed = speed * motors[1].getValue();
-
-				SmartDashboard.putString("StatusOfPidLeft", leftDistance+"/"+distance);
-				SmartDashboard.putString("StatusOfPidRight", rightDistance+"/"+distance);
-
-				chassis.updateMotors(new MotorValue(leftSpeed), new MotorValue(rightSpeed));
-			}
-
-			double diff = (navX.getYaw().getDegrees() - turningBase);
-			diff = 90-diff;
-			if(Math.abs(Math.abs(diff)) > 4){
-				double rotate = -0.8*(diff / 90.0);
-				MotorValue rotateValue = new MotorValue(rotate);
-				SmartDashboard.putNumber("RotateValue", rotate);
-				updateMotors(rotateValue, rotateValue.invert());
-				SmartDashboard.putNumber("Yaw", navX.getYaw().getDegrees());
-				SmartDashboard.putNumber("CompassHeading", navX.getCompassHeading().getDegrees());
-				SmartDashboard.putNumber("FusedHeading", navX.getFusedHeading().getDegrees());
-			} else {
+				updateMotors(motorValue, motorValue.invert());
 			}
 			return;
+		} else if(drivingStraight) {
+			MotorValue motorValue =
+					straightDrivePID.newValue(rotationSensor.getRotation().getDegrees(), rotationSensor.getRate().getValue())
+							.mapToSpeed(straightDriveSpeed.getValue());
+
+			updateMotors(motorValue, motorValue);
 		}
+	}
+
+	public void driveStraight(MotorValue speed, TurtlePIDConstants constants) {
+		this.drivingStraight = true;
+		this.straightDriveSpeed = speed;
+		this.straightDrivePID = new TurtlePDD2(constants, rotationSensor.getRotation().getDegrees(), 0);
+	}
+
+	public void stopDrivingStraight() {
+		this.drivingStraight = false;
+		stopMotors();
 	}
 
 	public void turn(Angle angle, MotorValue speed, TurtlePIDConstants constants) {
 		this.turning = true;
 		this.turnSpeed = speed;
-		this.zeroAngle = rotationSensor.getRotation();
-		turnPid = new TurtlePDD2(constants, angle.getDegrees(), 5);
+		this.turnPID = new TurtlePDD2(constants, angle.getDegrees() + rotationSensor.getRotation().getDegrees(), 5);
+	}
+
+	public void stopTurn() {
+		this.turning = false;
+		stopMotors();
 	}
 
 	public boolean isTurning() {
