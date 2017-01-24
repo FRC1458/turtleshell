@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class TurtleJoystickPOVSwitch implements TurtleDigitalInput {
 	public enum POVValue {
-		NONE(-1), N(0), NW(1), W(2), SW(3), S(4), SE(5), E(6), NE(7);
+		CENTER(-1), N(0), NW(1), W(2), SW(3), S(4), SE(5), E(6), NE(7);
 		public final int val;
 
 		POVValue(int i) {
@@ -19,7 +19,7 @@ public class TurtleJoystickPOVSwitch implements TurtleDigitalInput {
 					return p;
 				}
 			}
-			return POVValue.NONE;
+			return POVValue.CENTER;
 		}
 
 		public static POVValue POVFromAngle(int angle) {
@@ -43,7 +43,7 @@ public class TurtleJoystickPOVSwitch implements TurtleDigitalInput {
 			case 360:
 				return POVValue.N;
 			default:
-				return POVValue.NONE;
+				return POVValue.CENTER;
 			}
 		}
 	}
