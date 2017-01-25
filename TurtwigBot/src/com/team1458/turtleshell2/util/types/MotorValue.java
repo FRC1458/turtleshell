@@ -53,4 +53,8 @@ public final class MotorValue implements Comparable<MotorValue>, Unit {
 	public MotorValue invert(){
 		return new MotorValue(this.getValue() * -1);
 	}
+
+	public MotorValue mapToSpeed(double speed){
+		return new MotorValue(this.getValue() * speed);
+	}
 }

@@ -22,22 +22,22 @@ public class TurtlePDD2 implements TurtlePID {
 
 	/**
 	 * Create a PDD2 with the given constants, target, and tolerance
-	 * @param consti TurtlePIDConstants object holding a p, d, and d2 value.
+	 * @param constants TurtlePIDConstants object holding a p, d, and d2 value.
 	 * @param target Target of PID loop, in ticks
 	 * @param tolerence Tolerance, in ticks
 	 */
-	public TurtlePDD2(TurtlePIDConstants consti, double target, double tolerence) {
-		this.kP = consti.kP;
-		this.kDD = consti.kDD;
-		this.kD = consti.kD;
+	public TurtlePDD2(TurtlePIDConstants constants, double target, double tolerence) {
+		this.kP = constants.kP;
+		this.kDD = constants.kDD;
+		this.kD = constants.kD;
 		this.target = target;
 		this.tolerence = tolerence;
 	}
 
 	/**
-	 * @param inputs p,d
+	 * @param inputs p, d
 	 */
-	public MotorValue newValue(double[] inputs) {
+	public MotorValue newValue(double... inputs) {
 		double newValue = kP * (target - inputs[0]) - kD * inputs[1] + kDD * (prevdValue - inputs[1]);
 		//SmartDashboard.putNumber("kPart", kP * (target - inputs[0]));
 		//SmartDashboard.putNumber("dPart", kD * (inputs[1]));

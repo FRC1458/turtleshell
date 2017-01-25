@@ -13,7 +13,6 @@ public class TurtleFlightStick {
 	/**
 	 * Enum holding mappings from axis names to numbers
 	 * @author mehnadnerd
-	 *
 	 */
 	public static enum FlightAxis {
 		ROLL(0), PITCH(1), THROTTLE(2), YAW(3), FOUR(4), FIVE(5);
@@ -43,5 +42,9 @@ public class TurtleFlightStick {
 
 	public TurtleJoystickButton getButton(FlightButton b) {
 		return new TurtleJoystickButton(j, b.val);
+	}
+
+	public TurtleJoystickPOVSwitch getPOVSwitch() {
+		return new TurtleJoystickPOVSwitch(j, 0);
 	}
 }

@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1458.robot;
+package org.usfirst.frc.team1458.robot.components;
 
 import com.team1458.turtleshell2.implementations.input.TurtleFlightStick;
 import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
@@ -6,12 +6,12 @@ import com.team1458.turtleshell2.implementations.movement.TurtleFakeMotor;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
 import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
 import com.team1458.turtleshell2.interfaces.movement.TurtleMotor;
-import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.MotorValue;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 
 /**
  * Not to be used at competition

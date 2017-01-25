@@ -17,7 +17,7 @@ public class TurtleJoystickAxis implements TurtleAnalogInput {
 	public TurtleJoystickAxis(Joystick j, int axisNum, boolean isReversed) {
 		this.masterJoystick = j;
 		this.axisNum = axisNum;
-		this.isReversed=isReversed;
+		this.isReversed = isReversed;
 	}
 	
 	public TurtleJoystickAxis(Joystick j, int axisNum) {

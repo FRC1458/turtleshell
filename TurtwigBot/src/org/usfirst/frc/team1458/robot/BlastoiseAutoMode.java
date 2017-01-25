@@ -1,14 +1,17 @@
 package org.usfirst.frc.team1458.robot;
 
+import com.team1458.turtleshell2.implementations.drive.TankDrive;
+import com.team1458.turtleshell2.implementations.pid.TurtlePDD2;
 import com.team1458.turtleshell2.implementations.pid.TurtleStraightDrivePID;
 import com.team1458.turtleshell2.interfaces.AutoMode;
 import com.team1458.turtleshell2.interfaces.pid.TurtleDualPID;
+import com.team1458.turtleshell2.interfaces.sensor.TurtleRotationSensor;
 import com.team1458.turtleshell2.util.TurtleLogger;
+import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.MotorValue;
-
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 
 /**
  * Command-based controller for autonomous mode.
@@ -17,12 +20,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author asinghani
  */
 public abstract class BlastoiseAutoMode implements AutoMode {
-	protected BlastoiseChassis chassis;
+	protected TankDrive drive;
 	protected TurtleLogger logger;
 
-	public BlastoiseAutoMode(BlastoiseChassis chassis, TurtleLogger logger) {
-		this.chassis = chassis;
+	protected TurtleRotationSensor rotationSensor;
+
+	public BlastoiseAutoMode(TankDrive drive, TurtleLogger logger, TurtleRotationSensor rotationSensor) {
+		this.drive = drive;
 		this.logger = logger;
+		this.rotationSensor = rotationSensor;
 	}
 
 	@Override
@@ -50,10 +56,10 @@ public abstract class BlastoiseAutoMode implements AutoMode {
 	 */
 	public void moveMillis(long millis, double speed) {
 		MotorValue motorValue = new MotorValue(speed);
-		chassis.updateMotors(motorValue, motorValue);
+		drive.updateMotors(motorValue, motorValue);
 
 		Timer.delay(millis / 1000.0); // WPILib Timer, not java.util.Timer
-		chassis.stopMotors();
+		drive.stopMotors();
 	}
 
 	/**
@@ -75,20 +81,17 @@ public abstract class BlastoiseAutoMode implements AutoMode {
 		MotorValue[] motors;
 
 		while (!pid.atTarget() && RobotState.isAutonomous()) {
-			leftDistance = chassis.getLeftDistance().getInches();
-			rightDistance = chassis.getRightDistance().getInches();
+			leftDistance = drive.getLeftDistance().getInches();
+			rightDistance = drive.getRightDistance().getInches();
 
 			motors = pid.newValue(leftDistance, rightDistance, leftSpeed, rightSpeed);
 			leftSpeed = speed * motors[0].getValue();
 			rightSpeed = speed * motors[1].getValue();
-
-			SmartDashboard.putString("StatusOfPidLeft", leftDistance+"/"+distance);
-			SmartDashboard.putString("StatusOfPidRight", rightDistance+"/"+distance);
 			
-			chassis.updateMotors(new MotorValue(leftSpeed), new MotorValue(rightSpeed));
+			drive.updateMotors(new MotorValue(leftSpeed), new MotorValue(rightSpeed));
 		}
 
-		chassis.stopMotors();
+		drive.stopMotors();
 	}
 
 	/**
@@ -102,41 +105,33 @@ public abstract class BlastoiseAutoMode implements AutoMode {
 	public void turnMillis(long millis, double speed) {
 		MotorValue right = new MotorValue(speed);
 		MotorValue left = new MotorValue(-1.0 * speed);
-		chassis.updateMotors(left, right);
+		drive.updateMotors(left, right);
 
 		Timer.delay(millis / 1000.0); // WPILib Timer, not java.util.Timer
-		chassis.stopMotors();
+		drive.stopMotors();
 	}
 
 	/**
-	 * Turn robot left/right for a certain amount of degrees
+	 * Turn robot left/right for a certain amount of degrees using gyro
 	 *
-	 * @param degrees Degrees to turn, clockwise
-	 * @param speed Speed for the robot, between -1 and 1
+	 * @param degrees Degrees to turn
+	 * @param speed Speed for the robot, between 0 and 1
 	 */
 	public void turnDegrees(double degrees, double speed) {
 
-		// Create PID
-		//TurtleDualPID pid = new TurtleTurnPID();
+		MotorValue turnSpeed = new MotorValue(TurtleMaths.fitRange(speed, 0, 1));
 
-		/*TurtleDistanceEncoder leftEncoder = chassis.getLeftDistance();
-		TurtleDistanceEncoder rightEncoder = chassis.getRightDistance();
+		TurtlePDD2 turnPID = new TurtlePDD2(RobotConstants.TurnPID.PID_CONSTANTS,
+				degrees + rotationSensor.getRotation().getDegrees(), RobotConstants.TurnPID.TOLERANCE);
 
+		while(!turnPID.atTarget()){
+			MotorValue motorValue =
+					turnPID.newValue(rotationSensor.getRotation().getDegrees(), rotationSensor.getRate().getValue())
+							.mapToSpeed(turnSpeed.getValue());
 
-		double leftSpeed = 0, rightSpeed = 0, leftDistance, rightDistance;
-		MotorValue[] motors;
-
-		while (!pid.atTarget()) {
-			leftDistance = leftEncoder.getDistance().getInches();
-			rightDistance = rightEncoder.getDistance().getInches();
-
-			motors = pid.newValue(leftDistance, rightDistance, leftSpeed, rightSpeed);
-			leftSpeed = .3 * motors[0].getValue() + .7 * speed;
-			rightSpeed = .3 * motors[1].getValue() + .7 * speed;
-
-			chassis.updateMotors(new MotorValue(leftSpeed), new MotorValue(rightSpeed));
+			drive.updateMotors(motorValue, motorValue.invert());
 		}
-*/
-		chassis.stopMotors();
+
+		drive.stopMotors();
 	}
 }

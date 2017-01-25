@@ -7,9 +7,9 @@ import com.team1458.turtleshell2.util.TurtlePIDConstants;
 import com.team1458.turtleshell2.util.types.MotorValue;
 
 /**
- * Class used drive the robot in a straight line
- * @author mehnadnerd
+ * Class used drive the robot in a straight line using only encoders
  *
+ * @author mehnadnerd
  */
 public class TurtleStraightDrivePID implements TurtleDualPID {
 	private final TurtlePID lPID;
@@ -48,7 +48,7 @@ public class TurtleStraightDrivePID implements TurtleDualPID {
 	 * @return Left Motor Value, Right Motor Value
 	 */
 	@Override
-	public MotorValue[] newValue(double[] inputs) {
+	public MotorValue[] newValue(double... inputs) {
 		//Output.outputNumber("lDist", inputs[0]);
 		//Output.outputNumber("rDist", inputs[1]);
 		lDist = inputs[0];
