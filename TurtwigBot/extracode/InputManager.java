@@ -46,7 +46,7 @@ public class InputManager {
 	}
 
 	public double getAxisValue(String s) {
-		return getAxis(s).get();
+		return getAxis(s).getButton();
 	}
 
 
@@ -63,7 +63,7 @@ public class InputManager {
 	}
 
 	public boolean getButtonValue(String s) {
-		return getButton(s).get();
+		return getButton(s).getButton();
 	}
 
 	public boolean getButtonUp(String s) {
@@ -88,7 +88,7 @@ public class InputManager {
 	}
 
 	public TurtleJoystickPOVSwitch.POVValue getPOVvalue(String s) {
-		return getPOV(s).get();
+		return getPOV(s).getButton();
 	}
 
 	public void rumbleRight(float strength, long millis) {

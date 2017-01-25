@@ -9,7 +9,7 @@ import java.util.TimerTask;
  * @author asinghani
  */
 public abstract class TurtleButtonInput implements TurtleDigitalInput {
-	boolean lastValue = false;
+	private boolean lastValue = false;
 	boolean pressed = false;
 	boolean released = false;
 
@@ -21,10 +21,10 @@ public abstract class TurtleButtonInput implements TurtleDigitalInput {
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				if(get() && !lastValue) {
+				if(getButton() && !lastValue) {
 					pressed = true;
 					released = false;
-				} else if(!get() && lastValue) {
+				} else if(!getButton() && lastValue) {
 					pressed = false;
 					released = true;
 				}
@@ -32,7 +32,7 @@ public abstract class TurtleButtonInput implements TurtleDigitalInput {
 		}, 50, 50);
 	}
 
-	public abstract boolean get();
+	public abstract boolean getButton();
 
 	public boolean getDown() {
 		if(pressed) {
@@ -51,7 +51,7 @@ public abstract class TurtleButtonInput implements TurtleDigitalInput {
 	}
 
 	@Override
-	public int getValue() {
-		return get() ? 1 : 0;
+	public int get() {
+		return getButton() ? 1 : 0;
 	}
 }
