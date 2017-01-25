@@ -163,23 +163,23 @@ public class BlastoiseChassis implements TurtleComponent {
 		MotorValue leftPower = new MotorValue(TurtleMaths.deadband(leftJoystick.get(), RobotConstants.JOYSTICK_DEADBAND));
 		MotorValue rightPower = new MotorValue(TurtleMaths.deadband(rightJoystick.get(), RobotConstants.JOYSTICK_DEADBAND));
 
-		if(turnButton.get()) {
+		if(turnButton.getButton()) {
 			updateMotors(leftPower, leftPower.invert());
-		} else if(straightButton.get()){
+		} else if(straightButton.getButton()){
 			updateMotors(leftPower, leftPower);
 		} else{
 			updateMotors(leftPower, rightPower);
 		}
 
-		double degrees = pov.getValue();
+		double degrees = pov.get();
 		if(degrees != -1){
-			while(pov.getValue() != -1);
+			while(pov.get() != -1);
 			if(degrees > 180) degrees = (degrees - 360);
 			tankDrive.turn(new Angle(degrees), new MotorValue(RobotConstants.TurnPID.TURN_SPEED),
 					RobotConstants.TurnPID.PID_CONSTANTS);
 		}
 
-		if(resetButton.get()){
+		if(resetButton.getButton()){
 			MotorValue val = gearAlignPID.newValue(getSpringX(), 0);
 		}
 

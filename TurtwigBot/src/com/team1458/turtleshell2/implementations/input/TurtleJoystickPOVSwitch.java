@@ -55,12 +55,12 @@ public class TurtleJoystickPOVSwitch implements TurtleDigitalInput {
 		this.povNum = buttonNum;
 	}
 
-	public POVValue get() {
+	public POVValue getPOV() {
 		return POVValue.POVFromAngle(masterJoystick.getPOV(povNum));
 	}
 
 	@Override
-	public int getValue() {
-		return get().val;
+	public int get() {
+		return getPOV().val;
 	}
 }

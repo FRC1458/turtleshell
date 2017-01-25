@@ -9,7 +9,7 @@ public class TurtleFakeJoystickButton extends TurtleJoystickButton {
 	}
 	
 	@Override
-	public boolean get() {
+	public boolean getButton() {
 		return false;
 	}
 }

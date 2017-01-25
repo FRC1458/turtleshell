@@ -14,7 +14,7 @@ public class TurtleJoystickButton extends TurtleButtonInput {
 	}
 	
 	@Override
-	public boolean get() {
+	public boolean getButton() {
 		return masterJoystick.getRawButton(buttonNum);
 	}
 }

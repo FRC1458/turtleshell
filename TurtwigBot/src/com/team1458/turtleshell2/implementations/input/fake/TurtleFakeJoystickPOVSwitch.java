@@ -8,7 +8,7 @@ public class TurtleFakeJoystickPOVSwitch extends TurtleJoystickPOVSwitch {
 		super(null, 0);
 	}
 
-	public POVValue get() {
-		return POVValue.CENTER;
+	public int get() {
+		return POVValue.CENTER.val;
 	}
 }
