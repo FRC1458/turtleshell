@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.team1458.turtleshell2.implementations.input.InputObject;
 import com.team1458.turtleshell2.implementations.input.TurtleFlightStick;
 import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
 import com.team1458.turtleshell2.implementations.sensor.TurtleNavX;
@@ -17,7 +16,6 @@ import org.usfirst.frc.team1458.robot.autonomous.BlastoiseTestTimedAutonomous;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * This is the base robot code.
@@ -53,12 +51,7 @@ public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
 	protected void robotInit() {
 		// Setup controller and chassis
 
-		InputMapping mapping = new InputMapping() {
-			@Override
-			public Map<String, InputObject> getMapping() {
-				return null;
-			}
-		};
+		InputMapping mapping = new BlastoiseInputMapping();
 		
 		if(RobotConstants.USE_XBOX_CONTROLLER){
 	        TurtleXboxController xboxController = new TurtleXboxController(RobotConstants.UsbPorts.XBOX_CONTROLLER);
