@@ -15,6 +15,8 @@ import com.team1458.turtleshell2.implementations.movement.TurtleVictor888;
 import com.team1458.turtleshell2.implementations.pid.TurtlePDD2;
 import com.team1458.turtleshell2.implementations.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.implementations.sensor.TurtleNavX;
+import com.team1458.turtleshell2.implementations.vision.Contour;
+import com.team1458.turtleshell2.implementations.vision.GripInterface;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
 import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
 import com.team1458.turtleshell2.interfaces.input.TurtleButtonInput;
@@ -31,6 +33,8 @@ import org.usfirst.frc.team1458.robot.constants.BlastoiseConstants;
 import org.usfirst.frc.team1458.robot.BlastoiseRobot;
 import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 import org.usfirst.frc.team1458.robot.constants.TurtwigConstants;
+
+import java.util.Arrays;
 
 /**
  * New BlastoiseRobot Chassis
@@ -200,23 +204,21 @@ public class BlastoiseChassis implements TurtleComponent {
 
 	public int getSpringX() {
 		try {
-			String data = HttpRequest.get("http://localhost:2084/GRIP/data");
-			JsonValue json = Json.parse(data);
+			Contour[] contours = GripInterface.getContours("http://localhost:2084/GRIP/data");
+			Arrays.sort(contours);
 
-			JsonObject contours = json.asObject().get("contours").asObject();
+			if(contours.length < 2) return -1;
 
-			JsonArray area = contours.get("area").asArray();
-			JsonArray centerY = contours.get("centerY").asArray();
-			JsonArray centerX = contours.get("centerX").asArray();
+			Contour contour1 = contours[contours.length - 1];
+			Contour contour2 = contours[contours.length - 2];
 
-			if(area.size() == 0){
-				return -1;
-			}
+			double x = (contour1.getCenterX() + contour2.getCenterX()) / 2.0;
+
+			return (int) x;
 
 		} catch(Exception e) {
-
+			return -1;
 		}
-		return 0;
 	}
 
 	public Distance getLeftDistance() {

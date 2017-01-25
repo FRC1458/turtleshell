@@ -5,7 +5,7 @@ package com.team1458.turtleshell2.implementations.vision;
  *
  * @author asinghani
  */
-public class Contour {
+public class Contour implements Comparable<Contour> {
     private final double area;
     private final double centerX;
     private final double centerY;
@@ -53,5 +53,12 @@ public class Contour {
 
     public double getSolidity() {
         return solidity;
+    }
+
+    @Override
+    public int compareTo(Contour o) {
+        if(o.getArea() > getArea()) return -1;
+        if(o.getArea() < getArea()) return 1;
+        return 0;
     }
 }
