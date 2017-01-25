@@ -2,6 +2,9 @@ package com.team1458.turtleshell2.implementations.input;
 
 import com.team1458.turtleshell2.interfaces.input.InputMapping;
 
+import static com.team1458.turtleshell2.implementations.input.InputManager.InputDevice.FLIGHT_STICK;
+import static com.team1458.turtleshell2.implementations.input.InputManager.InputDevice.XBOX_CONTROLLER;
+
 /**
  * Class for managing user inputs. Currently supports dual flight-sticks OR Xbox controller.
  *
@@ -13,135 +16,98 @@ public class InputManager {
 
 	private TurtleXboxController xboxController;
 
+	private InputDevice inputDevice;
+
 	private InputMapping mapping;
 
 	public InputManager(TurtleXboxController xboxController, InputMapping mapping) {
 		this.xboxController = xboxController;
 		this.mapping = mapping;
+		this.inputDevice = XBOX_CONTROLLER;
 	}
 
 	public InputManager(TurtleFlightStick leftStick, TurtleFlightStick rightStick, InputMapping mapping) {
 		this.leftStick = leftStick;
 		this.rightStick = rightStick;
 		this.mapping = mapping;
+		this.inputDevice = FLIGHT_STICK;
 	}
 
 
 	public TurtleJoystickAxis getAxis(String s) {
 		InputObject object = mapping.getMapping().get(s);
-		switch(object.getInputDevice()) {
+		switch(inputDevice) {
 			case XBOX_CONTROLLER:
 				return xboxController.getAxis(object.getXboxAxis());
-			case LEFT_FLIGHT_STICK:
-				return leftStick.getAxis(object.getFlightAxis());
-			case RIGHT_FLIGHT_STICK:
-				return rightStick.getAxis(object.getFlightAxis());
+			case FLIGHT_STICK:
+				return object.isRightFlightStick() ? rightStick.getAxis(object.getFlightAxis()) : leftStick.getAxis(object.getFlightAxis());
 		}
 		return null;
 	}
 
 	public double getAxisValue(String s) {
-		InputObject object = mapping.getMapping().get(s);
-		switch(object.getInputDevice()) {
-			case XBOX_CONTROLLER:
-				return xboxController.getAxis(object.getXboxAxis()).get();
-			case LEFT_FLIGHT_STICK:
-				return leftStick.getAxis(object.getFlightAxis()).get();
-			case RIGHT_FLIGHT_STICK:
-				return rightStick.getAxis(object.getFlightAxis()).get();
-		}
-		return 0;
+		return getAxis(s).get();
 	}
 
 
 
 	public TurtleJoystickButton getButton(String s) {
 		InputObject object = mapping.getMapping().get(s);
-		switch(object.getInputDevice()) {
+		switch(inputDevice) {
 			case XBOX_CONTROLLER:
 				return xboxController.getButton(object.getXboxButton());
-			case LEFT_FLIGHT_STICK:
-				return leftStick.getButton(object.getFlightButton());
-			case RIGHT_FLIGHT_STICK:
-				return rightStick.getButton(object.getFlightButton());
+			case FLIGHT_STICK:
+				return object.isRightFlightStick() ? rightStick.getButton(object.getFlightButton()) : leftStick.getButton(object.getFlightButton());
 		}
 		return null;
 	}
 
 	public boolean getButtonValue(String s) {
-		InputObject object = mapping.getMapping().get(s);
-		switch(object.getInputDevice()) {
-			case XBOX_CONTROLLER:
-				return xboxController.getButton(object.getXboxButton()).get();
-			case LEFT_FLIGHT_STICK:
-				return leftStick.getButton(object.getFlightButton()).get();
-			case RIGHT_FLIGHT_STICK:
-				return rightStick.getButton(object.getFlightButton()).get();
-		}
-		return false;
+		return getButton(s).get();
 	}
 
 	public boolean getButtonUp(String s) {
-		InputObject object = mapping.getMapping().get(s);
-		switch(object.getInputDevice()) {
-			case XBOX_CONTROLLER:
-				return xboxController.getButton(object.getXboxButton()).getUp();
-			case LEFT_FLIGHT_STICK:
-				return leftStick.getButton(object.getFlightButton()).getUp();
-			case RIGHT_FLIGHT_STICK:
-				return rightStick.getButton(object.getFlightButton()).getUp();
-		}
-		return false;
+		return getButton(s).getUp();
 	}
 
 	public boolean getButtonDown(String s) {
-		InputObject object = mapping.getMapping().get(s);
-		switch(object.getInputDevice()) {
-			case XBOX_CONTROLLER:
-				return xboxController.getButton(object.getXboxButton()).getDown();
-			case LEFT_FLIGHT_STICK:
-				return leftStick.getButton(object.getFlightButton()).getDown();
-			case RIGHT_FLIGHT_STICK:
-				return rightStick.getButton(object.getFlightButton()).getDown();
-		}
-		return false;
+		return getButton(s).getDown();
 	}
 
 
 
 	public TurtleJoystickPOVSwitch getPOV(String s) {
 		InputObject object = mapping.getMapping().get(s);
-		switch(object.getInputDevice()) {
+		switch(inputDevice) {
 			case XBOX_CONTROLLER:
 				return xboxController.getDPad();
-			case LEFT_FLIGHT_STICK:
-				return leftStick.getPOVSwitch();
-			case RIGHT_FLIGHT_STICK:
-				return rightStick.getPOVSwitch();
+			case FLIGHT_STICK:
+				return object.isRightFlightStick() ? rightStick.getPOVSwitch() : leftStick.getPOVSwitch();
 		}
 		return null;
 	}
 
 	public TurtleJoystickPOVSwitch.POVValue getPOVvalue(String s) {
-		InputObject object = mapping.getMapping().get(s);
-		switch(object.getInputDevice()) {
-			case XBOX_CONTROLLER:
-				return xboxController.getDPad().get();
-			case LEFT_FLIGHT_STICK:
-				return leftStick.getPOVSwitch().get();
-			case RIGHT_FLIGHT_STICK:
-				return rightStick.getPOVSwitch().get();
-		}
-		return TurtleJoystickPOVSwitch.POVValue.CENTER;
+		return getPOV(s).get();
 	}
 
+	public void rumbleRight(float strength, long millis) {
+		if(xboxController != null) xboxController.rumbleRight(strength, millis);
+	}
 
+	public void rumbleLeft(float strength, long millis) {
+		if(xboxController != null) xboxController.rumbleLeft(strength, millis);
+	}
+
+	public void rumble(float strength, long millis) {
+		if(xboxController != null) xboxController.rumble(strength, millis);
+	}
 
 	public enum InputType {
 		BUTTON, ANALOG, POV
 	}
 	public enum InputDevice {
-		XBOX_CONTROLLER, RIGHT_FLIGHT_STICK, LEFT_FLIGHT_STICK
+		XBOX_CONTROLLER, FLIGHT_STICK
 	}
 }
 

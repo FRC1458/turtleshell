@@ -2,7 +2,9 @@ package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell2.implementations.drive.TankDrive;
 import com.team1458.turtleshell2.implementations.drive.TurtleMotorSet;
+import com.team1458.turtleshell2.implementations.input.InputManager;
 import com.team1458.turtleshell2.implementations.input.TurtleFlightStick;
+import com.team1458.turtleshell2.implementations.input.TurtleJoystickPOVSwitch;
 import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
 import com.team1458.turtleshell2.implementations.movement.TurtleFakeMotor;
 import com.team1458.turtleshell2.implementations.movement.TurtleSpark;
@@ -11,11 +13,12 @@ import com.team1458.turtleshell2.implementations.movement.TurtleVictor888;
 import com.team1458.turtleshell2.implementations.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.implementations.sensor.TurtleNavX;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
+import com.team1458.turtleshell2.interfaces.input.InputMapping;
 import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
-import com.team1458.turtleshell2.interfaces.input.TurtleButtonInput;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.TurtleMaths;
+import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -76,15 +79,20 @@ public class BlastoiseChassis implements TurtleComponent{
 	}
 
 	// Input joysticks and buttons
+
 	private TurtleAnalogInput rightJoystick;
 	private TurtleAnalogInput leftJoystick;
 
+	/*
 	private TurtleButtonInput straightButton;
 	private TurtleButtonInput turnButton;
 
 	private TurtleButtonInput resetButton;
 
 	private TurtleXboxController rumbleController; // Very experimental
+	*/
+
+	private InputManager input;
 
 	private TurtleLogger logger;
 
@@ -92,15 +100,12 @@ public class BlastoiseChassis implements TurtleComponent{
 	 * Main constructor for BlastoiseChassis
 	 * Accepts TurtleAnalogInputs and TurtleDigitalInputs
 	 */
-	public BlastoiseChassis(TurtleAnalogInput leftJoystick, TurtleAnalogInput rightJoystick,
-	                        TurtleButtonInput straightButton, TurtleButtonInput turnButton, TurtleButtonInput resetButton, TurtleLogger logger) {
-		this.leftJoystick = leftJoystick;
-		this.rightJoystick = rightJoystick;
+	public BlastoiseChassis(InputManager input, TurtleLogger logger) {
+		this.input = input;
 
-		this.straightButton = straightButton;
-		this.turnButton = turnButton;
-		this.resetButton = resetButton;
-		
+		leftJoystick = input.getAxis("LEFT_JOYSTICK");
+		rightJoystick = input.getAxis("RIGHT_JOYSTICK");
+
 		TurtleDashboard.logAxis(leftJoystick, rightJoystick);
 
 		this.logger = logger;
@@ -111,16 +116,11 @@ public class BlastoiseChassis implements TurtleComponent{
 	 * Convenience method for instantiating with Xbox controller
 	 * @param controller Xbox controller
 	 */
-	public BlastoiseChassis (TurtleXboxController controller, TurtleLogger logger) {
+	public BlastoiseChassis (TurtleXboxController controller, InputMapping mapping, TurtleLogger logger) {
 		this(
-				controller.getAxis(TurtleXboxController.XboxAxis.LY),
-				controller.getAxis(TurtleXboxController.XboxAxis.RY),
-				controller.getButton(TurtleXboxController.XboxButton.RBUMP),
-				controller.getButton(TurtleXboxController.XboxButton.LBUMP),
-				controller.getButton(TurtleXboxController.XboxButton.A),
+				new InputManager(controller, mapping),
 				logger
 		);
-		rumbleController = controller;
 	}
 
 	/**
@@ -128,13 +128,9 @@ public class BlastoiseChassis implements TurtleComponent{
 	 * @param leftFlightStick
 	 * @param rightFlightStick
 	 */
-	public BlastoiseChassis (TurtleFlightStick leftFlightStick, TurtleFlightStick rightFlightStick, TurtleLogger logger) {
+	public BlastoiseChassis (TurtleFlightStick leftFlightStick, TurtleFlightStick rightFlightStick, InputMapping mapping, TurtleLogger logger) {
 		this(
-				leftFlightStick.getAxis(TurtleFlightStick.FlightAxis.PITCH),
-				rightFlightStick.getAxis(TurtleFlightStick.FlightAxis.PITCH),
-				rightFlightStick.getButton(TurtleFlightStick.FlightButton.TRIGGER),
-				leftFlightStick.getButton(TurtleFlightStick.FlightButton.TRIGGER),
-				rightFlightStick.getButton(TurtleFlightStick.FlightButton.TWO),
+				new InputManager(leftFlightStick, rightFlightStick, mapping),
 				logger
 		);
 	}
@@ -143,19 +139,25 @@ public class BlastoiseChassis implements TurtleComponent{
 	public void teleUpdate() {
 		MotorValue leftPower = new MotorValue(TurtleMaths.deadband(leftJoystick.get(), RobotConstants.JOYSTICK_DEADBAND));
 		MotorValue rightPower = new MotorValue(TurtleMaths.deadband(rightJoystick.get(), RobotConstants.JOYSTICK_DEADBAND));
-		
-		if(turnButton.get()) {
+
+		if(input.getButtonValue("TURN_BUTTON")) {
 			updateMotors(leftPower, leftPower.invert());
-		} else if(straightButton.get()){
+		} else if(input.getButtonValue("STRAIGHT_DRIVE_BUTTON")){
 			updateMotors(leftPower, leftPower);
 		} else{
 			updateMotors(leftPower, rightPower);
 		}
-		
-		/*if(resetButton.get()){
-			leftDistance.reset();
-			rightDistance.reset();
-		}*/
+
+		TurtleJoystickPOVSwitch.POVValue povValue = input.getPOVvalue("POV");
+		if(povValue != TurtleJoystickPOVSwitch.POVValue.CENTER){
+			int degrees = povValue.val;
+			if(degrees > 180) degrees = (degrees - 360);
+
+			while(input.getPOVvalue("POV") != TurtleJoystickPOVSwitch.POVValue.CENTER);
+
+			tankDrive.turn(new Angle(degrees), new MotorValue(RobotConstants.TurnPID.TURN_SPEED),
+					RobotConstants.TurnPID.PID_CONSTANTS);
+		}
 		
 		SmartDashboard.putNumber("LeftEncoder", tankDrive.getLeftDistance().getInches());
 		SmartDashboard.putNumber("RightEncoder", tankDrive.getRightDistance().getInches());
@@ -165,8 +167,8 @@ public class BlastoiseChassis implements TurtleComponent{
 		SmartDashboard.putNumber("CompassHeading", navX.getCompassHeading().getDegrees());
 		SmartDashboard.putNumber("FusedHeading", navX.getFusedHeading().getDegrees());
 		
-		if(rumbleController != null && navX.isInCollision(RobotConstants.COLLISION_THRESHOLD)){
-			rumbleController.rumble(1.0f, 250); // Very experimental
+		if(navX.isInCollision(RobotConstants.COLLISION_THRESHOLD)){
+			input.rumble(1.0f, 250); // Very experimental
 		}
 	}
 

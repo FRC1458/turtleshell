@@ -49,9 +49,11 @@ public class RobotConstants {
 	/**
 	 * Turning PID
 	 */
-	static final class TurningPID {
+	static final class TurnPID {
 		public static final TurtlePIDConstants PID_CONSTANTS = new TurtlePIDConstants(.0015, 0, .0001, .0001);
 		public static final double TOLERANCE = 3;
+
+		public static final double TURN_SPEED = 0.5;
 	}
 
 	/**

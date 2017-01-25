@@ -120,8 +120,8 @@ public abstract class BlastoiseAutoMode implements AutoMode {
 
 		MotorValue turnSpeed = new MotorValue(TurtleMaths.fitRange(speed, 0, 1));
 
-		TurtlePDD2 turnPID = new TurtlePDD2(RobotConstants.TurningPID.PID_CONSTANTS,
-				degrees + rotationSensor.getRotation().getDegrees(), RobotConstants.TurningPID.TOLERANCE);
+		TurtlePDD2 turnPID = new TurtlePDD2(RobotConstants.TurnPID.PID_CONSTANTS,
+				degrees + rotationSensor.getRotation().getDegrees(), RobotConstants.TurnPID.TOLERANCE);
 
 		while(!turnPID.atTarget()){
 			MotorValue motorValue =

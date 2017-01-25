@@ -7,7 +7,8 @@ package com.team1458.turtleshell2.implementations.input;
  */
 public class InputObject {
 	InputManager.InputType inputType;
-	InputManager.InputDevice inputDevice;
+	//InputManager.InputDevice inputDevice;
+	boolean rightStick;
 
 	TurtleXboxController.XboxAxis xboxAxis;
 	TurtleXboxController.XboxButton xboxButton;
@@ -16,44 +17,39 @@ public class InputObject {
 	TurtleFlightStick.FlightButton flightButton;
 
 
-	public InputObject(TurtleXboxController.XboxAxis xboxAxis) {
+	public InputObject(TurtleXboxController.XboxAxis xboxAxis, TurtleFlightStick.FlightAxis flightAxis, boolean rightStick) {
 		this.inputType = InputManager.InputType.ANALOG;
-		this.inputDevice = InputManager.InputDevice.XBOX_CONTROLLER;
 		this.xboxAxis = xboxAxis;
-	}
 
-	public InputObject(TurtleXboxController.XboxButton xboxButton) {
-		this.inputType = InputManager.InputType.BUTTON;
-		this.inputDevice = InputManager.InputDevice.XBOX_CONTROLLER;
-		this.xboxButton = xboxButton;
-	}
-
-	public InputObject(TurtleFlightStick.FlightAxis flightAxis, boolean rightStick) {
-		this.inputType = InputManager.InputType.ANALOG;
-		this.inputDevice = rightStick ? InputManager.InputDevice.RIGHT_FLIGHT_STICK : InputManager.InputDevice.LEFT_FLIGHT_STICK;
 		this.flightAxis = flightAxis;
+		this.rightStick = rightStick;
 	}
 
-	public InputObject(TurtleFlightStick.FlightButton flightButton, boolean rightStick) {
+	public InputObject(TurtleXboxController.XboxButton xboxButton, TurtleFlightStick.FlightButton flightButton, boolean rightStick) {
 		this.inputType = InputManager.InputType.BUTTON;
-		this.inputDevice = rightStick ? InputManager.InputDevice.RIGHT_FLIGHT_STICK : InputManager.InputDevice.LEFT_FLIGHT_STICK;
+		this.xboxButton = xboxButton;
+
 		this.flightButton = flightButton;
+		this.rightStick = rightStick;
 	}
 
 	/**
 	 * Only for POV switch
 	 */
-	public InputObject(InputManager.InputDevice inputDevice) {
+	public InputObject() {
 		this.inputType = InputManager.InputType.POV;
-		this.inputDevice = inputDevice;
 	}
 
 	public InputManager.InputType getInputType() {
 		return inputType;
 	}
 
-	public InputManager.InputDevice getInputDevice() {
+	/*public InputManager.InputDevice getInputDevice() {
 		return inputDevice;
+	}*/
+
+	public boolean isRightFlightStick() {
+		return rightStick;
 	}
 
 	public TurtleXboxController.XboxAxis getXboxAxis() {
