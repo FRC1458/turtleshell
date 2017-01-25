@@ -43,4 +43,8 @@ public class TurtleFlightStick {
 	public TurtleJoystickButton getButton(FlightButton b) {
 		return new TurtleJoystickButton(j, b.val);
 	}
+
+	public TurtleJoystickPOVSwitch getPOVSwitch() {
+		return new TurtleJoystickPOVSwitch(j, 0);
+	}
 }

@@ -12,7 +12,7 @@ import com.team1458.turtleshell2.implementations.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.implementations.sensor.TurtleNavX;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
 import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
-import com.team1458.turtleshell2.interfaces.input.TurtleDigitalInput;
+import com.team1458.turtleshell2.interfaces.input.TurtleButtonInput;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.TurtleMaths;
@@ -79,10 +79,10 @@ public class BlastoiseChassis implements TurtleComponent{
 	private TurtleAnalogInput rightJoystick;
 	private TurtleAnalogInput leftJoystick;
 
-	private TurtleDigitalInput straightButton;
-	private TurtleDigitalInput turnButton;
+	private TurtleButtonInput straightButton;
+	private TurtleButtonInput turnButton;
 
-	private TurtleDigitalInput resetButton;
+	private TurtleButtonInput resetButton;
 
 	private TurtleXboxController rumbleController; // Very experimental
 
@@ -93,7 +93,7 @@ public class BlastoiseChassis implements TurtleComponent{
 	 * Accepts TurtleAnalogInputs and TurtleDigitalInputs
 	 */
 	public BlastoiseChassis(TurtleAnalogInput leftJoystick, TurtleAnalogInput rightJoystick,
-			TurtleDigitalInput straightButton, TurtleDigitalInput turnButton, TurtleDigitalInput resetButton, TurtleLogger logger) {
+	                        TurtleButtonInput straightButton, TurtleButtonInput turnButton, TurtleButtonInput resetButton, TurtleLogger logger) {
 		this.leftJoystick = leftJoystick;
 		this.rightJoystick = rightJoystick;
 
@@ -144,15 +144,15 @@ public class BlastoiseChassis implements TurtleComponent{
 		MotorValue leftPower = new MotorValue(TurtleMaths.deadband(leftJoystick.get(), RobotConstants.JOYSTICK_DEADBAND));
 		MotorValue rightPower = new MotorValue(TurtleMaths.deadband(rightJoystick.get(), RobotConstants.JOYSTICK_DEADBAND));
 		
-		if(turnButton.get() == 1) {
+		if(turnButton.get()) {
 			updateMotors(leftPower, leftPower.invert());
-		} else if(straightButton.get() == 1){
+		} else if(straightButton.get()){
 			updateMotors(leftPower, leftPower);
 		} else{
 			updateMotors(leftPower, rightPower);
 		}
 		
-		/*if(resetButton.get() == 1){
+		/*if(resetButton.get()){
 			leftDistance.reset();
 			rightDistance.reset();
 		}*/
