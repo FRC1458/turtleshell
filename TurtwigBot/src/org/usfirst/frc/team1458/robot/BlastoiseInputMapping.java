@@ -18,7 +18,7 @@ public class BlastoiseInputMapping implements InputMapping {
 		mapping.put("LEFT_JOYSTICK",
 				new InputObject(TurtleXboxController.XboxAxis.LY, TurtleFlightStick.FlightAxis.PITCH, false));
 		mapping.put("RIGHT_JOYSTICK",
-				new InputObject(TurtleXboxController.XboxAxis.LY, TurtleFlightStick.FlightAxis.PITCH, true));
+				new InputObject(TurtleXboxController.XboxAxis.RY, TurtleFlightStick.FlightAxis.PITCH, true));
 
 		mapping.put("TURN_BUTTON",
 				new InputObject(TurtleXboxController.XboxButton.LBUMP, TurtleFlightStick.FlightButton.TRIGGER, false));
