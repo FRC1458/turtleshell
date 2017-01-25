@@ -1,8 +1,9 @@
 package com.team1458.turtleshell2.implementations.input;
 
+import com.team1458.turtleshell2.interfaces.input.TurtleDigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 
-public class TurtleJoystickPOVSwitch {
+public class TurtleJoystickPOVSwitch implements TurtleDigitalInput {
 	public enum POVValue {
 		CENTER(-1), N(0), NW(1), W(2), SW(3), S(4), SE(5), E(6), NE(7);
 		public final int val;
@@ -56,5 +57,10 @@ public class TurtleJoystickPOVSwitch {
 
 	public POVValue get() {
 		return POVValue.POVFromAngle(masterJoystick.getPOV(povNum));
+	}
+
+	@Override
+	public int getValue() {
+		return get().val;
 	}
 }

@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1458.robot;
+package org.usfirst.frc.team1458.robot.components;
 
 /**
  * TODO

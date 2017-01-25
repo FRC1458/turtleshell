@@ -2,7 +2,7 @@ package com.team1458.turtleshell2.implementations.drive;
 
 import com.team1458.turtleshell2.implementations.pid.TurtlePDD2;
 import com.team1458.turtleshell2.implementations.sensor.fake.TurtleFakeDistanceEncoder;
-import com.team1458.turtleshell2.interfaces.Chassis;
+import com.team1458.turtleshell2.interfaces.DriveTrain;
 import com.team1458.turtleshell2.interfaces.sensor.TurtleDistanceSensor;
 import com.team1458.turtleshell2.interfaces.sensor.TurtleRotationSensor;
 import com.team1458.turtleshell2.util.TurtlePIDConstants;
@@ -14,7 +14,7 @@ import com.team1458.turtleshell2.util.types.MotorValue;
  * Represents a full tank drive
  * @author asinghani
  */
-public class TankDrive implements Chassis {
+public class TankDrive implements DriveTrain {
 
 	/**
 	 * Drive

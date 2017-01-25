@@ -8,7 +8,7 @@ import java.util.TimerTask;
  *
  * @author asinghani
  */
-public abstract class TurtleButtonInput {
+public abstract class TurtleButtonInput implements TurtleDigitalInput {
 	boolean lastValue = false;
 	boolean pressed = false;
 	boolean released = false;
@@ -48,5 +48,10 @@ public abstract class TurtleButtonInput {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public int getValue() {
+		return get() ? 1 : 0;
 	}
 }

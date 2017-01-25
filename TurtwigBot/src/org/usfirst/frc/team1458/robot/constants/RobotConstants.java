@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1458.robot;
+package org.usfirst.frc.team1458.robot.constants;
 
 import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.TurtlePIDConstants;
@@ -54,6 +54,17 @@ public class RobotConstants {
 		public static final double TOLERANCE = 3;
 
 		public static final double TURN_SPEED = 0.5;
+	}
+
+	/**
+	 * Gear Alignment PID
+	 */
+	public static final class GearPID {
+		public static final TurtlePIDConstants PID_CONSTANTS = new TurtlePIDConstants(.0015, 0, 0, 0);
+
+		public static final double SPEED = 0.5;
+
+		public static final int CAMERA_WIDTH = 1280;
 	}
 
 	/**

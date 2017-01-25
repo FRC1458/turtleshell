@@ -1,6 +1,7 @@
 package com.team1458.turtleshell2.implementations.input;
 
 import com.team1458.turtleshell2.interfaces.input.TurtleButtonInput;
+import com.team1458.turtleshell2.interfaces.input.TurtleDigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class TurtleJoystickButton extends TurtleButtonInput {
