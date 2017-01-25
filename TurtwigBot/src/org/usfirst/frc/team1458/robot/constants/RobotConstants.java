@@ -16,14 +16,14 @@ public class RobotConstants {
 	/**
 	 * Shooter-related constants
 	 */
-	static final class Shooter {
+	public static final class Shooter {
 		public static final int MOTOR_PORT = -1;
 	}
 
 	/**
      * USB ports
      */
-    static final class UsbPorts {
+    public static final class UsbPorts {
 	    public static final int XBOX_CONTROLLER = 3;
 	    public static final int LEFT_STICK = 1;
 	    public static final int RIGHT_STICK = 0;
@@ -32,7 +32,7 @@ public class RobotConstants {
 	/**
 	 * RoboRIO sensor ports
 	 */
-	static final class Sensors {
+	public static final class Sensors {
 		public static final int NAVX_PORT = 1; // TODO: Find correct port
 		public static final int PRACTICE_ROBOT_DIO = 0;
 	}
@@ -40,7 +40,7 @@ public class RobotConstants {
 	/**
 	 * Straight Drive PID
 	 */
-	static final class StraightDrivePID {
+	public static final class StraightDrivePID {
 		public static final TurtlePIDConstants PID_CONSTANTS = new TurtlePIDConstants(.0015, 0, .0001, .0001);
 		public static final double kLR = 0.00005;
 		public static final double TOLERANCE = 2;
@@ -49,7 +49,7 @@ public class RobotConstants {
 	/**
 	 * Turning PID
 	 */
-	static final class TurnPID {
+	public static final class TurnPID {
 		public static final TurtlePIDConstants PID_CONSTANTS = new TurtlePIDConstants(.0015, 0, .0001, .0001);
 		public static final double TOLERANCE = 3;
 
