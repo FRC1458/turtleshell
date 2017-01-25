@@ -1,6 +1,9 @@
 package org.usfirst.frc.team1458.robot.components;
 
+import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonArray;
+import com.eclipsesource.json.JsonObject;
+import com.eclipsesource.json.JsonValue;
 import com.team1458.turtleshell2.implementations.drive.TankDrive;
 import com.team1458.turtleshell2.implementations.drive.TurtleMotorSet;
 import com.team1458.turtleshell2.implementations.input.TurtleFlightStick;
@@ -16,6 +19,7 @@ import com.team1458.turtleshell2.interfaces.TurtleComponent;
 import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
 import com.team1458.turtleshell2.interfaces.input.TurtleButtonInput;
 import com.team1458.turtleshell2.interfaces.input.TurtleDigitalInput;
+import com.team1458.turtleshell2.util.HttpRequest;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.TurtleMaths;
@@ -176,7 +180,7 @@ public class BlastoiseChassis implements TurtleComponent {
 		}
 
 		if(resetButton.get()){
-			MotorValue val = gearAlignPID.newValue(getSpringPosition(), 0);
+			MotorValue val = gearAlignPID.newValue(getSpringX(), 0);
 		}
 
 		tankDrive.teleUpdate();
@@ -194,8 +198,24 @@ public class BlastoiseChassis implements TurtleComponent {
 		}
 	}
 
-	public int getSpringPosition() {
-		
+	public int getSpringX() {
+		try {
+			String data = HttpRequest.get("http://localhost:2084/GRIP/data");
+			JsonValue json = Json.parse(data);
+
+			JsonObject contours = json.asObject().get("contours").asObject();
+
+			JsonArray area = contours.get("area").asArray();
+			JsonArray centerY = contours.get("centerY").asArray();
+			JsonArray centerX = contours.get("centerX").asArray();
+
+			if(area.size() == 0){
+				return -1;
+			}
+
+		} catch(Exception e) {
+
+		}
 		return 0;
 	}
 
