@@ -73,6 +73,7 @@ public class TankDrive implements DriveTrain {
 			if(turnPID.atTarget()){
 				stopMotors();
 				turning = false;
+				System.err.println("Finished Turning");
 			} else {
 				MotorValue motorValue =
 						turnPID.newValue(rotationSensor.getRotation().getDegrees(), rotationSensor.getRate().getValue())

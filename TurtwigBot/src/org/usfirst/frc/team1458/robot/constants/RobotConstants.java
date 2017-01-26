@@ -2,6 +2,7 @@ package org.usfirst.frc.team1458.robot.constants;
 
 import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.TurtlePIDConstants;
+import com.team1458.turtleshell2.util.types.MotorValue;
 
 /**
  * Constants for Robot
@@ -18,6 +19,15 @@ public class RobotConstants {
 	 */
 	public static final class Shooter {
 		public static final int MOTOR_PORT = -1;
+	}
+
+	public static final class Intake {
+		public static final int MOTOR_PORT = -1;
+		public static final MotorValue SPEED = MotorValue.fullForward;
+	}
+
+	public static final class Climber {
+
 	}
 
 	/**
