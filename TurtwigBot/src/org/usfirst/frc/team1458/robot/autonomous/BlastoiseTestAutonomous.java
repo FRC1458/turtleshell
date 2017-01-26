@@ -25,7 +25,7 @@ public class BlastoiseTestAutonomous extends BlastoiseAutoMode {
 	TurtleNavX navX;
 
 	public BlastoiseTestAutonomous(BlastoiseChassis chassis, TurtleLogger logger, TurtleNavX navX) {
-		super(chassis, logger);
+		super(chassis.getDriveTrain(), logger, navX.getYawAxis());
 		
 		this.navX = navX;
 	}

@@ -53,7 +53,7 @@ public class RobotConstants {
 		public static final TurtlePIDConstants PID_CONSTANTS = new TurtlePIDConstants(.0015, 0, .0001, .0001);
 		public static final double TOLERANCE = 3;
 
-		public static final double TURN_SPEED = 0.5;
+		public static final double TURN_SPEED = 1;
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class RobotConstants {
 	 */
 	public static final int LOGGER_MODE = TurtleLogger.PLAINTEXT;
 	public static final double JOYSTICK_DEADBAND = 0.05;
-	public static final boolean USE_XBOX_CONTROLLER = false;
+	public static final boolean USE_XBOX_CONTROLLER = true;
 
 	public static final double MOTOR_DEADBAND = 0.05; // Only for logging to SmartDashboard
 	public static final double COLLISION_THRESHOLD = 1.5f;

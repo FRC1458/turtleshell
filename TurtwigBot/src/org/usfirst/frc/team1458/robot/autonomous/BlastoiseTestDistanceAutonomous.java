@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1458.robot.autonomous;
 
 import com.team1458.turtleshell2.util.TurtleLogger;
+import com.team1458.turtleshell2.implementations.sensor.fake.TurtleFakeNavX;
 
 import org.usfirst.frc.team1458.robot.BlastoiseAutoMode;
 import org.usfirst.frc.team1458.robot.components.BlastoiseChassis;
@@ -20,7 +21,7 @@ public class BlastoiseTestDistanceAutonomous extends BlastoiseAutoMode {
 	private static double SPEED = 0.5;
 
 	public BlastoiseTestDistanceAutonomous(BlastoiseChassis chassis, TurtleLogger logger) {
-		super(chassis, logger);
+		super(chassis.getDriveTrain(), logger, new TurtleFakeNavX());
 	}
 
 	/**

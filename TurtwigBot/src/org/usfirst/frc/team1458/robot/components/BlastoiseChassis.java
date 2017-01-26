@@ -17,6 +17,7 @@ import com.team1458.turtleshell2.implementations.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.implementations.sensor.TurtleNavX;
 import com.team1458.turtleshell2.implementations.vision.Contour;
 import com.team1458.turtleshell2.implementations.vision.GripInterface;
+import com.team1458.turtleshell2.interfaces.DriveTrain;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
 import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
 import com.team1458.turtleshell2.interfaces.input.TurtleButtonInput;
@@ -28,7 +29,9 @@ import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team1458.robot.constants.BlastoiseConstants;
 import org.usfirst.frc.team1458.robot.BlastoiseRobot;
 import org.usfirst.frc.team1458.robot.constants.RobotConstants;
@@ -176,9 +179,16 @@ public class BlastoiseChassis implements TurtleComponent {
 		}
 
 		double degrees = pov.get();
+		double lastDegrees = degrees;
+		//logger.info("POV: "+degrees);
 		if(degrees != -1){
-			while(pov.get() != -1);
+			while(pov.get() != -1){
+				lastDegrees = degrees;
+				degrees = pov.get();
+			}
+			degrees = lastDegrees;
 			if(degrees > 180) degrees = (degrees - 360);
+			logger.info("Turning: "+degrees);
 			tankDrive.turn(new Angle(degrees), new MotorValue(RobotConstants.TurnPID.TURN_SPEED),
 					RobotConstants.TurnPID.PID_CONSTANTS);
 		}
@@ -235,5 +245,9 @@ public class BlastoiseChassis implements TurtleComponent {
 
 	public void stopMotors() {
 		tankDrive.stopMotors();
+	}
+	
+	public TankDrive getDriveTrain() {
+		return tankDrive;
 	}
 }

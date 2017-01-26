@@ -6,14 +6,16 @@ import com.team1458.turtleshell2.implementations.sensor.TurtleNavX;
 import com.team1458.turtleshell2.interfaces.AutoMode;
 import com.team1458.turtleshell2.interfaces.AutoModeHolder;
 import com.team1458.turtleshell2.interfaces.TestMode;
-import com.team1458.turtleshell2.interfaces.input.InputMapping;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleLogger;
+
 import edu.wpi.first.wpilibj.SampleRobot;
+
 import org.usfirst.frc.team1458.robot.autonomous.BlastoiseTestAutonomous;
 import org.usfirst.frc.team1458.robot.autonomous.BlastoiseTestDistanceAutonomous;
 import org.usfirst.frc.team1458.robot.autonomous.BlastoiseTestTimedAutonomous;
 import org.usfirst.frc.team1458.robot.components.BlastoiseChassis;
+import org.usfirst.frc.team1458.robot.components.BlastoiseTestBed;
 import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 
 import java.io.IOException;
@@ -32,6 +34,7 @@ public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
 
 	// Robot Components
 	private BlastoiseChassis chassis;
+	private BlastoiseTestBed testBed;
 	
 	// Misc
 	private TurtleLogger logger;
@@ -52,16 +55,16 @@ public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
 	@Override
 	protected void robotInit() {
 		// Setup controller and chassis
-
-		InputMapping mapping = new BlastoiseInputMapping();
 		
 		if(RobotConstants.USE_XBOX_CONTROLLER){
 	        TurtleXboxController xboxController = new TurtleXboxController(RobotConstants.UsbPorts.XBOX_CONTROLLER);
-	        chassis = new BlastoiseChassis(xboxController, mapping, logger);
+	        chassis = new BlastoiseChassis(xboxController, logger);
+	        testBed = new BlastoiseTestBed(logger, xboxController);
 		} else {
 			TurtleFlightStick leftStick = new TurtleFlightStick(RobotConstants.UsbPorts.LEFT_STICK);
 	        TurtleFlightStick rightStick = new TurtleFlightStick(RobotConstants.UsbPorts.RIGHT_STICK);
-	        chassis = new BlastoiseChassis(leftStick, rightStick, mapping, logger);
+	        chassis = new BlastoiseChassis(leftStick, rightStick, logger);
+	        testBed = new BlastoiseTestBed(logger, leftStick, rightStick);
 		}
 
 		// Setup AutoModes
@@ -105,6 +108,7 @@ public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
 
 		while (isOperatorControl() && isEnabled()) {
 			chassis.teleUpdate();
+			testBed.teleUpdate();
 		}
 	}
 
