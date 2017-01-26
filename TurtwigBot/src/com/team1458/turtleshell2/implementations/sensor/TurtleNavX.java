@@ -18,10 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author asinghani & mehnadnerd
  */
 
-@SuppressWarnings("unused")
-public class TurtleNavX implements TurtleRotationSensor {
-	// TODO: Neeed to make sure that use TurtleRotationSensor. This is difficult
-	// when working with a tilted sensor, have to do some very fun 3D trig.
+public class TurtleNavX {
 	private AHRS navX;
 
 	private double last_world_linear_accel_x = 0;
@@ -49,7 +46,7 @@ public class TurtleNavX implements TurtleRotationSensor {
 	};
 
 	private final TurtleNavXAxis pitchAxis = new TurtleNavXAxis() {
-
+		//TODO: Implement Rate code
 		@Override
 		public Angle getRotation() {
 			return Angle.createDegrees(navX.getPitch());
@@ -67,9 +64,37 @@ public class TurtleNavX implements TurtleRotationSensor {
 		}
 
 	};
+	
+	private final TurtleNavXAxis rollAxis = new TurtleNavXAxis() {
+		//TODO: Implement Rate Code
+		@Override
+		public Angle getRotation() {
+			return Angle.createDegrees(navX.getRoll());
+		}
+
+		@Override
+		public Rate<Angle> getRate() {
+			throw new UnsupportedOperationException("I haven't made this part yet");
+		}
+
+		@Override
+		public void reset() {
+			throw new UnsupportedOperationException(
+					"Cannot reset the roll, how do you think this would work? The robot flips on its side?");
+		}
+		
+	};
 
 	public TurtleNavXAxis getYawAxis() {
 		return yawAxis;
+	}
+	
+	public TurtleNavXAxis getPitchAxis() {
+		return pitchAxis;
+	}
+	
+	public TurtleNavXAxis getRollAxis() {
+		return rollAxis;
 	}
 
 	/**
@@ -115,18 +140,6 @@ public class TurtleNavX implements TurtleRotationSensor {
 	 */
 	public int getUpdateRate() {
 		return navX.getActualUpdateRate();
-	}
-
-	public Angle getPitch() {
-		return new Angle(navX.getPitch());
-	}
-
-	public Angle getRoll() {
-		return new Angle(navX.getRoll());
-	}
-
-	public Angle getYaw() {
-		return new Angle(navX.getYaw());
 	}
 
 	public Angle getCompassHeading() {
@@ -230,16 +243,6 @@ public class TurtleNavX implements TurtleRotationSensor {
 
 	}
 
-	public Angle getAngle() {
-		return new Angle(navX.getAngle());
-
-	}
-
-	public Rate<Angle> getRate() {
-		return new Rate<Angle>(navX.getRate());
-
-	}
-
 	public void reset() {
 		navX.reset();
 	}
@@ -292,14 +295,6 @@ public class TurtleNavX implements TurtleRotationSensor {
 	public float getTempC() {
 		return navX.getTempC();
 
-	}
-
-	/**
-	 * TurtleRotationSensor
-	 */
-	@Override
-	public Angle getRotation() {
-		return getYaw();
 	}
 
 	public boolean isInCollision(double threshold) {
