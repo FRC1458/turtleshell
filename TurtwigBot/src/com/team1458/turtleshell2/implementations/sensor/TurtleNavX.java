@@ -1,12 +1,13 @@
 package com.team1458.turtleshell2.implementations.sensor;
 
+import com.kauailabs.navx.AHRSProtocol;
 import com.kauailabs.navx.frc.AHRS;
 import com.kauailabs.navx.frc.ITimestampedDataSubscriber;
 import com.team1458.turtleshell2.interfaces.sensor.TurtleRotationSensor;
 import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.Rate;
-
+import com.team1458.turtleshell2.util.types.Time;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SerialPort;
@@ -25,7 +26,7 @@ public class TurtleNavX {
 	private double last_world_linear_accel_y = 0;
 
 	public abstract class TurtleNavXAxis implements TurtleRotationSensor {
-
+		protected abstract void setRate(Rate<Angle> rate);
 	}
 
 	private final TurtleNavXAxis yawAxis = new TurtleNavXAxis() {
@@ -36,17 +37,23 @@ public class TurtleNavX {
 
 		@Override
 		public Rate<Angle> getRate() {
-			return new Rate<Angle>(navX.getRate());
+			return new Rate<>(navX.getRate());
 		}
 
 		@Override
 		public void reset() {
 			navX.zeroYaw();
 		}
+
+		@Override
+		protected void setRate(Rate<Angle> rate) {
+
+		}
 	};
 
 	private final TurtleNavXAxis pitchAxis = new TurtleNavXAxis() {
-		//TODO: Implement Rate code
+		public Rate<Angle> rate = Rate.angleZero;
+
 		@Override
 		public Angle getRotation() {
 			return Angle.createDegrees(navX.getPitch());
@@ -54,9 +61,18 @@ public class TurtleNavX {
 
 		@Override
 		public Rate<Angle> getRate() {
-			throw new UnsupportedOperationException("I haven't made this part yet");
+			return rate;
 		}
 
+		@Override
+		protected void setRate(Rate<Angle> rate) {
+			this.rate = rate;
+		}
+
+		/**
+		 * Unsuppored operation, how do you think this would work? The robot flips?
+		 * @throws UnsupportedOperationException
+		 */
 		@Override
 		public void reset() {
 			throw new UnsupportedOperationException(
@@ -66,7 +82,8 @@ public class TurtleNavX {
 	};
 	
 	private final TurtleNavXAxis rollAxis = new TurtleNavXAxis() {
-		//TODO: Implement Rate Code
+		public Rate<Angle> rate = Rate.angleZero;
+
 		@Override
 		public Angle getRotation() {
 			return Angle.createDegrees(navX.getRoll());
@@ -74,15 +91,59 @@ public class TurtleNavX {
 
 		@Override
 		public Rate<Angle> getRate() {
-			throw new UnsupportedOperationException("I haven't made this part yet");
+			return rate;
 		}
 
+		@Override
+		protected void setRate(Rate<Angle> rate) {
+			this.rate = rate;
+		}
+
+		/**
+		 * Unsuppored operation, how do you think this would work? The robot flips on its side?
+		 * @throws UnsupportedOperationException
+		 */
 		@Override
 		public void reset() {
 			throw new UnsupportedOperationException(
 					"Cannot reset the roll, how do you think this would work? The robot flips on its side?");
 		}
 		
+	};
+
+	private final ITimestampedDataSubscriber dataSubscriber = new ITimestampedDataSubscriber() {
+		float lastPitch = 0;
+		float lastRoll = 0;
+
+		long last_timestamp = -1;
+
+		@Override
+		public void timestampedDataReceived(long system_time, long sensor_time, AHRSProtocol.AHRSUpdateBase data, Object ctx) {
+			if(last_timestamp > -1) {
+				float pitchDifference;
+				pitchDifference = data.pitch - lastPitch;
+				if (pitchDifference > 180.0f) {
+					pitchDifference = 360.0f - pitchDifference;
+				} else if (pitchDifference < -180.0f) {
+					pitchDifference = 360.0f + pitchDifference;
+				}
+
+				float rollDifference;
+				rollDifference = data.roll - lastRoll;
+				if (rollDifference > 180.0f) {
+					rollDifference = 360.0f - rollDifference;
+				} else if (rollDifference < -180.0f) {
+					rollDifference = 360.0f + rollDifference;
+				}
+
+				pitchAxis.setRate(new Rate<>(new Angle(pitchDifference), new Time(((double) (last_timestamp - sensor_time)) / 1000.0)));
+				rollAxis.setRate(new Rate<>(new Angle(rollDifference), new Time(((double) (last_timestamp - sensor_time)) / 1000.0)));
+			}
+
+			lastPitch = data.pitch;
+			lastRoll = data.roll;
+			last_timestamp = sensor_time;
+		}
 	};
 
 	public TurtleNavXAxis getYawAxis() {
@@ -104,6 +165,7 @@ public class TurtleNavX {
 	 */
 	public TurtleNavX(I2C.Port i2cPort) {
 		navX = new AHRS(i2cPort);
+		registerCallback(dataSubscriber, this);
 	}
 
 	/**
@@ -113,6 +175,7 @@ public class TurtleNavX {
 	 */
 	public TurtleNavX(SerialPort.Port serialPort) {
 		navX = new AHRS(serialPort);
+		registerCallback(dataSubscriber, this);
 	}
 
 	/**
@@ -122,6 +185,7 @@ public class TurtleNavX {
 	 */
 	public TurtleNavX(SPI.Port spiPort) {
 		navX = new AHRS(spiPort);
+		registerCallback(dataSubscriber, this);
 	}
 
 	/**
