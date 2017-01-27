@@ -21,7 +21,7 @@ public class BlastoiseTestDistanceAutonomous extends BlastoiseAutoMode {
 	private static double SPEED = 0.5;
 
 	public BlastoiseTestDistanceAutonomous(BlastoiseChassis chassis, TurtleLogger logger) {
-		super(chassis.getDriveTrain(), logger, new TurtleFakeNavX());
+		super(chassis.getDriveTrain(), logger, null);
 	}
 
 	/**

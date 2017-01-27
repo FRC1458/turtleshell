@@ -23,6 +23,8 @@ import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team1458.robot.Robot;
+import org.usfirst.frc.team1458.robot.BlastoiseVision;
 import org.usfirst.frc.team1458.robot.BlastoiseRobot;
 import org.usfirst.frc.team1458.robot.constants.BlastoiseConstants;
 import org.usfirst.frc.team1458.robot.constants.RobotConstants;
@@ -48,7 +50,20 @@ public class BlastoiseChassis implements TurtleComponent {
 	 * Chassis Specific Initialization
 	 */
 	{
-		if(BlastoiseRobot.isPracticeRobot()) {
+		if(!Robot.isReal()) {
+			// Simulation
+			tankDrive = new TankDrive(
+					new TurtleMotorSet(
+							new TurtleTalonSR(1),
+							new TurtleTalonSR(2)
+					),
+					new TurtleMotorSet(
+							new TurtleTalonSR(3),
+							new TurtleTalonSR(4)
+					),
+					null
+			);
+		} else if(BlastoiseRobot.isPracticeRobot()) {
 			// Turtwig Chassis
 			tankDrive = new TankDrive(
 					new TurtleMotorSet(
@@ -221,28 +236,11 @@ public class BlastoiseChassis implements TurtleComponent {
 		SmartDashboard.putNumber("Yaw", navX.getYawAxis().getRotation().getDegrees());
 		SmartDashboard.putNumber("CompassHeading", navX.getCompassHeading().getDegrees());
 		SmartDashboard.putNumber("FusedHeading", navX.getFusedHeading().getDegrees());
+
+		SmartDashboard.putNumber("SpringX", BlastoiseVision.getSpringX());
 		
 		if(navX.isInCollision(RobotConstants.COLLISION_THRESHOLD)){
 			rumbleController.rumble(1.0f, 250); // Very experimental
-		}
-	}
-
-	public int getSpringX() {
-		try {
-			Contour[] contours = GripInterface.getContours("http://localhost:2084/GRIP/data");
-			Arrays.sort(contours);
-
-			if(contours.length < 2) return -1;
-
-			Contour contour1 = contours[contours.length - 1];
-			Contour contour2 = contours[contours.length - 2];
-
-			double x = (contour1.getCenterX() + contour2.getCenterX()) / 2.0;
-
-			return (int) x;
-
-		} catch(Exception e) {
-			return -1;
 		}
 	}
 

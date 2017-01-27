@@ -3,6 +3,7 @@ package org.usfirst.frc.team1458.robot.constants;
 import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.TurtlePIDConstants;
 import com.team1458.turtleshell2.util.types.MotorValue;
+import com.team1458.turtleshell2.util.types.Time;
 
 /**
  * Constants for Robot
@@ -24,6 +25,9 @@ public class RobotConstants {
 	public static final class Intake {
 		public static final int MOTOR_PORT = -1;
 		public static final MotorValue SPEED = MotorValue.fullForward;
+
+		public static final MotorValue UNCLOG_SPEED = MotorValue.fullForward;
+		public static final Time UNCLOG_TIME = Time.one;
 	}
 
 	public static final class Climber {
@@ -85,6 +89,7 @@ public class RobotConstants {
 
 	public static final double MOTOR_DEADBAND = 0.05; // Only for logging to SmartDashboard
 	public static final double COLLISION_THRESHOLD = 1.5f;
+	public static final String GRIP_URL = "http://localhost:2084/GRIP/data";
 
 	/**
 	 * Constructor so RobotConstants can't be initialised

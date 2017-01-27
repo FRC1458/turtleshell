@@ -15,7 +15,7 @@ public class TurtleTalonSRXCAN implements TurtleSmartMotor {
 		v = new CANTalon(id);
 		v.enableBrakeMode(brakeMode);
 		this.isReversed = isReversed;
-		this.brakeMode=brakeMode;
+		this.brakeMode = brakeMode;
 	}
 
 	public TurtleTalonSRXCAN(int id) {
@@ -43,4 +43,10 @@ public class TurtleTalonSRXCAN implements TurtleSmartMotor {
 		return v.getDeviceID();
 	}
 
+	// TODO add stall detection using voltage detection
+
+	@Override
+	public boolean isStalling() {
+		return false;
+	}
 }

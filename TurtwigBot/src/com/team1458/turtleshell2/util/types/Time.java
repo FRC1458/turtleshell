@@ -21,4 +21,16 @@ public final class Time implements Unit {
 	public double getValue() {
 		return value;
 	}
+
+	public double getSeconds() {
+		return value;
+	}
+
+	public long getMillis() {
+		return (long) (value * 1000.0);
+	}
+
+	public double getMinutes() {
+		return value / 60.0;
+	}
 }

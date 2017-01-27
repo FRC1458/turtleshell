@@ -71,7 +71,7 @@ public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
 		autoModes.add(new BlastoiseTestTimedAutonomous(chassis, logger));
 		autoModes.add(new BlastoiseTestAutonomous(chassis, logger, TurtleNavX.getInstanceI2C()));
 
-		selectedAutoMode = 2;
+		selectedAutoMode = 1;
 
 		// Setup TestMode
 		testMode = () -> {}; // Creates a TestMode with empty test() function
