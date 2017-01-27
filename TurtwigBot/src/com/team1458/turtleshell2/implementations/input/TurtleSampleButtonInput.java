@@ -4,7 +4,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.team1458.turtleshell2.interfaces.input.TurtleButtonInput;
-import com.team1458.turtleshell2.interfaces.input.TurtleDigitalInput;
 
 /**
  * Represents a joystick or physical driver station button
