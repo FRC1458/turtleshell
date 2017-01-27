@@ -145,4 +145,10 @@ public class TankDrive implements DriveTrain {
 	public void stopMotors() {
 		updateMotors(MotorValue.zero, MotorValue.zero);
 	}
+
+	public void resetEncoders() {
+		leftDistance.reset();
+		rightDistance.reset();
+		rotationSensor.reset();
+	}
 }

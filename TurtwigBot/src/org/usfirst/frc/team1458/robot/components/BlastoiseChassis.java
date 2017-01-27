@@ -1,9 +1,5 @@
 package org.usfirst.frc.team1458.robot.components;
 
-import com.eclipsesource.json.Json;
-import com.eclipsesource.json.JsonArray;
-import com.eclipsesource.json.JsonObject;
-import com.eclipsesource.json.JsonValue;
 import com.team1458.turtleshell2.implementations.drive.TankDrive;
 import com.team1458.turtleshell2.implementations.drive.TurtleMotorSet;
 import com.team1458.turtleshell2.implementations.input.TurtleFlightStick;
@@ -11,29 +7,24 @@ import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
 import com.team1458.turtleshell2.implementations.movement.TurtleFakeMotor;
 import com.team1458.turtleshell2.implementations.movement.TurtleSpark;
 import com.team1458.turtleshell2.implementations.movement.TurtleTalonSR;
-import com.team1458.turtleshell2.implementations.movement.TurtleVictor888;
 import com.team1458.turtleshell2.implementations.pid.TurtlePDD2;
 import com.team1458.turtleshell2.implementations.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.implementations.sensor.TurtleNavX;
 import com.team1458.turtleshell2.implementations.vision.Contour;
 import com.team1458.turtleshell2.implementations.vision.GripInterface;
-import com.team1458.turtleshell2.interfaces.DriveTrain;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
 import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
 import com.team1458.turtleshell2.interfaces.input.TurtleButtonInput;
 import com.team1458.turtleshell2.interfaces.input.TurtleDigitalInput;
-import com.team1458.turtleshell2.util.HttpRequest;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import org.usfirst.frc.team1458.robot.constants.BlastoiseConstants;
 import org.usfirst.frc.team1458.robot.BlastoiseRobot;
+import org.usfirst.frc.team1458.robot.constants.BlastoiseConstants;
 import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 import org.usfirst.frc.team1458.robot.constants.TurtwigConstants;
 
@@ -61,11 +52,11 @@ public class BlastoiseChassis implements TurtleComponent {
 			// Turtwig Chassis
 			tankDrive = new TankDrive(
 					new TurtleMotorSet(
-							new TurtleVictor888(TurtwigConstants.LeftDrive.MOTOR1),
+							new TurtleTalonSR(TurtwigConstants.LeftDrive.MOTOR1),
 							new TurtleFakeMotor()
 					),
 					new TurtleMotorSet(
-							new TurtleVictor888(TurtwigConstants.RightDrive.MOTOR1, true),
+							new TurtleTalonSR(TurtwigConstants.RightDrive.MOTOR1, true),
 							new TurtleFakeMotor()
 					),
 					new TurtleDistanceEncoder(
@@ -76,7 +67,7 @@ public class BlastoiseChassis implements TurtleComponent {
 							TurtwigConstants.RightDrive.ENCODER_A, TurtwigConstants.RightDrive.ENCODER_B,
 							TurtwigConstants.RightDrive.ENCODER_RATIO, false
 					),
-					navX
+					navX.getYawAxis()
 			);
 		} else {
 			// Blastoise Chassis
@@ -89,7 +80,7 @@ public class BlastoiseChassis implements TurtleComponent {
 							new TurtleSpark(BlastoiseConstants.RightDrive.MOTOR1, true),
 							new TurtleTalonSR(BlastoiseConstants.RightDrive.MOTOR2, true)
 					),
-					navX
+					navX.getYawAxis()
 			);
 		}
 	}
@@ -102,6 +93,8 @@ public class BlastoiseChassis implements TurtleComponent {
 	private TurtleButtonInput turnButton;
 	private TurtleButtonInput resetButton;
 
+	private TurtleButtonInput gearButton;
+
 	private TurtleDigitalInput pov;
 	private TurtleXboxController rumbleController; // Very experimental
 
@@ -113,14 +106,15 @@ public class BlastoiseChassis implements TurtleComponent {
 	 */
 	public BlastoiseChassis(TurtleAnalogInput leftJoystick, TurtleAnalogInput rightJoystick,
 							TurtleButtonInput straightButton, TurtleButtonInput turnButton,
-							TurtleButtonInput resetButton, TurtleDigitalInput pov,
-							TurtleLogger logger) {
+							TurtleButtonInput resetButton, TurtleButtonInput gearButton,
+							TurtleDigitalInput pov, TurtleLogger logger) {
 		this.leftJoystick = leftJoystick;
 		this.rightJoystick = rightJoystick;
 
 		this.straightButton = straightButton;
 		this.turnButton = turnButton;
 		this.resetButton = resetButton;
+		this.gearButton = gearButton;
 		this.pov = pov;
 
 		TurtleDashboard.logAxis(leftJoystick, rightJoystick);
@@ -140,6 +134,7 @@ public class BlastoiseChassis implements TurtleComponent {
 				controller.getButton(TurtleXboxController.XboxButton.RBUMP),
 				controller.getButton(TurtleXboxController.XboxButton.LBUMP),
 				controller.getButton(TurtleXboxController.XboxButton.A),
+				controller.getButton(TurtleXboxController.XboxButton.Y),
 				controller.getDPad(),
 				logger
 		);
@@ -158,6 +153,7 @@ public class BlastoiseChassis implements TurtleComponent {
 				rightFlightStick.getButton(TurtleFlightStick.FlightButton.TRIGGER),
 				leftFlightStick.getButton(TurtleFlightStick.FlightButton.TRIGGER),
 				rightFlightStick.getButton(TurtleFlightStick.FlightButton.TWO),
+				rightFlightStick.getButton(TurtleFlightStick.FlightButton.THREE),
 				rightFlightStick.getPOVSwitch(),
 				logger
 		);
@@ -167,6 +163,9 @@ public class BlastoiseChassis implements TurtleComponent {
 
 	@Override
 	public void teleUpdate() {
+		/**
+		 * User-control
+		 */
 		MotorValue leftPower = new MotorValue(TurtleMaths.deadband(leftJoystick.get(), RobotConstants.JOYSTICK_DEADBAND));
 		MotorValue rightPower = new MotorValue(TurtleMaths.deadband(rightJoystick.get(), RobotConstants.JOYSTICK_DEADBAND));
 
@@ -178,24 +177,40 @@ public class BlastoiseChassis implements TurtleComponent {
 			updateMotors(leftPower, rightPower);
 		}
 
-		double degrees = pov.get();
-		double lastDegrees = degrees;
+		/**
+		 * 45, 90, etc. degree turns
+		 */
+		double povDegrees = pov.get();
+		double lastPovDegrees = povDegrees;
 		//logger.info("POV: "+degrees);
-		if(degrees != -1){
+		if(povDegrees != -1){
 			while(pov.get() != -1){
-				lastDegrees = degrees;
-				degrees = pov.get();
+				lastPovDegrees = povDegrees;
+				povDegrees = pov.get();
 			}
-			degrees = lastDegrees;
-			if(degrees > 180) degrees = (degrees - 360);
-			logger.info("Turning: "+degrees);
-			tankDrive.turn(new Angle(degrees), new MotorValue(RobotConstants.TurnPID.TURN_SPEED),
+			povDegrees = lastPovDegrees;
+			if(povDegrees > 180) povDegrees = (povDegrees - 360);
+			logger.info("Turning: "+povDegrees);
+			tankDrive.turn(new Angle(povDegrees), new MotorValue(RobotConstants.TurnPID.TURN_SPEED),
 					RobotConstants.TurnPID.PID_CONSTANTS);
 		}
 
-		if(resetButton.getButton()){
-			MotorValue val = gearAlignPID.newValue(getSpringX(), 0);
+		/**
+		 * Gear alignment
+		 */
+		if(gearButton.getButton()){
+			int springX = getSpringX();
+			if(springX > -1) {
+				MotorValue val = gearAlignPID.newValue(springX, 0);
+				updateMotors(val, val.invert());
+			}
 		}
+
+		if(resetButton.getButton()){
+			tankDrive.resetEncoders();
+		}
+
+		SmartDashboard.putNumber("SpringX", getSpringX());
 
 		tankDrive.teleUpdate();
 
@@ -203,7 +218,7 @@ public class BlastoiseChassis implements TurtleComponent {
 		SmartDashboard.putNumber("RightEncoder", tankDrive.getRightDistance().getInches());
 
 
-		SmartDashboard.putNumber("Yaw", navX.getYaw().getDegrees());
+		SmartDashboard.putNumber("Yaw", navX.getYawAxis().getRotation().getDegrees());
 		SmartDashboard.putNumber("CompassHeading", navX.getCompassHeading().getDegrees());
 		SmartDashboard.putNumber("FusedHeading", navX.getFusedHeading().getDegrees());
 		

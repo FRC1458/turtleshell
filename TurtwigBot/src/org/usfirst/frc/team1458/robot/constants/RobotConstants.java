@@ -43,8 +43,7 @@ public class RobotConstants {
 	 * RoboRIO sensor ports
 	 */
 	public static final class Sensors {
-		public static final int NAVX_PORT = 1; // TODO: Find correct port
-		public static final int PRACTICE_ROBOT_DIO = 0;
+
 	}
 
 	/**
@@ -60,10 +59,10 @@ public class RobotConstants {
 	 * Turning PID
 	 */
 	public static final class TurnPID {
-		public static final TurtlePIDConstants PID_CONSTANTS = new TurtlePIDConstants(.0015, 0, .0001, .0001);
+		public static final TurtlePIDConstants PID_CONSTANTS = new TurtlePIDConstants(1.0, 90.0, 0, .0001, .0001);
 		public static final double TOLERANCE = 3;
 
-		public static final double TURN_SPEED = 1;
+		public static final double TURN_SPEED = 0.75;
 	}
 
 	/**

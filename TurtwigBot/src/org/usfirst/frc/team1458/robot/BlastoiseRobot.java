@@ -47,7 +47,6 @@ public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
 		try {
 			logger.attachServer(new TurtleLogger.ColoredLogServer(5802, "/log"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -70,7 +69,7 @@ public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
 		// Setup AutoModes
 	    autoModes.add(new BlastoiseTestDistanceAutonomous(chassis, logger));
 		autoModes.add(new BlastoiseTestTimedAutonomous(chassis, logger));
-		autoModes.add(new BlastoiseTestAutonomous(chassis, logger, TurtleNavX.getInstanceUSB(RobotConstants.Sensors.NAVX_PORT)));
+		autoModes.add(new BlastoiseTestAutonomous(chassis, logger, TurtleNavX.getInstanceI2C()));
 
 		selectedAutoMode = 2;
 

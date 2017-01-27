@@ -13,11 +13,8 @@ import com.team1458.turtleshell2.interfaces.movement.TurtleMotor;
 import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.MotorValue;
-
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 
 /**
@@ -68,6 +65,7 @@ public class BlastoiseTestBed implements TurtleComponent {
 
     @Override
     public void teleUpdate() {
+        if(disabled) return;
         //shooter.set(new MotorValue(TurtleMaths.deadband(shooterSpeed.get(), RobotConstants.JOYSTICK_DEADBAND)));
 
         talons.set(new MotorValue(TurtleMaths.deadband(shooterSpeed.get(), RobotConstants.JOYSTICK_DEADBAND)));

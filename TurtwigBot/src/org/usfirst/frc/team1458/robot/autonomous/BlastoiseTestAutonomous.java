@@ -39,18 +39,18 @@ public class BlastoiseTestAutonomous extends BlastoiseAutoMode {
 		navX.resetDisplacement();
 		navX.zeroYaw();
 		Timer.delay(1);
-		logger.info("After 1 second: Yaw="+navX.getYaw().getDegrees()+" CompassHeading="+navX.getCompassHeading().getDegrees()+" FusedHeading="+navX.getFusedHeading());
+		logger.info("After 1 second: Yaw="+navX.getYawAxis().getRotation().getDegrees()+" CompassHeading="+navX.getCompassHeading().getDegrees()+" FusedHeading="+navX.getFusedHeading());
 		
 		navX.reset();
 		navX.resetDisplacement();
 		navX.zeroYaw();
 		Timer.delay(1);
-		logger.info("After 2 second: Yaw="+navX.getYaw().getDegrees()+" CompassHeading="+navX.getCompassHeading().getDegrees()+" FusedHeading="+navX.getFusedHeading());
+		logger.info("After 2 second: Yaw="+navX.getYawAxis().getRotation().getDegrees()+" CompassHeading="+navX.getCompassHeading().getDegrees()+" FusedHeading="+navX.getFusedHeading());
 		
 		navX.reset();
 		navX.resetDisplacement();
 		navX.zeroYaw();
 		Timer.delay(1);
-		logger.info("After 3 second: Yaw="+navX.getYaw().getDegrees()+" CompassHeading="+navX.getCompassHeading().getDegrees()+" FusedHeading="+navX.getFusedHeading());
+		logger.info("After 3 second: Yaw="+navX.getYawAxis().getRotation().getDegrees()+" CompassHeading="+navX.getCompassHeading().getDegrees()+" FusedHeading="+navX.getFusedHeading());
 	}
 }

@@ -16,6 +16,6 @@ public class BlastoiseIntake implements TurtleComponent {
 
 	@Override
 	public void teleUpdate() {
-		motors.set(MotorValue.zero);
+		motors.set(MotorValue.zero); // TODO Finish
 	}
 }
