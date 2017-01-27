@@ -2,6 +2,7 @@ package org.usfirst.frc.team1458.robot.components;
 
 import com.team1458.turtleshell2.implementations.drive.TankDrive;
 import com.team1458.turtleshell2.implementations.drive.TurtleMotorSet;
+import com.team1458.turtleshell2.implementations.input.TurtleSampleButtonInput;
 import com.team1458.turtleshell2.implementations.input.TurtleFlightStick;
 import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
 import com.team1458.turtleshell2.implementations.movement.TurtleFakeMotor;
@@ -14,7 +15,6 @@ import com.team1458.turtleshell2.implementations.vision.Contour;
 import com.team1458.turtleshell2.implementations.vision.GripInterface;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
 import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
-import com.team1458.turtleshell2.interfaces.input.TurtleButtonInput;
 import com.team1458.turtleshell2.interfaces.input.TurtleDigitalInput;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleLogger;
@@ -89,11 +89,11 @@ public class BlastoiseChassis implements TurtleComponent {
 	private TurtleAnalogInput rightJoystick;
 	private TurtleAnalogInput leftJoystick;
 
-	private TurtleButtonInput straightButton;
-	private TurtleButtonInput turnButton;
-	private TurtleButtonInput resetButton;
+	private TurtleSampleButtonInput straightButton;
+	private TurtleSampleButtonInput turnButton;
+	private TurtleSampleButtonInput resetButton;
 
-	private TurtleButtonInput gearButton;
+	private TurtleSampleButtonInput gearButton;
 
 	private TurtleDigitalInput pov;
 	private TurtleXboxController rumbleController; // Very experimental
@@ -105,8 +105,8 @@ public class BlastoiseChassis implements TurtleComponent {
 	 * Accepts TurtleAnalogInputs and TurtleDigitalInputs
 	 */
 	public BlastoiseChassis(TurtleAnalogInput leftJoystick, TurtleAnalogInput rightJoystick,
-							TurtleButtonInput straightButton, TurtleButtonInput turnButton,
-							TurtleButtonInput resetButton, TurtleButtonInput gearButton,
+							TurtleSampleButtonInput straightButton, TurtleSampleButtonInput turnButton,
+							TurtleSampleButtonInput resetButton, TurtleSampleButtonInput gearButton,
 							TurtleDigitalInput pov, TurtleLogger logger) {
 		this.leftJoystick = leftJoystick;
 		this.rightJoystick = rightJoystick;
