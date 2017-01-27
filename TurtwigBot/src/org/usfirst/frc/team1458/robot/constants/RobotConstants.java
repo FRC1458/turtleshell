@@ -31,7 +31,11 @@ public class RobotConstants {
 	}
 
 	public static final class Climber {
+		public static final int MOTOR_PORT = -1;
 
+		public static final MotorValue SPEED = MotorValue.fullForward;
+		public static final MotorValue SPEED_LOWER = new MotorValue(0.3);
+		public static final MotorValue SPEED_ZERO = new MotorValue(0.1); // Run at very low speed when at top (to prevent slipping)
 	}
 
 	/**

@@ -9,23 +9,32 @@ import com.team1458.turtleshell2.util.types.MotorValue;
 import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 
 /**
- * Base code for intake
+ * Code for intake
  *
  * @author asinghani
  */
 public class BlastoiseIntake implements TurtleComponent {
 	private TurtleMotorSet motors = new TurtleMotorSet(new TurtleTalonSRXCAN(RobotConstants.Intake.MOTOR_PORT));
 
-	private TurtleDigitalInput enable;
-	private TurtleButtonInput unclog;
+	private TurtleDigitalInput enableSwitch;
+	private TurtleButtonInput unclogButton;
 
-	// Unclog
+	// Unclog function
 	private boolean unclogging = false;
 	private long stopUnclogTime = 0;
 
+	private IntakeStatus status;
+
+	public BlastoiseIntake(TurtleDigitalInput enableSwitch, TurtleButtonInput unclogButton) {
+		this.enableSwitch = enableSwitch;
+		this.unclogButton = unclogButton;
+
+		this.status = IntakeStatus.STOPPED;
+	}
+
 	@Override
 	public void teleUpdate() {
-		if(unclog.getUp()) {
+		if(unclogButton.getUp()) {
 			unclog();
 		}
 
@@ -34,9 +43,11 @@ public class BlastoiseIntake implements TurtleComponent {
 		}
 
 		if(!unclogging) {
-			if(enable.get() == 1) {
+			if(enableSwitch.get() == 1) {
+				status = IntakeStatus.RUNNING;
 				motors.set(RobotConstants.Intake.SPEED);
 			} else {
+				status = IntakeStatus.STOPPED;
 				motors.set(MotorValue.zero);
 			}
 		}
@@ -45,13 +56,27 @@ public class BlastoiseIntake implements TurtleComponent {
 	public void unclog() {
 		if(!unclogging) {
 			unclogging = true;
-			motors.set(RobotConstants.Intake.UNCLOG_SPEED);
+			status = IntakeStatus.UNCLOGGING;
 
+			motors.set(RobotConstants.Intake.UNCLOG_SPEED);
 			stopUnclogTime = System.currentTimeMillis() + RobotConstants.Intake.UNCLOG_TIME.getMillis();
 		}
 	}
 
 	public boolean isUnclogging() {
 		return unclogging;
+	}
+
+	public IntakeStatus getStatus() {
+		return status;
+	}
+
+	public enum IntakeStatus {
+		STOPPED(0), RUNNING(1), UNCLOGGING(2);
+
+		public final int id;
+		IntakeStatus(int i) {
+			id = i;
+		}
 	}
 }

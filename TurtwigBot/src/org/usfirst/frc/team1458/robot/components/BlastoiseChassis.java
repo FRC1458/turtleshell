@@ -15,6 +15,7 @@ import com.team1458.turtleshell2.implementations.vision.Contour;
 import com.team1458.turtleshell2.implementations.vision.GripInterface;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
 import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
+import com.team1458.turtleshell2.interfaces.input.TurtleButtonInput;
 import com.team1458.turtleshell2.interfaces.input.TurtleDigitalInput;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleLogger;
@@ -104,11 +105,11 @@ public class BlastoiseChassis implements TurtleComponent {
 	private TurtleAnalogInput rightJoystick;
 	private TurtleAnalogInput leftJoystick;
 
-	private TurtleSampleButtonInput straightButton;
-	private TurtleSampleButtonInput turnButton;
-	private TurtleSampleButtonInput resetButton;
+	private TurtleButtonInput straightButton;
+	private TurtleButtonInput turnButton;
+	private TurtleButtonInput resetButton;
 
-	private TurtleSampleButtonInput gearButton;
+	private TurtleButtonInput gearButton;
 
 	private TurtleDigitalInput pov;
 	private TurtleXboxController rumbleController; // Very experimental
@@ -120,8 +121,8 @@ public class BlastoiseChassis implements TurtleComponent {
 	 * Accepts TurtleAnalogInputs and TurtleDigitalInputs
 	 */
 	public BlastoiseChassis(TurtleAnalogInput leftJoystick, TurtleAnalogInput rightJoystick,
-							TurtleSampleButtonInput straightButton, TurtleSampleButtonInput turnButton,
-							TurtleSampleButtonInput resetButton, TurtleSampleButtonInput gearButton,
+							TurtleButtonInput straightButton, TurtleButtonInput turnButton,
+							TurtleButtonInput resetButton, TurtleButtonInput gearButton,
 							TurtleDigitalInput pov, TurtleLogger logger) {
 		this.leftJoystick = leftJoystick;
 		this.rightJoystick = rightJoystick;
