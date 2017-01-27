@@ -2,21 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a9727dbb-beef-4625-9255-ed850611aaed" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseVision.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../2017Vision/Actual.grip" afterPath="$PROJECT_DIR$/../2017Vision/Actual.grip" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/team1458/turtleshell2/implementations/input/TurtleJoystickButton.java" afterPath="$PROJECT_DIR$/src/com/team1458/turtleshell2/implementations/input/TurtleJoystickButton.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/team1458/turtleshell2/implementations/movement/TurtleTalonSRXCAN.java" afterPath="$PROJECT_DIR$/src/com/team1458/turtleshell2/implementations/movement/TurtleTalonSRXCAN.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/team1458/turtleshell2/interfaces/input/TurtleButtonInput.java" afterPath="$PROJECT_DIR$/src/com/team1458/turtleshell2/interfaces/input/TurtleButtonInput.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/team1458/turtleshell2/interfaces/movement/TurtleSmartMotor.java" afterPath="$PROJECT_DIR$/src/com/team1458/turtleshell2/interfaces/movement/TurtleSmartMotor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/team1458/turtleshell2/util/types/Time.java" afterPath="$PROJECT_DIR$/src/com/team1458/turtleshell2/util/types/Time.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseRobot.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseRobot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Test.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/BlastoiseTestDistanceAutonomous.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/BlastoiseTestDistanceAutonomous.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseChassis.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseChassis.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseClimber.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseClimber.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseIntake.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseIntake.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/constants/RobotConstants.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/constants/RobotConstants.java" />
     </list>
     <ignored path="TurtwigBot.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,8 +28,8 @@
       <file leaf-file-name="BlastoiseClimber.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseClimber.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+            <state relative-caret-position="324">
+              <caret line="40" column="63" selection-start-line="40" selection-start-column="63" selection-end-line="40" selection-end-column="63" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -52,9 +40,21 @@
       <file leaf-file-name="RobotConstants.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/constants/RobotConstants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+            <state relative-caret-position="144">
+              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BlastoiseChassis.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseChassis.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="378">
+              <caret line="227" column="59" selection-start-line="227" selection-start-column="59" selection-end-line="227" selection-end-column="59" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -118,12 +118,12 @@
         <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/interfaces/input/TurtleButtonInput.java" />
         <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/implementations/input/TurtleJoystickButton.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/BlastoiseTestDistanceAutonomous.java" />
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseChassis.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseIntake.java" />
         <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/interfaces/movement/TurtleSmartMotor.java" />
-        <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/implementations/movement/TurtleTalonSRXCAN.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseClimber.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/constants/RobotConstants.java" />
+        <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/implementations/movement/TurtleTalonSRXCAN.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseChassis.java" />
       </list>
     </option>
   </component>
@@ -1280,16 +1280,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/implementations/vision/GripInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="43" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/implementations/vision/Contour.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="417">
@@ -1439,16 +1429,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseChassis.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2016">
-          <caret line="112" column="0" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/implementations/input/TurtleJoystickAxis.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
@@ -1524,17 +1504,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/implementations/movement/TurtleTalonSRXCAN.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="49" column="21" selection-start-line="49" selection-start-column="21" selection-end-line="49" selection-end-column="21" />
-          <folding>
-            <element signature="e#1267#1268#0" expanded="true" />
-            <element signature="e#1286#1287#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/wpilib/java/current/lib/WPILib-sources.jar!/edu/wpi/first/wpilibj/DriverStation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
@@ -1548,16 +1517,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/constants/RobotConstants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+        <state relative-caret-position="144">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/implementations/movement/TurtleTalonSRXCAN.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
+          <folding>
+            <element signature="e#1533#1534#0" expanded="true" />
+            <element signature="e#1562#1563#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/implementations/vision/GripInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="17" column="43" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseChassis.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="227" column="59" selection-start-line="227" selection-start-column="59" selection-end-line="227" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseClimber.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        <state relative-caret-position="324">
+          <caret line="40" column="63" selection-start-line="40" selection-start-column="63" selection-end-line="40" selection-end-column="63" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

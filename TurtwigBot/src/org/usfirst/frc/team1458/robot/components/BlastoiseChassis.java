@@ -214,7 +214,7 @@ public class BlastoiseChassis implements TurtleComponent {
 		 * Gear alignment
 		 */
 		if(gearButton.getButton()){
-			int springX = getSpringX();
+			int springX = BlastoiseVision.getSpringX();
 			if(springX > -1) {
 				MotorValue val = gearAlignPID.newValue(springX, 0);
 				updateMotors(val, val.invert());
@@ -225,7 +225,7 @@ public class BlastoiseChassis implements TurtleComponent {
 			tankDrive.resetEncoders();
 		}
 
-		SmartDashboard.putNumber("SpringX", getSpringX());
+		SmartDashboard.putNumber("SpringX", BlastoiseVision.getSpringX());
 
 		tankDrive.teleUpdate();
 

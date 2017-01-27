@@ -12,6 +12,7 @@ public class TurtleTalonSRXCAN implements TurtleSmartMotor {
 	private final double kRotationRate;
 	private final CANTalon v;
 	private final boolean isReversed;
+	private BrakeMode brakeMode;
 	private boolean inDirectControlMode = true;
 
 	public TurtleTalonSRXCAN(int id, boolean isReversed, BrakeMode brakeMode, double kRotationRate) {
