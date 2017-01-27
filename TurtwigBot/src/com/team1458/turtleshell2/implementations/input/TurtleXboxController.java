@@ -6,7 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class TurtleXboxController {
-	private Joystick j;
+	private final Joystick j;
 
 	public TurtleXboxController(int usbport) {
 		j = new Joystick(usbport);
@@ -22,7 +22,7 @@ public class TurtleXboxController {
 	}
 
 	public static enum XboxAxis {
-		LX(0), LY(1), LT(2), RT(3), RX(4), RY(5),;
+		LX(0), LY(1), LT(2), RT(3), RX(4), RY(5);
 		public final int val;
 
 		XboxAxis(int i) {
@@ -31,8 +31,8 @@ public class TurtleXboxController {
 	}
 
 	public TurtleJoystickAxis getAxis(XboxAxis a) {
-		if(a==XboxAxis.LY||a==XboxAxis.RY) {
-			return new TurtleJoystickAxis(j, a.val,true);
+		if (a == XboxAxis.LY || a == XboxAxis.RY) {
+			return new TurtleJoystickAxis(j, a.val, true);
 		}
 		return new TurtleJoystickAxis(j, a.val);
 	}
@@ -40,9 +40,9 @@ public class TurtleXboxController {
 	public TurtleJoystickButton getButton(XboxButton b) {
 		return new TurtleJoystickButton(j, b.val);
 	}
-	
+
 	public TurtleJoystickPOVSwitch getDPad() {
-		return new TurtleJoystickPOVSwitch(j,0);
+		return new TurtleJoystickPOVSwitch(j, 0);
 	}
 
 	public void rumbleRight(float strength, long millis) {
