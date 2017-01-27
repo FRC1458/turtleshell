@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a9727dbb-beef-4625-9255-ed850611aaed" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/team1458/turtleshell2/implementations/movement/TurtleTalonSRXCAN.java" afterPath="$PROJECT_DIR$/src/com/team1458/turtleshell2/implementations/movement/TurtleTalonSRXCAN.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseChassis.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseChassis.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseClimber.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseClimber.java" />
     </list>
     <ignored path="TurtwigBot.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,10 +26,13 @@
       <file leaf-file-name="BlastoiseClimber.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseClimber.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="40" column="63" selection-start-line="40" selection-start-column="63" selection-end-line="40" selection-end-column="63" />
+            <state relative-caret-position="90">
+              <caret line="5" column="70" selection-start-line="5" selection-start-column="70" selection-end-line="5" selection-end-column="70" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#794#795#0" expanded="true" />
+                <element signature="e#831#832#0" expanded="true" />
+                <element signature="e#1037#1038#0" expanded="true" />
+                <element signature="e#1059#1060#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -41,7 +42,7 @@
         <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/constants/RobotConstants.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="144">
-              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -51,7 +52,7 @@
         <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseChassis.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="378">
-              <caret line="227" column="59" selection-start-line="227" selection-start-column="59" selection-end-line="227" selection-end-column="59" />
+              <caret line="228" column="59" selection-start-line="228" selection-start-column="59" selection-end-line="228" selection-end-column="59" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -120,10 +121,10 @@
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/BlastoiseTestDistanceAutonomous.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseIntake.java" />
         <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/interfaces/movement/TurtleSmartMotor.java" />
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseClimber.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/constants/RobotConstants.java" />
         <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/implementations/movement/TurtleTalonSRXCAN.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseChassis.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseClimber.java" />
       </list>
     </option>
   </component>
@@ -1509,8 +1510,8 @@
         <state relative-caret-position="200">
           <caret line="695" column="16" selection-start-line="695" selection-start-column="16" selection-end-line="695" selection-end-column="16" />
           <folding>
-            <element signature="e#20876#20877#0" expanded="true" />
-            <element signature="e#20911#20912#0" expanded="true" />
+            <element signature="e#20876#20877#0" expanded="false" />
+            <element signature="e#20911#20912#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1518,7 +1519,7 @@
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/constants/RobotConstants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1545,7 +1546,7 @@
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseChassis.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
-          <caret line="227" column="59" selection-start-line="227" selection-start-column="59" selection-end-line="227" selection-end-column="59" />
+          <caret line="228" column="59" selection-start-line="228" selection-start-column="59" selection-end-line="228" selection-end-column="59" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1554,10 +1555,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseClimber.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="40" column="63" selection-start-line="40" selection-start-column="63" selection-end-line="40" selection-end-column="63" />
+        <state relative-caret-position="90">
+          <caret line="5" column="70" selection-start-line="5" selection-start-column="70" selection-end-line="5" selection-end-column="70" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#794#795#0" expanded="true" />
+            <element signature="e#831#832#0" expanded="true" />
+            <element signature="e#1037#1038#0" expanded="true" />
+            <element signature="e#1059#1060#0" expanded="true" />
           </folding>
         </state>
       </provider>
