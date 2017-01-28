@@ -37,6 +37,21 @@ public class BlastoiseTestBed implements TurtleComponent {
 	TurtleAnalogInput shooterSpeed;
 	TurtleButtonInput smart;
 
+	double lastTarget = 4500/16.425;
+	
+	PIDConstants constants = new PIDConstants(0.025, 0.002, 0.002);
+	
+	{
+		c = new TurtleRotationCounter(9, false);
+		shooter = new TurtleVictorSP(9);
+		pid = new PID(constants, lastTarget, 0);
+		SmartDashboard.putNumber("RPM TARGET", 4000);
+
+		SmartDashboard.getNumber("kP", constants.kP);
+		SmartDashboard.getNumber("kI", constants.kI);
+		SmartDashboard.getNumber("kD", constants.kD);
+	}
+	
 	public BlastoiseTestBed(TurtleLogger logger, TurtleFlightStick rightStick,
 			TurtleFlightStick leftStick) {
 		this.logger = logger;
@@ -48,10 +63,6 @@ public class BlastoiseTestBed implements TurtleComponent {
 		if (disabled) {
 			logger.warn("BlastoiseTestBed was instantiated while FMS enabled");
 		}
-
-		c = new TurtleRotationCounter(9, false);
-		shooter = new TurtleVictorSP(9);
-		pid = new PID(new PIDConstants(0.025, 0, 0), 274, 0);
 	}
 
 	public BlastoiseTestBed(TurtleLogger logger, TurtleXboxController xboxController) {
@@ -65,22 +76,37 @@ public class BlastoiseTestBed implements TurtleComponent {
 			logger.warn("BlastoiseTestBed was instantiated while FMS enabled");
 		}
 	}
-
+	
 	@Override
 	public void teleUpdate() {
 		if (disabled) {
 			return;
 		}
 		
+		if(SmartDashboard.getNumber("kP", 0) != constants.kP ||
+				SmartDashboard.getNumber("kI", 0) != constants.kI ||
+				SmartDashboard.getNumber("kD", 0) != constants.kD) {
+			constants = new PIDConstants(SmartDashboard.getNumber("kP", 0),
+					SmartDashboard.getNumber("kI", 0),
+					SmartDashboard.getNumber("kD", 0));
+			pid = new PID(constants, lastTarget, 0);
+		}
+		
+		if(SmartDashboard.getNumber("RPM TARGET", 4500) != lastTarget){
+			lastTarget = SmartDashboard.getNumber("RPM TARGET", 4500)/16.425;
+			pid = new PID(constants, lastTarget, 0);
+		}
+		
 		SmartDashboard.putNumber("Hall Ticks", c.getRotation().getRevolutions());
 		SmartDashboard.putNumber("Hall Rate", c.getRate().getValue());
-		SmartDashboard.putNumber("RPM",c.getRate().getValue()*16.425);
-		pow = new MotorValue(pid.newValue(c.getRate().getValue()));
+		SmartDashboard.putNumber("RPM", c.getRate().getValue()*16.425);
+		double rawpower = pid.newValue(c.getRate().getValue());
+		SmartDashboard.putNumber("Rawpower", rawpower);
+		pow = new MotorValue(rawpower * 1);
 		if(smart.getButton()) {
 			shooter.set(new MotorValue(.6634));
 		} else {
-			shooter.set(pow/*new MotorValue(TurtleMaths.deadband(shooterSpeed.get(),
-				RobotConstants.JOYSTICK_DEADBAND))*/);
+			shooter.set(pow);
 		}
 		
 		SmartDashboard.putNumber("PIDPower",pow.getValue());
