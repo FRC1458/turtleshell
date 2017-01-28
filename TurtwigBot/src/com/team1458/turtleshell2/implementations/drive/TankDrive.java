@@ -10,6 +10,8 @@ import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * Represents a full tank drive
  * @author asinghani
@@ -71,6 +73,7 @@ public class TankDrive implements DriveTrain {
 		 */
 		if(turning){
 			if(turnPID.atTarget()){
+				System.out.println(rotationSensor.getRotation().getDegrees()+" deg");
 				stopMotors();
 				turning = false;
 				System.err.println("Finished Turning");
@@ -80,6 +83,9 @@ public class TankDrive implements DriveTrain {
 								.mapToSpeed(turnSpeed.getValue());
 
 				updateMotors(motorValue, motorValue.invert());
+				System.out.println(motorValue.getValue()+" motor value");
+				
+				SmartDashboard.putNumber("PID MOTOR VALUE", motorValue.getValue());
 			}
 			return;
 		} else if(drivingStraight) {
@@ -105,7 +111,8 @@ public class TankDrive implements DriveTrain {
 	public void turn(Angle angle, MotorValue speed, TurtlePIDConstants constants) {
 		this.turning = true;
 		this.turnSpeed = speed;
-		this.turnPID = new TurtlePDD2(constants, angle.getDegrees() + rotationSensor.getRotation().getDegrees(), 5);
+		rotationSensor.reset();
+		this.turnPID = new TurtlePDD2(constants, angle.getDegrees(), 5);
 	}
 
 	public void stopTurn() {

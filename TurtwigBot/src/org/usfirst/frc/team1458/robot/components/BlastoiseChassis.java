@@ -48,6 +48,47 @@ public class BlastoiseChassis implements TurtleComponent {
 	// Sensors
 	private TurtleNavX navX = null;
 
+	/**
+	 * Chassis Specific Initialization
+	 */
+	{
+		if(BlastoiseRobot.isPracticeRobot()) {
+			// Turtwig Chassis
+			tankDrive = new TankDrive(
+					new TurtleMotorSet(
+							new TurtleVictor888(TurtwigConstants.LeftDrive.MOTOR1),
+							new TurtleFakeMotor()
+					),
+					new TurtleMotorSet(
+							new TurtleVictor888(TurtwigConstants.RightDrive.MOTOR1, true),
+							new TurtleFakeMotor()
+					),
+					new TurtleDistanceEncoder(
+							TurtwigConstants.LeftDrive.ENCODER_A, TurtwigConstants.LeftDrive.ENCODER_B,
+							TurtwigConstants.LeftDrive.ENCODER_RATIO, true
+					),
+					new TurtleDistanceEncoder(
+							TurtwigConstants.RightDrive.ENCODER_A, TurtwigConstants.RightDrive.ENCODER_B,
+							TurtwigConstants.RightDrive.ENCODER_RATIO, false
+					),
+					navX.getYawAxis()
+			);
+		} else {
+			// Blastoise Chassis
+			tankDrive = new TankDrive(
+					new TurtleMotorSet(
+							new TurtleSpark(BlastoiseConstants.LeftDrive.MOTOR1),
+							new TurtleTalonSR(BlastoiseConstants.LeftDrive.MOTOR2)
+					),
+					new TurtleMotorSet(
+							new TurtleSpark(BlastoiseConstants.RightDrive.MOTOR1, true),
+							new TurtleTalonSR(BlastoiseConstants.RightDrive.MOTOR2, true)
+					),
+					navX.getYawAxis()
+			);
+		}
+	}
+
 	// Input joysticks and buttons
 	private TurtleAnalogInput rightJoystick;
 	private TurtleAnalogInput leftJoystick;
@@ -175,6 +216,7 @@ public class BlastoiseChassis implements TurtleComponent {
 		}
 
 		if(resetButton.getButton()){
+			//MotorValue val = gearAlignPID.newValue(getSpringX(), 0);
 			tankDrive.resetEncoders();
 		}
 

@@ -48,7 +48,7 @@ public class TurtlePDD2 implements TurtlePID {
 	}
 
 	public boolean atTarget() {
-		return Math.abs(savedpValue - target) < tolerence && prevdValue < tolerence;
+		return Math.abs(savedpValue - target) < tolerence && prevdValue < (tolerence/3);// TODO FIX
 	}
 
 }
