@@ -23,10 +23,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author asinghani
  */
 public class BlastoiseTestBed implements TurtleComponent {
+
 	TurtleLogger logger;
 	boolean disabled = false;
 	private TurtleRotationCounter c;
-	private TurtleRotationEncoder e;
 	private TurtleMotor shooter;
 	private PID pid;
 	private MotorValue pow;
@@ -41,23 +41,21 @@ public class BlastoiseTestBed implements TurtleComponent {
 			TurtleFlightStick leftStick) {
 		this.logger = logger;
 
-		shooterSpeed = rightStick
-				.getAxis(TurtleFlightStick.FlightAxis.THROTTLE);
+		shooterSpeed = rightStick.getAxis(TurtleFlightStick.FlightAxis.THROTTLE).positive();
+		smart = rightStick.getButton(TurtleFlightStick.FlightButton.TWO);
 
 		disabled = DriverStation.getInstance().isFMSAttached();
 		if (disabled) {
 			logger.warn("BlastoiseTestBed was instantiated while FMS enabled");
 		}
+
+		c = new TurtleRotationCounter(9, false);
+		shooter = new TurtleVictorSP(9);
+		pid = new PID(new PIDConstants(0.025, 0, 0), 274, 0);
 	}
 
-	public BlastoiseTestBed(TurtleLogger logger,
-			TurtleXboxController xboxController) {
+	public BlastoiseTestBed(TurtleLogger logger, TurtleXboxController xboxController) {
 		this.logger = logger;
-		c = new TurtleRotationCounter(9, false);
-		e = new TurtleRotationEncoder(7,8);
-		shooter = new TurtleVictorSP(9);
-		pid = new PID(new PIDConstants(0.025, 0, 0),
-				274, 0);
 
 		shooterSpeed = xboxController.getAxis(TurtleXboxController.XboxAxis.RY);
 		smart = xboxController.getButton(TurtleXboxController.XboxButton.A);
