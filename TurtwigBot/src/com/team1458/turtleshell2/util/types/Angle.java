@@ -19,6 +19,10 @@ public final class Angle implements Unit {
 	public Angle(double degrees) {
 		value = degrees;
 	}
+	
+	public static Angle createRevolutions(double revolutions) {
+		return new Angle(revolutions*360);
+	}
 
 	public static Angle createRadians(double radians) {
 		return new Angle(Math.toDegrees(radians));
@@ -54,5 +58,9 @@ public final class Angle implements Unit {
 	 */
 	public double getDegrees() {
 		return value;
+	}
+	
+	public double getRevolutions() {
+		return value/360;
 	}
 }
