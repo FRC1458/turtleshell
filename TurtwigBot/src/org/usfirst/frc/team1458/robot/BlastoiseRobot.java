@@ -11,9 +11,7 @@ import com.team1458.turtleshell2.util.TurtleLogger;
 
 import edu.wpi.first.wpilibj.SampleRobot;
 
-import org.usfirst.frc.team1458.robot.autonomous.BlastoiseTestAutonomous;
-import org.usfirst.frc.team1458.robot.autonomous.BlastoiseTestDistanceAutonomous;
-import org.usfirst.frc.team1458.robot.autonomous.BlastoiseTestTimedAutonomous;
+import org.usfirst.frc.team1458.robot.autonomous.TestAutonomous;
 import org.usfirst.frc.team1458.robot.components.BlastoiseChassis;
 import org.usfirst.frc.team1458.robot.components.BlastoiseTestBed;
 import org.usfirst.frc.team1458.robot.constants.RobotConstants;
@@ -54,24 +52,24 @@ public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
 	@Override
 	protected void robotInit() {
 		// Setup controller and chassis
-		
+		TurtleNavX navX = TurtleNavX.getInstanceI2C();
+
 		if(RobotConstants.USE_XBOX_CONTROLLER){
 	        TurtleXboxController xboxController = new TurtleXboxController(RobotConstants.UsbPorts.XBOX_CONTROLLER);
-	        chassis = new BlastoiseChassis(xboxController, logger);
+	        chassis = new BlastoiseChassis(xboxController, navX, logger);
 	        testBed = new BlastoiseTestBed(logger, xboxController);
+
 		} else {
 			TurtleFlightStick leftStick = new TurtleFlightStick(RobotConstants.UsbPorts.LEFT_STICK);
 	        TurtleFlightStick rightStick = new TurtleFlightStick(RobotConstants.UsbPorts.RIGHT_STICK);
-	        chassis = new BlastoiseChassis(leftStick, rightStick, logger);
+	        chassis = new BlastoiseChassis(leftStick, rightStick, navX, logger);
 	        testBed = new BlastoiseTestBed(logger, leftStick, rightStick);
 		}
 
-		// Setup AutoModes
-	    autoModes.add(new BlastoiseTestDistanceAutonomous(chassis, logger));
-		autoModes.add(new BlastoiseTestTimedAutonomous(chassis, logger));
-		autoModes.add(new BlastoiseTestAutonomous(chassis, logger, TurtleNavX.getInstanceI2C()));
+		// Setup AutoMode
+		autoModes.add(new TestAutonomous(chassis, logger, navX));
 
-		selectedAutoMode = 1;
+		selectedAutoMode = 0;
 
 		// Setup TestMode
 		testMode = () -> {}; // Creates a TestMode with empty test() function
@@ -124,11 +122,6 @@ public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
 	}
 
 	public static boolean isPracticeRobot() {
-		//DigitalInput practiceRobot = new DigitalInput(RobotConstants.Sensors.PRACTICE_ROBOT_DIO);
-
-		// Only trigger practice chassis when port PRACTICE_ROBOT_DIO is pulled to ground
-		//return practiceRobot.get() == false;
-		
 		return RobotConstants.PRACTICE_ROBOT;
 	}
 	

@@ -39,7 +39,7 @@ public class BlastoiseClimber implements TurtleComponent {
 		return climbing;
 	}
 
-	public boolean timeToClimb() {
+	public boolean isReadyToClimb() {
 		DriverStation ds = DriverStation.getInstance();
 		if(ds.isFMSAttached()){
 			return ds.getMatchTime() < 35; // 35 seconds (for some buffer)

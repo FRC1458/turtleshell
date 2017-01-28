@@ -45,61 +45,8 @@ public class BlastoiseChassis implements TurtleComponent {
 	 */
 	private TankDrive tankDrive;
 
-	private final TurtleNavX navX = TurtleNavX.getInstanceI2C(); //TurtleNavX.getInstanceUSB(RobotConstants.Sensors.NAVX_PORT);
-
-	/**
-	 * Chassis Specific Initialization
-	 */
-	{
-		if(!Robot.isReal()) {
-			// Simulation
-			tankDrive = new TankDrive(
-					new TurtleMotorSet(
-							new TurtleTalonSR(1),
-							new TurtleTalonSR(2)
-					),
-					new TurtleMotorSet(
-							new TurtleTalonSR(3),
-							new TurtleTalonSR(4)
-					),
-					null
-			);
-		} else if(BlastoiseRobot.isPracticeRobot()) {
-			// Turtwig Chassis
-			tankDrive = new TankDrive(
-					new TurtleMotorSet(
-							new TurtleTalonSR(TurtwigConstants.LeftDrive.MOTOR1),
-							new TurtleFakeMotor()
-					),
-					new TurtleMotorSet(
-							new TurtleTalonSR(TurtwigConstants.RightDrive.MOTOR1, true),
-							new TurtleFakeMotor()
-					),
-					new TurtleDistanceEncoder(
-							TurtwigConstants.LeftDrive.ENCODER_A, TurtwigConstants.LeftDrive.ENCODER_B,
-							TurtwigConstants.LeftDrive.ENCODER_RATIO, true
-					),
-					new TurtleDistanceEncoder(
-							TurtwigConstants.RightDrive.ENCODER_A, TurtwigConstants.RightDrive.ENCODER_B,
-							TurtwigConstants.RightDrive.ENCODER_RATIO, false
-					),
-					navX.getYawAxis()
-			);
-		} else {
-			// Blastoise Chassis
-			tankDrive = new TankDrive(
-					new TurtleMotorSet(
-							new TurtleSpark(BlastoiseConstants.LeftDrive.MOTOR1),
-							new TurtleTalonSR(BlastoiseConstants.LeftDrive.MOTOR2)
-					),
-					new TurtleMotorSet(
-							new TurtleSpark(BlastoiseConstants.RightDrive.MOTOR1, true),
-							new TurtleTalonSR(BlastoiseConstants.RightDrive.MOTOR2, true)
-					),
-					navX.getYawAxis()
-			);
-		}
-	}
+	// Sensors
+	private TurtleNavX navX = null;
 
 	// Input joysticks and buttons
 	private TurtleAnalogInput rightJoystick;
@@ -123,7 +70,7 @@ public class BlastoiseChassis implements TurtleComponent {
 	public BlastoiseChassis(TurtleAnalogInput leftJoystick, TurtleAnalogInput rightJoystick,
 							TurtleButtonInput straightButton, TurtleButtonInput turnButton,
 							TurtleButtonInput resetButton, TurtleButtonInput gearButton,
-							TurtleDigitalInput pov, TurtleLogger logger) {
+							TurtleDigitalInput pov, TurtleNavX navX, TurtleLogger logger) {
 		this.leftJoystick = leftJoystick;
 		this.rightJoystick = rightJoystick;
 
@@ -132,10 +79,13 @@ public class BlastoiseChassis implements TurtleComponent {
 		this.resetButton = resetButton;
 		this.gearButton = gearButton;
 		this.pov = pov;
+		this.navX = navX;
 
 		TurtleDashboard.logAxis(leftJoystick, rightJoystick);
 
 		this.logger = logger;
+
+		setupDrivetrain();
 	}
 
 
@@ -143,7 +93,7 @@ public class BlastoiseChassis implements TurtleComponent {
 	 * Convenience method for instantiating with Xbox controller
 	 * @param controller Xbox controller
 	 */
-	public BlastoiseChassis (TurtleXboxController controller, TurtleLogger logger) {
+	public BlastoiseChassis (TurtleXboxController controller, TurtleNavX navX, TurtleLogger logger) {
 		this(
 				controller.getAxis(TurtleXboxController.XboxAxis.LY),
 				controller.getAxis(TurtleXboxController.XboxAxis.RY),
@@ -152,6 +102,7 @@ public class BlastoiseChassis implements TurtleComponent {
 				controller.getButton(TurtleXboxController.XboxButton.A),
 				controller.getButton(TurtleXboxController.XboxButton.Y),
 				controller.getDPad(),
+				navX,
 				logger
 		);
 		rumbleController = controller;
@@ -162,7 +113,7 @@ public class BlastoiseChassis implements TurtleComponent {
 	 * @param leftFlightStick
 	 * @param rightFlightStick
 	 */
-	public BlastoiseChassis (TurtleFlightStick leftFlightStick, TurtleFlightStick rightFlightStick, TurtleLogger logger) {
+	public BlastoiseChassis (TurtleFlightStick leftFlightStick, TurtleFlightStick rightFlightStick, TurtleNavX navX, TurtleLogger logger) {
 		this(
 				leftFlightStick.getAxis(TurtleFlightStick.FlightAxis.PITCH),
 				rightFlightStick.getAxis(TurtleFlightStick.FlightAxis.PITCH),
@@ -171,6 +122,7 @@ public class BlastoiseChassis implements TurtleComponent {
 				rightFlightStick.getButton(TurtleFlightStick.FlightButton.TWO),
 				rightFlightStick.getButton(TurtleFlightStick.FlightButton.THREE),
 				rightFlightStick.getPOVSwitch(),
+				navX,
 				logger
 		);
 	}
@@ -242,6 +194,61 @@ public class BlastoiseChassis implements TurtleComponent {
 		
 		if(navX.isInCollision(RobotConstants.COLLISION_THRESHOLD)){
 			rumbleController.rumble(1.0f, 250); // Very experimental
+		}
+	}
+
+	/**
+	 * Chassis Specific Initialization
+	 * Called after constructor
+	 */
+	private void setupDrivetrain() {
+		if(!Robot.isReal()) {
+			// Simulation
+			tankDrive = new TankDrive(
+					new TurtleMotorSet(
+							new TurtleTalonSR(1),
+							new TurtleTalonSR(2)
+					),
+					new TurtleMotorSet(
+							new TurtleTalonSR(3),
+							new TurtleTalonSR(4)
+					),
+					null
+			);
+		} else if(BlastoiseRobot.isPracticeRobot()) {
+			// Turtwig Chassis
+			tankDrive = new TankDrive(
+					new TurtleMotorSet(
+							new TurtleTalonSR(TurtwigConstants.LeftDrive.MOTOR1),
+							new TurtleFakeMotor()
+					),
+					new TurtleMotorSet(
+							new TurtleTalonSR(TurtwigConstants.RightDrive.MOTOR1, true),
+							new TurtleFakeMotor()
+					),
+					new TurtleDistanceEncoder(
+							TurtwigConstants.LeftDrive.ENCODER_A, TurtwigConstants.LeftDrive.ENCODER_B,
+							TurtwigConstants.LeftDrive.ENCODER_RATIO, true
+					),
+					new TurtleDistanceEncoder(
+							TurtwigConstants.RightDrive.ENCODER_A, TurtwigConstants.RightDrive.ENCODER_B,
+							TurtwigConstants.RightDrive.ENCODER_RATIO, false
+					),
+					navX.getYawAxis()
+			);
+		} else {
+			// Blastoise Chassis
+			tankDrive = new TankDrive(
+					new TurtleMotorSet(
+							new TurtleSpark(BlastoiseConstants.LeftDrive.MOTOR1),
+							new TurtleTalonSR(BlastoiseConstants.LeftDrive.MOTOR2)
+					),
+					new TurtleMotorSet(
+							new TurtleSpark(BlastoiseConstants.RightDrive.MOTOR1, true),
+							new TurtleTalonSR(BlastoiseConstants.RightDrive.MOTOR2, true)
+					),
+					navX.getYawAxis()
+			);
 		}
 	}
 
