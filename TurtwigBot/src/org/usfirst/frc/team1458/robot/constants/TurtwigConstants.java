@@ -1,8 +1,5 @@
 package org.usfirst.frc.team1458.robot.constants;
 
-import com.team1458.turtleshell2.util.TurtleLogger;
-import com.team1458.turtleshell2.util.TurtlePIDConstants;
-
 /**
  * Constants for Blastoise Robot
  * All inner classes are defined as "static final" so static variables can be defined

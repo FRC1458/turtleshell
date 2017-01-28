@@ -1,11 +1,11 @@
 package com.team1458.turtleshell2.implementations.drive;
 
-import com.team1458.turtleshell2.implementations.pid.TurtlePDD2;
+import com.team1458.turtleshell2.implementations.pid.PID;
 import com.team1458.turtleshell2.implementations.sensor.fake.TurtleFakeDistanceEncoder;
 import com.team1458.turtleshell2.interfaces.DriveTrain;
 import com.team1458.turtleshell2.interfaces.sensor.TurtleDistanceSensor;
 import com.team1458.turtleshell2.interfaces.sensor.TurtleRotationSensor;
-import com.team1458.turtleshell2.util.TurtlePIDConstants;
+import com.team1458.turtleshell2.util.PIDConstants;
 import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
@@ -40,14 +40,14 @@ public class TankDrive implements DriveTrain {
 	 */
 	boolean turning = false;
 	MotorValue turnSpeed = MotorValue.zero;
-	TurtlePDD2 turnPID;
+	PID turnPID;
 
 	/**
 	 * Straight Driving
 	 */
 	boolean drivingStraight = false;
 	MotorValue straightDriveSpeed = MotorValue.zero;
-	TurtlePDD2 straightDrivePID;
+	PID straightDrivePID;
 
 
 	public TankDrive(TurtleMotorSet leftDrive, TurtleMotorSet rightDrive,
@@ -79,7 +79,7 @@ public class TankDrive implements DriveTrain {
 				System.err.println("Finished Turning");
 			} else {
 				MotorValue motorValue =
-						turnPID.newValue(rotationSensor.getRotation().getDegrees(), rotationSensor.getRate().getValue())
+						new MotorValue(turnPID.newValue(rotationSensor.getRotation().getDegrees()))
 								.mapToSpeed(turnSpeed.getValue());
 
 				updateMotors(motorValue, motorValue.invert());
@@ -90,17 +90,17 @@ public class TankDrive implements DriveTrain {
 			return;
 		} else if(drivingStraight) {
 			MotorValue motorValue =
-					straightDrivePID.newValue(rotationSensor.getRotation().getDegrees(), rotationSensor.getRate().getValue())
+					new MotorValue(straightDrivePID.newValue(rotationSensor.getRotation().getDegrees()))
 							.mapToSpeed(straightDriveSpeed.getValue());
 
 			updateMotors(motorValue, motorValue);
 		}
 	}
 
-	public void driveStraight(MotorValue speed, TurtlePIDConstants constants) {
+	public void driveStraight(MotorValue speed, PIDConstants constants) {
 		this.drivingStraight = true;
 		this.straightDriveSpeed = speed;
-		this.straightDrivePID = new TurtlePDD2(constants, rotationSensor.getRotation().getDegrees(), 0);
+		this.straightDrivePID = new PID(constants, rotationSensor.getRotation().getDegrees(), 0);
 	}
 
 	public void stopDrivingStraight() {
@@ -108,11 +108,11 @@ public class TankDrive implements DriveTrain {
 		stopMotors();
 	}
 
-	public void turn(Angle angle, MotorValue speed, TurtlePIDConstants constants) {
+	public void turn(Angle angle, MotorValue speed, PIDConstants constants) {
 		this.turning = true;
 		this.turnSpeed = speed;
 		rotationSensor.reset();
-		this.turnPID = new TurtlePDD2(constants, angle.getDegrees(), 5);
+		this.turnPID = new PID(constants, angle.getDegrees(), 5);
 	}
 
 	public void stopTurn() {

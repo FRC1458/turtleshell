@@ -154,23 +154,21 @@ public class TurtleDashboard {
 	/**
 	 * Allows tuning PID Constants (for use with custom dashboard)
 	 */
-	public static void enablePidTuning(TurtlePIDConstants defaultConstants, String name) {
+	public static void enablePidTuning(PIDConstants defaultConstants, String name) {
 		SmartDashboard.putString(name+"_PID", "PID");
 		SmartDashboard.putNumber(name+"_PID_kP", defaultConstants.kP);
 		SmartDashboard.putNumber(name+"_PID_kI", defaultConstants.kI);
 		SmartDashboard.putNumber(name+"_PID_kD", defaultConstants.kD);
-		SmartDashboard.putNumber(name+"_PID_kDD", defaultConstants.kDD);
 	}
 
 	/**
 	 * Get PID Constants with specific name
 	 */
-	public static TurtlePIDConstants getPidConstants(String name) {
-		return new TurtlePIDConstants(
+	public static PIDConstants getPidConstants(String name) {
+		return new PIDConstants(
 				getNumber(name+"_PID_kP", 0.0),
 				getNumber(name+"_PID_kI", 0.0),
-				getNumber(name+"_PID_kD", 0.0),
-				getNumber(name+"_PID_kDD", 0.0)
+				getNumber(name+"_PID_kD", 0.0)
 		);
 	}
 }

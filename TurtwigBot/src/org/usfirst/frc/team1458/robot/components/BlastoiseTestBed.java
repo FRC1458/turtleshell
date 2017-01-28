@@ -1,30 +1,21 @@
 package org.usfirst.frc.team1458.robot.components;
 
-import com.ctre.CANTalon;
-import com.ctre.CANTalon.TalonControlMode;
-import com.team1458.turtleshell2.implementations.drive.TurtleMotorSet;
 import com.team1458.turtleshell2.implementations.input.TurtleFlightStick;
 import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
-import com.team1458.turtleshell2.implementations.movement.TurtleFakeMotor;
-import com.team1458.turtleshell2.implementations.movement.TurtleTalonSRXCAN;
 import com.team1458.turtleshell2.implementations.movement.TurtleVictorSP;
-import com.team1458.turtleshell2.implementations.pid.TurtlePDD2;
+import com.team1458.turtleshell2.implementations.pid.PID;
 import com.team1458.turtleshell2.implementations.sensor.TurtleRotationCounter;
 import com.team1458.turtleshell2.implementations.sensor.TurtleRotationEncoder;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
 import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
 import com.team1458.turtleshell2.interfaces.input.TurtleButtonInput;
 import com.team1458.turtleshell2.interfaces.movement.TurtleMotor;
-import com.team1458.turtleshell2.interfaces.pid.TurtlePID;
 import com.team1458.turtleshell2.util.TurtleLogger;
-import com.team1458.turtleshell2.util.TurtleMaths;
-import com.team1458.turtleshell2.util.TurtlePIDConstants;
+import com.team1458.turtleshell2.util.PIDConstants;
 import com.team1458.turtleshell2.util.types.MotorValue;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 
 /**
  * Not to be used at competition
@@ -37,7 +28,7 @@ public class BlastoiseTestBed implements TurtleComponent {
 	private TurtleRotationCounter c;
 	private TurtleRotationEncoder e;
 	private TurtleMotor shooter;
-	private TurtlePID pid;
+	private PID pid;
 	private MotorValue pow;
 
 	/**
@@ -65,7 +56,7 @@ public class BlastoiseTestBed implements TurtleComponent {
 		c = new TurtleRotationCounter(9, false);
 		e = new TurtleRotationEncoder(7,8);
 		shooter = new TurtleVictorSP(9);
-		pid = new TurtlePDD2(new TurtlePIDConstants(0.025, 0, 0, 0),
+		pid = new PID(new PIDConstants(0.025, 0, 0),
 				274, 0);
 
 		shooterSpeed = xboxController.getAxis(TurtleXboxController.XboxAxis.RY);
@@ -86,7 +77,7 @@ public class BlastoiseTestBed implements TurtleComponent {
 		SmartDashboard.putNumber("Hall Ticks", c.getRotation().getRevolutions());
 		SmartDashboard.putNumber("Hall Rate", c.getRate().getValue());
 		SmartDashboard.putNumber("RPM",c.getRate().getValue()*16.425);
-		pow = pid.newValue(new double[] { c.getRate().getValue(), 0, 0 });
+		pow = new MotorValue(pid.newValue(c.getRate().getValue()));
 		if(smart.getButton()) {
 			shooter.set(new MotorValue(.6634));
 		} else {

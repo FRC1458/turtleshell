@@ -1,10 +1,8 @@
 package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell2.implementations.drive.TankDrive;
-import com.team1458.turtleshell2.implementations.pid.TurtlePDD2;
-import com.team1458.turtleshell2.implementations.pid.TurtleStraightDrivePID;
+import com.team1458.turtleshell2.implementations.pid.PID;
 import com.team1458.turtleshell2.interfaces.AutoMode;
-import com.team1458.turtleshell2.interfaces.pid.TurtleDualPID;
 import com.team1458.turtleshell2.interfaces.sensor.TurtleRotationSensor;
 import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.TurtleMaths;
@@ -70,7 +68,8 @@ public abstract class BlastoiseAutoMode implements AutoMode {
 	 * @param speed Speed for the robot, between -1 and 1
 	 */
 	public void moveDistance(double distance, double speed) {
-
+		// TODO fix this its very broken 
+		/*
 		// Create PID
 		TurtleDualPID pid = new TurtleStraightDrivePID(
 				RobotConstants.StraightDrivePID.PID_CONSTANTS, distance,
@@ -91,7 +90,7 @@ public abstract class BlastoiseAutoMode implements AutoMode {
 			drive.updateMotors(new MotorValue(leftSpeed), new MotorValue(rightSpeed));
 		}
 
-		drive.stopMotors();
+		drive.stopMotors();*/
 	}
 
 	/**
@@ -122,12 +121,12 @@ public abstract class BlastoiseAutoMode implements AutoMode {
 		MotorValue turnSpeed = new MotorValue(TurtleMaths.fitRange(speed, 0, 1));
 		rotationSensor.reset();
 
-		TurtlePDD2 turnPID = new TurtlePDD2(RobotConstants.TurnPID.PID_CONSTANTS,
+		PID turnPID = new PID(RobotConstants.TurnPID.PID_CONSTANTS,
 				degrees, RobotConstants.TurnPID.TOLERANCE);
 
 		while(!turnPID.atTarget()){
 			MotorValue motorValue =
-					turnPID.newValue(rotationSensor.getRotation().getDegrees(), rotationSensor.getRate().getValue())
+					new MotorValue(turnPID.newValue(rotationSensor.getRotation().getDegrees()))
 							.mapToSpeed(turnSpeed.getValue())
 							.add(RobotConstants.TurnPID.MIN_SPEED);
 

@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1458.robot.constants;
 
 import com.team1458.turtleshell2.util.TurtleLogger;
-import com.team1458.turtleshell2.util.TurtlePIDConstants;
+import com.team1458.turtleshell2.util.PIDConstants;
 import com.team1458.turtleshell2.util.types.MotorValue;
 import com.team1458.turtleshell2.util.types.Time;
 
@@ -58,7 +58,7 @@ public class RobotConstants {
 	 * Straight Drive PID
 	 */
 	public static final class StraightDrivePID {
-		public static final TurtlePIDConstants PID_CONSTANTS = new TurtlePIDConstants(.0015, 0, .0001, .0001);
+		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0, 0, 0);
 		public static final double kLR = 0.00005;
 		public static final double TOLERANCE = 2;
 	}
@@ -67,7 +67,7 @@ public class RobotConstants {
 	 * Turning PID
 	 */
 	public static final class TurnPID {
-		public static final TurtlePIDConstants PID_CONSTANTS = new TurtlePIDConstants(1.0, 90.0, 0, .001, .0001);
+		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0, 0, 0);
 		public static final double TOLERANCE = 3;
 
 		public static final double TURN_SPEED = 0.65;
@@ -78,7 +78,7 @@ public class RobotConstants {
 	 * Gear Alignment PID
 	 */
 	public static final class GearPID {
-		public static final TurtlePIDConstants PID_CONSTANTS = new TurtlePIDConstants(.0015, 0, 0, 0);
+		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0, 0, 0);
 
 		public static final double SPEED = 0.5;
 

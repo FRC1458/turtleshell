@@ -9,7 +9,7 @@ import com.team1458.turtleshell2.implementations.movement.TurtleFakeMotor;
 import com.team1458.turtleshell2.implementations.movement.TurtleSpark;
 import com.team1458.turtleshell2.implementations.movement.TurtleTalonSR;
 import com.team1458.turtleshell2.implementations.movement.TurtleVictor888;
-import com.team1458.turtleshell2.implementations.pid.TurtlePDD2;
+import com.team1458.turtleshell2.implementations.pid.PID;
 import com.team1458.turtleshell2.implementations.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.implementations.sensor.TurtleNavX;
 import com.team1458.turtleshell2.implementations.vision.Contour;
@@ -171,7 +171,7 @@ public class BlastoiseChassis implements TurtleComponent {
 		);
 	}
 
-	TurtlePDD2 gearAlignPID = new TurtlePDD2(RobotConstants.GearPID.PID_CONSTANTS, RobotConstants.GearPID.CAMERA_WIDTH, 0);
+	PID gearAlignPID = new PID(RobotConstants.GearPID.PID_CONSTANTS, RobotConstants.GearPID.CAMERA_WIDTH, 0);
 
 	@Override
 	public void teleUpdate() {
@@ -213,7 +213,7 @@ public class BlastoiseChassis implements TurtleComponent {
 		if(gearButton.getButton()){
 			int springX = BlastoiseVision.getSpringX();
 			if(springX > -1) {
-				MotorValue val = gearAlignPID.newValue(springX, 0);
+				MotorValue val = new MotorValue(gearAlignPID.newValue(springX));
 				updateMotors(val, val.invert());
 			}
 		}
