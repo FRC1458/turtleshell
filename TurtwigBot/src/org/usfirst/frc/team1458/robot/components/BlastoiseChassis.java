@@ -12,7 +12,8 @@ import com.team1458.turtleshell2.implementations.movement.TurtleVictor888;
 import com.team1458.turtleshell2.implementations.pid.PID;
 import com.team1458.turtleshell2.implementations.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.implementations.sensor.TurtleNavX;
-import com.team1458.turtleshell2.interfaces.TurtleComponent;
+import com.team1458.turtleshell2.implementations.sensor.fake.TurtleFakeRotationEncoder;
+import com.team1458.turtleshell2.interfaces.RobotComponent;
 import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
 import com.team1458.turtleshell2.interfaces.input.TurtleButtonInput;
 import com.team1458.turtleshell2.interfaces.input.TurtleDigitalInput;
@@ -37,7 +38,7 @@ import org.usfirst.frc.team1458.robot.constants.TurtwigConstants;
  *
  * @author asinghani
  */
-public class BlastoiseChassis implements TurtleComponent {
+public class BlastoiseChassis implements RobotComponent {
 
 	/**
 	 * Drive train
@@ -46,49 +47,6 @@ public class BlastoiseChassis implements TurtleComponent {
 
 	// Sensors
 	private TurtleNavX navX = null;
-
-	/**
-	 * Chassis Specific Initialization
-	 */
-	{
-		if(BlastoiseRobot.isPracticeRobot()) {
-			// Turtwig Chassis
-			tankDrive = new TankDrive(
-					new MotorSet(
-							new TurtleVictor888(TurtwigConstants.LeftDrive.MOTOR1),
-							new TurtleFakeMotor()
-					),
-					new MotorSet(
-							new TurtleVictor888(TurtwigConstants.RightDrive.MOTOR1, true),
-							new TurtleFakeMotor()
-					),
-					new TurtleDistanceEncoder(
-							TurtwigConstants.LeftDrive.ENCODER_A, TurtwigConstants.LeftDrive.ENCODER_B,
-							TurtwigConstants.LeftDrive.ENCODER_RATIO, true
-					),
-					new TurtleDistanceEncoder(
-							TurtwigConstants.RightDrive.ENCODER_A, TurtwigConstants.RightDrive.ENCODER_B,
-							TurtwigConstants.RightDrive.ENCODER_RATIO, false
-					),
-					navX.getYawAxis()
-			);
-		} else {
-			// Blastoise Chassis
-			tankDrive = new TankDrive(
-					new MotorSet(
-							new TurtleTalonSRXCAN(BlastoiseConstants.LeftDrive.MOTOR1),
-							new TurtleTalonSRXCAN(BlastoiseConstants.LeftDrive.MOTOR2),
-							new TurtleTalonSRXCAN(BlastoiseConstants.LeftDrive.MOTOR3)
-					),
-					new MotorSet(
-							new TurtleTalonSRXCAN(BlastoiseConstants.RightDrive.MOTOR1, true),
-							new TurtleTalonSRXCAN(BlastoiseConstants.RightDrive.MOTOR2, true),
-							new TurtleTalonSRXCAN(BlastoiseConstants.RightDrive.MOTOR3, true)
-					),
-					null
-			);
-		}
-	}
 
 	// Input joysticks and buttons
 	private TurtleAnalogInput rightJoystick;
@@ -282,15 +240,17 @@ public class BlastoiseChassis implements TurtleComponent {
 		} else {
 			// Blastoise Chassis
 			tankDrive = new TankDrive(
-					new MotorSet(
-							new TurtleSpark(BlastoiseConstants.LeftDrive.MOTOR1),
-							new TurtleTalonSR(BlastoiseConstants.LeftDrive.MOTOR2)
-					),
-					new MotorSet(
-							new TurtleSpark(BlastoiseConstants.RightDrive.MOTOR1, true),
-							new TurtleTalonSR(BlastoiseConstants.RightDrive.MOTOR2, true)
-					),
-					navX.getYawAxis()
+				new MotorSet(
+						new TurtleTalonSRXCAN(BlastoiseConstants.LeftDrive.MOTOR1),
+						new TurtleTalonSRXCAN(BlastoiseConstants.LeftDrive.MOTOR2),
+						new TurtleTalonSRXCAN(BlastoiseConstants.LeftDrive.MOTOR3)
+				),
+				new MotorSet(
+						new TurtleTalonSRXCAN(BlastoiseConstants.RightDrive.MOTOR1, true),
+						new TurtleTalonSRXCAN(BlastoiseConstants.RightDrive.MOTOR2, true),
+						new TurtleTalonSRXCAN(BlastoiseConstants.RightDrive.MOTOR3, true)
+				),
+				new TurtleFakeRotationEncoder()
 			);
 		}
 	}

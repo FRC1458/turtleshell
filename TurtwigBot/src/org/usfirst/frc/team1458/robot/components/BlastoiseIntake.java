@@ -2,7 +2,7 @@ package org.usfirst.frc.team1458.robot.components;
 
 import com.team1458.turtleshell2.implementations.drive.MotorSet;
 import com.team1458.turtleshell2.implementations.movement.TurtleTalonSRXCAN;
-import com.team1458.turtleshell2.interfaces.TurtleComponent;
+import com.team1458.turtleshell2.interfaces.RobotComponent;
 import com.team1458.turtleshell2.interfaces.input.TurtleButtonInput;
 import com.team1458.turtleshell2.interfaces.input.TurtleDigitalInput;
 import com.team1458.turtleshell2.util.types.MotorValue;
@@ -13,7 +13,7 @@ import org.usfirst.frc.team1458.robot.constants.RobotConstants;
  *
  * @author asinghani
  */
-public class BlastoiseIntake implements TurtleComponent {
+public class BlastoiseIntake implements RobotComponent {
 	private MotorSet motors = new MotorSet(new TurtleTalonSRXCAN(RobotConstants.Intake.MOTOR_PORT));
 
 	private TurtleDigitalInput enableSwitch;

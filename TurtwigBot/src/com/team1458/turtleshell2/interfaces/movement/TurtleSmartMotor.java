@@ -21,7 +21,7 @@ public interface TurtleSmartMotor extends TurtleMotor {
 	public void setBrakeMode(BrakeMode brake);
 	
 	public static enum BrakeMode {
-		BRAKE, COAST;
+		BRAKE, COAST
 	}
 	
 	

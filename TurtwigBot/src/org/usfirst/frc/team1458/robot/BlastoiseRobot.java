@@ -57,13 +57,13 @@ public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
 		if(RobotConstants.USE_XBOX_CONTROLLER){
 	        TurtleXboxController xboxController = new TurtleXboxController(RobotConstants.UsbPorts.XBOX_CONTROLLER);
 	        chassis = new BlastoiseChassis(xboxController, navX, logger);
-	        testBed = new BlastoiseTestBed(logger, xboxController);
+	        //testBed = new BlastoiseTestBed(logger, xboxController);
 
 		} else {
 			TurtleFlightStick leftStick = new TurtleFlightStick(RobotConstants.UsbPorts.LEFT_STICK);
 	        TurtleFlightStick rightStick = new TurtleFlightStick(RobotConstants.UsbPorts.RIGHT_STICK);
 	        chassis = new BlastoiseChassis(leftStick, rightStick, navX, logger);
-	        testBed = new BlastoiseTestBed(logger, leftStick, rightStick);
+	        //testBed = new BlastoiseTestBed(logger, leftStick, rightStick);
 		}
 
 		// Setup AutoMode
@@ -105,7 +105,7 @@ public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
 
 		while (isOperatorControl() && isEnabled()) {
 			chassis.teleUpdate();
-			testBed.teleUpdate();
+			//testBed.teleUpdate();
 		}
 	}
 

@@ -5,7 +5,7 @@ package com.team1458.turtleshell2.interfaces;
  * @author mehnadnerd
  *
  */
-public interface TurtleComponent {
+public interface RobotComponent {
 	public void teleUpdate();
 	//public void autoUpdate();
 }

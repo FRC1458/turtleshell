@@ -3,7 +3,7 @@ package org.usfirst.frc.team1458.robot.components;
 import com.team1458.turtleshell2.implementations.movement.TurtleVictorSP;
 import com.team1458.turtleshell2.implementations.pid.PID;
 import com.team1458.turtleshell2.implementations.sensor.TurtleHallSensor;
-import com.team1458.turtleshell2.interfaces.TurtleComponent;
+import com.team1458.turtleshell2.interfaces.RobotComponent;
 import com.team1458.turtleshell2.interfaces.input.TurtleButtonInput;
 import com.team1458.turtleshell2.interfaces.movement.TurtleMotor;
 import com.team1458.turtleshell2.util.types.MotorValue;
@@ -14,7 +14,7 @@ import org.usfirst.frc.team1458.robot.constants.RobotConstants;
  * Basic code for a single shooter. Uses RPM internally. Maintains constant motor speed.
  * @author asinghani
  */
-public class BlastoiseShooter implements TurtleComponent {
+public class BlastoiseShooter implements RobotComponent {
 	private TurtleHallSensor hallSensor;
 	private TurtleMotor shooter;
 	private PID pid;

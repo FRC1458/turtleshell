@@ -60,24 +60,23 @@ public class TurtleTalonSRXCAN implements TurtleSmartMotor {
 		return v.getDeviceID();
 	}
 
-	// TODO add stall detection using voltage detection
-
 	@Override
 	public boolean isStalling() {
 		return false;
 	}
+
 	@Override
 	public void setRotationRate(Rate<Angle> rate) {
 		v.changeControlMode(TalonControlMode.Speed);
 		v.set(kRotationRate * rate.getValue());
-		this.inDirectControlMode=false;
+		this.inDirectControlMode = false;
 	}
 
 	@Override
 	public void setBrakeMode(BrakeMode brake) {
-		if(brake==BrakeMode.BRAKE) {
+		if(brake == BrakeMode.BRAKE) {
 			v.enableBrakeMode(true);
-		} else if (brake==BrakeMode.COAST) {
+		} else if (brake == BrakeMode.COAST) {
 			v.enableBrakeMode(false);
 		}
 	}

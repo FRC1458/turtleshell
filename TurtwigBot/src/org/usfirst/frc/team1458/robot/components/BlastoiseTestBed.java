@@ -5,7 +5,7 @@ import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
 import com.team1458.turtleshell2.implementations.movement.TurtleVictorSP;
 import com.team1458.turtleshell2.implementations.pid.PID;
 import com.team1458.turtleshell2.implementations.sensor.TurtleHallSensor;
-import com.team1458.turtleshell2.interfaces.TurtleComponent;
+import com.team1458.turtleshell2.interfaces.RobotComponent;
 import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
 import com.team1458.turtleshell2.interfaces.input.TurtleButtonInput;
 import com.team1458.turtleshell2.interfaces.movement.TurtleMotor;
@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  * @author asinghani
  */
-public class BlastoiseTestBed implements TurtleComponent {
+public class BlastoiseTestBed implements RobotComponent {
 
 	TurtleLogger logger;
 	boolean disabled = false;
