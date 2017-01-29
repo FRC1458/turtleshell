@@ -12,8 +12,9 @@ public class BlastoiseConstants {
      * Right drive system
      */
     public static final class RightDrive {
-	    public static final int MOTOR1 = -1;
-	    public static final int MOTOR2 = -1;
+	    public static final int MOTOR1 = 11;
+	    public static final int MOTOR2 = 12;
+	    public static final int MOTOR3 = 13;
 
 		public static final int ENCODER_A = -1;
 	    public static final int ENCODER_B = -1;
@@ -24,8 +25,9 @@ public class BlastoiseConstants {
 	 * Left drive system
 	 */
 	public static final class LeftDrive {
-		public static final int MOTOR1 = -1;
-		public static final int MOTOR2 = -1;
+		public static final int MOTOR1 = 14;
+		public static final int MOTOR2 = 15;
+		public static final int MOTOR3 = 16;
 
 		public static final int ENCODER_A = -1;
 		public static final int ENCODER_B = -1;

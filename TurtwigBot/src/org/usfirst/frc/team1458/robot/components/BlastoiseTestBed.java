@@ -39,7 +39,7 @@ public class BlastoiseTestBed implements TurtleComponent {
 
 	double lastTarget = 4500/16.425;
 	
-	PIDConstants constants = new PIDConstants(0.025, 0.002, 0.002);
+	PIDConstants constants = new PIDConstants(0.07, 0.09, 0.04);
 	
 	{
 		c = new TurtleRotationCounter(9, false);
@@ -47,9 +47,9 @@ public class BlastoiseTestBed implements TurtleComponent {
 		pid = new PID(constants, lastTarget, 0);
 		SmartDashboard.putNumber("RPM TARGET", 4000);
 
-		SmartDashboard.getNumber("kP", constants.kP);
-		SmartDashboard.getNumber("kI", constants.kI);
-		SmartDashboard.getNumber("kD", constants.kD);
+		SmartDashboard.putNumber("kP", constants.kP);
+		SmartDashboard.putNumber("kI", constants.kI);
+		SmartDashboard.putNumber("kD", constants.kD);
 	}
 	
 	public BlastoiseTestBed(TurtleLogger logger, TurtleFlightStick rightStick,

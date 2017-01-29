@@ -8,6 +8,8 @@ import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.MotorValue;
 import com.team1458.turtleshell2.util.types.Rate;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class TurtleTalonSRXCAN implements TurtleSmartMotor {
 	private final double kRotationRate;
 	private final CANTalon v;
@@ -23,6 +25,10 @@ public class TurtleTalonSRXCAN implements TurtleSmartMotor {
 		this.kRotationRate = kRotationRate;
 	}
 
+	public TurtleTalonSRXCAN(int id, boolean isReversed) {
+		this(id, isReversed, BrakeMode.BRAKE, 1);
+	}
+	
 	public TurtleTalonSRXCAN(int id) {
 		this(id, false, BrakeMode.BRAKE, 1);
 	}
@@ -37,6 +43,8 @@ public class TurtleTalonSRXCAN implements TurtleSmartMotor {
 
 	@Override
 	public void set(MotorValue val) {
+		System.out.println(val.getValue());
+		SmartDashboard.putNumber("Thingy1234", val.getValue());
 		if(!inDirectControlMode) {
 			v.changeControlMode(TalonControlMode.PercentVbus);
 		}

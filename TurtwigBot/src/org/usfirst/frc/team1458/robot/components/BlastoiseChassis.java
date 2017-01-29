@@ -8,6 +8,7 @@ import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
 import com.team1458.turtleshell2.implementations.movement.TurtleFakeMotor;
 import com.team1458.turtleshell2.implementations.movement.TurtleSpark;
 import com.team1458.turtleshell2.implementations.movement.TurtleTalonSR;
+import com.team1458.turtleshell2.implementations.movement.TurtleTalonSRXCAN;
 import com.team1458.turtleshell2.implementations.movement.TurtleVictor888;
 import com.team1458.turtleshell2.implementations.pid.PID;
 import com.team1458.turtleshell2.implementations.sensor.TurtleDistanceEncoder;
@@ -80,14 +81,16 @@ public class BlastoiseChassis implements TurtleComponent {
 			// Blastoise Chassis
 			tankDrive = new TankDrive(
 					new TurtleMotorSet(
-							new TurtleSpark(BlastoiseConstants.LeftDrive.MOTOR1),
-							new TurtleTalonSR(BlastoiseConstants.LeftDrive.MOTOR2)
+							new TurtleTalonSRXCAN(BlastoiseConstants.LeftDrive.MOTOR1),
+							new TurtleTalonSRXCAN(BlastoiseConstants.LeftDrive.MOTOR2),
+							new TurtleTalonSRXCAN(BlastoiseConstants.LeftDrive.MOTOR3)
 					),
 					new TurtleMotorSet(
-							new TurtleSpark(BlastoiseConstants.RightDrive.MOTOR1, true),
-							new TurtleTalonSR(BlastoiseConstants.RightDrive.MOTOR2, true)
+							new TurtleTalonSRXCAN(BlastoiseConstants.RightDrive.MOTOR1, true),
+							new TurtleTalonSRXCAN(BlastoiseConstants.RightDrive.MOTOR2, true),
+							new TurtleTalonSRXCAN(BlastoiseConstants.RightDrive.MOTOR3, true)
 					),
-					navX.getYawAxis()
+					null
 			);
 		}
 	}

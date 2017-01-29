@@ -142,6 +142,8 @@ public class TankDrive implements DriveTrain {
 	 * Sends raw values directly to the drive system
 	 */
 	public void updateMotors(MotorValue leftPower, MotorValue rightPower) {
+		SmartDashboard.putNumber("Left Thingy", leftPower.getValue());
+		SmartDashboard.putNumber("Right Thingy", rightPower.getValue());
 		leftDrive.set(leftPower);
 		rightDrive.set(rightPower);
 	}

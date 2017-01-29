@@ -42,7 +42,7 @@ public class PID {
 
 		lastTime = getTime();
 		sum += value;
-		sum = 0.5 * sum;
+		sum = 0.75 * sum;
 		lastError = error;
 
 		return output;
