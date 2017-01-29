@@ -9,14 +9,19 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class TurtleRotationCounter implements TurtleRotationSensor {
-	
+/**
+ * Represents hall sensor. Outputs data in RPM
+ */
+public class TurtleHallSensor implements TurtleRotationSensor {
+
+	private static final double HALL_TO_RPM = 16.425;
+
 	private final Counter c;
 	private final Timer t;
 	
 	private Rate<Angle> prevRate;
 	
-	public TurtleRotationCounter(int port, boolean countHighs) {
+	public TurtleHallSensor(int port, boolean countHighs) {
 		c = new Counter();
 		c.setUpSource(port);
 		c.setUpDownCounterMode();
@@ -24,20 +29,33 @@ public class TurtleRotationCounter implements TurtleRotationSensor {
 		c.setMaxPeriod(1);
 		c.setDistancePerPulse(1);
 		c.setSamplesToAverage(1);
-		
+
 		t = new Timer();
 	}
 
 	@Override
 	public Angle getRotation() {
-		
 		return Angle.createRevolutions(c.get()/2);
 	}
 
+	/**
+	 * Get the RPM rate of the sensor
+	 * @return RPM
+	 */
 	@Override
 	public Rate<Angle> getRate() {
 		prevRate = new Rate<>(c.getRate()/2);
-		return prevRate;
+		return new Rate<>(prevRate.getValue() * HALL_TO_RPM);
+	}
+
+	public double getHall() {
+		prevRate = new Rate<>(c.getRate()/2);
+		return prevRate.getValue();
+	}
+
+	public double getRPM() {
+		prevRate = new Rate<>(c.getRate()/2);
+		return prevRate.getValue() * HALL_TO_RPM;
 	}
 
 	@Override
@@ -45,4 +63,11 @@ public class TurtleRotationCounter implements TurtleRotationSensor {
 		c.reset();
 	}
 
+	public static double hallToRpm(double hall) {
+		return hall * HALL_TO_RPM;
+	}
+
+	public static double rpmToHall(double rpm) {
+		return rpm / HALL_TO_RPM;
+	}
 }

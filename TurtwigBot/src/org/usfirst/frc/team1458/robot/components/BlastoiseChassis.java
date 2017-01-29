@@ -1,8 +1,7 @@
 package org.usfirst.frc.team1458.robot.components;
 
 import com.team1458.turtleshell2.implementations.drive.TankDrive;
-import com.team1458.turtleshell2.implementations.drive.TurtleMotorSet;
-import com.team1458.turtleshell2.implementations.input.TurtleSampleButtonInput;
+import com.team1458.turtleshell2.implementations.drive.MotorSet;
 import com.team1458.turtleshell2.implementations.input.TurtleFlightStick;
 import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
 import com.team1458.turtleshell2.implementations.movement.TurtleFakeMotor;
@@ -13,8 +12,6 @@ import com.team1458.turtleshell2.implementations.movement.TurtleVictor888;
 import com.team1458.turtleshell2.implementations.pid.PID;
 import com.team1458.turtleshell2.implementations.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.implementations.sensor.TurtleNavX;
-import com.team1458.turtleshell2.implementations.vision.Contour;
-import com.team1458.turtleshell2.implementations.vision.GripInterface;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
 import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
 import com.team1458.turtleshell2.interfaces.input.TurtleButtonInput;
@@ -34,8 +31,6 @@ import org.usfirst.frc.team1458.robot.BlastoiseRobot;
 import org.usfirst.frc.team1458.robot.constants.BlastoiseConstants;
 import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 import org.usfirst.frc.team1458.robot.constants.TurtwigConstants;
-
-import java.util.Arrays;
 
 /**
  * New BlastoiseRobot Chassis
@@ -59,11 +54,11 @@ public class BlastoiseChassis implements TurtleComponent {
 		if(BlastoiseRobot.isPracticeRobot()) {
 			// Turtwig Chassis
 			tankDrive = new TankDrive(
-					new TurtleMotorSet(
+					new MotorSet(
 							new TurtleVictor888(TurtwigConstants.LeftDrive.MOTOR1),
 							new TurtleFakeMotor()
 					),
-					new TurtleMotorSet(
+					new MotorSet(
 							new TurtleVictor888(TurtwigConstants.RightDrive.MOTOR1, true),
 							new TurtleFakeMotor()
 					),
@@ -80,12 +75,12 @@ public class BlastoiseChassis implements TurtleComponent {
 		} else {
 			// Blastoise Chassis
 			tankDrive = new TankDrive(
-					new TurtleMotorSet(
+					new MotorSet(
 							new TurtleTalonSRXCAN(BlastoiseConstants.LeftDrive.MOTOR1),
 							new TurtleTalonSRXCAN(BlastoiseConstants.LeftDrive.MOTOR2),
 							new TurtleTalonSRXCAN(BlastoiseConstants.LeftDrive.MOTOR3)
 					),
-					new TurtleMotorSet(
+					new MotorSet(
 							new TurtleTalonSRXCAN(BlastoiseConstants.RightDrive.MOTOR1, true),
 							new TurtleTalonSRXCAN(BlastoiseConstants.RightDrive.MOTOR2, true),
 							new TurtleTalonSRXCAN(BlastoiseConstants.RightDrive.MOTOR3, true)
@@ -253,11 +248,11 @@ public class BlastoiseChassis implements TurtleComponent {
 		if(!Robot.isReal()) {
 			// Simulation
 			tankDrive = new TankDrive(
-					new TurtleMotorSet(
+					new MotorSet(
 							new TurtleTalonSR(1),
 							new TurtleTalonSR(2)
 					),
-					new TurtleMotorSet(
+					new MotorSet(
 							new TurtleTalonSR(3),
 							new TurtleTalonSR(4)
 					),
@@ -266,11 +261,11 @@ public class BlastoiseChassis implements TurtleComponent {
 		} else if(BlastoiseRobot.isPracticeRobot()) {
 			// Turtwig Chassis
 			tankDrive = new TankDrive(
-					new TurtleMotorSet(
+					new MotorSet(
 							new TurtleTalonSR(TurtwigConstants.LeftDrive.MOTOR1),
 							new TurtleFakeMotor()
 					),
-					new TurtleMotorSet(
+					new MotorSet(
 							new TurtleTalonSR(TurtwigConstants.RightDrive.MOTOR1, true),
 							new TurtleFakeMotor()
 					),
@@ -287,11 +282,11 @@ public class BlastoiseChassis implements TurtleComponent {
 		} else {
 			// Blastoise Chassis
 			tankDrive = new TankDrive(
-					new TurtleMotorSet(
+					new MotorSet(
 							new TurtleSpark(BlastoiseConstants.LeftDrive.MOTOR1),
 							new TurtleTalonSR(BlastoiseConstants.LeftDrive.MOTOR2)
 					),
-					new TurtleMotorSet(
+					new MotorSet(
 							new TurtleSpark(BlastoiseConstants.RightDrive.MOTOR1, true),
 							new TurtleTalonSR(BlastoiseConstants.RightDrive.MOTOR2, true)
 					),

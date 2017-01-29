@@ -10,11 +10,11 @@ import java.util.Arrays;
  * Immutable set of motors. Allows motors to be treated as one or several motors.
  * @author asinghani
  */
-public class TurtleMotorSet implements TurtleMotor {
+public class MotorSet implements TurtleMotor {
 	private final ArrayList<TurtleMotor> motorSet;
 	private MotorValue value = MotorValue.zero;
 
-	public TurtleMotorSet(TurtleMotor... motors) {
+	public MotorSet(TurtleMotor... motors) {
 		motorSet = new ArrayList<>(Arrays.asList(motors));
 	}
 

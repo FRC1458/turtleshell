@@ -20,8 +20,9 @@ public class PIDConstants {
 	 */
 	public final double kD;
 
+	public static final PIDConstants zeroConstants = new PIDConstants(0, 0, 0);
+
 	/**
-	 *
 	 * @param kP
 	 * @param kI
 	 * @param kD
@@ -30,5 +31,12 @@ public class PIDConstants {
 		this.kP = kP;
 		this.kI = kI;
 		this.kD = kD;
+	}
+
+	/**
+	 * @param kP
+	 */
+	public PIDConstants(double kP) {
+		this(kP, 0, 0);
 	}
 }

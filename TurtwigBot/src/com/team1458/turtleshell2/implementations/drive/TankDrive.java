@@ -21,8 +21,8 @@ public class TankDrive implements DriveTrain {
 	/**
 	 * Drive
 	 */
-	private TurtleMotorSet leftDrive;
-	private TurtleMotorSet rightDrive;
+	private MotorSet leftDrive;
+	private MotorSet rightDrive;
 
 	/**
 	 * Encoders
@@ -50,8 +50,8 @@ public class TankDrive implements DriveTrain {
 	PID straightDrivePID;
 
 
-	public TankDrive(TurtleMotorSet leftDrive, TurtleMotorSet rightDrive,
-	                 TurtleDistanceSensor leftDistance, TurtleDistanceSensor rightDistance, TurtleRotationSensor rotationSensor) {
+	public TankDrive(MotorSet leftDrive, MotorSet rightDrive,
+					 TurtleDistanceSensor leftDistance, TurtleDistanceSensor rightDistance, TurtleRotationSensor rotationSensor) {
 		this.leftDrive = leftDrive;
 		this.rightDrive = rightDrive;
 		this.leftDistance = leftDistance;
@@ -59,7 +59,7 @@ public class TankDrive implements DriveTrain {
 		this.rotationSensor = rotationSensor;
 	}
 
-	public TankDrive(TurtleMotorSet leftDrive, TurtleMotorSet rightDrive, TurtleRotationSensor rotationSensor) {
+	public TankDrive(MotorSet leftDrive, MotorSet rightDrive, TurtleRotationSensor rotationSensor) {
 		this.leftDrive = leftDrive;
 		this.rightDrive = rightDrive;
 		this.leftDistance = new TurtleFakeDistanceEncoder();

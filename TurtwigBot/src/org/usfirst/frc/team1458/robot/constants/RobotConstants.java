@@ -20,6 +20,10 @@ public class RobotConstants {
 	 */
 	public static final class Shooter {
 		public static final int MOTOR_PORT = -1;
+		public static final double HIGH_RPM = 4000;
+		public static final double LOW_RPM = 3500;
+
+		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0, 0, 0);
 	}
 
 	public static final class Intake {

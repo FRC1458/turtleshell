@@ -7,13 +7,13 @@ import edu.wpi.first.wpilibj.DigitalOutput;
  *
  * @author asinghani
  */
-public class TurtleLED {
+public class LED {
 	private DigitalOutput output;
 
 	/**
 	 * Create LED with digital port
 	 */
-	public TurtleLED(int port) {
+	public LED(int port) {
 		output = new DigitalOutput(port);
 
 		set(false);

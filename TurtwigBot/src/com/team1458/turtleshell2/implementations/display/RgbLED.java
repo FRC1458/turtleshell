@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.PWM;
  *
  * @author asinghani
  */
-public class TurtleRgbLed {
+public class RgbLED {
 	private PWM red;
 	private PWM green;
 	private PWM blue;
@@ -20,7 +20,7 @@ public class TurtleRgbLed {
 	 * @param greenPort PWM port for Green LED
 	 * @param bluePort PWM port for Blue LED
 	 */
-	public TurtleRgbLed(int redPort, int greenPort, int bluePort) {
+	public RgbLED(int redPort, int greenPort, int bluePort) {
 		red = new PWM(redPort);
 		green = new PWM(greenPort);
 		blue = new PWM(bluePort);

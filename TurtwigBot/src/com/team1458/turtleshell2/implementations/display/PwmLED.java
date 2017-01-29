@@ -7,13 +7,13 @@ import edu.wpi.first.wpilibj.PWM;
  *
  * @author asinghani
  */
-public class TurtleLedPWM {
+public class PwmLED {
 	private PWM output;
 
 	/**
 	 * Create LED with PWM port
 	 */
-	public TurtleLedPWM(int port) {
+	public PwmLED(int port) {
 		output = new PWM(port);
 
 		set(0);

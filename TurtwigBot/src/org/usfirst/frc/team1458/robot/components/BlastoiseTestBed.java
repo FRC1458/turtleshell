@@ -4,8 +4,7 @@ import com.team1458.turtleshell2.implementations.input.TurtleFlightStick;
 import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
 import com.team1458.turtleshell2.implementations.movement.TurtleVictorSP;
 import com.team1458.turtleshell2.implementations.pid.PID;
-import com.team1458.turtleshell2.implementations.sensor.TurtleRotationCounter;
-import com.team1458.turtleshell2.implementations.sensor.TurtleRotationEncoder;
+import com.team1458.turtleshell2.implementations.sensor.TurtleHallSensor;
 import com.team1458.turtleshell2.interfaces.TurtleComponent;
 import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
 import com.team1458.turtleshell2.interfaces.input.TurtleButtonInput;
@@ -26,7 +25,7 @@ public class BlastoiseTestBed implements TurtleComponent {
 
 	TurtleLogger logger;
 	boolean disabled = false;
-	private TurtleRotationCounter c;
+	private TurtleHallSensor c;
 	private TurtleMotor shooter;
 	private PID pid;
 	private MotorValue pow;
@@ -42,7 +41,7 @@ public class BlastoiseTestBed implements TurtleComponent {
 	PIDConstants constants = new PIDConstants(0.07, 0.09, 0.04);
 	
 	{
-		c = new TurtleRotationCounter(9, false);
+		c = new TurtleHallSensor(9, false);
 		shooter = new TurtleVictorSP(9);
 		pid = new PID(constants, lastTarget, 0);
 		SmartDashboard.putNumber("RPM TARGET", 4000);
@@ -98,9 +97,9 @@ public class BlastoiseTestBed implements TurtleComponent {
 		}
 		
 		SmartDashboard.putNumber("Hall Ticks", c.getRotation().getRevolutions());
-		SmartDashboard.putNumber("Hall Rate", c.getRate().getValue());
-		SmartDashboard.putNumber("RPM", c.getRate().getValue()*16.425);
-		double rawpower = pid.newValue(c.getRate().getValue());
+		SmartDashboard.putNumber("Hall Rate", c.getHall());
+		SmartDashboard.putNumber("RPM", c.getHall()*16.425);
+		double rawpower = pid.newValue(c.getHall());
 		SmartDashboard.putNumber("Rawpower", rawpower);
 		pow = new MotorValue(rawpower * 1);
 		if(smart.getButton()) {
