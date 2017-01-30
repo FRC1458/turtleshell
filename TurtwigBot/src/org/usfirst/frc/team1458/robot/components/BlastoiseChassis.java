@@ -1,14 +1,13 @@
 package org.usfirst.frc.team1458.robot.components;
 
-import com.team1458.turtleshell2.implementations.drive.TankDrive;
+import com.team1458.turtleshell2.implementations.drive.FollowerMotorSet;
 import com.team1458.turtleshell2.implementations.drive.MotorSet;
+import com.team1458.turtleshell2.implementations.drive.TankDrive;
 import com.team1458.turtleshell2.implementations.input.TurtleFlightStick;
 import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
 import com.team1458.turtleshell2.implementations.movement.TurtleFakeMotor;
-import com.team1458.turtleshell2.implementations.movement.TurtleSpark;
 import com.team1458.turtleshell2.implementations.movement.TurtleTalonSR;
 import com.team1458.turtleshell2.implementations.movement.TurtleTalonSRXCAN;
-import com.team1458.turtleshell2.implementations.movement.TurtleVictor888;
 import com.team1458.turtleshell2.implementations.pid.PID;
 import com.team1458.turtleshell2.implementations.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.implementations.sensor.TurtleNavX;
@@ -23,12 +22,10 @@ import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import org.usfirst.frc.team1458.robot.Robot;
-import org.usfirst.frc.team1458.robot.BlastoiseVision;
 import org.usfirst.frc.team1458.robot.BlastoiseRobot;
+import org.usfirst.frc.team1458.robot.BlastoiseVision;
+import org.usfirst.frc.team1458.robot.Robot;
 import org.usfirst.frc.team1458.robot.constants.BlastoiseConstants;
 import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 import org.usfirst.frc.team1458.robot.constants.TurtwigConstants;
@@ -240,12 +237,12 @@ public class BlastoiseChassis implements RobotComponent {
 		} else {
 			// Blastoise Chassis
 			tankDrive = new TankDrive(
-				new MotorSet(
+				new FollowerMotorSet(
 						new TurtleTalonSRXCAN(BlastoiseConstants.LeftDrive.MOTOR1),
 						new TurtleTalonSRXCAN(BlastoiseConstants.LeftDrive.MOTOR2),
 						new TurtleTalonSRXCAN(BlastoiseConstants.LeftDrive.MOTOR3)
 				),
-				new MotorSet(
+				new FollowerMotorSet(
 						new TurtleTalonSRXCAN(BlastoiseConstants.RightDrive.MOTOR1, true),
 						new TurtleTalonSRXCAN(BlastoiseConstants.RightDrive.MOTOR2, true),
 						new TurtleTalonSRXCAN(BlastoiseConstants.RightDrive.MOTOR3, true)

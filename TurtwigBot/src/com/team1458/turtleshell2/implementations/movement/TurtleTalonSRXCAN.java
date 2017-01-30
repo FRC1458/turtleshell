@@ -2,6 +2,7 @@ package com.team1458.turtleshell2.implementations.movement;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
+import com.team1458.turtleshell2.interfaces.movement.TurtleFollowerMotor;
 import com.team1458.turtleshell2.interfaces.movement.TurtleSmartMotor;
 import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.Angle;
@@ -10,7 +11,7 @@ import com.team1458.turtleshell2.util.types.Rate;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class TurtleTalonSRXCAN implements TurtleSmartMotor {
+public class TurtleTalonSRXCAN implements TurtleSmartMotor, TurtleFollowerMotor {
 	private final double kRotationRate;
 	private final CANTalon v;
 	private final boolean isReversed;
@@ -37,8 +38,15 @@ public class TurtleTalonSRXCAN implements TurtleSmartMotor {
 		this(id, false, BrakeMode.BRAKE, 1);
 		v.changeControlMode(TalonControlMode.Follower);
 		v.set(master.getID());
-		this.inDirectControlMode=false;
+		this.inDirectControlMode = false;
 
+	}
+
+	@Override
+	public void follow(int masterId) {
+		v.changeControlMode(TalonControlMode.Follower);
+		v.set(masterId);
+		this.inDirectControlMode = false;
 	}
 
 	@Override
@@ -56,6 +64,7 @@ public class TurtleTalonSRXCAN implements TurtleSmartMotor {
 		return new MotorValue(TurtleMaths.reverseBool(isReversed) * v.get());
 	}
 
+	@Override
 	public int getID() {
 		return v.getDeviceID();
 	}
