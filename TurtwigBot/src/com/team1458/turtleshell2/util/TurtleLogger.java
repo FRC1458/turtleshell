@@ -19,36 +19,32 @@ import static com.team1458.turtleshell2.util.HttpSnippets.*;
  * @author asinghani
  */
 public class TurtleLogger {
+	
+	public static enum LogFormat {
+		JSON, PLAINTEXT, COLOURED
+	}
 
-    /**
-     * Logs in the form of JSON data
-     */
-    public static final int JSON = 0;
-
-    /**
-     * Logs in plaintext with severity before message
-     */
-    public static final int PLAINTEXT = 1;
-
-    /**
-     * Logs in plaintext with severity shown with color codes
-     */
-    public static final int COLORED = 2;
-
-    private int mode;
+    private LogFormat mode;
 
     public ArrayList<LogServer> logServers = new ArrayList<>();
 
     private static String[] severityArray = {"VERBOSE", "DEBUG", "INFO", "WARN", "ERROR"};
 
     private static TurtleLogger instance;
+    
+    public static TurtleLogger getInstance() {
+    	if(instance==null) {
+    		instance = new TurtleLogger(LogFormat.PLAINTEXT);
+    	}
+    	return instance;
+    }
 
     /**
      * Constructor for TurtleLogger
      *
      * @param mode Mode for log format
      */
-    public TurtleLogger(int mode) {
+    public TurtleLogger(LogFormat mode) {
         this.mode = mode;
     }
 
@@ -59,7 +55,7 @@ public class TurtleLogger {
      */
     public void log(String text, int severity) {
         String timestamp;
-        if(mode == JSON){
+        if(mode == LogFormat.JSON){
             timestamp = String.valueOf(new Date().getTime()); // Epoch time in milliseconds
         } else {
             timestamp = new SimpleDateFormat("HH:mm:ss.S").format(new Date()); // Hours (0-23), Minutes, Seconds, Milliseconds
@@ -73,12 +69,12 @@ public class TurtleLogger {
                 logString = String.format("{ timestamp: %s, severity: %d, message: \"%s\" }", timestamp, severity, text);
                 break;
             case PLAINTEXT:
-            case COLORED:
+            case COLOURED:
                 logString = String.format("%s: [%s] %s", timestamp, severityString, text);
                 break;
         }
 
-        if(mode == COLORED) {
+        if(mode == LogFormat.COLOURED) {
             logString = getColorString(severity) + logString + "\u001B[0m";
         }
 

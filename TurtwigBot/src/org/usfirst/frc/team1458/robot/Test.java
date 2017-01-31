@@ -12,7 +12,7 @@ import java.util.TimerTask;
 public class Test {
 	public static void main(String[] args){
 		try {
-			TurtleLogger logger = new TurtleLogger(TurtleLogger.PLAINTEXT);
+			TurtleLogger logger = new TurtleLogger(TurtleLogger.LogFormat.PLAINTEXT);
 			TurtleLogger.LogServer server = new TurtleLogger.ColoredLogServer(8888, "/");
 
 			logger.attachServer(server);

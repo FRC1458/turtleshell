@@ -43,7 +43,7 @@ public class RobotConstants {
 	}
 
 	/**
-     * USB ports
+     * The USB ports controllers are attached to.
      */
     public static final class UsbPorts {
 	    public static final int XBOX_CONTROLLER = 3;
@@ -92,7 +92,7 @@ public class RobotConstants {
 	/**
 	 * Misc
 	 */
-	public static final int LOGGER_MODE = TurtleLogger.PLAINTEXT;
+	public static final TurtleLogger.LogFormat LOGGER_MODE = TurtleLogger.LogFormat.PLAINTEXT;
 	public static final double JOYSTICK_DEADBAND = 0.05;
 	public static final boolean USE_XBOX_CONTROLLER = true;
 
