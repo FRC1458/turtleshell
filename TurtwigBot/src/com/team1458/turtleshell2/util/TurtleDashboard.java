@@ -1,9 +1,9 @@
 package com.team1458.turtleshell2.util;
 
-import com.team1458.turtleshell2.interfaces.AutoModeHolder;
-import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
-import com.team1458.turtleshell2.interfaces.sensor.TurtleDistanceSensor;
-import com.team1458.turtleshell2.interfaces.sensor.TurtleRotationSensor;
+import com.team1458.turtleshell2.core.AutoModeHolder;
+import com.team1458.turtleshell2.input.TurtleAnalogInput;
+import com.team1458.turtleshell2.sensor.TurtleDistanceSensor;
+import com.team1458.turtleshell2.sensor.TurtleRotationSensor;
 import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import edu.wpi.first.wpilibj.DriverStation;

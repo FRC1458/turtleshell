@@ -1,14 +1,14 @@
 package org.usfirst.frc.team1458.robot.components;
 
-import com.team1458.turtleshell2.implementations.input.TurtleFlightStick;
-import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
-import com.team1458.turtleshell2.implementations.movement.TurtleVictorSP;
-import com.team1458.turtleshell2.implementations.pid.PID;
-import com.team1458.turtleshell2.implementations.sensor.TurtleHallSensor;
-import com.team1458.turtleshell2.interfaces.RobotComponent;
-import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
-import com.team1458.turtleshell2.interfaces.input.TurtleButtonInput;
-import com.team1458.turtleshell2.interfaces.movement.TurtleMotor;
+import com.team1458.turtleshell2.core.RobotComponent;
+import com.team1458.turtleshell2.input.TurtleAnalogInput;
+import com.team1458.turtleshell2.input.TurtleButtonInput;
+import com.team1458.turtleshell2.input.TurtleFlightStick;
+import com.team1458.turtleshell2.input.TurtleXboxController;
+import com.team1458.turtleshell2.movement.TurtleMotor;
+import com.team1458.turtleshell2.movement.TurtleVictorSP;
+import com.team1458.turtleshell2.pid.PID;
+import com.team1458.turtleshell2.sensor.TurtleHallSensor;
 import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.PIDConstants;
 import com.team1458.turtleshell2.util.types.MotorValue;

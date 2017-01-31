@@ -87,7 +87,7 @@ public class InputManager {
 		return null;
 	}
 
-	public TurtleJoystickPOVSwitch.POVValue getPOVvalue(String s) {
+	public com.team1458.turtleshell2.input.POVValue getPOVvalue(String s) {
 		return getPOV(s).getButton();
 	}
 

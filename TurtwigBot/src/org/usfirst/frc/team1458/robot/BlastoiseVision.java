@@ -1,8 +1,9 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.team1458.turtleshell2.implementations.vision.Contour;
-import com.team1458.turtleshell2.implementations.vision.GripInterface;
 import org.usfirst.frc.team1458.robot.constants.RobotConstants;
+
+import com.team1458.turtleshell2.vision.Contour;
+import com.team1458.turtleshell2.vision.GripInterface;
 
 import java.util.Arrays;
 

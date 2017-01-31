@@ -1,11 +1,11 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.team1458.turtleshell2.implementations.input.TurtleFlightStick;
-import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
-import com.team1458.turtleshell2.implementations.sensor.TurtleNavX;
-import com.team1458.turtleshell2.interfaces.AutoMode;
-import com.team1458.turtleshell2.interfaces.AutoModeHolder;
-import com.team1458.turtleshell2.interfaces.TestMode;
+import com.team1458.turtleshell2.core.AutoMode;
+import com.team1458.turtleshell2.core.AutoModeHolder;
+import com.team1458.turtleshell2.core.TestMode;
+import com.team1458.turtleshell2.input.TurtleFlightStick;
+import com.team1458.turtleshell2.input.TurtleXboxController;
+import com.team1458.turtleshell2.sensor.TurtleNavX;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleLogger;
 

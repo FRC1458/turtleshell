@@ -1,9 +1,10 @@
 package org.usfirst.frc.team1458.robot.components;
 
-import com.team1458.turtleshell2.implementations.movement.TurtleTalonSRXCAN;
-import com.team1458.turtleshell2.interfaces.RobotComponent;
-import com.team1458.turtleshell2.interfaces.input.TurtleButtonInput;
-import com.team1458.turtleshell2.interfaces.movement.TurtleSmartMotor;
+import com.team1458.turtleshell2.core.RobotComponent;
+import com.team1458.turtleshell2.input.TurtleButtonInput;
+import com.team1458.turtleshell2.movement.TurtleSmartMotor;
+import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 

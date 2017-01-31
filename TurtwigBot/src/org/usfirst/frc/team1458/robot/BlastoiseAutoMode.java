@@ -1,9 +1,9 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.team1458.turtleshell2.implementations.drive.TankDrive;
-import com.team1458.turtleshell2.implementations.pid.PID;
-import com.team1458.turtleshell2.interfaces.AutoMode;
-import com.team1458.turtleshell2.interfaces.sensor.TurtleRotationSensor;
+import com.team1458.turtleshell2.core.AutoMode;
+import com.team1458.turtleshell2.movement.TankDrive;
+import com.team1458.turtleshell2.pid.PID;
+import com.team1458.turtleshell2.sensor.TurtleRotationSensor;
 import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.MotorValue;

@@ -1,8 +1,8 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.team1458.turtleshell2.implementations.input.TurtleFlightStick;
-import com.team1458.turtleshell2.implementations.input.TurtleXboxController;
-import com.team1458.turtleshell2.interfaces.input.TurtleAnalogInput;
+import com.team1458.turtleshell2.input.TurtleAnalogInput;
+import com.team1458.turtleshell2.input.TurtleFlightStick;
+import com.team1458.turtleshell2.input.TurtleXboxController;
 import com.team1458.turtleshell2.util.TurtleLogger;
 import com.team1458.turtleshell2.util.types.MotorValue;
 

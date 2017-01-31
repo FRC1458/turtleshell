@@ -10,11 +10,11 @@ public class InputObject {
 	//InputManager.InputDevice inputDevice;
 	boolean rightStick;
 
-	TurtleXboxController.XboxAxis xboxAxis;
-	TurtleXboxController.XboxButton xboxButton;
+	com.team1458.turtleshell2.input.XboxAxis xboxAxis;
+	com.team1458.turtleshell2.input.XboxButton xboxButton;
 
-	TurtleFlightStick.FlightAxis flightAxis;
-	TurtleFlightStick.FlightButton flightButton;
+	com.team1458.turtleshell2.input.FlightAxis flightAxis;
+	com.team1458.turtleshell2.input.FlightButton flightButton;
 
 
 	public InputObject(TurtleXboxController.XboxAxis xboxAxis, TurtleFlightStick.FlightAxis flightAxis, boolean rightStick) {
@@ -52,19 +52,19 @@ public class InputObject {
 		return rightStick;
 	}
 
-	public TurtleXboxController.XboxAxis getXboxAxis() {
+	public com.team1458.turtleshell2.input.XboxAxis getXboxAxis() {
 		return xboxAxis;
 	}
 
-	public TurtleXboxController.XboxButton getXboxButton() {
+	public com.team1458.turtleshell2.input.XboxButton getXboxButton() {
 		return xboxButton;
 	}
 
-	public TurtleFlightStick.FlightAxis getFlightAxis() {
+	public com.team1458.turtleshell2.input.FlightAxis getFlightAxis() {
 		return flightAxis;
 	}
 
-	public TurtleFlightStick.FlightButton getFlightButton() {
+	public com.team1458.turtleshell2.input.FlightButton getFlightButton() {
 		return flightButton;
 	}
 }
