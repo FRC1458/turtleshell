@@ -5,6 +5,11 @@ import com.team1458.turtleshell2.util.types.MotorValue;
 
 import edu.wpi.first.wpilibj.TalonSRX;
 
+/**
+ * Implementation for control of a TalonSRX over PWM
+ * @author mehnadnerd
+ *
+ */
 public class TurtleTalonSRXPWM implements TurtleMotor {
 	private final TalonSRX v;
 	private final boolean isReversed;

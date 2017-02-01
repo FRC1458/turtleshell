@@ -18,7 +18,7 @@ public class FollowerMotorSet extends MotorSet {
 		masterMotor = motors[0];
 		for(TurtleFollowerMotor motor : motors) {
 			if(motor == masterMotor) continue;
-			motor.follow(masterMotor.getID());
+			motor.follow(masterMotor);
 		}
 	}
 

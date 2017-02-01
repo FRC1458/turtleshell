@@ -3,6 +3,11 @@ package com.team1458.turtleshell2.movement;
 import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Rate;
 
+/**
+ * Interface for SmartMotor, i.e. TalonSRX or Jaguar.
+ * @author mehnadnerd
+ *
+ */
 public interface TurtleSmartMotor extends TurtleMotor {
 	boolean isStalling();
 	
