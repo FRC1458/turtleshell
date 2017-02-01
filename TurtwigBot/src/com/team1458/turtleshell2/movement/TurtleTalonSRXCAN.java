@@ -77,6 +77,16 @@ public class TurtleTalonSRXCAN implements TurtleSmartMotor, TurtleFollowerMotor 
 		v.set(master.getID());
 		this.inDirectControlMode = false;
 	}
+	
+	/**
+	 * Making it so can be set with the ID, not just the object
+	 * @param masterID
+	 */
+	public void follow(int masterID) {
+		v.changeControlMode(TalonControlMode.Follower);
+		v.set(masterID);
+		this.inDirectControlMode = false;
+	}
 
 	@Override
 	public void set(MotorValue val) {
