@@ -57,8 +57,6 @@ public class Contour implements Comparable<Contour> {
 
     @Override
     public int compareTo(Contour o) {
-        if(o.getArea() > getArea()) return -1;
-        if(o.getArea() < getArea()) return 1;
-        return 0;
+    	return Math.round(Math.round(this.getArea()-o.getArea()));
     }
 }
