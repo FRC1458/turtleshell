@@ -7,7 +7,7 @@ import com.team1458.turtleshell2.input.ButtonInput;
  *
  * @author asinghani
  */
-public class TurtleFakeButtonInput implements ButtonInput {
+public class FakeButtonInput implements ButtonInput {
 
 	public boolean getButton() {
 		return false;
