@@ -149,6 +149,7 @@ public class TankDrive implements DriveTrain {
 	/**
 	 * Set all drive motors to zero speed
 	 */
+	@Override
 	public void stopMotors() {
 		updateMotors(MotorValue.zero, MotorValue.zero);
 	}

@@ -14,11 +14,11 @@ import java.io.IOException;
  * @author asinghani
  */
 public class GripInterface {
-    public static Contour[] getContours(String url) throws IOException {
+    public static Contour[] getContours(String url, String reportName) throws IOException {
         String data = HttpRequest.get(url);
         JsonValue json = Json.parse(data);
 
-        JsonObject contours = json.asObject().get("contours").asObject();
+        JsonObject contours = json.asObject().get(reportName).asObject();
 
         JsonArray area = contours.get("area").asArray();
         JsonArray centerX = contours.get("centerX").asArray();

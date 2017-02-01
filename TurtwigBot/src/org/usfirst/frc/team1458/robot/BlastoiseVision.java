@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class BlastoiseVision {
     public static int getSpringX() {
         try {
-            Contour[] contours = GripInterface.getContours(RobotConstants.GRIP_URL);
+            Contour[] contours = GripInterface.getContours(RobotConstants.GRIP_URL, "contours");
             Arrays.sort(contours);
 
             if(contours.length < 2) return -1;

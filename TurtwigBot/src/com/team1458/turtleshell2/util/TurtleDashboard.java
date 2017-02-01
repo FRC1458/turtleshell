@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.getNumber;
 
 /**
  * Sends important data to SmartDashboard
@@ -155,7 +154,7 @@ public class TurtleDashboard {
 	 * Allows tuning PID Constants (for use with custom dashboard)
 	 */
 	public static void enablePidTuning(PIDConstants defaultConstants, String name) {
-		SmartDashboard.putString(name+"_PID", "PID");
+		SmartDashboard.putString(name+"_PID_DEF", "PID");
 		SmartDashboard.putNumber(name+"_PID_kP", defaultConstants.kP);
 		SmartDashboard.putNumber(name+"_PID_kI", defaultConstants.kI);
 		SmartDashboard.putNumber(name+"_PID_kD", defaultConstants.kD);
@@ -166,9 +165,9 @@ public class TurtleDashboard {
 	 */
 	public static PIDConstants getPidConstants(String name) {
 		return new PIDConstants(
-				getNumber(name+"_PID_kP", 0.0),
-				getNumber(name+"_PID_kI", 0.0),
-				getNumber(name+"_PID_kD", 0.0)
+				SmartDashboard.getNumber(name+"_PID_kP", 0.0),
+				SmartDashboard.getNumber(name+"_PID_kI", 0.0),
+				SmartDashboard.getNumber(name+"_PID_kD", 0.0)
 		);
 	}
 }
