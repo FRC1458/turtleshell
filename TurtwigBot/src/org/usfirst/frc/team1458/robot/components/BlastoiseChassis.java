@@ -2,7 +2,7 @@ package org.usfirst.frc.team1458.robot.components;
 
 import com.team1458.turtleshell2.core.RobotComponent;
 import com.team1458.turtleshell2.input.*;
-import com.team1458.turtleshell2.input.Gamepad;
+import com.team1458.turtleshell2.input.XboxController;
 import com.team1458.turtleshell2.movement.FollowerMotorSet;
 import com.team1458.turtleshell2.movement.MotorSet;
 import com.team1458.turtleshell2.movement.TankDrive;
@@ -53,7 +53,7 @@ public class BlastoiseChassis implements RobotComponent {
 	private ButtonInput gearButton;
 
 	private DigitalInput pov;
-	private Gamepad rumbleController; // Very experimental
+	private XboxController rumbleController; // Very experimental
 
 	private Logger logger;
 
@@ -87,14 +87,14 @@ public class BlastoiseChassis implements RobotComponent {
 	 * Convenience method for instantiating with Xbox controller
 	 * @param controller Xbox controller
 	 */
-	public BlastoiseChassis (Gamepad controller, TurtleNavX navX, Logger logger) {
+	public BlastoiseChassis (XboxController controller, TurtleNavX navX, Logger logger) {
 		this(
-				controller.getAxis(Gamepad.GamepadAxis.LY),
-				controller.getAxis(Gamepad.GamepadAxis.RY),
-				controller.getButton(Gamepad.GamepadButton.RBUMP),
-				controller.getButton(Gamepad.GamepadButton.LBUMP),
-				controller.getButton(Gamepad.GamepadButton.A),
-				controller.getButton(Gamepad.GamepadButton.Y),
+				controller.getAxis(XboxController.XboxAxis.LY),
+				controller.getAxis(XboxController.XboxAxis.RY),
+				controller.getButton(XboxController.XboxButton.RBUMP),
+				controller.getButton(XboxController.XboxButton.LBUMP),
+				controller.getButton(XboxController.XboxButton.A),
+				controller.getButton(XboxController.XboxButton.Y),
 				controller.getDPad(),
 				navX,
 				logger

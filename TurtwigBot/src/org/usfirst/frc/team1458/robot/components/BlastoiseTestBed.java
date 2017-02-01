@@ -3,7 +3,7 @@ package org.usfirst.frc.team1458.robot.components;
 import com.team1458.turtleshell2.core.RobotComponent;
 import com.team1458.turtleshell2.input.AnalogInput;
 import com.team1458.turtleshell2.input.ButtonInput;
-import com.team1458.turtleshell2.input.Gamepad;
+import com.team1458.turtleshell2.input.XboxController;
 import com.team1458.turtleshell2.input.FlightStick;
 import com.team1458.turtleshell2.movement.TurtleMotor;
 import com.team1458.turtleshell2.movement.TurtleVictorSP;
@@ -64,11 +64,11 @@ public class BlastoiseTestBed implements RobotComponent {
 		}
 	}
 
-	public BlastoiseTestBed(Logger logger, Gamepad xboxController) {
+	public BlastoiseTestBed(Logger logger, XboxController xboxController) {
 		this.logger = logger;
 
-		shooterSpeed = xboxController.getAxis(Gamepad.GamepadAxis.RY);
-		smart = xboxController.getButton(Gamepad.GamepadButton.A);
+		shooterSpeed = xboxController.getAxis(XboxController.XboxAxis.RY);
+		smart = xboxController.getButton(XboxController.XboxButton.A);
 
 		disabled = DriverStation.getInstance().isFMSAttached();
 		if (disabled) {

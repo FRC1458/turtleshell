@@ -4,7 +4,7 @@ import com.team1458.turtleshell2.core.AutoMode;
 import com.team1458.turtleshell2.core.AutoModeHolder;
 import com.team1458.turtleshell2.core.TestMode;
 import com.team1458.turtleshell2.input.FlightStick;
-import com.team1458.turtleshell2.input.Gamepad;
+import com.team1458.turtleshell2.input.XboxController;
 import com.team1458.turtleshell2.sensor.TurtleNavX;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.Logger;
@@ -55,7 +55,7 @@ public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
 		TurtleNavX navX = TurtleNavX.getInstanceI2C();
 
 		if(RobotConstants.USE_XBOX_CONTROLLER){
-	        Gamepad xboxController = new Gamepad(RobotConstants.UsbPorts.XBOX_CONTROLLER);
+	        XboxController xboxController = new XboxController(RobotConstants.UsbPorts.XBOX_CONTROLLER);
 	        chassis = new BlastoiseChassis(xboxController, navX, logger);
 	        //testBed = new BlastoiseTestBed(logger, xboxController);
 
