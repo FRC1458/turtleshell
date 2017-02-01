@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.team1458.turtleshell2.util.TurtleLogger;
+import com.team1458.turtleshell2.util.Logger;
 
 import java.util.Random;
 import java.util.Timer;
@@ -12,8 +12,8 @@ import java.util.TimerTask;
 public class Test {
 	public static void main(String[] args){
 		try {
-			TurtleLogger logger = new TurtleLogger(TurtleLogger.LogFormat.PLAINTEXT);
-			TurtleLogger.LogServer server = new TurtleLogger.ColoredLogServer(8888, "/");
+			Logger logger = new Logger(Logger.LogFormat.PLAINTEXT);
+			Logger.LogServer server = new Logger.ColoredLogServer(8888, "/");
 
 			logger.attachServer(server);
 

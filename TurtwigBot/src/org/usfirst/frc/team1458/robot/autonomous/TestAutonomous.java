@@ -1,10 +1,9 @@
 package org.usfirst.frc.team1458.robot.autonomous;
 
 import com.team1458.turtleshell2.sensor.TurtleNavX;
-import com.team1458.turtleshell2.util.TurtleLogger;
+import com.team1458.turtleshell2.util.Logger;
 import org.usfirst.frc.team1458.robot.BlastoiseAutoMode;
 import org.usfirst.frc.team1458.robot.components.BlastoiseChassis;
-import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 
 /**
  * Time-based autonomous test program
@@ -18,7 +17,7 @@ import org.usfirst.frc.team1458.robot.constants.RobotConstants;
  */
 public class TestAutonomous extends BlastoiseAutoMode {
 
-	public TestAutonomous(BlastoiseChassis chassis, TurtleLogger logger, TurtleNavX navX) {
+	public TestAutonomous(BlastoiseChassis chassis, Logger logger, TurtleNavX navX) {
 		super(chassis.getDriveTrain(), logger, navX.getYawAxis());
 	}
 

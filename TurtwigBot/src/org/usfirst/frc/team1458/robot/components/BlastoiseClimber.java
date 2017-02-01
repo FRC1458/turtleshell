@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1458.robot.components;
 
 import com.team1458.turtleshell2.core.RobotComponent;
-import com.team1458.turtleshell2.input.TurtleButtonInput;
+import com.team1458.turtleshell2.input.ButtonInput;
 import com.team1458.turtleshell2.movement.TurtleSmartMotor;
 import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
 
@@ -18,11 +18,11 @@ public class BlastoiseClimber implements RobotComponent {
 	// We need to detect stall
 	private TurtleSmartMotor motor1 = new TurtleTalonSRXCAN(RobotConstants.Climber.MOTOR_PORT);
 
-	private TurtleButtonInput climbButton;
+	private ButtonInput climbButton;
 
 	private boolean climbing;
 
-	public BlastoiseClimber(TurtleButtonInput climbButton) {
+	public BlastoiseClimber(ButtonInput climbButton) {
 		this.climbButton = climbButton;
 	}
 

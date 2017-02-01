@@ -1,7 +1,7 @@
 package com.team1458.turtleshell2.util;
 
 import com.team1458.turtleshell2.core.AutoModeHolder;
-import com.team1458.turtleshell2.input.TurtleAnalogInput;
+import com.team1458.turtleshell2.input.AnalogInput;
 import com.team1458.turtleshell2.sensor.TurtleDistanceSensor;
 import com.team1458.turtleshell2.sensor.TurtleRotationSensor;
 import com.team1458.turtleshell2.util.types.Angle;
@@ -115,7 +115,7 @@ public class TurtleDashboard {
 	/**
 	 * Starts logging two axes to SmartDashboard
 	 */
-	public static void logAxis(TurtleAnalogInput left, TurtleAnalogInput right) {
+	public static void logAxis(AnalogInput left, AnalogInput right) {
 		new Timer().schedule(new TimerTask() {
 			@Override
 			public void run() {

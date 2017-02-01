@@ -1,6 +1,6 @@
 package com.team1458.turtleshell2.input;
 
-public interface TurtleButtonInput extends TurtleDigitalInput {
+public interface ButtonInput extends DigitalInput {
 	public default boolean getButton() {
 		return (this.get() == 1);
 	}

@@ -2,7 +2,7 @@ package com.team1458.turtleshell2.input;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-public class TurtleJoystickPOVSwitch implements TurtleDigitalInput {
+public class TurtleJoystickPOVSwitch implements DigitalInput {
 	public enum POVValue {
 		CENTER(-1), N(0), NW(315), W(270), SW(235), S(180), SE(135), E(90), NE(45);
 		public final int val;

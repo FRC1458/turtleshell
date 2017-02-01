@@ -8,14 +8,14 @@ import java.util.TimerTask;
  *
  * @author asinghani
  */
-public abstract class TurtleSampleButtonInput implements TurtleButtonInput {
+public abstract class SampleButtonInput implements ButtonInput {
 	private boolean lastValue = false;
 	boolean pressed = false;
 	boolean released = false;
 
 	Timer timer;
 
-	public TurtleSampleButtonInput() {
+	public SampleButtonInput() {
 		timer = new Timer();
 
 		timer.schedule(new TimerTask() {

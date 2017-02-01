@@ -2,10 +2,10 @@ package com.team1458.turtleshell2.input;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-public class TurtleFlightStick {
+public class FlightStick {
 	private Joystick j;
 
-	public TurtleFlightStick(int usbport) {
+	public FlightStick(int usbport) {
 		j = new Joystick(usbport);
 	}
 	

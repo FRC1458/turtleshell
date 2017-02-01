@@ -1,8 +1,8 @@
 package org.usfirst.frc.team1458.robot.components;
 
 import com.team1458.turtleshell2.core.RobotComponent;
-import com.team1458.turtleshell2.input.TurtleButtonInput;
-import com.team1458.turtleshell2.input.TurtleDigitalInput;
+import com.team1458.turtleshell2.input.ButtonInput;
+import com.team1458.turtleshell2.input.DigitalInput;
 import com.team1458.turtleshell2.movement.MotorSet;
 import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
 import com.team1458.turtleshell2.util.types.MotorValue;
@@ -16,8 +16,8 @@ import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 public class BlastoiseIntake implements RobotComponent {
 	private MotorSet motors = new MotorSet(new TurtleTalonSRXCAN(RobotConstants.Intake.MOTOR_PORT));
 
-	private TurtleDigitalInput enableSwitch;
-	private TurtleButtonInput unclogButton;
+	private DigitalInput enableSwitch;
+	private ButtonInput unclogButton;
 
 	// Unclog function
 	private boolean unclogging = false;
@@ -25,7 +25,7 @@ public class BlastoiseIntake implements RobotComponent {
 
 	private IntakeStatus status;
 
-	public BlastoiseIntake(TurtleDigitalInput enableSwitch, TurtleButtonInput unclogButton) {
+	public BlastoiseIntake(DigitalInput enableSwitch, ButtonInput unclogButton) {
 		this.enableSwitch = enableSwitch;
 		this.unclogButton = unclogButton;
 

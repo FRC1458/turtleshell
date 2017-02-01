@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1458.robot.constants;
 
-import com.team1458.turtleshell2.util.TurtleLogger;
+import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.util.PIDConstants;
 import com.team1458.turtleshell2.util.types.MotorValue;
 import com.team1458.turtleshell2.util.types.Time;
@@ -92,7 +92,7 @@ public class RobotConstants {
 	/**
 	 * Misc
 	 */
-	public static final TurtleLogger.LogFormat LOGGER_MODE = TurtleLogger.LogFormat.PLAINTEXT;
+	public static final Logger.LogFormat LOGGER_MODE = Logger.LogFormat.PLAINTEXT;
 	public static final double JOYSTICK_DEADBAND = 0.05;
 	public static final boolean USE_XBOX_CONTROLLER = true;
 

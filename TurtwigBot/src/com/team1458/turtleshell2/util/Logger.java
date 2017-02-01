@@ -18,7 +18,7 @@ import static com.team1458.turtleshell2.util.HttpSnippets.*;
  *
  * @author asinghani
  */
-public class TurtleLogger {
+public class Logger {
 	
 	public static enum LogFormat {
 		JSON, PLAINTEXT, COLOURED
@@ -30,21 +30,21 @@ public class TurtleLogger {
 
     private static String[] severityArray = {"VERBOSE", "DEBUG", "INFO", "WARN", "ERROR"};
 
-    private static TurtleLogger instance;
+    private static Logger instance;
     
-    public static TurtleLogger getInstance() {
+    public static Logger getInstance() {
     	if(instance==null) {
-    		instance = new TurtleLogger(LogFormat.PLAINTEXT);
+    		instance = new Logger(LogFormat.PLAINTEXT);
     	}
     	return instance;
     }
 
     /**
-     * Constructor for TurtleLogger
+     * Constructor for Logger
      *
      * @param mode Mode for log format
      */
-    public TurtleLogger(LogFormat mode) {
+    public Logger(LogFormat mode) {
         this.mode = mode;
     }
 

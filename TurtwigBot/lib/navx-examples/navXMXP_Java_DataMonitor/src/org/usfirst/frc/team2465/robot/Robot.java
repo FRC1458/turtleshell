@@ -62,7 +62,7 @@ public class Robot extends SampleRobot {
     }
 
     /**
-     * Display navX MXP Sensor Data on Smart Dashboard
+     * Display navX MXP Sensor Data on Smart TurtleDashboard
      */
     public void operatorControl() {
         while (isOperatorControl() && isEnabled()) {

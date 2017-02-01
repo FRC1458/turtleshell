@@ -1,15 +1,15 @@
 package org.usfirst.frc.team1458.robot.components;
 
 import com.team1458.turtleshell2.core.RobotComponent;
-import com.team1458.turtleshell2.input.TurtleAnalogInput;
-import com.team1458.turtleshell2.input.TurtleButtonInput;
-import com.team1458.turtleshell2.input.TurtleFlightStick;
-import com.team1458.turtleshell2.input.TurtleXboxController;
+import com.team1458.turtleshell2.input.AnalogInput;
+import com.team1458.turtleshell2.input.ButtonInput;
+import com.team1458.turtleshell2.input.Gamepad;
+import com.team1458.turtleshell2.input.FlightStick;
 import com.team1458.turtleshell2.movement.TurtleMotor;
 import com.team1458.turtleshell2.movement.TurtleVictorSP;
 import com.team1458.turtleshell2.pid.PID;
 import com.team1458.turtleshell2.sensor.TurtleHallSensor;
-import com.team1458.turtleshell2.util.TurtleLogger;
+import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.util.PIDConstants;
 import com.team1458.turtleshell2.util.types.MotorValue;
 
@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class BlastoiseTestBed implements RobotComponent {
 
-	TurtleLogger logger;
+	Logger logger;
 	boolean disabled = false;
 	private TurtleHallSensor c;
 	private TurtleMotor shooter;
@@ -33,8 +33,8 @@ public class BlastoiseTestBed implements RobotComponent {
 	/**
 	 * Test bed for shooter
 	 */
-	TurtleAnalogInput shooterSpeed;
-	TurtleButtonInput smart;
+	AnalogInput shooterSpeed;
+	ButtonInput smart;
 
 	double lastTarget = 4500/16.425;
 	
@@ -51,12 +51,12 @@ public class BlastoiseTestBed implements RobotComponent {
 		SmartDashboard.putNumber("kD", constants.kD);
 	}
 	
-	public BlastoiseTestBed(TurtleLogger logger, TurtleFlightStick rightStick,
-			TurtleFlightStick leftStick) {
+	public BlastoiseTestBed(Logger logger, FlightStick rightStick,
+	                        FlightStick leftStick) {
 		this.logger = logger;
 
-		shooterSpeed = rightStick.getAxis(TurtleFlightStick.FlightAxis.THROTTLE).positive();
-		smart = rightStick.getButton(TurtleFlightStick.FlightButton.TWO);
+		shooterSpeed = rightStick.getAxis(FlightStick.FlightAxis.THROTTLE).positive();
+		smart = rightStick.getButton(FlightStick.FlightButton.TWO);
 
 		disabled = DriverStation.getInstance().isFMSAttached();
 		if (disabled) {
@@ -64,11 +64,11 @@ public class BlastoiseTestBed implements RobotComponent {
 		}
 	}
 
-	public BlastoiseTestBed(TurtleLogger logger, TurtleXboxController xboxController) {
+	public BlastoiseTestBed(Logger logger, Gamepad xboxController) {
 		this.logger = logger;
 
-		shooterSpeed = xboxController.getAxis(TurtleXboxController.XboxAxis.RY);
-		smart = xboxController.getButton(TurtleXboxController.XboxButton.A);
+		shooterSpeed = xboxController.getAxis(Gamepad.GamepadAxis.RY);
+		smart = xboxController.getButton(Gamepad.GamepadButton.A);
 
 		disabled = DriverStation.getInstance().isFMSAttached();
 		if (disabled) {

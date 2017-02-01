@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1458.robot.components;
 
 import com.team1458.turtleshell2.core.RobotComponent;
-import com.team1458.turtleshell2.input.TurtleButtonInput;
+import com.team1458.turtleshell2.input.ButtonInput;
 import com.team1458.turtleshell2.movement.TurtleMotor;
 import com.team1458.turtleshell2.movement.TurtleVictorSP;
 import com.team1458.turtleshell2.pid.PID;
@@ -19,12 +19,12 @@ public class BlastoiseShooter implements RobotComponent {
 	private TurtleMotor shooter;
 	private PID pid;
 
-	private TurtleButtonInput shootButton;
-	private TurtleButtonInput speedSwitch;
+	private ButtonInput shootButton;
+	private ButtonInput speedSwitch;
 
 	private double speedRPM;
 
-	public BlastoiseShooter(TurtleHallSensor hallSensor, int motorPort, TurtleButtonInput shootButton, TurtleButtonInput speedSwitch) {
+	public BlastoiseShooter(TurtleHallSensor hallSensor, int motorPort, ButtonInput shootButton, ButtonInput speedSwitch) {
 		this.hallSensor = hallSensor;
 		this.shooter = new TurtleVictorSP(motorPort);
 		this.shootButton = shootButton;

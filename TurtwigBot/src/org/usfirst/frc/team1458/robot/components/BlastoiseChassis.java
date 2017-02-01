@@ -1,11 +1,8 @@
 package org.usfirst.frc.team1458.robot.components;
 
 import com.team1458.turtleshell2.core.RobotComponent;
-import com.team1458.turtleshell2.input.TurtleAnalogInput;
-import com.team1458.turtleshell2.input.TurtleButtonInput;
-import com.team1458.turtleshell2.input.TurtleDigitalInput;
-import com.team1458.turtleshell2.input.TurtleFlightStick;
-import com.team1458.turtleshell2.input.TurtleXboxController;
+import com.team1458.turtleshell2.input.*;
+import com.team1458.turtleshell2.input.Gamepad;
 import com.team1458.turtleshell2.movement.FollowerMotorSet;
 import com.team1458.turtleshell2.movement.MotorSet;
 import com.team1458.turtleshell2.movement.TankDrive;
@@ -17,7 +14,7 @@ import com.team1458.turtleshell2.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.sensor.TurtleNavX;
 import com.team1458.turtleshell2.sensor.fake.TurtleFakeRotationEncoder;
 import com.team1458.turtleshell2.util.TurtleDashboard;
-import com.team1458.turtleshell2.util.TurtleLogger;
+import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
@@ -46,28 +43,28 @@ public class BlastoiseChassis implements RobotComponent {
 	private TurtleNavX navX = null;
 
 	// Input joysticks and buttons
-	private TurtleAnalogInput rightJoystick;
-	private TurtleAnalogInput leftJoystick;
+	private AnalogInput rightJoystick;
+	private AnalogInput leftJoystick;
 
-	private TurtleButtonInput straightButton;
-	private TurtleButtonInput turnButton;
-	private TurtleButtonInput resetButton;
+	private ButtonInput straightButton;
+	private ButtonInput turnButton;
+	private ButtonInput resetButton;
 
-	private TurtleButtonInput gearButton;
+	private ButtonInput gearButton;
 
-	private TurtleDigitalInput pov;
-	private TurtleXboxController rumbleController; // Very experimental
+	private DigitalInput pov;
+	private Gamepad rumbleController; // Very experimental
 
-	private TurtleLogger logger;
+	private Logger logger;
 
 	/**
 	 * Main constructor for BlastoiseChassis
 	 * Accepts TurtleAnalogInputs and TurtleDigitalInputs
 	 */
-	public BlastoiseChassis(TurtleAnalogInput leftJoystick, TurtleAnalogInput rightJoystick,
-							TurtleButtonInput straightButton, TurtleButtonInput turnButton,
-							TurtleButtonInput resetButton, TurtleButtonInput gearButton,
-							TurtleDigitalInput pov, TurtleNavX navX, TurtleLogger logger) {
+	public BlastoiseChassis(AnalogInput leftJoystick, AnalogInput rightJoystick,
+	                        ButtonInput straightButton, ButtonInput turnButton,
+	                        ButtonInput resetButton, ButtonInput gearButton,
+	                        DigitalInput pov, TurtleNavX navX, Logger logger) {
 		this.leftJoystick = leftJoystick;
 		this.rightJoystick = rightJoystick;
 
@@ -90,14 +87,14 @@ public class BlastoiseChassis implements RobotComponent {
 	 * Convenience method for instantiating with Xbox controller
 	 * @param controller Xbox controller
 	 */
-	public BlastoiseChassis (TurtleXboxController controller, TurtleNavX navX, TurtleLogger logger) {
+	public BlastoiseChassis (Gamepad controller, TurtleNavX navX, Logger logger) {
 		this(
-				controller.getAxis(TurtleXboxController.XboxAxis.LY),
-				controller.getAxis(TurtleXboxController.XboxAxis.RY),
-				controller.getButton(TurtleXboxController.XboxButton.RBUMP),
-				controller.getButton(TurtleXboxController.XboxButton.LBUMP),
-				controller.getButton(TurtleXboxController.XboxButton.A),
-				controller.getButton(TurtleXboxController.XboxButton.Y),
+				controller.getAxis(Gamepad.GamepadAxis.LY),
+				controller.getAxis(Gamepad.GamepadAxis.RY),
+				controller.getButton(Gamepad.GamepadButton.RBUMP),
+				controller.getButton(Gamepad.GamepadButton.LBUMP),
+				controller.getButton(Gamepad.GamepadButton.A),
+				controller.getButton(Gamepad.GamepadButton.Y),
 				controller.getDPad(),
 				navX,
 				logger
@@ -110,14 +107,14 @@ public class BlastoiseChassis implements RobotComponent {
 	 * @param leftFlightStick
 	 * @param rightFlightStick
 	 */
-	public BlastoiseChassis (TurtleFlightStick leftFlightStick, TurtleFlightStick rightFlightStick, TurtleNavX navX, TurtleLogger logger) {
+	public BlastoiseChassis (FlightStick leftFlightStick, FlightStick rightFlightStick, TurtleNavX navX, Logger logger) {
 		this(
-				leftFlightStick.getAxis(TurtleFlightStick.FlightAxis.PITCH),
-				rightFlightStick.getAxis(TurtleFlightStick.FlightAxis.PITCH),
-				rightFlightStick.getButton(TurtleFlightStick.FlightButton.TRIGGER),
-				leftFlightStick.getButton(TurtleFlightStick.FlightButton.TRIGGER),
-				rightFlightStick.getButton(TurtleFlightStick.FlightButton.TWO),
-				rightFlightStick.getButton(TurtleFlightStick.FlightButton.THREE),
+				leftFlightStick.getAxis(FlightStick.FlightAxis.PITCH),
+				rightFlightStick.getAxis(FlightStick.FlightAxis.PITCH),
+				rightFlightStick.getButton(FlightStick.FlightButton.TRIGGER),
+				leftFlightStick.getButton(FlightStick.FlightButton.TRIGGER),
+				rightFlightStick.getButton(FlightStick.FlightButton.TWO),
+				rightFlightStick.getButton(FlightStick.FlightButton.THREE),
 				rightFlightStick.getPOVSwitch(),
 				navX,
 				logger

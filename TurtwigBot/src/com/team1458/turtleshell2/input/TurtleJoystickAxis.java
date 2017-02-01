@@ -4,7 +4,7 @@ import com.team1458.turtleshell2.util.TurtleMaths;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-public class TurtleJoystickAxis implements TurtleAnalogInput {
+public class TurtleJoystickAxis implements AnalogInput {
 	private final Joystick masterJoystick;
 	private final int axisNum;
 	private final boolean isReversed;

@@ -2,7 +2,7 @@ package com.team1458.turtleshell2.input;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-public class TurtleJoystickButton extends TurtleSampleButtonInput {
+public class TurtleJoystickButton extends SampleButtonInput {
 	private final Joystick masterJoystick;
 	private final int buttonNum;
 	

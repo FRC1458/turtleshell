@@ -5,7 +5,7 @@ package com.team1458.turtleshell2.input;
  * @author mehnadnerd
  *
  */
-public interface TurtleAnalogInput {
+public interface AnalogInput {
 	/**
 	 * 
 	 * @return

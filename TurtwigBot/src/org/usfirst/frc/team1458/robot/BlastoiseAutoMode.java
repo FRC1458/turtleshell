@@ -4,10 +4,9 @@ import com.team1458.turtleshell2.core.AutoMode;
 import com.team1458.turtleshell2.movement.TankDrive;
 import com.team1458.turtleshell2.pid.PID;
 import com.team1458.turtleshell2.sensor.TurtleRotationSensor;
-import com.team1458.turtleshell2.util.TurtleLogger;
+import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.MotorValue;
-import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 
@@ -19,11 +18,11 @@ import org.usfirst.frc.team1458.robot.constants.RobotConstants;
  */
 public abstract class BlastoiseAutoMode implements AutoMode {
 	protected TankDrive drive;
-	protected TurtleLogger logger;
+	protected Logger logger;
 
 	protected TurtleRotationSensor rotationSensor;
 
-	public BlastoiseAutoMode(TankDrive drive, TurtleLogger logger, TurtleRotationSensor rotationSensor) {
+	public BlastoiseAutoMode(TankDrive drive, Logger logger, TurtleRotationSensor rotationSensor) {
 		this.drive = drive;
 		this.logger = logger;
 		this.rotationSensor = rotationSensor;

@@ -1,16 +1,13 @@
 package com.team1458.turtleshell2.input.fake;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import com.team1458.turtleshell2.input.TurtleButtonInput;
+import com.team1458.turtleshell2.input.ButtonInput;
 
 /**
  * Fake button
  *
  * @author asinghani
  */
-public class TurtleFakeButtonInput implements TurtleButtonInput {
+public class TurtleFakeButtonInput implements ButtonInput {
 
 	public boolean getButton() {
 		return false;

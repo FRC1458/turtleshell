@@ -3,11 +3,11 @@ package org.usfirst.frc.team1458.robot;
 import com.team1458.turtleshell2.core.AutoMode;
 import com.team1458.turtleshell2.core.AutoModeHolder;
 import com.team1458.turtleshell2.core.TestMode;
-import com.team1458.turtleshell2.input.TurtleFlightStick;
-import com.team1458.turtleshell2.input.TurtleXboxController;
+import com.team1458.turtleshell2.input.FlightStick;
+import com.team1458.turtleshell2.input.Gamepad;
 import com.team1458.turtleshell2.sensor.TurtleNavX;
 import com.team1458.turtleshell2.util.TurtleDashboard;
-import com.team1458.turtleshell2.util.TurtleLogger;
+import com.team1458.turtleshell2.util.Logger;
 
 import edu.wpi.first.wpilibj.SampleRobot;
 
@@ -35,15 +35,15 @@ public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
 	private BlastoiseTestBed testBed;
 	
 	// Misc
-	private TurtleLogger logger;
+	private Logger logger;
 
 	/**
 	 * Constructor for robot
 	 */
 	public BlastoiseRobot() {
-		logger = new TurtleLogger(RobotConstants.LOGGER_MODE);
+		logger = new Logger(RobotConstants.LOGGER_MODE);
 		try {
-			logger.attachServer(new TurtleLogger.ColoredLogServer(5802, "/log"));
+			logger.attachServer(new Logger.ColoredLogServer(5802, "/log"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -55,13 +55,13 @@ public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
 		TurtleNavX navX = TurtleNavX.getInstanceI2C();
 
 		if(RobotConstants.USE_XBOX_CONTROLLER){
-	        TurtleXboxController xboxController = new TurtleXboxController(RobotConstants.UsbPorts.XBOX_CONTROLLER);
+	        Gamepad xboxController = new Gamepad(RobotConstants.UsbPorts.XBOX_CONTROLLER);
 	        chassis = new BlastoiseChassis(xboxController, navX, logger);
 	        //testBed = new BlastoiseTestBed(logger, xboxController);
 
 		} else {
-			TurtleFlightStick leftStick = new TurtleFlightStick(RobotConstants.UsbPorts.LEFT_STICK);
-	        TurtleFlightStick rightStick = new TurtleFlightStick(RobotConstants.UsbPorts.RIGHT_STICK);
+			FlightStick leftStick = new FlightStick(RobotConstants.UsbPorts.LEFT_STICK);
+	        FlightStick rightStick = new FlightStick(RobotConstants.UsbPorts.RIGHT_STICK);
 	        chassis = new BlastoiseChassis(leftStick, rightStick, navX, logger);
 	        //testBed = new BlastoiseTestBed(logger, leftStick, rightStick);
 		}
