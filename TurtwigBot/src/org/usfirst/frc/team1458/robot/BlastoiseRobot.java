@@ -9,12 +9,23 @@ import com.team1458.turtleshell2.sensor.TurtleNavX;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.Logger;
 
+import edu.wpi.cscore.HttpCamera;
+import edu.wpi.cscore.HttpCamera.HttpCameraKind;
+import edu.wpi.cscore.MjpegServer;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoSource;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.SampleRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.vision.VisionThread;
 
+import org.opencv.core.Rect;
+import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team1458.robot.autonomous.TestAutonomous;
 import org.usfirst.frc.team1458.robot.components.BlastoiseChassis;
 import org.usfirst.frc.team1458.robot.components.BlastoiseTestBed;
 import org.usfirst.frc.team1458.robot.constants.RobotConstants;
+import org.usfirst.frc.team1458.robot.vision.DetectTargetPipeline;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,6 +47,9 @@ public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
 	
 	// Misc
 	private Logger logger;
+	
+	// Vision
+	public Object lock = new Object();
 
 	/**
 	 * Constructor for robot
@@ -76,6 +90,27 @@ public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
 
 		TurtleDashboard.setAutoModeHolder(this);
 		TurtleDashboard.setup();
+		
+		// Vision
+		//UsbCamera camera = new UsbCamera("camera0", 0);
+		
+		
+		VideoSource camera = new HttpCamera("mjpegServer1",
+				"http://localhost:5801/?action=stream",
+				HttpCameraKind.kMJPGStreamer);
+		camera.setResolution(480, 320);
+		
+		VisionThread visionThread = new VisionThread(camera, new DetectTargetPipeline(), pipeline -> {
+	        if (!pipeline.filterContours0Output().isEmpty()) {
+	            Rect r = Imgproc.boundingRect(pipeline.filterContours0Output().get(0));
+	            synchronized (lock) {
+	            	System.out.println(r.x);
+	                double centerX = r.x + (r.width / 2.0);
+	                SmartDashboard.putNumber("CENTER X", centerX);
+	            }
+	        }
+	    });
+	    visionThread.start();
 	}
 
 	@Override

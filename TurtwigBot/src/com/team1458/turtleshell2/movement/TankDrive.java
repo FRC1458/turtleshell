@@ -111,6 +111,7 @@ public class TankDrive implements DriveTrain {
 		this.turnSpeed = speed;
 		rotationSensor.reset();
 		this.turnPID = new PID(constants, angle.getDegrees(), 5);
+		System.out.println("started turning: "+angle.getDegrees()+" speed="+speed.getValue());
 	}
 
 	public void stopTurn() {

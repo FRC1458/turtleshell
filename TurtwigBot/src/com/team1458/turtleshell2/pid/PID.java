@@ -1,9 +1,12 @@
 package com.team1458.turtleshell2.pid;
 
 import com.team1458.turtleshell2.util.PIDConstants;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.util.BaseSystemNotInitializedException;
+import edu.wpi.first.wpilibj.vision.VisionThread;
+
 import org.usfirst.frc.team1458.robot.Robot;
 
 public class PID {
@@ -20,6 +23,7 @@ public class PID {
 		this.constants = constants;
 		this.target = target;
 		this.deadband = Math.abs(deadband);
+		this.lastError = Double.POSITIVE_INFINITY;
 	}
 
 	/**
@@ -45,12 +49,14 @@ public class PID {
 		sum = 0.75 * sum;
 		lastError = error;
 
+		VisionThread thread;
+		
 		return output;
 	}
 
 	public boolean atTarget() {
 		return Math.abs(lastError) < deadband &&     // P term
-				Math.abs(derivative) < deadband / 4; // D term
+				Math.abs(derivative) < (deadband / 15.0); // D term
 	}
 
 	private double getTime() {

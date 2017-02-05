@@ -5,6 +5,8 @@ import com.team1458.turtleshell2.util.PIDConstants;
 import com.team1458.turtleshell2.util.types.MotorValue;
 import com.team1458.turtleshell2.util.types.Time;
 
+import edu.wpi.first.wpilibj.vision.VisionThread;
+
 /**
  * Constants for Robot
  * All inner classes are defined as "static final" so static variables can be defined
@@ -32,6 +34,7 @@ public class RobotConstants {
 
 		public static final MotorValue UNCLOG_SPEED = MotorValue.fullForward;
 		public static final Time UNCLOG_TIME = Time.one;
+		
 	}
 
 	public static final class Climber {
@@ -71,7 +74,7 @@ public class RobotConstants {
 	 * Turning PID
 	 */
 	public static final class TurnPID {
-		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0, 0, 0);
+		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.01, 0.001, 0.002);
 		public static final double TOLERANCE = 3;
 
 		public static final double TURN_SPEED = 0.65;
@@ -93,8 +96,8 @@ public class RobotConstants {
 	 * Misc
 	 */
 	public static final Logger.LogFormat LOGGER_MODE = Logger.LogFormat.PLAINTEXT;
-	public static final double JOYSTICK_DEADBAND = 0.05;
-	public static final boolean USE_XBOX_CONTROLLER = true;
+	public static final double JOYSTICK_DEADBAND = 0.08;
+	public static final boolean USE_XBOX_CONTROLLER = false;
 
 	public static final double MOTOR_DEADBAND = 0.05; // Only for logging to SmartDashboard
 	public static final double COLLISION_THRESHOLD = 1.5f;

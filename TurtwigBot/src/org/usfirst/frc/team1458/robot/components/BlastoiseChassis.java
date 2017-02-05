@@ -2,7 +2,6 @@ package org.usfirst.frc.team1458.robot.components;
 
 import com.team1458.turtleshell2.core.RobotComponent;
 import com.team1458.turtleshell2.input.*;
-import com.team1458.turtleshell2.input.XboxController;
 import com.team1458.turtleshell2.movement.FollowerMotorSet;
 import com.team1458.turtleshell2.movement.MotorSet;
 import com.team1458.turtleshell2.movement.TankDrive;
@@ -13,13 +12,16 @@ import com.team1458.turtleshell2.pid.PID;
 import com.team1458.turtleshell2.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.sensor.TurtleNavX;
 import com.team1458.turtleshell2.sensor.fake.TurtleFakeRotationEncoder;
+import com.team1458.turtleshell2.util.PIDConstants;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team1458.robot.BlastoiseRobot;
 import org.usfirst.frc.team1458.robot.BlastoiseVision;
 import org.usfirst.frc.team1458.robot.Robot;
@@ -50,7 +52,12 @@ public class BlastoiseChassis implements RobotComponent {
 	private ButtonInput turnButton;
 	private ButtonInput resetButton;
 
-	private ButtonInput gearButton;
+	private ButtonInput right90button;
+	private ButtonInput left90button;
+	
+	
+	private ButtonInput slowButton;
+	private ButtonInput slowButton2;
 
 	private DigitalInput pov;
 	private XboxController rumbleController; // Very experimental
@@ -63,7 +70,8 @@ public class BlastoiseChassis implements RobotComponent {
 	 */
 	public BlastoiseChassis(AnalogInput leftJoystick, AnalogInput rightJoystick,
 	                        ButtonInput straightButton, ButtonInput turnButton,
-	                        ButtonInput resetButton, ButtonInput gearButton,
+	                        ButtonInput resetButton, ButtonInput right90button, ButtonInput left90button,
+	                        ButtonInput slowButton, ButtonInput slowButton2,
 	                        DigitalInput pov, TurtleNavX navX, Logger logger) {
 		this.leftJoystick = leftJoystick;
 		this.rightJoystick = rightJoystick;
@@ -71,7 +79,10 @@ public class BlastoiseChassis implements RobotComponent {
 		this.straightButton = straightButton;
 		this.turnButton = turnButton;
 		this.resetButton = resetButton;
-		this.gearButton = gearButton;
+		this.slowButton = slowButton;
+		this.slowButton2 = slowButton2;
+		this.right90button = right90button;
+		this.left90button = left90button;
 		this.pov = pov;
 		this.navX = navX;
 
@@ -80,6 +91,7 @@ public class BlastoiseChassis implements RobotComponent {
 		this.logger = logger;
 
 		setupDrivetrain();
+		TurtleDashboard.enablePidTuning(RobotConstants.TurnPID.PID_CONSTANTS, "TurnPID");
 	}
 
 
@@ -95,6 +107,9 @@ public class BlastoiseChassis implements RobotComponent {
 				controller.getButton(XboxController.XboxButton.LBUMP),
 				controller.getButton(XboxController.XboxButton.A),
 				controller.getButton(XboxController.XboxButton.Y),
+				controller.getButton(XboxController.XboxButton.B),
+				controller.getButton(XboxController.XboxButton.X),
+				controller.getButton(XboxController.XboxButton.X),
 				controller.getDPad(),
 				navX,
 				logger
@@ -113,8 +128,11 @@ public class BlastoiseChassis implements RobotComponent {
 				rightFlightStick.getAxis(FlightStick.FlightAxis.PITCH),
 				rightFlightStick.getButton(FlightStick.FlightButton.TRIGGER),
 				leftFlightStick.getButton(FlightStick.FlightButton.TRIGGER),
-				rightFlightStick.getButton(FlightStick.FlightButton.TWO),
+				leftFlightStick.getButton(FlightStick.FlightButton.FOUR),
 				rightFlightStick.getButton(FlightStick.FlightButton.THREE),
+				leftFlightStick.getButton(FlightStick.FlightButton.FOUR),
+				rightFlightStick.getButton(FlightStick.FlightButton.TWO),
+				leftFlightStick.getButton(FlightStick.FlightButton.TWO),
 				rightFlightStick.getPOVSwitch(),
 				navX,
 				logger
@@ -131,11 +149,30 @@ public class BlastoiseChassis implements RobotComponent {
 		MotorValue leftPower = new MotorValue(TurtleMaths.deadband(leftJoystick.get(), RobotConstants.JOYSTICK_DEADBAND));
 		MotorValue rightPower = new MotorValue(TurtleMaths.deadband(rightJoystick.get(), RobotConstants.JOYSTICK_DEADBAND));
 
+		PIDConstants turnConstants = TurtleDashboard.getPidConstants("TurnPID");
+		
+		if(right90button.getUp()) {
+			System.out.println("gearButton was pressed");
+			tankDrive.turn(new Angle(90), new MotorValue(0.7), turnConstants);
+			return;
+		}
+		
+		if(left90button.getUp()) {
+			System.out.println("gearButton was pressed");
+			tankDrive.turn(new Angle(-90), new MotorValue(0.7), turnConstants);
+			return;
+		}
+		
+		if (slowButton.getButton() || slowButton2.getButton()) {
+			leftPower = leftPower.half();
+			rightPower = rightPower.half();
+		}
+		
 		if(turnButton.getButton()) {
 			updateMotors(leftPower, leftPower.invert());
 		} else if(straightButton.getButton()){
 			updateMotors(leftPower, leftPower);
-		} else{
+		} else {
 			updateMotors(leftPower, rightPower);
 		}
 
@@ -160,7 +197,7 @@ public class BlastoiseChassis implements RobotComponent {
 		/**
 		 * Gear alignment
 		 */
-		if(gearButton.getButton()){
+		if(1 != 1){
 			int springX = BlastoiseVision.getSpringX();
 			if(springX > -1) {
 				MotorValue val = new MotorValue(gearAlignPID.newValue(springX));
@@ -188,7 +225,7 @@ public class BlastoiseChassis implements RobotComponent {
 		SmartDashboard.putNumber("SpringX", BlastoiseVision.getSpringX());
 		
 		if(navX.isInCollision(RobotConstants.COLLISION_THRESHOLD)){
-			rumbleController.rumble(1.0f, 250); // Very experimental
+			if(rumbleController != null) rumbleController.rumble(1.0f, 250); // Very experimental
 		}
 	}
 
@@ -244,7 +281,7 @@ public class BlastoiseChassis implements RobotComponent {
 						new TurtleTalonSRXCAN(BlastoiseConstants.RightDrive.MOTOR2, true),
 						new TurtleTalonSRXCAN(BlastoiseConstants.RightDrive.MOTOR3, true)
 				),
-				new TurtleFakeRotationEncoder()
+				navX.getYawAxis()
 			);
 		}
 	}

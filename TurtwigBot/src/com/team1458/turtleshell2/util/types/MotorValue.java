@@ -65,4 +65,8 @@ public final class MotorValue implements Comparable<MotorValue>, Unit {
 	public MotorValue add(MotorValue value){
 		return new MotorValue(this.getValue() + value.getValue());
 	}
+	
+	public MotorValue half() {
+		return new MotorValue(this.getValue() / 2.0);
+	}
 }

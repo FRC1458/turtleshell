@@ -28,6 +28,7 @@ public abstract class SampleButtonInput implements ButtonInput {
 					pressed = false;
 					released = true;
 				}
+				lastValue = getButton();
 			}
 		}, 50, 50);
 	}
