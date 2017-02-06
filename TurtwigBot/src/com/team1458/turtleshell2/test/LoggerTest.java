@@ -1,11 +1,8 @@
 package com.team1458.turtleshell2.test;
 
 import com.team1458.turtleshell2.util.Logger;
-import org.usfirst.frc.team1458.robot.BlastoiseVision;
 
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Test for Logger

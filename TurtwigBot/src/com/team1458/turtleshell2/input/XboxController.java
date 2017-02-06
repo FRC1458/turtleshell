@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class XboxController {
+public class XboxController implements Rumbleable {
 	private final Joystick j;
 
 	public XboxController(int usbport) {

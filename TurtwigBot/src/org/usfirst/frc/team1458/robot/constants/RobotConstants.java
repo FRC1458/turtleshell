@@ -5,8 +5,6 @@ import com.team1458.turtleshell2.util.PIDConstants;
 import com.team1458.turtleshell2.util.types.MotorValue;
 import com.team1458.turtleshell2.util.types.Time;
 
-import edu.wpi.first.wpilibj.vision.VisionThread;
-
 /**
  * Constants for Robot
  * All inner classes are defined as "static final" so static variables can be defined
@@ -28,6 +26,9 @@ public class RobotConstants {
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0, 0, 0);
 	}
 
+	/**
+	 * Intake-related constants
+	 */
 	public static final class Intake {
 		public static final int MOTOR_PORT = -1;
 		public static final MotorValue SPEED = MotorValue.fullForward;
@@ -37,6 +38,9 @@ public class RobotConstants {
 		
 	}
 
+	/**
+	 * Climber-related constants
+	 */
 	public static final class Climber {
 		public static final int MOTOR_PORT = -1;
 
@@ -59,6 +63,16 @@ public class RobotConstants {
 	 */
 	public static final class Sensors {
 
+	}
+
+	/**
+	 * Settings for vision
+	 */
+	public static final class Vision {
+		public static final int CAMERA_WIDTH = 480;
+		public static final int CAMERA_HEIGHT = 320;
+
+		public static final String CAMERA_URL = "http://localhost:5801/?action=stream";
 	}
 
 	/**
@@ -89,7 +103,6 @@ public class RobotConstants {
 
 		public static final double SPEED = 0.5;
 
-		public static final int CAMERA_WIDTH = 1280;
 	}
 
 	/**
@@ -99,9 +112,7 @@ public class RobotConstants {
 	public static final double JOYSTICK_DEADBAND = 0.08;
 	public static final boolean USE_XBOX_CONTROLLER = false;
 
-	public static final double MOTOR_DEADBAND = 0.05; // Only for logging to SmartDashboard
 	public static final double COLLISION_THRESHOLD = 1.5f;
-	public static final String GRIP_URL = "http://localhost:2084/GRIP/data";
 
 	/**
 	 * Constructor so RobotConstants can't be initialised

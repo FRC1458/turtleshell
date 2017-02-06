@@ -41,5 +41,18 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" exported="" name="libs" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/wpilib/java/current/lib/cscore.jar!/" />
+          <root url="jar://$USER_HOME$/wpilib/java/current/lib/opencv.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/wpilib/java/current/lib/opencv-sources.jar!/" />
+          <root url="jar://$USER_HOME$/wpilib/java/current/lib/cscore-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
