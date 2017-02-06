@@ -7,7 +7,6 @@ import com.team1458.turtleshell2.movement.TurtleVictorSP;
 import com.team1458.turtleshell2.pid.PID;
 import com.team1458.turtleshell2.sensor.TurtleHallSensor;
 import com.team1458.turtleshell2.util.types.MotorValue;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 
 /**
@@ -51,10 +50,6 @@ public class BlastoiseShooter implements RobotComponent {
 			MotorValue motorValue = new MotorValue(motorPower);
 
 			shooter.set(motorValue);
-
-			SmartDashboard.putNumber("RPM"+getSmartDashboardTag(), hallSensor.getRPM());
-			SmartDashboard.putNumber("Power"+getSmartDashboardTag(), motorPower);
-			SmartDashboard.putNumber("ScaledPower"+getSmartDashboardTag(), motorValue.getValue());
 		} else {
 			shooter.set(MotorValue.zero);
 		}
@@ -62,9 +57,5 @@ public class BlastoiseShooter implements RobotComponent {
 
 	public double getRPM() {
 		return speedSwitch.getButton() ? RobotConstants.Shooter.LOW_RPM : RobotConstants.Shooter.HIGH_RPM;
-	}
-
-	public String getSmartDashboardTag() {
-		return " ("+toString()+")";
 	}
 }
