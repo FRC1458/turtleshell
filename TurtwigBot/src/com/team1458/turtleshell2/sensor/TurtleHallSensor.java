@@ -4,9 +4,6 @@ import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Rate;
 
 import edu.wpi.first.wpilibj.Counter;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Represents hall sensor. Outputs data in RPM
@@ -16,7 +13,6 @@ public class TurtleHallSensor implements TurtleRotationSensor {
 	private static final double HALL_TO_RPM = 16.425;
 
 	private final Counter c;
-	private final Timer t;
 	
 	private Rate<Angle> prevRate;
 	
@@ -28,8 +24,6 @@ public class TurtleHallSensor implements TurtleRotationSensor {
 		c.setMaxPeriod(1);
 		c.setDistancePerPulse(1);
 		c.setSamplesToAverage(1);
-
-		t = new Timer();
 	}
 
 	@Override

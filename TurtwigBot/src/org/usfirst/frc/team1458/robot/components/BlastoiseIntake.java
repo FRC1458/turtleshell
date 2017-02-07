@@ -16,7 +16,7 @@ import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 public class BlastoiseIntake implements RobotComponent {
 	private MotorSet motors = new MotorSet(new TurtleTalonSRXCAN(RobotConstants.Intake.MOTOR_PORT));
 
-	private DigitalInput enableSwitch;
+	private DigitalInput enableSwitch;//TODO: Why is this DigitalInput rather than ButtonInput?
 	private ButtonInput unclogButton;
 
 	// Unclog function

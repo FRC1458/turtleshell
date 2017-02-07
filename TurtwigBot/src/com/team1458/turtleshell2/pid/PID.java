@@ -2,13 +2,14 @@ package com.team1458.turtleshell2.pid;
 
 import com.team1458.turtleshell2.util.PIDConstants;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.util.BaseSystemNotInitializedException;
-import edu.wpi.first.wpilibj.vision.VisionThread;
 
-import org.usfirst.frc.team1458.robot.Robot;
-
+/**
+ * Class for a PID loop. Handles integration and derivation itself
+ * @author asinghani
+ *
+ */
 public class PID {
 	private final PIDConstants constants;
 	private final double target;
@@ -46,11 +47,9 @@ public class PID {
 
 		lastTime = getTime();
 		sum += value;
-		sum = 0.75 * sum;
+		sum = 0.75 * sum; //Why is this here? Decaying I term
 		lastError = error;
 
-		VisionThread thread;
-		
 		return output;
 	}
 

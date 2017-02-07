@@ -7,13 +7,13 @@ import edu.wpi.first.wpilibj.PWM;
  *
  * @author asinghani
  */
-public class PwmLED {
+public class PWMLED {
 	private PWM output;
 
 	/**
 	 * Create LED with PWM port
 	 */
-	public PwmLED(int port) {
+	public PWMLED(int port) {
 		output = new PWM(port);
 
 		set(0);
