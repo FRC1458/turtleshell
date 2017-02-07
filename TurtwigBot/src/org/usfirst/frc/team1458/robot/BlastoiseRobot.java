@@ -77,7 +77,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 		 */
 		if(inputManager.getRight90button().getUp()) {
 			chassis.turn(new Angle(90), new MotorValue(0.7), turnConstants);
-			return;
+			return;//Having premature returns here is a bad idea
 		}
 
 		if(inputManager.getLeft90button().getUp()) {
@@ -88,15 +88,15 @@ public class BlastoiseRobot implements AutoModeHolder {
 		/**
 		 * Smoother control of the robot
 		 */
-		if (inputManager.getSlowButton().getButton()) {
-			leftPower = leftPower.half();
-			rightPower = rightPower.half();
+		if (inputManager.getSlowButton().getButton()) {//Might want to move these into the next if statement, but it could be OK here
+			leftPower = leftPower.halve();
+			rightPower = rightPower.halve();
 		} else if (RobotConstants.LOGISTIC_SCALE) {
 			leftPower = new MotorValue(TurtleMaths.logisticStepScale(leftPower.getValue()));
 			rightPower = new MotorValue(TurtleMaths.logisticStepScale(rightPower.getValue()));
 		}
 
-		// TODO ask drivers for input on this scheme
+		// TODO ask drivers for input on this scheme - Only need one turn button
 		if(inputManager.getStraightButton().getButton()){
 			chassis.updateMotors(leftPower, leftPower);
 		}

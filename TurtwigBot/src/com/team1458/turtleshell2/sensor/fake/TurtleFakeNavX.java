@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.SerialPort;
  * @author asinghani
  */
 
-@SuppressWarnings("unused")
 public class TurtleFakeNavX extends TurtleNavX {
 
     /**

@@ -10,7 +10,7 @@ import com.team1458.turtleshell2.util.TurtleMaths;
  * @author mehnadnerd
  *
  */
-public final class MotorValue implements Comparable<MotorValue>, Unit {
+public final class MotorValue implements Comparable<MotorValue>, Unit, Mathable<MotorValue> {
 	private final double value;
 	public static final MotorValue zero = new MotorValue(0);
 	public static final MotorValue fullForward = new MotorValue(1);
@@ -49,24 +49,31 @@ public final class MotorValue implements Comparable<MotorValue>, Unit {
 	public int compareTo(MotorValue o) {
 		return new Double(this.getValue()).compareTo(o.getValue());
 	}
-	
-	public MotorValue invert(){
-		return new MotorValue(this.getValue() * -1);
+
+	public MotorValue invert() {
+		return this.scale(-1);
 	}
 
-	public MotorValue mapToSpeed(double speed){
-		return new MotorValue(this.getValue() * speed);
+	public MotorValue mapToSpeed(MotorValue speed) {
+		return this.scale(speed.getValue());
 	}
 
-	public MotorValue add(double value){
-		return new MotorValue(this.getValue() + value);
+	public MotorValue halve() {
+		return this.scale(0.5);
 	}
 
-	public MotorValue add(MotorValue value){
-		return new MotorValue(this.getValue() + value.getValue());
+	@Override
+	public MotorValue plus(MotorValue toAdd) {
+		return new MotorValue(this.getValue() + toAdd.getValue());
 	}
-	
-	public MotorValue half() {
-		return new MotorValue(this.getValue() / 2.0);
+
+	@Override
+	public MotorValue minus(MotorValue toSubtract) {
+		return new MotorValue(this.getValue() - toSubtract.getValue());
+	}
+
+	@Override
+	public MotorValue scale(double scalar) {
+		return new MotorValue(this.getValue() * scalar);
 	}
 }

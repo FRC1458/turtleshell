@@ -1,9 +1,7 @@
 package com.team1458.turtleshell2.sensor.fake;
 
-import com.team1458.turtleshell2.sensor.TurtleDistanceSensor;
 import com.team1458.turtleshell2.sensor.TurtleRotationSensor;
 import com.team1458.turtleshell2.util.types.Angle;
-import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.Rate;
 
 /**

@@ -78,7 +78,7 @@ public class TankDrive implements DriveTrain {
 			} else {
 				MotorValue motorValue =
 						new MotorValue(turnPID.newValue(rotationSensor.getRotation().getDegrees()))
-								.mapToSpeed(turnSpeed.getValue());
+								.mapToSpeed(turnSpeed);
 
 				updateMotors(motorValue, motorValue.invert());
 				System.out.println(motorValue.getValue()+" motor value");
@@ -89,7 +89,7 @@ public class TankDrive implements DriveTrain {
 		} else if(drivingStraight) {
 			MotorValue motorValue =
 					new MotorValue(straightDrivePID.newValue(rotationSensor.getRotation().getDegrees()))
-							.mapToSpeed(straightDriveSpeed.getValue());
+							.mapToSpeed(straightDriveSpeed);
 
 			updateMotors(motorValue, motorValue);
 		}

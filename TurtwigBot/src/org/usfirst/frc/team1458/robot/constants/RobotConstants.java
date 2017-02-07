@@ -91,8 +91,8 @@ public class RobotConstants {
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.01, 0.001, 0.002);
 		public static final double TOLERANCE = 3;
 
-		public static final double TURN_SPEED = 0.65;
-		public static final double MIN_SPEED = 0.15;
+		public static final MotorValue TURN_SPEED = new MotorValue(0.65);
+		public static final MotorValue MIN_SPEED = new MotorValue(0.15);
 	}
 
 	/**
@@ -101,7 +101,7 @@ public class RobotConstants {
 	public static final class GearPID {
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0, 0, 0);
 
-		public static final double SPEED = 0.5;
+		public static final MotorValue SPEED = new MotorValue(0.5);
 
 	}
 
