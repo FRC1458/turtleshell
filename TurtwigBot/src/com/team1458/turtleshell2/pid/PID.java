@@ -2,12 +2,9 @@ package com.team1458.turtleshell2.pid;
 
 import com.team1458.turtleshell2.util.PIDConstants;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.util.BaseSystemNotInitializedException;
 import edu.wpi.first.wpilibj.vision.VisionThread;
-
-import org.usfirst.frc.team1458.robot.Robot;
 
 public class PID {
 	private final PIDConstants constants;

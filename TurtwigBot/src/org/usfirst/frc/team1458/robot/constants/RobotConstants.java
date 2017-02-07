@@ -111,6 +111,7 @@ public class RobotConstants {
 	public static final Logger.LogFormat LOGGER_MODE = Logger.LogFormat.PLAINTEXT;
 	public static final double JOYSTICK_DEADBAND = 0.08;
 	public static final boolean USE_XBOX_CONTROLLER = false;
+	public static final boolean LOGISTIC_SCALE = false;
 
 	public static final double COLLISION_THRESHOLD = 1.5f;
 

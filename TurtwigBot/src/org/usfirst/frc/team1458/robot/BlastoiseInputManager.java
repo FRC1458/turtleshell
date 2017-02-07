@@ -4,7 +4,7 @@ import com.team1458.turtleshell2.input.*;
 import com.team1458.turtleshell2.input.fake.FakeRumbleable;
 
 /**
- * Manages all input/control for BlastoiseRobot
+ * Manages all input/control for Robot
  *
  * @author asinghani
  */
@@ -16,7 +16,8 @@ public class BlastoiseInputManager implements Rumbleable {
 
 	// Extra Drive Functions
 	private ButtonInput straightButton;
-	private ButtonInput turnButton;
+	private ButtonInput turnRightButton;
+	private ButtonInput turnLeftButton;
 
 	// Turn for degrees buttons
 	private ButtonInput right90button;
@@ -40,8 +41,9 @@ public class BlastoiseInputManager implements Rumbleable {
 		this.rightJoystick = rightStick.getAxis(FlightStick.FlightAxis.PITCH);
 
 		// Extra Drive Functions
-		this.straightButton = rightStick.getButton(FlightStick.FlightButton.TRIGGER);
-		this.turnButton = leftStick.getButton(FlightStick.FlightButton.TRIGGER);
+		this.turnLeftButton = leftStick.getButton(FlightStick.FlightButton.TRIGGER);
+		this.turnRightButton = rightStick.getButton(FlightStick.FlightButton.TRIGGER);
+		this.straightButton = new MultiButtonInput(MultiButtonInput.Operator.AND, this.turnLeftButton, this.turnRightButton);
 
 		// Turn for degrees buttons
 		this.right90button = rightStick.getButton(FlightStick.FlightButton.THREE);
@@ -68,8 +70,9 @@ public class BlastoiseInputManager implements Rumbleable {
 		this.rightJoystick = controller.getAxis(XboxController.XboxAxis.RY);
 
 		// Extra Drive Functions
-		this.straightButton = controller.getButton(XboxController.XboxButton.RBUMP);
-		this.turnButton = controller.getButton(XboxController.XboxButton.LBUMP);
+		this.turnLeftButton = controller.getButton(XboxController.XboxButton.LBUMP);
+		this.turnRightButton = controller.getButton(XboxController.XboxButton.RBUMP);
+		this.straightButton = new MultiButtonInput(MultiButtonInput.Operator.AND, this.turnLeftButton, this.turnRightButton);
 
 		// Turn for degrees buttons
 		this.right90button = controller.getButton(XboxController.XboxButton.B);
@@ -120,8 +123,12 @@ public class BlastoiseInputManager implements Rumbleable {
 		return straightButton;
 	}
 
-	public ButtonInput getTurnButton() {
-		return turnButton;
+	public ButtonInput getTurnRightButton() {
+		return turnRightButton;
+	}
+
+	public ButtonInput getTurnLeftButton() {
+		return turnLeftButton;
 	}
 
 	public ButtonInput getRight90button() {
