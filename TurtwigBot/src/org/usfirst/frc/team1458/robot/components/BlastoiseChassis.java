@@ -1,31 +1,28 @@
 package org.usfirst.frc.team1458.robot.components;
 
-import com.team1458.turtleshell2.core.RobotComponent;
 import com.team1458.turtleshell2.movement.*;
 import com.team1458.turtleshell2.pid.PID;
 import com.team1458.turtleshell2.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.sensor.TurtleNavX;
+import com.team1458.turtleshell2.sensor.fake.TurtleFakeRotationEncoder;
 import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.util.PIDConstants;
 import com.team1458.turtleshell2.util.TurtleDashboard;
-import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team1458.robot.BlastoiseInputManager;
-import org.usfirst.frc.team1458.robot.BlastoiseRobot;
 import org.usfirst.frc.team1458.robot.Robot;
 import org.usfirst.frc.team1458.robot.constants.BlastoiseConstants;
 import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 import org.usfirst.frc.team1458.robot.constants.TurtwigConstants;
 
 /**
- * New BlastoiseRobot Chassis
+ * New Robot Chassis
  *
  * @author asinghani
  */
-public class BlastoiseChassis implements RobotComponent {
+public class BlastoiseChassis {
 
 	/**
 	 * Drive train
@@ -58,55 +55,6 @@ public class BlastoiseChassis implements RobotComponent {
 
 	PID gearAlignPID = new PID(RobotConstants.GearPID.PID_CONSTANTS, RobotConstants.Vision.CAMERA_WIDTH, 0);
 
-	@Override
-	public void teleUpdate() {
-		/**
-		 * User-control
-		 */
-		MotorValue leftPower = new MotorValue(TurtleMaths.deadband(inputManager.getLeft(), RobotConstants.JOYSTICK_DEADBAND));
-		MotorValue rightPower = new MotorValue(TurtleMaths.deadband(inputManager.getRight(), RobotConstants.JOYSTICK_DEADBAND));
-
-		PIDConstants turnConstants = TurtleDashboard.getPidConstants("TurnPID");
-		
-		if(inputManager.getRight90button().getUp()) {
-			tankDrive.turn(new Angle(90), new MotorValue(0.7), turnConstants);
-			return;
-		}
-		
-		if(inputManager.getLeft90button().getUp()) {
-			tankDrive.turn(new Angle(-90), new MotorValue(0.7), turnConstants);
-			return;
-		}
-		
-		if (inputManager.getSlowButton().getButton()) {
-			leftPower = leftPower.half();
-			rightPower = rightPower.half();
-		}
-		
-		if(inputManager.getTurnButton().getButton()) {
-			updateMotors(leftPower, leftPower.invert());
-		} else if(inputManager.getStraightButton().getButton()){
-			updateMotors(leftPower, leftPower);
-		} else {
-			updateMotors(leftPower, rightPower);
-		}
-
-		tankDrive.teleUpdate();
-
-		SmartDashboard.putNumber("LeftEncoder", tankDrive.getLeftDistance().getInches());
-		SmartDashboard.putNumber("RightEncoder", tankDrive.getRightDistance().getInches());
-
-
-		SmartDashboard.putNumber("Yaw", navX.getYawAxis().getRotation().getDegrees());
-		SmartDashboard.putNumber("CompassHeading", navX.getCompassHeading().getDegrees());
-		SmartDashboard.putNumber("FusedHeading", navX.getFusedHeading().getDegrees());
-
-		
-		if(navX.isInCollision(RobotConstants.COLLISION_THRESHOLD)){
-			inputManager.rumble(1.0f, 250);
-		}
-	}
-
 	/**
 	 * Chassis Specific Initialization
 	 * Called after constructor
@@ -123,9 +71,9 @@ public class BlastoiseChassis implements RobotComponent {
 							new TurtleTalonSR(3),
 							new TurtleTalonSR(4)
 					),
-					null
+					new TurtleFakeRotationEncoder()
 			);
-		} else if(BlastoiseRobot.isPracticeRobot()) {
+		} else if(Robot.isPracticeRobot()) {
 			// Turtwig Chassis
 			tankDrive = new TankDrive(
 					new MotorSet(
@@ -182,5 +130,29 @@ public class BlastoiseChassis implements RobotComponent {
 	
 	public TankDrive getDriveTrain() {
 		return tankDrive;
+	}
+
+	public void driveStraight(MotorValue speed, PIDConstants constants) {
+		tankDrive.driveStraight(speed, constants);
+	}
+
+	public void stopDrivingStraight() {
+		tankDrive.stopDrivingStraight();
+	}
+
+	public void turn(Angle angle, MotorValue speed, PIDConstants constants) {
+		tankDrive.turn(angle, speed, constants);
+	}
+
+	public void stopTurn() {
+		tankDrive.stopTurn();
+	}
+
+	public boolean isTurning() {
+		return tankDrive.isTurning();
+	}
+
+	public void resetEncoders() {
+		tankDrive.resetEncoders();
 	}
 }

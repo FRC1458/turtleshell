@@ -7,54 +7,120 @@ import com.team1458.turtleshell2.input.FlightStick;
 import com.team1458.turtleshell2.input.XboxController;
 import com.team1458.turtleshell2.sensor.TurtleNavX;
 import com.team1458.turtleshell2.util.Logger;
+import com.team1458.turtleshell2.util.PIDConstants;
 import com.team1458.turtleshell2.util.TurtleDashboard;
-import edu.wpi.first.wpilibj.SampleRobot;
+import com.team1458.turtleshell2.util.TurtleMaths;
+import com.team1458.turtleshell2.util.types.Angle;
+import com.team1458.turtleshell2.util.types.MotorValue;
+import edu.wpi.first.wpilibj.RobotState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team1458.robot.autonomous.TestAutonomous;
 import org.usfirst.frc.team1458.robot.components.BlastoiseChassis;
 import org.usfirst.frc.team1458.robot.components.BlastoiseTestBed;
 import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
+
 /**
- * This is the base robot code.
+ * This is the base physical robot
  * @author asinghani
  */
-public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
+public class BlastoiseRobot implements AutoModeHolder {
 
 	// Robot Modes
 	private ArrayList<BlastoiseAutoMode> autoModes = new ArrayList<>();
 	private int selectedAutoMode = 0;
 	private TestMode testMode;
 
+	// Input
 	private BlastoiseInputManager inputManager;
+
+	// Misc
+	private Logger logger;
+
+	// Vision
+	public Object lock = new Object();
 
 	// Robot Components
 	private BlastoiseChassis chassis;
 	private BlastoiseTestBed testBed;
-	
-	// Misc
-	private Logger logger;
-	
-	// Vision
-	public Object lock = new Object();
+
+	// Sensors
+	TurtleNavX navX = null;
 
 	/**
 	 * Constructor for robot
 	 */
-	public BlastoiseRobot() {
-		logger = new Logger(RobotConstants.LOGGER_MODE);
-		try {
-			logger.attachServer(new Logger.ColoredLogServer(5802, "/log"));
-		} catch (IOException e) {
-			e.printStackTrace();
+	public BlastoiseRobot(Logger logger) {
+		this.logger = logger;
+	}
+
+	/**
+	 * Single source of control for the entire robot
+	 */
+	protected void teleUpdate() {
+		driveUpdate(); // Only run if not climbing, else stop motors
+	}
+
+	/**
+	 * User-controlled
+	 */
+	private void driveUpdate() {
+		MotorValue leftPower = new MotorValue(TurtleMaths.deadband(inputManager.getLeft(), RobotConstants.JOYSTICK_DEADBAND));
+		MotorValue rightPower = new MotorValue(TurtleMaths.deadband(inputManager.getRight(), RobotConstants.JOYSTICK_DEADBAND));
+
+		PIDConstants turnConstants = TurtleDashboard.getPidConstants("TurnPID");
+
+		/**
+		 * Left/Right turn with buttons
+		 */
+		if(inputManager.getRight90button().getUp()) {
+			chassis.turn(new Angle(90), new MotorValue(0.7), turnConstants);
+			return;
+		}
+
+		if(inputManager.getLeft90button().getUp()) {
+			chassis.turn(new Angle(-90), new MotorValue(0.7), turnConstants);
+			return;
+		}
+
+		/**
+		 * Smoother control of the robot
+		 */
+		if (inputManager.getSlowButton().getButton()) {
+			leftPower = leftPower.half();
+			rightPower = rightPower.half();
+		} else if (RobotConstants.LOGISTIC_SCALE) {
+			leftPower = new MotorValue(TurtleMaths.logisticStepScale(leftPower.getValue()));
+			rightPower = new MotorValue(TurtleMaths.logisticStepScale(rightPower.getValue()));
+		}
+
+		// TODO ask drivers for input on this scheme
+		if(inputManager.getStraightButton().getButton()){
+			chassis.updateMotors(leftPower, leftPower);
+		}
+		else if(inputManager.getTurnLeftButton().getButton()) {
+			chassis.updateMotors(leftPower.invert(), leftPower);
+		}
+		else if(inputManager.getTurnRightButton().getButton()) {
+			chassis.updateMotors(rightPower, rightPower.invert());
+		}
+		else {
+			chassis.updateMotors(leftPower, rightPower);
+		}
+
+		chassis.getDriveTrain().teleUpdate();
+
+		SmartDashboard.putNumber("Yaw", navX.getYawAxis().getRotation().getDegrees());
+
+		if(navX.isInCollision(RobotConstants.COLLISION_THRESHOLD)){
+			inputManager.rumble(1.0f, 250);
 		}
 	}
 
-	@Override
 	protected void robotInit() {
-		TurtleNavX navX = TurtleNavX.getInstanceI2C();
+		navX = TurtleNavX.getInstanceI2C();
 
 		if(RobotConstants.USE_XBOX_CONTROLLER){
 	        XboxController xboxController = new XboxController(RobotConstants.UsbPorts.XBOX_CONTROLLER);
@@ -73,24 +139,17 @@ public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
 		selectedAutoMode = 0;
 
 		// Setup TestMode
-		testMode = () -> {}; // Creates a TestMode with empty test() function
+		testMode = () -> {};
 
 		TurtleDashboard.setAutoModeHolder(this);
-		TurtleDashboard.setup();
 
 	}
 
-	@Override
-	protected void disabled() {
-		logger.info("Robot disabled");
-		TurtleDashboard.disabled();
+	public void disabled() {
+
 	}
 
-	@Override
 	public void autonomous() {
-		logger.info("Entered autonomous control");
-		TurtleDashboard.autonomous();
-		
 		AutoMode autoMode = autoModes.get(selectedAutoMode);
 		
 		if(autoMode == null) {
@@ -100,22 +159,13 @@ public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
 		}
 	}
 
-	@Override
 	public void operatorControl() {
-		logger.info("Entered operator control");
-		TurtleDashboard.teleop();
-
-		while (isOperatorControl() && isEnabled()) {
-			chassis.teleUpdate();
-			//testBed.teleUpdate();
+		while (RobotState.isOperatorControl() && RobotState.isEnabled()) {
+			teleUpdate();
 		}
 	}
 
-	@Override
 	public void test() {
-		logger.info("Entered test mode");
-		TurtleDashboard.test();
-
 		if(testMode == null) {
 			logger.warn("Test mode not implemented");
 		} else {
@@ -123,10 +173,7 @@ public class BlastoiseRobot extends SampleRobot implements AutoModeHolder {
 		}
 	}
 
-	public static boolean isPracticeRobot() {
-		return RobotConstants.PRACTICE_ROBOT;
-	}
-	
+
 	/**
 	 * Get the list of auto modes
 	 */
