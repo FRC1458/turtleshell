@@ -27,15 +27,17 @@ public class TurtleJoystickAxis implements AnalogInput {
 		this.isReversed = isReversed;
 		this.positive = positive;
 	}
-	
+
 	public TurtleJoystickAxis(Joystick j, int axisNum) {
-		this(j,axisNum,false);
+		this(j, axisNum, false);
 	}
 
 	@Override
 	public double get() {
-		if(positive) return ((TurtleMaths.reverseBool(isReversed) * masterJoystick.getRawAxis(axisNum)) + 1.0) / 2.0;
-		return TurtleMaths.reverseBool(isReversed)*masterJoystick.getRawAxis(axisNum);
+		if (positive) {
+			return ((TurtleMaths.reverseBool(isReversed) * masterJoystick.getRawAxis(axisNum)) + 1.0) / 2.0;
+		}
+		return TurtleMaths.reverseBool(isReversed) * masterJoystick.getRawAxis(axisNum);
 	}
 
 	public TurtleJoystickAxis positive() {
