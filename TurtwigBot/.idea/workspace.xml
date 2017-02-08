@@ -3,15 +3,8 @@
   <component name="ChangeListManager">
 <<<<<<< Updated upstream
     <list default="true" id="a9727dbb-beef-4625-9255-ed850611aaed" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/team1458/turtleshell2/test/LoggerTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/team1458/turtleshell2/test/VisionTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../2017Vision/Actual.grip" afterPath="$PROJECT_DIR$/../2017Vision/Actual.grip" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/team1458/turtleshell2/movement/DriveTrain.java" afterPath="$PROJECT_DIR$/src/com/team1458/turtleshell2/movement/DriveTrain.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/team1458/turtleshell2/movement/TankDrive.java" afterPath="$PROJECT_DIR$/src/com/team1458/turtleshell2/movement/TankDrive.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/team1458/turtleshell2/util/TurtleDashboard.java" afterPath="$PROJECT_DIR$/src/com/team1458/turtleshell2/util/TurtleDashboard.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/team1458/turtleshell2/vision/GripInterface.java" afterPath="$PROJECT_DIR$/src/com/team1458/turtleshell2/vision/GripInterface.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseVision.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseVision.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Test.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Test.java" />
     </list>
 =======
     <list default="true" id="a9727dbb-beef-4625-9255-ed850611aaed" name="Default" comment="" />
@@ -60,8 +53,8 @@
       <file leaf-file-name="TurtleDashboard.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/util/TurtleDashboard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1803">
-              <caret line="159" column="70" selection-start-line="159" selection-start-column="70" selection-end-line="159" selection-end-column="70" />
+            <state relative-caret-position="255">
+              <caret line="156" column="16" selection-start-line="156" selection-start-column="16" selection-end-line="156" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -1389,6 +1382,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/util/TurtleDashboard.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
         <state relative-caret-position="1803">
           <caret line="159" column="70" selection-start-line="159" selection-start-column="70" selection-end-line="159" selection-end-column="70" />
 =======
@@ -1404,6 +1398,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
           <caret line="238" column="15" selection-start-line="238" selection-start-column="15" selection-end-line="238" selection-end-column="15" />
+>>>>>>> Stashed changes
+=======
+        <state relative-caret-position="255">
+          <caret line="156" column="16" selection-start-line="156" selection-start-column="16" selection-end-line="156" selection-end-column="16" />
 >>>>>>> Stashed changes
           <folding />
         </state>

@@ -1,21 +1,21 @@
 <grip:Pipeline>
   <sources>
-    <grip:ImageFile>
-      <property name="path" value="/Users/anish/Downloads/2017VisionExample/Vision Images/LED Peg/1ftH6ftD0Angle0Brightness.jpg"/>
-    </grip:ImageFile>
+    <grip:Camera>
+      <property name="address" value="http://roborio-1458-frc.local:5800/?action=stream"/>
+    </grip:Camera>
   </sources>
   <steps>
     <grip:Step name="HSL Threshold">
       <grip:Input step="0" socket="0"/>
       <grip:Input step="0" socket="1">
         <value>
-          <double>78.40296513399679</double>
-          <double>95.60330675398778</double>
+          <double>63.83461981025578</double>
+          <double>91.0192660069589</double>
         </value>
       </grip:Input>
       <grip:Input step="0" socket="2">
         <value>
-          <double>155.93525179856115</double>
+          <double>222.43705035971223</double>
           <double>255.0</double>
         </value>
       </grip:Input>
@@ -98,8 +98,52 @@
         <value>true</value>
       </grip:Input>
     </grip:Step>
+    <grip:Step name="Filter Contours">
+      <grip:Input step="4" socket="0"/>
+      <grip:Input step="4" socket="1">
+        <value>0.0</value>
+      </grip:Input>
+      <grip:Input step="4" socket="2">
+        <value>0.0</value>
+      </grip:Input>
+      <grip:Input step="4" socket="3">
+        <value>0.0</value>
+      </grip:Input>
+      <grip:Input step="4" socket="4">
+        <value>1000.0</value>
+      </grip:Input>
+      <grip:Input step="4" socket="5">
+        <value>0.0</value>
+      </grip:Input>
+      <grip:Input step="4" socket="6">
+        <value>1000.0</value>
+      </grip:Input>
+      <grip:Input step="4" socket="7">
+        <value>
+          <int>0</int>
+          <int>100</int>
+        </value>
+      </grip:Input>
+      <grip:Input step="4" socket="8">
+        <value>1000000.0</value>
+      </grip:Input>
+      <grip:Input step="4" socket="9">
+        <value>0.0</value>
+      </grip:Input>
+      <grip:Input step="4" socket="10">
+        <value>0.0</value>
+      </grip:Input>
+      <grip:Input step="4" socket="11">
+        <value>1000.0</value>
+      </grip:Input>
+      <grip:Output step="4" socket="0" previewed="false"/>
+    </grip:Step>
   </steps>
   <connections>
+    <grip:Connection>
+      <grip:Output source="0" socket="0" previewed="true"/>
+      <grip:Input step="0" socket="0"/>
+    </grip:Connection>
     <grip:Connection>
       <grip:Output step="1" socket="0" previewed="true"/>
       <grip:Input step="2" socket="0"/>
@@ -109,18 +153,14 @@
       <grip:Input step="1" socket="0"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output source="0" socket="0" previewed="false"/>
-      <grip:Input step="0" socket="0"/>
-    </grip:Connection>
-    <grip:Connection>
       <grip:Output step="2" socket="0" previewed="true"/>
       <grip:Input step="3" socket="0"/>
     </grip:Connection>
   </connections>
   <settings>
-    <teamNumber>0</teamNumber>
-    <publishAddress>roboRIO-0-FRC.local</publishAddress>
-    <deployAddress>roboRIO-0-FRC.local</deployAddress>
+    <teamNumber>1458</teamNumber>
+    <publishAddress>roboRIO-1458-FRC.local</publishAddress>
+    <deployAddress>roboRIO-1458-FRC.local</deployAddress>
     <deployDir>/home/lvuser</deployDir>
     <deployUser>lvuser</deployUser>
     <deployJavaHome>/usr/local/frc/JRE/</deployJavaHome>
@@ -129,9 +169,9 @@
   <codeGenerationSettings>
     <language>Java</language>
     <className>DetectVisionTarget</className>
-    <implementWpilibPipeline>false</implementWpilibPipeline>
-    <saveDir>/Users/anish/mnt/Blastoise2017</saveDir>
-    <packageName>org.frc.team1458</packageName>
+    <implementWpilibPipeline>true</implementWpilibPipeline>
+    <saveDir>/Users/anish/Desktop</saveDir>
+    <packageName>org.usfirst.frc.team1458.robot.vision</packageName>
     <moduleName>grip</moduleName>
   </codeGenerationSettings>
 </grip:Pipeline>
