@@ -10,6 +10,7 @@ public final class Distance implements Unit {
 	private final double value;
 
 	public static final Distance zero = new Distance(0);
+	public static final Distance error = new Distance(Double.NaN);
 
 	/**
 	 * Create a distance with a certain amount of inches

@@ -223,7 +223,7 @@ public class TurtleXtrinsicMagnetometer {
 
 	/**
 	 * This monstrosity converts the byte arrays found through the magnetometer
-	 * into the integer. Don't try to understand itß.
+	 * into the integer. Don't try to understand it.
 	 * 
 	 * @param byteArray
 	 *            MSB, LSB
