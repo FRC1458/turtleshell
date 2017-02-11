@@ -15,7 +15,11 @@ public class TurtleHallSensor implements TurtleRotationSensor {
 	private final Counter c;
 	
 	private Rate<Angle> prevRate;
-	
+
+	public TurtleHallSensor(int port) {
+		this(port, false);
+	}
+
 	public TurtleHallSensor(int port, boolean countHighs) {
 		c = new Counter();
 		c.setUpSource(port);

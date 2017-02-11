@@ -1,71 +1,95 @@
 package org.usfirst.frc.team1458.robot.components;
 
-import com.team1458.turtleshell2.core.RobotComponent;
-import com.team1458.turtleshell2.input.ButtonInput;
 import com.team1458.turtleshell2.movement.TurtleMotor;
-import com.team1458.turtleshell2.movement.TurtleVictorSP;
+import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
 import com.team1458.turtleshell2.pid.PID;
 import com.team1458.turtleshell2.sensor.TurtleHallSensor;
+import com.team1458.turtleshell2.util.PIDConstants;
 import com.team1458.turtleshell2.util.types.MotorValue;
-import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 
 /**
- * Basic code for a single shooter. Uses RPM internally. Maintains constant motor speed.
+ * Basic code for a single shooter. Maintains constant motor speed.
  * @author asinghani
  */
-public class BlastoiseShooter implements RobotComponent {
+public class BlastoiseShooter {
 	private TurtleHallSensor hallSensor;
-	private TurtleMotor shooter;
+	private TurtleMotor motor;
+
 	private PID pid;
+	private PIDConstants pidConstants;
+	private double speedTarget;
 
-	private boolean shooting = false;
+	private ShooterStatus status;
 
-	private ButtonInput shootButton;
-	private ButtonInput speedSwitch;
+	/**
+	 * Instantiates BlastoiseShooter
+	 * @param hallPort
+	 * @param motorPort
+	 * @param pidConstants
+	 * @param speedTarget
+	 */
+	public BlastoiseShooter(int hallPort, int motorPort, PIDConstants pidConstants, double speedTarget) {
+		this.hallSensor = new TurtleHallSensor(hallPort);
+		this.motor = new TurtleTalonSRXCAN(motorPort);
 
-	private double speedRPM;
-
-	public BlastoiseShooter(TurtleHallSensor hallSensor, int motorPort, ButtonInput shootButton, ButtonInput speedSwitch) {
-		this.hallSensor = hallSensor;
-		this.shooter = new TurtleVictorSP(motorPort);
-		this.shootButton = shootButton;
-		this.speedSwitch = speedSwitch;
-
-		speedRPM = getRPM();
-		pid = new PID(RobotConstants.Shooter.PID_CONSTANTS, speedRPM, 0);
+		this.status = ShooterStatus.STOPPED;
+		this.pidConstants = pidConstants;
+		setSpeedTarget(speedTarget);
 	}
 
-	public void startShooting() {
-		shooting = true;
-		speedRPM = getRPM();
-		pid = new PID(RobotConstants.Shooter.PID_CONSTANTS, speedRPM, 0);
+	/**
+	 * Sets the speed target in RPM
+	 * @param speedTarget
+	 */
+	public void setSpeedTarget(double speedTarget) {
+		this.speedTarget = speedTarget;
+		pid = new PID(pidConstants, speedTarget, 0);
 	}
 
-	public void stopShooting() {
-		shooting = false;
-		shooter.set(MotorValue.zero);
+	/**
+	 * Starts shooting
+	 */
+	public void start() {
+		status = ShooterStatus.SHOOTING;
+		setSpeedTarget(speedTarget);
 	}
 
+	/**
+	 * Starts running the shooter in reverse
+	 */
+	public void startReverse() {
+		status = ShooterStatus.REVERSE;
+		setSpeedTarget(speedTarget);
+	}
+
+	/**
+	 * Stops the shooter
+	 */
+	public void stop() {
+		status = ShooterStatus.STOPPED;
+		motor.set(MotorValue.zero);
+	}
+
+	/**
+	 * Adjusts the shooter speed based on desired RPM
+	 */
 	public void teleUpdate() {
-		if(shooting){
-			if(getRPM() != speedRPM) {
-				speedRPM = getRPM();
-				pid = new PID(RobotConstants.Shooter.PID_CONSTANTS, speedRPM, 0);
-			}
-
+		if(status != ShooterStatus.STOPPED){
 			double motorPower = pid.newValue(hallSensor.getRPM());
 			MotorValue motorValue = new MotorValue(motorPower);
-			shooter.set(motorValue);
-		} else {
-			shooter.set(MotorValue.zero);
+			if(status == ShooterStatus.REVERSE) motorValue = motorValue.invert();
+			motor.set(motorValue);
 		}
 	}
 
-	public void stop() {
-		stopShooting();
+	/**
+	 * Get the speed of the shooter in RPM
+	 */
+	public double getSpeed() {
+		return hallSensor.getRPM();
 	}
 
-	public double getRPM() {
-		return speedSwitch.getButton() ? RobotConstants.Shooter.LOW_RPM : RobotConstants.Shooter.HIGH_RPM;
+	public enum ShooterStatus {
+		SHOOTING, STOPPED, REVERSE
 	}
 }
