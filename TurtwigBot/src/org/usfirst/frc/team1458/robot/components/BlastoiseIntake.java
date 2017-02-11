@@ -1,82 +1,66 @@
 package org.usfirst.frc.team1458.robot.components;
 
-import com.team1458.turtleshell2.core.RobotComponent;
-import com.team1458.turtleshell2.input.ButtonInput;
-import com.team1458.turtleshell2.input.DigitalInput;
-import com.team1458.turtleshell2.movement.MotorSet;
+import com.team1458.turtleshell2.movement.TurtleMotor;
 import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
 import com.team1458.turtleshell2.util.types.MotorValue;
-import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 
 /**
- * Code for intake
+ * Intake code
  *
  * @author asinghani
  */
-public class BlastoiseIntake implements RobotComponent {
-	private MotorSet motors = new MotorSet(new TurtleTalonSRXCAN(RobotConstants.Intake.MOTOR_PORT));
-
-	private DigitalInput enableSwitch;//TODO: Why is this DigitalInput rather than ButtonInput?
-	private ButtonInput unclogButton;
-
-	// Unclog function
-	private boolean unclogging = false;
-	private long stopUnclogTime = 0;
+public class BlastoiseIntake {
+	/**
+	 * Motor
+	 */
+	private TurtleMotor motor;
+	private MotorValue speed;
 
 	private IntakeStatus status;
 
-	public BlastoiseIntake(DigitalInput enableSwitch, ButtonInput unclogButton) {
-		this.enableSwitch = enableSwitch;
-		this.unclogButton = unclogButton;
-
+	/**
+	 * Instantiates BlastoiseIntake
+	 * @param motorPort
+	 * @param speed
+	 */
+	public BlastoiseIntake(int motorPort, MotorValue speed) {
+		this.motor = new TurtleTalonSRXCAN(motorPort);
 		this.status = IntakeStatus.STOPPED;
+		this.speed = speed;
 	}
 
-	@Override
-	public void teleUpdate() {
-		if(unclogButton.getUp()) {
-			unclog();
-		}
-
-		if(unclogging && System.currentTimeMillis() > stopUnclogTime) {
-			unclogging = false;
-		}
-
-		if(!unclogging) {
-			if(enableSwitch.get() == 1) {
-				status = IntakeStatus.RUNNING;
-				motors.set(RobotConstants.Intake.SPEED);
-			} else {
-				status = IntakeStatus.STOPPED;
-				motors.set(MotorValue.zero);
-			}
-		}
+	/**
+	 * Start running the intake
+	 */
+	public void start() {
+		status = IntakeStatus.RUNNING;
+		motor.set(speed);
 	}
 
-	public void unclog() {
-		if(!unclogging) {
-			unclogging = true;
-			status = IntakeStatus.UNCLOGGING;
-
-			motors.set(RobotConstants.Intake.UNCLOG_SPEED);
-			stopUnclogTime = System.currentTimeMillis() + RobotConstants.Intake.UNCLOG_TIME.getMillis();
-		}
+	/**
+	 * Start running the intake in reverse
+	 */
+	public void startReverse() {
+		status = IntakeStatus.REVERSED;
+		motor.set(speed.invert());
 	}
 
-	public boolean isUnclogging() {
-		return unclogging;
+	/**
+	 * Stop running the intake
+	 */
+	public void stop() {
+		status = IntakeStatus.STOPPED;
+		motor.set(MotorValue.zero);
 	}
 
+	/**
+	 * Get the current status of the intake
+	 */
 	public IntakeStatus getStatus() {
 		return status;
 	}
 
 	public enum IntakeStatus {
-		STOPPED(0), RUNNING(1), UNCLOGGING(2);
-
-		public final int id;
-		IntakeStatus(int i) {
-			id = i;
-		}
+		RUNNING, REVERSED, STOPPED
 	}
 }

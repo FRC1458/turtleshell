@@ -6,7 +6,7 @@ package com.team1458.turtleshell2.input;
  *
  */
 public interface ButtonInput extends DigitalInput {
-	public default boolean getButton() {
+	default boolean getButton() {
 		return (this.get() == 1);
 	}
 
@@ -15,11 +15,17 @@ public interface ButtonInput extends DigitalInput {
 	 * Will not trigger more than once without being released in between.
 	 * @return
 	 */
-	public boolean getDown();
+	boolean getDown();
+
 	/**
 	 * Detect a falling edge (Button being released).
 	 * Will not trigger more than once without being pressed in between.
 	 * @return
 	 */
-	public boolean getUp();
+	boolean getUp();
+
+	/**
+	 * Has the button changed since last time it was used?
+	 */
+	boolean hasChanged();
 }

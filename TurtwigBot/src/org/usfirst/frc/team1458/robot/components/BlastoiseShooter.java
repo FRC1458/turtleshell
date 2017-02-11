@@ -18,6 +18,8 @@ public class BlastoiseShooter implements RobotComponent {
 	private TurtleMotor shooter;
 	private PID pid;
 
+	private boolean shooting = false;
+
 	private ButtonInput shootButton;
 	private ButtonInput speedSwitch;
 
@@ -33,14 +35,19 @@ public class BlastoiseShooter implements RobotComponent {
 		pid = new PID(RobotConstants.Shooter.PID_CONSTANTS, speedRPM, 0);
 	}
 
-	@Override
-	public void teleUpdate() {
-		if(shootButton.getButton()){
-			if(shootButton.getDown()) {
-				speedRPM = getRPM();
-				pid = new PID(RobotConstants.Shooter.PID_CONSTANTS, speedRPM, 0);
-			}
+	public void startShooting() {
+		shooting = true;
+		speedRPM = getRPM();
+		pid = new PID(RobotConstants.Shooter.PID_CONSTANTS, speedRPM, 0);
+	}
 
+	public void stopShooting() {
+		shooting = false;
+		shooter.set(MotorValue.zero);
+	}
+
+	public void teleUpdate() {
+		if(shooting){
 			if(getRPM() != speedRPM) {
 				speedRPM = getRPM();
 				pid = new PID(RobotConstants.Shooter.PID_CONSTANTS, speedRPM, 0);
@@ -48,11 +55,14 @@ public class BlastoiseShooter implements RobotComponent {
 
 			double motorPower = pid.newValue(hallSensor.getRPM());
 			MotorValue motorValue = new MotorValue(motorPower);
-
 			shooter.set(motorValue);
 		} else {
 			shooter.set(MotorValue.zero);
 		}
+	}
+
+	public void stop() {
+		stopShooting();
 	}
 
 	public double getRPM() {

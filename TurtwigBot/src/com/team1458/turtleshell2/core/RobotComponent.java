@@ -1,11 +1,8 @@
 package com.team1458.turtleshell2.core;
 
 /**
- * Interface for 
- * @author mehnadnerd
- *
+ * A robot component is a wrapper for a hardware object
  */
 public interface RobotComponent {
-	public void teleUpdate();
-	//public void autoUpdate();
+	void stop();
 }

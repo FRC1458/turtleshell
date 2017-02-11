@@ -12,6 +12,7 @@ public abstract class SampleButtonInput implements ButtonInput {
 	private boolean lastValue = false;
 	boolean pressed = false;
 	boolean released = false;
+	boolean last = false;
 
 	Timer timer;
 
@@ -36,6 +37,7 @@ public abstract class SampleButtonInput implements ButtonInput {
 	public abstract boolean getButton();
 
 	public boolean getDown() {
+		last = getButton();
 		if(pressed) {
 			pressed = false;
 			return true;
@@ -44,6 +46,7 @@ public abstract class SampleButtonInput implements ButtonInput {
 	}
 
 	public boolean getUp() {
+		last = getButton();
 		if(released) {
 			released = false;
 			return true;
@@ -53,6 +56,14 @@ public abstract class SampleButtonInput implements ButtonInput {
 
 	@Override
 	public int get() {
+		last = getButton();
 		return getButton() ? 1 : 0;
+	}
+
+	@Override
+	public boolean hasChanged() {
+		boolean returnVal = last != getButton();
+		last = getButton();
+		return returnVal;
 	}
 }

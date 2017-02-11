@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  * @author asinghani
  */
-public class BlastoiseTestBed implements RobotComponent {
+public class BlastoiseTestBed {
 
 	Logger logger;
 	boolean disabled = false;
@@ -75,8 +75,7 @@ public class BlastoiseTestBed implements RobotComponent {
 			logger.warn("BlastoiseTestBed was instantiated while FMS enabled");
 		}
 	}
-	
-	@Override
+
 	public void teleUpdate() {
 		if (disabled) {
 			return;

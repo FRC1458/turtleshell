@@ -79,7 +79,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 		if(inputManager.alignShooterButton.getDown()) {
 			turnPid = new PID(RobotConstants.Shooter.TurnPID.PID_CONSTANTS, 165, 0);
 		}
-		
+
 		MotorValue motorValue =
 				new MotorValue(turnPid.newValue(vision.getShooterTargetX()))
 						.mapToSpeed(RobotConstants.Shooter.TurnPID.SPEED);
