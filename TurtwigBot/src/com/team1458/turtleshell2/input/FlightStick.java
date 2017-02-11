@@ -33,11 +33,11 @@ public class FlightStick {
 		}
 	}
 
-	public TurtleJoystickAxis getAxis(FlightAxis a) {
+	public JoystickAxis getAxis(FlightAxis a) {
 		if (a == FlightAxis.PITCH) {
-			return new TurtleJoystickAxis(j, a.val, true);
+			return new JoystickAxis(j, a.val, true);
 		}
-		return new TurtleJoystickAxis(j, a.val, false);
+		return new JoystickAxis(j, a.val, false);
 	}
 
 	public TurtleJoystickButton getButton(FlightButton b) {

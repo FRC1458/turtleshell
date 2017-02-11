@@ -32,20 +32,15 @@ public class BlastoiseChassis {
 	// Sensors
 	private TurtleNavX navX = null;
 
-	// Input
-	BlastoiseInputManager inputManager;
-
 	private Logger logger;
 
 	/**
 	 * Main constructor for BlastoiseChassis
 	 * Accepts TurtleAnalogInputs and TurtleDigitalInputs
 	 */
-	public BlastoiseChassis(BlastoiseInputManager inputManager, TurtleNavX navX, Logger logger) {
-		this.inputManager = inputManager;
+	public BlastoiseChassis(TurtleNavX navX, Logger logger) {
 		this.navX = navX;
 
-		TurtleDashboard.logAxis(inputManager.getLeftJoystick(), inputManager.getLeftJoystick());
 
 		this.logger = logger;
 
@@ -53,7 +48,7 @@ public class BlastoiseChassis {
 		TurtleDashboard.enablePidTuning(RobotConstants.TurnPID.PID_CONSTANTS, "TurnPID");
 	}
 
-	PID gearAlignPID = new PID(RobotConstants.GearPID.PID_CONSTANTS, RobotConstants.Vision.CAMERA_WIDTH, 0);
+	PID gearAlignPID = new PID(RobotConstants.TurnPID.PID_CONSTANTS, RobotConstants.Vision.CAMERA_WIDTH, 0);
 
 	/**
 	 * Chassis Specific Initialization

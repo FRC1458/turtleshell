@@ -43,9 +43,9 @@ public class DetectTargetPipeline implements VisionPipeline {
 	public void process(Mat source0, ArrayList<MatOfPoint> source1) {
 		// Step HSL_Threshold0:
 		Mat hslThresholdInput = source0;
-		double[] hslThresholdHue = {63.83461981025578, 91.0192660069589};
-		double[] hslThresholdSaturation = {222.43705035971223, 255.0};
-		double[] hslThresholdLuminance = {40.387351136040266, 250.26268091096532};
+		double[] hslThresholdHue = {57.0, 84.0};
+		double[] hslThresholdSaturation = {245.0, 255.0};
+		double[] hslThresholdLuminance = {16.0, 255.0};
 		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
 
 		// Step Find_Contours0:
@@ -55,7 +55,7 @@ public class DetectTargetPipeline implements VisionPipeline {
 
 		// Step Filter_Contours0:
 		ArrayList<MatOfPoint> filterContours0Contours = findContoursOutput;
-		double filterContours0MinArea = 200.0;
+		double filterContours0MinArea = 2.0;
 		double filterContours0MinPerimeter = 0.0;
 		double filterContours0MinWidth = 0.0;
 		double filterContours0MaxWidth = 1000.0;

@@ -11,26 +11,29 @@ import com.team1458.turtleshell2.input.fake.FakeRumbleable;
 public class BlastoiseInputManager implements Rumbleable {
 
 	// Drive Joysticks
-	private AnalogInput leftJoystick;
-	private AnalogInput rightJoystick;
+	AnalogInput leftJoystick;
+	AnalogInput rightJoystick;
 
 	// Extra Drive Functions
-	private ButtonInput straightButton;
-	private ButtonInput turnRightButton;
-	private ButtonInput turnLeftButton;
+	ButtonInput straightButton;
+	ButtonInput turnRightButton;
+	ButtonInput turnLeftButton;
 
 	// Turn for degrees buttons
-	private ButtonInput right90button;
-	private ButtonInput left90button;
+	ButtonInput right90button;
+	ButtonInput left90button;
 
 	// Slow button for finer control
-	private ButtonInput slowButton;
+	ButtonInput slowButton;
+
+	// Stuff related to vision
+	ButtonInput alignShooterButton;
 
 	// POV switch
-	private DigitalInput pov;
+	DigitalInput pov;
 
 	// Rumble
-	private Rumbleable rumbleController;
+	Rumbleable rumbleController;
 
 	/**
 	 * Instantiate BlastoiseInputManager with 2 flight sticks
@@ -53,6 +56,8 @@ public class BlastoiseInputManager implements Rumbleable {
 		this.slowButton = new MultiButtonInput(MultiButtonInput.Operator.OR,
 				rightStick.getButton(FlightStick.FlightButton.TWO),
 				leftStick.getButton(FlightStick.FlightButton.TWO));
+
+		this.alignShooterButton = rightStick.getButton(FlightStick.FlightButton.FIVE);
 
 		// POV switch
 		this.pov = rightStick.getPOVSwitch();
@@ -81,6 +86,8 @@ public class BlastoiseInputManager implements Rumbleable {
 		// Slow Button for finer control
 		this.slowButton = controller.getButton(XboxController.XboxButton.A);
 
+		this.alignShooterButton = controller.getButton(XboxController.XboxButton.Y);
+
 		// POV switch
 		this.pov = controller.getDPad();
 
@@ -103,47 +110,11 @@ public class BlastoiseInputManager implements Rumbleable {
 		rumbleController.rumble(strength, millis);
 	}
 
-	public AnalogInput getLeftJoystick() {
-		return leftJoystick;
-	}
-
-	public AnalogInput getRightJoystick() {
-		return rightJoystick;
-	}
-
 	public double getLeft() {
 		return leftJoystick.get();
 	}
 
 	public double getRight() {
 		return rightJoystick.get();
-	}
-
-	public ButtonInput getStraightButton() {
-		return straightButton;
-	}
-
-	public ButtonInput getTurnRightButton() {
-		return turnRightButton;
-	}
-
-	public ButtonInput getTurnLeftButton() {
-		return turnLeftButton;
-	}
-
-	public ButtonInput getRight90button() {
-		return right90button;
-	}
-
-	public ButtonInput getLeft90button() {
-		return left90button;
-	}
-
-	public ButtonInput getSlowButton() {
-		return slowButton;
-	}
-
-	public DigitalInput getPov() {
-		return pov;
 	}
 }

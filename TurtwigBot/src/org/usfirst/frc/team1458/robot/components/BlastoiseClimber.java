@@ -18,17 +18,17 @@ public class BlastoiseClimber implements RobotComponent {
 	// We need to detect stall
 	private TurtleSmartMotor motor1 = new TurtleTalonSRXCAN(RobotConstants.Climber.MOTOR_PORT);
 
-	private ButtonInput climbButton;
+	private ButtonInput climbSwitch;
 
 	private boolean climbing;
 
-	public BlastoiseClimber(ButtonInput climbButton) {
-		this.climbButton = climbButton;
+	public BlastoiseClimber(ButtonInput climbSwitch) {
+		this.climbSwitch = climbSwitch;
 	}
 
 	@Override
 	public void teleUpdate() {
-		if(climbButton.getDown()) {
+		if(climbSwitch.getButton()) {
 			motor1.set(RobotConstants.Climber.SPEED);
 			climbing = true;
 		} else {

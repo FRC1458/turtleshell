@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.util.BaseSystemNotInitializedException;
 /**
  * Class for a PID loop. Handles integration and derivation itself
  * @author asinghani
- *
  */
 public class PID {
 	private final PIDConstants constants;
@@ -19,12 +18,22 @@ public class PID {
 	private double derivative = 0;
 	private double sum = 0;
 	private double lastTime = -1;
+	private boolean decay = false;
 
 	public PID(PIDConstants constants, double target, double deadband) {
 		this.constants = constants;
 		this.target = target;
 		this.deadband = Math.abs(deadband);
 		this.lastError = Double.POSITIVE_INFINITY;
+		this.decay = false;
+	}
+
+	public PID(PIDConstants constants, double target, double deadband, boolean decay) {
+		this.constants = constants;
+		this.target = target;
+		this.deadband = Math.abs(deadband);
+		this.lastError = Double.POSITIVE_INFINITY;
+		this.decay = decay;
 	}
 
 	/**
@@ -47,7 +56,7 @@ public class PID {
 
 		lastTime = getTime();
 		sum += value;
-		sum = 0.75 * sum; //Why is this here? Decaying I term
+		if(decay) sum = 0.75 * sum; // This decays the I term so it doesn't spiral out of control when the error is large
 		lastError = error;
 
 		return output;

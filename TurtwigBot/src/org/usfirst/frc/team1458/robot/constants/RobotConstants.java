@@ -13,7 +13,7 @@ import com.team1458.turtleshell2.util.types.Time;
  */
 public class RobotConstants {
 
-	public static boolean PRACTICE_ROBOT = false;
+	public static boolean PRACTICE_ROBOT = true;
 	
 	/**
 	 * Shooter-related constants
@@ -24,6 +24,27 @@ public class RobotConstants {
 		public static final double LOW_RPM = 3500;
 
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0, 0, 0);
+
+		// TODO fix these constants
+		public static final class Camera {
+			public static final double MOUNT_ANGLE = 20.0;
+			public static final double MOUNT_HEIGHT = 7.0;
+
+			public static final double HEIGHT_FOV = 41.1;
+			public static final double WIDTH_FOV = 54.8;
+
+			public static final double WIDTH_PX = 320;
+			public static final double HEIGHT_PX = 240;
+
+			public static final String CAMERA_URL = "http://localhost:5800/?action=stream";
+		}
+
+		public static final class TurnPID {
+			public static final PIDConstants PID_CONSTANTS = new PIDConstants(1.0/160.0, 0, 0);
+
+			public static final MotorValue SPEED = new MotorValue(0.5);
+
+		}
 	}
 
 	/**
@@ -69,8 +90,8 @@ public class RobotConstants {
 	 * Settings for vision
 	 */
 	public static final class Vision {
-		public static final int CAMERA_WIDTH = 480;
-		public static final int CAMERA_HEIGHT = 320;
+		public static final int CAMERA_WIDTH = 320;
+		public static final int CAMERA_HEIGHT = 240;
 
 		public static final String CAMERA_URL = "http://localhost:5801/?action=stream";
 	}
@@ -96,21 +117,11 @@ public class RobotConstants {
 	}
 
 	/**
-	 * Gear Alignment PID
-	 */
-	public static final class GearPID {
-		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0, 0, 0);
-
-		public static final MotorValue SPEED = new MotorValue(0.5);
-
-	}
-
-	/**
 	 * Misc
 	 */
 	public static final Logger.LogFormat LOGGER_MODE = Logger.LogFormat.PLAINTEXT;
-	public static final double JOYSTICK_DEADBAND = 0.08;
-	public static final boolean USE_XBOX_CONTROLLER = false;
+	public static final double JOYSTICK_DEADBAND = 0.1;
+	public static final boolean USE_XBOX_CONTROLLER = true;
 	public static final boolean LOGISTIC_SCALE = false;
 
 	public static final double COLLISION_THRESHOLD = 1.5f;

@@ -129,9 +129,7 @@ public abstract class BlastoiseAutoMode implements AutoMode {
 	 */
 	public void turnDegrees(double degrees, double speed) {
 
-		MotorValue turnSpeed = new MotorValue(TurtleMaths.fitRange(speed, 0, 1));
-		// TODO: this is redundant, MotorValue fits this, unless you are trying
-		// to make it unable to be negative
+		MotorValue turnSpeed = new MotorValue(TurtleMaths.fitRange(speed, 0, 1)); // Must be nonnegative
 		rotationSensor.reset();
 
 		PID turnPID = new PID(RobotConstants.TurnPID.PID_CONSTANTS, degrees, RobotConstants.TurnPID.TOLERANCE);

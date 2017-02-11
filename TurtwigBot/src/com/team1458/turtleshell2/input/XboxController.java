@@ -30,11 +30,11 @@ public class XboxController implements Rumbleable {
 		}
 	}
 
-	public TurtleJoystickAxis getAxis(XboxAxis a) {
+	public JoystickAxis getAxis(XboxAxis a) {
 		if (a == XboxAxis.LY || a == XboxAxis.RY) {
-			return new TurtleJoystickAxis(j, a.val, true);
+			return new JoystickAxis(j, a.val, true);
 		}
-		return new TurtleJoystickAxis(j, a.val);
+		return new JoystickAxis(j, a.val);
 	}
 
 	public TurtleJoystickButton getButton(XboxButton b) {
