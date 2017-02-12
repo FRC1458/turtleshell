@@ -11,10 +11,9 @@ import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
-import org.usfirst.frc.team1458.robot.BlastoiseInputManager;
 import org.usfirst.frc.team1458.robot.Robot;
 import org.usfirst.frc.team1458.robot.constants.BlastoiseConstants;
-import org.usfirst.frc.team1458.robot.constants.RobotConstants;
+import org.usfirst.frc.team1458.robot.constants.OldConstants;
 import org.usfirst.frc.team1458.robot.constants.TurtwigConstants;
 
 /**
@@ -45,10 +44,10 @@ public class BlastoiseChassis {
 		this.logger = logger;
 
 		setupDrivetrain();
-		TurtleDashboard.enablePidTuning(RobotConstants.TurnPID.PID_CONSTANTS, "TurnPID");
+		TurtleDashboard.enablePidTuning(OldConstants.TurnPID.PID_CONSTANTS, "TurnPID");
 	}
 
-	PID gearAlignPID = new PID(RobotConstants.TurnPID.PID_CONSTANTS, RobotConstants.Vision.CAMERA_WIDTH, 0);
+	PID gearAlignPID = new PID(OldConstants.TurnPID.PID_CONSTANTS, OldConstants.Vision.CAMERA_WIDTH, 0);
 
 	/**
 	 * Chassis Specific Initialization

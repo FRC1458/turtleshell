@@ -11,9 +11,9 @@ import com.team1458.turtleshell2.util.types.Time;
  *
  * @author asinghani
  */
-public class RobotConstants {
+public class OldConstants {
 
-	public static boolean PRACTICE_ROBOT = true;
+	public static boolean PRACTICE_ROBOT = false;
 	
 	/**
 	 * Shooter-related constants
@@ -23,7 +23,7 @@ public class RobotConstants {
 		public static final double HIGH_RPM = 4000;
 		public static final double LOW_RPM = 3500;
 
-		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0, 0, 0);
+		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.4, 0, 0);
 
 		// TODO fix these constants
 		public static final class Camera {
@@ -127,11 +127,11 @@ public class RobotConstants {
 	public static final double COLLISION_THRESHOLD = 1.5f;
 
 	/**
-	 * Constructor so RobotConstants can't be initialised
+	 * Constructor so OldConstants can't be initialised
 	 *
 	 * @throws IllegalStateException when called
  	 */
-	private RobotConstants() {
-		throw new IllegalStateException("RobotConstants cannot be initialized. Something very bad has happened.");
+	private OldConstants() {
+		throw new IllegalStateException("OldConstants cannot be initialized. Something very bad has happened.");
 	}
 }

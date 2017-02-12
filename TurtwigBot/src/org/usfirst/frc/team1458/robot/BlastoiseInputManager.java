@@ -1,7 +1,9 @@
 package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell2.input.*;
+import com.team1458.turtleshell2.input.fake.FakeButtonInput;
 import com.team1458.turtleshell2.input.fake.FakeRumbleable;
+import org.usfirst.frc.team1458.robot.constants.BlastoiseConstants;
 
 /**
  * Manages all input/control for Robot
@@ -29,6 +31,11 @@ public class BlastoiseInputManager implements Rumbleable {
 	// Stuff related to vision
 	ButtonInput alignShooterButton;
 
+	// Actuators On Robot
+	ButtonInput climberSwitch = new FakeButtonInput();
+	DigitalInput intakeSwitch = new FakeButtonInput();
+	ButtonInput shootButton = new FakeButtonInput();
+
 	// POV switch
 	DigitalInput pov;
 
@@ -38,7 +45,7 @@ public class BlastoiseInputManager implements Rumbleable {
 	/**
 	 * Instantiate BlastoiseInputManager with 2 flight sticks
 	 */
-	public BlastoiseInputManager(FlightStick leftStick, FlightStick rightStick) {
+	public BlastoiseInputManager(FlightStick leftStick, FlightStick rightStick, BlastoiseController blastoiseController) {
 		// Drive Joysticks
 		this.leftJoystick = leftStick.getAxis(FlightStick.FlightAxis.PITCH);
 		this.rightJoystick = rightStick.getAxis(FlightStick.FlightAxis.PITCH);
@@ -69,7 +76,7 @@ public class BlastoiseInputManager implements Rumbleable {
 	/**
 	 * Instantiate BlastoiseInputManager with xbox controller
 	 */
-	public BlastoiseInputManager(XboxController controller) {
+	public BlastoiseInputManager(XboxController controller, BlastoiseController blastoiseController) {
 		// Drive Joysticks
 		this.leftJoystick = controller.getAxis(XboxController.XboxAxis.LY);
 		this.rightJoystick = controller.getAxis(XboxController.XboxAxis.RY);

@@ -3,19 +3,15 @@ package org.usfirst.frc.team1458.robot.vision;
 import edu.wpi.cscore.HttpCamera;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSource;
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.VisionThread;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
-import org.usfirst.frc.team1458.robot.constants.RobotConstants;
+import org.usfirst.frc.team1458.robot.constants.OldConstants;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Vision detection code for 2017
@@ -36,7 +32,7 @@ public class BlastoiseVision {
 	 */
 	public BlastoiseVision(VideoSource videoSource) {
 		this.videoSource = videoSource;
-		videoSource.setResolution(RobotConstants.Vision.CAMERA_WIDTH, RobotConstants.Vision.CAMERA_HEIGHT);
+		videoSource.setResolution(OldConstants.Vision.CAMERA_WIDTH, OldConstants.Vision.CAMERA_HEIGHT);
 		
 		VisionThread visionThread = new VisionThread(videoSource, new DetectTargetPipeline(), pipeline -> {
 			synchronized (lock) {
@@ -75,6 +71,7 @@ public class BlastoiseVision {
 		if (!data.isEmpty()) {
 			for(MatOfPoint matOfPoint : data) {
 				contours.add(Imgproc.boundingRect(matOfPoint));
+				matOfPoint.release();
 			}
 		}
 	}
@@ -86,25 +83,27 @@ public class BlastoiseVision {
 	}
 
 	public double getShooterTargetDistance() {
-		ArrayList<Rect> contours = getContours();
-		if(contours.size() < 2){
+		ArrayList<Rect> contours = getCorrectContours();
+		if(contours.size() != 2){
 			return -1;
 		}
-		Collections.sort(contours, (Rect r1, Rect r2) -> ((int) (r1.area() - r2.area())) );
-		Collections.reverse(contours);
 
-		assert contours.size() >= 2;
+		double x1 = contours.get(0).x + (contours.get(0).width/2.0);
+		double x2 = contours.get(1).x + (contours.get(1).width/2.0);
 
-		double xCoord = ((double) (contours.get(0).x + contours.get(1).x)) / 2.0;
-		double yCoord = ((double) (contours.get(0).y + contours.get(1).y)) / 2.0;
+		double y1 = contours.get(0).y + (contours.get(0).height/2.0);
+		double y2 = contours.get(1).y + (contours.get(1).height/2.0);
+
+		double xCoord = (x1 + x2) / 2.0;
+		double yCoord = (y1 + y2) / 2.0;
 
 		SmartDashboard.putNumber("X of target", xCoord);
 		SmartDashboard.putNumber("Y of target", yCoord);
 
-		double cameraHeightDifference = (78 - RobotConstants.Shooter.Camera.MOUNT_HEIGHT);
-		double pixelDifference = (RobotConstants.Shooter.Camera.HEIGHT_PX - yCoord) / RobotConstants.Shooter.Camera.HEIGHT_PX;
-		double angle = RobotConstants.Shooter.Camera.MOUNT_ANGLE +
-				(RobotConstants.Shooter.Camera.HEIGHT_FOV * pixelDifference);
+		double cameraHeightDifference = (78 - OldConstants.Shooter.Camera.MOUNT_HEIGHT);
+		double pixelDifference = (OldConstants.Shooter.Camera.HEIGHT_PX - yCoord) / OldConstants.Shooter.Camera.HEIGHT_PX;
+		double angle = OldConstants.Shooter.Camera.MOUNT_ANGLE +
+				(OldConstants.Shooter.Camera.HEIGHT_FOV * pixelDifference);
 		angle = Math.toRadians(angle);
 		double distance = cameraHeightDifference * (1 / Math.tan(angle));
 
@@ -113,21 +112,46 @@ public class BlastoiseVision {
 		return distance;
 	}
 
-	public double getShooterTargetX() {
+	public ArrayList<Rect> getCorrectContours() {
 		ArrayList<Rect> contours = getContours();
 		if(contours.size() < 2){
+			return new ArrayList<>();
+		}
+
+		Collections.sort(contours, (Rect r1, Rect r2) -> ((int) (r1.area() - r2.area())));
+		Collections.reverse(contours);
+		Rect contour1 = contours.get(0);
+		Rect contour2 = new Rect(100000, 100000, 100000, 100000);
+		for(int i = 1; i < contours.size(); i++) {
+			if(Math.abs(contour1.x - contour2.x) > Math.abs(contour1.x - contours.get(i).x)){
+				contour2 = contours.get(i);
+			}
+		}
+		
+		System.out.println(contour1.toString() + ", "+contour2.toString());
+		SmartDashboard.putString("ContoursInfo", contour1.toString() + ", "+contour2.toString());
+		
+		return new ArrayList<>(Arrays.asList(new Rect[]{contour1, contour2}));
+	}
+
+	public double getShooterTargetX() {
+		ArrayList<Rect> contours = getCorrectContours();
+		if(contours.size() != 2){
 			return -1;
 		}
-		Collections.sort(contours, (Rect r1, Rect r2) -> ((int) (r1.area() - r2.area())) );
-		Collections.reverse(contours);
 
-		assert contours.size() >= 2;
+		double x1 = contours.get(0).x + (contours.get(0).width/2.0);
+		double x2 = contours.get(1).x + (contours.get(1).width/2.0);
 
-		double xCoord = ((double) (contours.get(0).x + contours.get(1).x)) / 2.0;
-		double yCoord = ((double) (contours.get(0).y + contours.get(1).y)) / 2.0;
+		double y1 = contours.get(0).y + (contours.get(0).height/2.0);
+		double y2 = contours.get(1).y + (contours.get(1).height/2.0);
+
+		double xCoord = (x1 + x2) / 2.0;
+		double yCoord = (y1 + y2) / 2.0;
 
 		SmartDashboard.putNumber("X of target", xCoord);
 		SmartDashboard.putNumber("Y of target", yCoord);
+	
 
 		return xCoord;
 	}

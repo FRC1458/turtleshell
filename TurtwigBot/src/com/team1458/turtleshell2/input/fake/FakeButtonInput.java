@@ -25,4 +25,9 @@ public class FakeButtonInput implements ButtonInput {
 	public int get() {
 		return 0;
 	}
+	
+	@Override
+	public boolean hasChanged() {
+		return false;
+	}
 }

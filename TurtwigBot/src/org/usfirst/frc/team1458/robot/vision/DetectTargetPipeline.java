@@ -43,9 +43,9 @@ public class DetectTargetPipeline implements VisionPipeline {
 	public void process(Mat source0, ArrayList<MatOfPoint> source1) {
 		// Step HSL_Threshold0:
 		Mat hslThresholdInput = source0;
-		double[] hslThresholdHue = {57.0, 84.0};
+		double[] hslThresholdHue = {59.0, 85.0};
 		double[] hslThresholdSaturation = {245.0, 255.0};
-		double[] hslThresholdLuminance = {16.0, 255.0};
+		double[] hslThresholdLuminance = {28.0, 255.0};
 		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
 
 		// Step Find_Contours0:
@@ -55,7 +55,7 @@ public class DetectTargetPipeline implements VisionPipeline {
 
 		// Step Filter_Contours0:
 		ArrayList<MatOfPoint> filterContours0Contours = findContoursOutput;
-		double filterContours0MinArea = 2.0;
+		double filterContours0MinArea = 50.0;
 		double filterContours0MinPerimeter = 0.0;
 		double filterContours0MinWidth = 0.0;
 		double filterContours0MaxWidth = 1000.0;
@@ -64,12 +64,12 @@ public class DetectTargetPipeline implements VisionPipeline {
 		double[] filterContours0Solidity = {0, 100};
 		double filterContours0MaxVertices = 1000000.0;
 		double filterContours0MinVertices = 0.0;
-		double filterContours0MinRatio = 0.0;
-		double filterContours0MaxRatio = 1000.0;
+		double filterContours0MinRatio = 1.0;
+		double filterContours0MaxRatio = 4.0;
 		filterContours(filterContours0Contours, filterContours0MinArea, filterContours0MinPerimeter, filterContours0MinWidth, filterContours0MaxWidth, filterContours0MinHeight, filterContours0MaxHeight, filterContours0Solidity, filterContours0MaxVertices, filterContours0MinVertices, filterContours0MinRatio, filterContours0MaxRatio, filterContours0Output);
 
 		// Step Filter_Contours1:
-		ArrayList<MatOfPoint> filterContours1Contours = source1;
+		/*ArrayList<MatOfPoint> filterContours1Contours = source1;
 		double filterContours1MinArea = 0.0;
 		double filterContours1MinPerimeter = 0.0;
 		double filterContours1MinWidth = 0.0;
@@ -82,7 +82,13 @@ public class DetectTargetPipeline implements VisionPipeline {
 		double filterContours1MinRatio = 0.0;
 		double filterContours1MaxRatio = 1000.0;
 		filterContours(filterContours1Contours, filterContours1MinArea, filterContours1MinPerimeter, filterContours1MinWidth, filterContours1MaxWidth, filterContours1MinHeight, filterContours1MaxHeight, filterContours1Solidity, filterContours1MaxVertices, filterContours1MinVertices, filterContours1MinRatio, filterContours1MaxRatio, filterContours1Output);
+*/
 
+		hslThresholdOutput.release();
+		/*for(MatOfPoint contour : findContoursOutput) {
+			contour.release();
+		}*/
+		source0.release();
 	}
 
 	/**

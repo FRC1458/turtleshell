@@ -8,7 +8,7 @@ import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.MotorValue;
 import edu.wpi.first.wpilibj.Timer;
-import org.usfirst.frc.team1458.robot.constants.RobotConstants;
+import org.usfirst.frc.team1458.robot.constants.OldConstants;
 
 /**
  * Command-based controller for autonomous mode. This is an abstract
@@ -77,9 +77,9 @@ public abstract class BlastoiseAutoMode implements AutoMode {
 		// TODO fix this its very broken
 		/*
 		 * // Create PID TurtleDualPID pid = new TurtleStraightDrivePID(
-		 * RobotConstants.StraightDrivePID.PID_CONSTANTS, distance,
-		 * RobotConstants.StraightDrivePID.kLR,
-		 * RobotConstants.StraightDrivePID.TOLERANCE);
+		 * OldConstants.StraightDrivePID.PID_CONSTANTS, distance,
+		 * OldConstants.StraightDrivePID.kLR,
+		 * OldConstants.StraightDrivePID.TOLERANCE);
 		 * 
 		 * 
 		 * double leftSpeed = 0, rightSpeed = 0, leftDistance, rightDistance;
@@ -132,11 +132,11 @@ public abstract class BlastoiseAutoMode implements AutoMode {
 		MotorValue turnSpeed = new MotorValue(TurtleMaths.fitRange(speed, 0, 1)); // Must be nonnegative
 		rotationSensor.reset();
 
-		PID turnPID = new PID(RobotConstants.TurnPID.PID_CONSTANTS, degrees, RobotConstants.TurnPID.TOLERANCE);
+		PID turnPID = new PID(OldConstants.TurnPID.PID_CONSTANTS, degrees, OldConstants.TurnPID.TOLERANCE);
 
 		while (!turnPID.atTarget()) {
 			MotorValue motorValue = new MotorValue(turnPID.newValue(rotationSensor.getRotation().getDegrees()))
-					.mapToSpeed(turnSpeed).plus(RobotConstants.TurnPID.MIN_SPEED);
+					.mapToSpeed(turnSpeed).plus(OldConstants.TurnPID.MIN_SPEED);
 
 			drive.updateMotors(motorValue, motorValue.invert());
 		}

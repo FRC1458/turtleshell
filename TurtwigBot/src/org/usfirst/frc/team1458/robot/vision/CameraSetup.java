@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1458.robot.vision;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -30,6 +31,11 @@ public class CameraSetup {
 	protected static void get(URL url) throws IOException {
 		URLConnection connection = url.openConnection();
 		connection.connect();
+		connection.getInputStream();
+		
+		PrintStream stream = new PrintStream(connection.getOutputStream());
+		stream.print("?");
+		stream.close();
 	}
 
 	protected static void get(String url) throws IOException {

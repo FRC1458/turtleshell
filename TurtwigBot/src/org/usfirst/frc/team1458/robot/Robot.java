@@ -3,7 +3,7 @@ package org.usfirst.frc.team1458.robot;
 import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import edu.wpi.first.wpilibj.SampleRobot;
-import org.usfirst.frc.team1458.robot.constants.RobotConstants;
+import org.usfirst.frc.team1458.robot.constants.OldConstants;
 
 /**
  * This is the base robot code.
@@ -18,7 +18,7 @@ public class Robot extends SampleRobot {
 	 * Constructor for robot
 	 */
 	public Robot() {
-		logger = new Logger(RobotConstants.LOGGER_MODE);
+		logger = new Logger(Logger.LogFormat.PLAINTEXT);
 		this.robot = new BlastoiseRobot(logger);
 	}
 
@@ -30,37 +30,40 @@ public class Robot extends SampleRobot {
 
 	@Override
 	protected void disabled() {
-		robot.disabled();
-
 		logger.info("Robot disabled");
 		TurtleDashboard.disabled();
+		
+		robot.disabled();
+
 	}
 
 	@Override
 	public void autonomous() {
-		robot.autonomous();
-
 		logger.info("Entered autonomous control");
 		TurtleDashboard.autonomous();
+		
+		robot.autonomous();
+
 	}
 
 	@Override
 	public void operatorControl() {
-		robot.operatorControl();
-
 		logger.info("Entered operator control");
 		TurtleDashboard.teleop();
+		
+		robot.operatorControl();
+
 	}
 
 	@Override
 	public void test() {
-		robot.test();
-
 		logger.info("Entered test mode");
 		TurtleDashboard.test();
+		
+		robot.test();
 	}
 
 	public static boolean isPracticeRobot() {
-		return RobotConstants.PRACTICE_ROBOT;
+		return OldConstants.PRACTICE_ROBOT;
 	}
 }

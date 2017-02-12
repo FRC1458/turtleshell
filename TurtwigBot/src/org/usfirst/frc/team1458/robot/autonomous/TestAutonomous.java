@@ -5,7 +5,6 @@ import com.team1458.turtleshell2.util.Logger;
 
 import org.usfirst.frc.team1458.robot.BlastoiseAutoMode;
 import org.usfirst.frc.team1458.robot.components.BlastoiseChassis;
-import org.usfirst.frc.team1458.robot.constants.RobotConstants;
 
 /**
  * Time-based autonomous test program
