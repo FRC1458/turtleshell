@@ -29,6 +29,7 @@ import java.util.ArrayList;
 
 /**
  * This is the base robot
+ * 
  * @author asinghani
  */
 public class BlastoiseRobot implements AutoModeHolder {
@@ -55,7 +56,6 @@ public class BlastoiseRobot implements AutoModeHolder {
 	private BlastoiseShooter shooterLeft;
 	private BlastoiseShooter shooterRight;
 
-
 	/**
 	 * Vision
 	 */
@@ -63,7 +63,6 @@ public class BlastoiseRobot implements AutoModeHolder {
 	PID turnPid = new PID(OldConstants.Shooter.TurnPID.PID_CONSTANTS, 165, 0);
 
 	private Logger logger;
-
 
 	/**
 	 * ----------------------- START INITIALIZATION CODE -----------------------
@@ -89,9 +88,8 @@ public class BlastoiseRobot implements AutoModeHolder {
 		// Setup Robot Modes
 		setupRobotModes();
 
-
 		// Debug & Configuration Code
-		if(Constants.DEBUG) {
+		if (Constants.DEBUG) {
 			TurtleDashboard.enablePidTuning(Constants.ShooterVision.VisionPID.PID_CONSTANTS, "ShooterVisionPID");
 			SmartDashboard.putNumber("ShooterVisionTurnSpeed", 0.5);
 
@@ -111,7 +109,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 	private void setupInput() {
 		BlastoiseController controller = new BlastoiseController();
 
-		if(OldConstants.USE_XBOX_CONTROLLER){
+		if (OldConstants.USE_XBOX_CONTROLLER) {
 			XboxController xboxController = new XboxController(OldConstants.UsbPorts.XBOX_CONTROLLER);
 			inputManager = new BlastoiseInputManager(xboxController, controller);
 		} else {
@@ -128,10 +126,10 @@ public class BlastoiseRobot implements AutoModeHolder {
 		intake = new BlastoiseIntake(0, Constants.Intake.SPEED);
 
 		shooterLeft = new BlastoiseShooter(Constants.LeftShooter.MOTOR_PORT, Constants.LeftShooter.HALL_PORT,
-				Constants.LeftShooter.PID_CONSTANTS, Constants.LeftShooter.SPEED_RPM);
+				Constants.LeftShooter.PID_CONSTANTS, Constants.LeftShooter.SPEED_RPM, false);
 
 		shooterRight = new BlastoiseShooter(Constants.RightShooter.MOTOR_PORT, Constants.RightShooter.HALL_PORT,
-				Constants.RightShooter.PID_CONSTANTS, Constants.RightShooter.SPEED_RPM);
+				Constants.RightShooter.PID_CONSTANTS, Constants.RightShooter.SPEED_RPM, true);
 	}
 
 	private void setupUI() {
@@ -154,14 +152,12 @@ public class BlastoiseRobot implements AutoModeHolder {
 		/**
 		 * Things that are done here:
 		 *
-		 * 1. Start climbing if switch is active
-		 * 2. If robot is climbing, do nothing else
-		 * 3. Update intake movement based on switch
-		 * 4. Update shooter actions based on switch
-		 * 5. Drive Code:
-		 * 	a. If holding down shooter align button, use PID loop to align with high goal
-		 * 	b. If holding down gear align button, use PID loop to align while also driving forward
-		 * 	c. Else drive normal teleop mode
+		 * 1. Start climbing if switch is active 2. If robot is climbing, do
+		 * nothing else 3. Update intake movement based on switch 4. Update
+		 * shooter actions based on switch 5. Drive Code: a. If holding down
+		 * shooter align button, use PID loop to align with high goal b. If
+		 * holding down gear align button, use PID loop to align while also
+		 * driving forward c. Else drive normal teleop mode
 		 */
 
 		/**
@@ -172,7 +168,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 		/**
 		 * If robot is climbing, do nothing else
 		 */
-		if(climber.isClimbing()) {
+		if (climber.isClimbing()) {
 			return;
 		}
 
@@ -185,7 +181,6 @@ public class BlastoiseRobot implements AutoModeHolder {
 		 * Update shooter actions based on switch
 		 */
 		shooterUpdate();
-
 
 		/**
 		 * Drive Code
@@ -203,22 +198,22 @@ public class BlastoiseRobot implements AutoModeHolder {
 	}
 
 	private void climberUpdate() {
-		if(inputManager.climberSwitch.getDown()) {
+		if (inputManager.climberSwitch.getDown()) {
 			climber.start();
 
 			intake.stop();
 			shooterRight.stop();
 			shooterLeft.stop();
 			chassis.stopMotors();
-		} else if(inputManager.climberSwitch.getUp()) {
+		} else if (inputManager.climberSwitch.getUp()) {
 			climber.stop();
 		}
 	}
 
 	private void intakeUpdate() {
-		if(inputManager.intakeSwitch.get() == 1) {
+		if (inputManager.intakeSwitch.get() == 1) {
 			intake.start();
-		} else if(inputManager.intakeSwitch.get() == 2) {
+		} else if (inputManager.intakeSwitch.get() == 2) {
 			intake.startReverse();
 		} else {
 			intake.stop();
@@ -226,10 +221,10 @@ public class BlastoiseRobot implements AutoModeHolder {
 	}
 
 	private void shooterUpdate() {
-		if(inputManager.shootButton.getButton()) {
+		if (inputManager.shootButton.getButton()) {
 
-			if(inputManager.shootButton.getDown()) {
-				if(Constants.DEBUG) {
+			if (inputManager.shootButton.getDown()) {
+				if (Constants.DEBUG) {
 					shooterLeft.setPIDConstants(TurtleDashboard.getPidConstants("LeftShooterPID"));
 					shooterLeft.setSpeedTarget(SmartDashboard.getNumber("LeftShooterSpeed", 0));
 
@@ -239,7 +234,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 				shooterLeft.start();
 				shooterRight.start();
 
-			} else if(inputManager.shootButton.getUp()) {
+			} else if (inputManager.shootButton.getUp()) {
 				shooterLeft.stop();
 				shooterRight.stop();
 			}
@@ -262,18 +257,17 @@ public class BlastoiseRobot implements AutoModeHolder {
 	 * Shooter alignment. Only left/right for now.
 	 */
 	private void shooterAlignUpdate() {
-		if(inputManager.alignShooterButton.getDown()) {
+		if (inputManager.alignShooterButton.getDown()) {
 			turnPid = new PID(TurtleDashboard.getPidConstants("ShooterTurnPID"), 165, 0);
 		}
 		double targetX = vision.getShooterTargetX();
 
-		if(targetX < 0){
+		if (targetX < 0) {
 			return;
 		}
 
-		MotorValue motorValue =
-				new MotorValue(turnPid.newValue(targetX))
-						.mapToSpeed(new MotorValue(SmartDashboard.getNumber("ShooterTurnSpeed", 0.25)));
+		MotorValue motorValue = new MotorValue(turnPid.newValue(targetX))
+				.mapToSpeed(new MotorValue(SmartDashboard.getNumber("ShooterTurnSpeed", 0.25)));
 
 		chassis.updateMotors(motorValue.invert(), motorValue);
 
@@ -286,36 +280,36 @@ public class BlastoiseRobot implements AutoModeHolder {
 	 */
 	private void driveUpdate() {
 
-
-
-		/*if (inputManager.alignShooterButton.getButton()){
-			shooterAlignUpdate();
-		} else {
-			driveUpdate();
-		}*/
+		/*
+		 * if (inputManager.alignShooterButton.getButton()){
+		 * shooterAlignUpdate(); } else { driveUpdate(); }
+		 */
 
 		/**
-		 * If holding down shooter align button, use PID loop to align with high goal
- 		 */
-		if(inputManager.alignShooterButton.getButton()) {
+		 * If holding down shooter align button, use PID loop to align with high
+		 * goal
+		 */
+		if (inputManager.alignShooterButton.getButton()) {
 			shooterAlignUpdate();
 			return;
 		}
 
-		MotorValue leftPower = new MotorValue(TurtleMaths.deadband(inputManager.getLeft(), OldConstants.JOYSTICK_DEADBAND));
-		MotorValue rightPower = new MotorValue(TurtleMaths.deadband(inputManager.getRight(), OldConstants.JOYSTICK_DEADBAND));
+		MotorValue leftPower = new MotorValue(
+				TurtleMaths.deadband(inputManager.getLeft(), OldConstants.JOYSTICK_DEADBAND));
+		MotorValue rightPower = new MotorValue(
+				TurtleMaths.deadband(inputManager.getRight(), OldConstants.JOYSTICK_DEADBAND));
 
 		PIDConstants turnConstants = TurtleDashboard.getPidConstants("TurnPID");
 
 		/**
 		 * Left/Right turn with buttons
 		 */
-		if(inputManager.right90button.getUp()) {
+		if (inputManager.right90button.getUp()) {
 			chassis.turn(new Angle(90), new MotorValue(0.7), turnConstants);
 			return;
 		}
 
-		if(inputManager.left90button.getUp()) {
+		if (inputManager.left90button.getUp()) {
 			chassis.turn(new Angle(-90), new MotorValue(0.7), turnConstants);
 			return;
 		}
@@ -332,16 +326,13 @@ public class BlastoiseRobot implements AutoModeHolder {
 		}
 
 		// TODO ask drivers for input on this scheme - Only need one turn button
-		if(inputManager.straightButton.getButton()){
+		if (inputManager.straightButton.getButton()) {
 			chassis.updateMotors(leftPower, leftPower);
-		}
-		else if(inputManager.turnLeftButton.getButton()) {
+		} else if (inputManager.turnLeftButton.getButton()) {
 			chassis.updateMotors(leftPower.invert(), leftPower);
-		}
-		else if(inputManager.turnRightButton.getButton()) {
+		} else if (inputManager.turnRightButton.getButton()) {
 			chassis.updateMotors(rightPower, rightPower.invert());
-		}
-		else {
+		} else {
 			chassis.updateMotors(leftPower, rightPower);
 		}
 
@@ -353,7 +344,6 @@ public class BlastoiseRobot implements AutoModeHolder {
 	/**
 	 * ----------------------- END TELEOP CODE -----------------------
 	 */
-
 
 	/**
 	 * ----------------------- START ADDITIONAL CODE -----------------------
@@ -368,7 +358,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 	public void autonomous() {
 		AutoMode autoMode = autoModes.get(selectedAutoMode);
 
-		if(autoMode == null) {
+		if (autoMode == null) {
 			logger.warn("Autonomous mode not implemented");
 		} else {
 			autoMode.auto();
@@ -382,13 +372,12 @@ public class BlastoiseRobot implements AutoModeHolder {
 	}
 
 	public void test() {
-		if(testMode == null) {
+		if (testMode == null) {
 			logger.warn("Test mode not implemented");
 		} else {
 			testMode.test();
 		}
 	}
-
 
 	/**
 	 * Handles Different Robot Modes (Auto & Test)
@@ -400,7 +389,8 @@ public class BlastoiseRobot implements AutoModeHolder {
 	private void setupRobotModes() {
 		autoModes.add(new TestAutonomous(chassis, logger, navX));
 		selectedAutoMode = 0;
-		testMode = () -> {};
+		testMode = () -> {
+		};
 	}
 
 	/**
@@ -412,10 +402,11 @@ public class BlastoiseRobot implements AutoModeHolder {
 
 	/**
 	 * Set the index of the selected auto mode
+	 * 
 	 * @param index
 	 */
 	public void setSelectedAutoModeIndex(int index) {
-		if(index < autoModes.size()){
+		if (index < autoModes.size()) {
 			selectedAutoMode = index;
 		}
 	}
