@@ -12,7 +12,7 @@ import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
 import org.usfirst.frc.team1458.robot.Robot;
-import org.usfirst.frc.team1458.robot.constants.BlastoiseConstants;
+import org.usfirst.frc.team1458.robot.constants.Constants;
 import org.usfirst.frc.team1458.robot.constants.OldConstants;
 
 /**
@@ -70,14 +70,14 @@ public class BlastoiseChassis {
 			// Blastoise Chassis
 			tankDrive = new TankDrive(
 				new FollowerMotorSet(
-						new TurtleTalonSRXCAN(BlastoiseConstants.LeftDrive.MOTOR1),
-						new TurtleTalonSRXCAN(BlastoiseConstants.LeftDrive.MOTOR2),
-						new TurtleTalonSRXCAN(BlastoiseConstants.LeftDrive.MOTOR3)
+						new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR1),
+						new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR2),
+						new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR3)
 				),
 				new FollowerMotorSet(
-						new TurtleTalonSRXCAN(BlastoiseConstants.RightDrive.MOTOR1, true),
-						new TurtleTalonSRXCAN(BlastoiseConstants.RightDrive.MOTOR2, true),
-						new TurtleTalonSRXCAN(BlastoiseConstants.RightDrive.MOTOR3, true)
+						new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR1, true),
+						new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR2, true),
+							new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR3, true)
 				),
 				navX.getYawAxis()
 			);

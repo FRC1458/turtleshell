@@ -28,6 +28,32 @@ public class Constants {
 			public static final int XBOX_CONTROLLER = 3;
 		}
 	}
+	
+    /**
+     * Right drive system
+     */
+    public static final class RightDrive {
+		public static final int MOTOR1 = 13;
+		public static final int MOTOR2 = 14;
+		public static final int MOTOR3 = 15;
+
+		public static final int ENCODER_A = -1;
+	    public static final int ENCODER_B = -1;
+	    public static final double ENCODER_RATIO = 0.0697777777;
+    }
+
+	/**
+	 * Left drive system
+	 */
+	public static final class LeftDrive {
+	    public static final int MOTOR1 = 10;
+	    public static final int MOTOR2 = 11;
+	    public static final int MOTOR3 = 12;
+
+		public static final int ENCODER_A = -1;
+		public static final int ENCODER_B = -1;
+		public static final double ENCODER_RATIO = 0.0697777777;
+	}
 
 	/**
 	 * Intake-related constants
