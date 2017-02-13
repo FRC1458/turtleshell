@@ -14,7 +14,6 @@ import com.team1458.turtleshell2.util.types.MotorValue;
 import org.usfirst.frc.team1458.robot.Robot;
 import org.usfirst.frc.team1458.robot.constants.BlastoiseConstants;
 import org.usfirst.frc.team1458.robot.constants.OldConstants;
-import org.usfirst.frc.team1458.robot.constants.TurtwigConstants;
 
 /**
  * New Robot Chassis
@@ -66,27 +65,6 @@ public class BlastoiseChassis {
 							new TurtleTalonSR(4)
 					),
 					new TurtleFakeRotationEncoder()
-			);
-		} else if(Robot.isPracticeRobot()) {
-			// Turtwig Chassis
-			tankDrive = new TankDrive(
-					new MotorSet(
-							new TurtleTalonSR(TurtwigConstants.LeftDrive.MOTOR1),
-							new TurtleFakeMotor()
-					),
-					new MotorSet(
-							new TurtleTalonSR(TurtwigConstants.RightDrive.MOTOR1, true),
-							new TurtleFakeMotor()
-					),
-					new TurtleDistanceEncoder(
-							TurtwigConstants.LeftDrive.ENCODER_A, TurtwigConstants.LeftDrive.ENCODER_B,
-							TurtwigConstants.LeftDrive.ENCODER_RATIO, true
-					),
-					new TurtleDistanceEncoder(
-							TurtwigConstants.RightDrive.ENCODER_A, TurtwigConstants.RightDrive.ENCODER_B,
-							TurtwigConstants.RightDrive.ENCODER_RATIO, false
-					),
-					navX.getYawAxis()
 			);
 		} else {
 			// Blastoise Chassis

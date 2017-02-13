@@ -13,11 +13,6 @@ import com.team1458.turtleshell2.util.types.Time;
  */
 public class Constants {
 
-	/**
-	 * If set to true, all code will run for practice robot
-	 */
-	public static boolean PRACTICE_ROBOT = false;
-
 	public static boolean DEBUG = true;
 
 	/**

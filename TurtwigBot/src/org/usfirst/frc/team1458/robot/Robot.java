@@ -62,8 +62,4 @@ public class Robot extends SampleRobot {
 		
 		robot.test();
 	}
-
-	public static boolean isPracticeRobot() {
-		return OldConstants.PRACTICE_ROBOT;
-	}
 }

@@ -13,8 +13,6 @@ import com.team1458.turtleshell2.util.types.Time;
  */
 public class OldConstants {
 
-	public static boolean PRACTICE_ROBOT = false;
-	
 	/**
 	 * Shooter-related constants
 	 */
