@@ -22,7 +22,7 @@ import org.usfirst.frc.team1458.robot.components.BlastoiseClimber;
 import org.usfirst.frc.team1458.robot.components.BlastoiseIntake;
 import org.usfirst.frc.team1458.robot.components.BlastoiseShooter;
 import org.usfirst.frc.team1458.robot.constants.Constants;
-import org.usfirst.frc.team1458.robot.vision.BlastoiseVision;
+import org.usfirst.frc.team1458.robot.vision.BlastoiseShooterVision;
 
 import java.util.ArrayList;
 
@@ -58,7 +58,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 	/**
 	 * Vision
 	 */
-	BlastoiseVision vision = new BlastoiseVision(Constants.ShooterVision.Camera.URL);
+	BlastoiseShooterVision vision = new BlastoiseShooterVision(Constants.ShooterVision.Camera.URL);
 	PID turnPid = new PID(Constants.ShooterVision.VisionPID.PID_CONSTANTS, 165, 0);
 
 	private Logger logger;

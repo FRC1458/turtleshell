@@ -2,7 +2,6 @@ package org.usfirst.frc.team1458.robot.components;
 
 import com.team1458.turtleshell2.movement.*;
 import com.team1458.turtleshell2.pid.PID;
-import com.team1458.turtleshell2.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.sensor.TurtleNavX;
 import com.team1458.turtleshell2.sensor.fake.TurtleFakeRotationEncoder;
 import com.team1458.turtleshell2.util.Logger;

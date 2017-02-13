@@ -32,27 +32,27 @@ public class Constants {
 			public static final int XBOX_CONTROLLER = 3;
 		}
 	}
-	
-    /**
-     * Right drive system
-     */
-    public static final class RightDrive {
+
+	/**
+	 * Right drive system
+	 */
+	public static final class RightDrive {
 		public static final int MOTOR1 = 13;
 		public static final int MOTOR2 = 14;
 		public static final int MOTOR3 = 15;
 
 		public static final int ENCODER_A = -1;
-	    public static final int ENCODER_B = -1;
-	    public static final double ENCODER_RATIO = 0.0697777777;
-    }
+		public static final int ENCODER_B = -1;
+		public static final double ENCODER_RATIO = 0.0697777777;
+	}
 
 	/**
 	 * Left drive system
 	 */
 	public static final class LeftDrive {
-	    public static final int MOTOR1 = 10;
-	    public static final int MOTOR2 = 11;
-	    public static final int MOTOR3 = 12;
+		public static final int MOTOR1 = 10;
+		public static final int MOTOR2 = 11;
+		public static final int MOTOR3 = 12;
 
 		public static final int ENCODER_A = -1;
 		public static final int ENCODER_B = -1;
@@ -78,7 +78,10 @@ public class Constants {
 
 		public static final MotorValue SPEED = MotorValue.fullForward;
 		public static final MotorValue SPEED_LOW = new MotorValue(0.3);
-		public static final MotorValue SPEED_ZERO = new MotorValue(0.1); // Run at very low speed when at top (to prevent slipping)
+		public static final MotorValue SPEED_ZERO = new MotorValue(0.1);
+		// Run at very low speed when at top (to prevent slipping)
+		// TODO: ZERO not being zero is not a good idea. The climber should have
+		// a ratchet, but failing that just rename this
 
 	}
 
@@ -127,7 +130,7 @@ public class Constants {
 			public static final MotorValue SPEED = new MotorValue(0.5);
 		}
 	}
-	
+
 	/**
 	 * Settings for driver vision
 	 */

@@ -18,7 +18,7 @@ import java.util.*;
  *
  * @author asinghani
  */
-public class BlastoiseVision {
+public class BlastoiseShooterVision {
 	private VideoSource videoSource;
 	private static int uniqueId = 0;
 
@@ -30,7 +30,7 @@ public class BlastoiseVision {
 	 * Instantiates BlastoiseVision with a VideoSource object. This method is not recommended.
 	 * @param videoSource
 	 */
-	public BlastoiseVision(VideoSource videoSource) {
+	public BlastoiseShooterVision(VideoSource videoSource) {
 		this.videoSource = videoSource;
 		videoSource.setResolution(Constants.ShooterVision.Camera.WIDTH_PX, Constants.ShooterVision.Camera.HEIGHT_PX);
 		
@@ -46,7 +46,7 @@ public class BlastoiseVision {
 	 * Instantiates BlastoiseVision with a MJPG stream url. This is the recommended method.
 	 * @param streamUrl
 	 */
-	public BlastoiseVision(String streamUrl) {
+	public BlastoiseShooterVision(String streamUrl) {
 		this(new HttpCamera(streamUrl+uniqueId, streamUrl, HttpCamera.HttpCameraKind.kMJPGStreamer));
 		uniqueId++;
 		try {
@@ -62,7 +62,7 @@ public class BlastoiseVision {
 	 * Also, drivers will not be able to see camera feed on driver station if this is used.
 	 * @param cameraNumber
 	 */
-	public BlastoiseVision(int cameraNumber) {
+	public BlastoiseShooterVision(int cameraNumber) {
 		this(new UsbCamera(cameraNumber+""+uniqueId, cameraNumber));
 	}
 
