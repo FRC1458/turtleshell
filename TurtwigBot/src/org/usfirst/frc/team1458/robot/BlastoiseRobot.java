@@ -126,10 +126,12 @@ public class BlastoiseRobot implements AutoModeHolder {
 		intake = new BlastoiseIntake(0, Constants.Intake.SPEED);
 
 		shooterLeft = new BlastoiseShooter(Constants.LeftShooter.MOTOR_PORT, Constants.LeftShooter.HALL_PORT,
-				Constants.LeftShooter.PID_CONSTANTS, Constants.LeftShooter.SPEED_RPM, false);
+				Constants.LeftShooter.PID_CONSTANTS, Constants.LeftShooter.SPEED_RPM,
+				Constants.LeftShooter.motorReversed, Constants.LeftShooter.baseValue);
 
 		shooterRight = new BlastoiseShooter(Constants.RightShooter.MOTOR_PORT, Constants.RightShooter.HALL_PORT,
-				Constants.RightShooter.PID_CONSTANTS, Constants.RightShooter.SPEED_RPM, true);
+				Constants.RightShooter.PID_CONSTANTS, Constants.RightShooter.SPEED_RPM,
+				Constants.RightShooter.motorReversed, Constants.RightShooter.baseValue);
 	}
 
 	private void setupUI() {
@@ -169,7 +171,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 		 * If robot is climbing, do nothing else
 		 */
 		if (climber.isClimbing()) {
-			return;
+			return;//TODO: This is a bad idea for several reasons. ONe major one is that other components aren't stopped.
 		}
 
 		/**

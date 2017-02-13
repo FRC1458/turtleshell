@@ -4,6 +4,7 @@ import com.team1458.turtleshell2.movement.TurtleSmartMotor;
 import com.team1458.turtleshell2.movement.TurtleSmartMotor.BrakeMode;
 import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
 import com.team1458.turtleshell2.pid.PID;
+import com.team1458.turtleshell2.pid.ShooterPID;
 import com.team1458.turtleshell2.sensor.TurtleHallSensor;
 import com.team1458.turtleshell2.util.PIDConstants;
 import com.team1458.turtleshell2.util.types.MotorValue;
@@ -19,11 +20,13 @@ public class BlastoiseShooter {
 	private TurtleHallSensor hallSensor;
 	private TurtleSmartMotor motor;
 
-	private PID pid;
+	private ShooterPID pid;
 	private PIDConstants pidConstants;
 	private double speedTarget;
 
 	private ShooterStatus status;
+
+	private MotorValue openLoop;
 
 	/**
 	 * Instantiates BlastoiseShooter
@@ -36,13 +39,14 @@ public class BlastoiseShooter {
 	 *            Whether this should be reversed, i.e. If is the right side
 	 */
 	public BlastoiseShooter(int motorPort, int hallPort, PIDConstants pidConstants, double speedTarget,
-			boolean reversed) {
+			boolean reversed, MotorValue openLoop) {
 		this.hallSensor = new TurtleHallSensor(hallPort);
 		this.motor = new TurtleTalonSRXCAN(motorPort, reversed);
 		motor.setBrakeMode(BrakeMode.COAST);
 
 		this.status = ShooterStatus.STOPPED;
 		this.pidConstants = pidConstants;
+		this.openLoop = openLoop;
 		setSpeedTarget(speedTarget);
 	}
 
@@ -54,7 +58,7 @@ public class BlastoiseShooter {
 	 */
 	public void setSpeedTarget(double speedTarget) {
 		this.speedTarget = speedTarget;
-		pid = new PID(pidConstants, speedTarget, 0);
+		pid = new ShooterPID(pidConstants, speedTarget, 0, openLoop);
 	}
 
 	/**
@@ -105,7 +109,6 @@ public class BlastoiseShooter {
 	public double getSpeed() {
 		return hallSensor.getRPM();
 	}
-	
 
 	public enum ShooterStatus {
 		SHOOTING, STOPPED, DUMPING, MANUAL

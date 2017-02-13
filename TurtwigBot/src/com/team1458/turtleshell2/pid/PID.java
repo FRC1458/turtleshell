@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.util.BaseSystemNotInitializedException;
 
 /**
  * Class for a PID loop. Handles integration and derivation itself
+ * 
  * @author asinghani
  */
 public class PID {
@@ -38,32 +39,35 @@ public class PID {
 
 	/**
 	 * Get new value from PID
+	 * 
 	 * @param value
 	 */
 	public double newValue(double value) {
 		double error = target - value;
 		derivative = (lastError - error) / (getTime() - lastTime);
 
-		if(lastTime == -1) {
+		if (lastTime == -1) {
 			lastTime = getTime();
 			derivative = 0;
 		}
 
-		double output =
-				constants.kP * error +     // P term
-				constants.kI * sum +       // I term
+		double output = constants.kP * error + // P term
+				constants.kI * sum + // I term
 				constants.kD * derivative; // D term
 
 		lastTime = getTime();
 		sum += value;
-		if(decay) sum = 0.75 * sum; // This decays the I term so it doesn't spiral out of control when the error is large
+		if (decay) {
+			sum = 0.75 * sum;
+		} // This decays the I term so it doesn't spiral out of control when the
+			// error is large
 		lastError = error;
 
 		return output;
 	}
 
 	public boolean atTarget() {
-		return Math.abs(lastError) < deadband &&     // P term
+		return Math.abs(lastError) < deadband && // P term
 				Math.abs(derivative) < (deadband / 15.0); // D term
 	}
 
@@ -71,7 +75,8 @@ public class PID {
 		double time = System.currentTimeMillis() / 1000.0;
 		try {
 			time = Timer.getFPGATimestamp();
-		} catch (BaseSystemNotInitializedException e) {}
+		} catch (BaseSystemNotInitializedException e) {
+		}
 		return time;
 	}
 }

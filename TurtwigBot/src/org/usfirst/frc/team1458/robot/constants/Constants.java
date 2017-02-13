@@ -1,13 +1,11 @@
 package org.usfirst.frc.team1458.robot.constants;
 
-import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.util.PIDConstants;
 import com.team1458.turtleshell2.util.types.MotorValue;
-import com.team1458.turtleshell2.util.types.Time;
 
 /**
- * Constants for Robot
- * All inner classes are defined as "static final" so static variables can be defined
+ * Constants for Robot All inner classes are defined as "static final" so static
+ * variables can be defined
  *
  * @author asinghani
  */
@@ -53,22 +51,26 @@ public class Constants {
 	 * Shooter-related constants
 	 */
 	public static final class LeftShooter {
-		public static final int MOTOR_PORT = -1;
+		public static final int MOTOR_PORT = 19;
 		public static final int HALL_PORT = -1;
 		public static final double SPEED_RPM = 3600;
+		public static final boolean motorReversed = false;
 
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0, 0, 0);
+		public static final MotorValue baseValue = new MotorValue(0.65);
 	}
 
 	/**
 	 * Shooter-related constants
 	 */
 	public static final class RightShooter {
-		public static final int MOTOR_PORT = -1;
+		public static final int MOTOR_PORT = 18;
 		public static final int HALL_PORT = -1;
 		public static final double SPEED_RPM = 3600;
+		public static final boolean motorReversed = true;
 
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0, 0, 0);
+		public static final MotorValue baseValue = new MotorValue(0.65);
 	}
 
 	public static final class ShooterVision {
@@ -111,12 +113,12 @@ public class Constants {
 		public static final MotorValue MIN_SPEED = new MotorValue(0.15);
 	}
 
-
 	/**
 	 * Constructor so Constants can't be initialised
 	 *
-	 * @throws IllegalStateException when called
- 	 */
+	 * @throws IllegalStateException
+	 *             when called
+	 */
 	private Constants() {
 		throw new IllegalStateException("Constants cannot be initialized. Something very bad has happened.");
 	}

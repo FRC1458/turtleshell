@@ -3,7 +3,6 @@ package org.usfirst.frc.team1458.robot;
 import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import edu.wpi.first.wpilibj.SampleRobot;
-import org.usfirst.frc.team1458.robot.constants.OldConstants;
 
 /**
  * This is the base robot code.
