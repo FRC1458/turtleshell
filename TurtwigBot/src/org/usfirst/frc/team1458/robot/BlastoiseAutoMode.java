@@ -8,7 +8,8 @@ import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.MotorValue;
 import edu.wpi.first.wpilibj.Timer;
-import org.usfirst.frc.team1458.robot.constants.OldConstants;
+
+import org.usfirst.frc.team1458.robot.constants.Constants;
 
 /**
  * Command-based controller for autonomous mode. This is an abstract
@@ -129,14 +130,16 @@ public abstract class BlastoiseAutoMode implements AutoMode {
 	 */
 	public void turnDegrees(double degrees, double speed) {
 
-		MotorValue turnSpeed = new MotorValue(TurtleMaths.fitRange(speed, 0, 1)); // Must be nonnegative
+		MotorValue turnSpeed = new MotorValue(TurtleMaths.fitRange(speed, 0, 1)); // Must
+																					// be
+																					// nonnegative
 		rotationSensor.reset();
 
-		PID turnPID = new PID(OldConstants.TurnPID.PID_CONSTANTS, degrees, OldConstants.TurnPID.TOLERANCE);
+		PID turnPID = new PID(Constants.TurnPID.PID_CONSTANTS, degrees, Constants.TurnPID.TOLERANCE);
 
 		while (!turnPID.atTarget()) {
 			MotorValue motorValue = new MotorValue(turnPID.newValue(rotationSensor.getRotation().getDegrees()))
-					.mapToSpeed(turnSpeed).plus(OldConstants.TurnPID.MIN_SPEED);
+					.mapToSpeed(turnSpeed).plus(Constants.TurnPID.MIN_SPEED);
 
 			drive.updateMotors(motorValue, motorValue.invert());
 		}

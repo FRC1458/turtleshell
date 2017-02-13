@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.vision.VisionThread;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
-import org.usfirst.frc.team1458.robot.constants.OldConstants;
+import org.usfirst.frc.team1458.robot.constants.Constants;
 
 import java.io.IOException;
 import java.util.*;
@@ -32,7 +32,7 @@ public class BlastoiseVision {
 	 */
 	public BlastoiseVision(VideoSource videoSource) {
 		this.videoSource = videoSource;
-		videoSource.setResolution(OldConstants.Vision.CAMERA_WIDTH, OldConstants.Vision.CAMERA_HEIGHT);
+		videoSource.setResolution(Constants.ShooterVision.Camera.WIDTH_PX, Constants.ShooterVision.Camera.HEIGHT_PX);
 		
 		VisionThread visionThread = new VisionThread(videoSource, new DetectTargetPipeline(), pipeline -> {
 			synchronized (lock) {
@@ -100,10 +100,10 @@ public class BlastoiseVision {
 		SmartDashboard.putNumber("X of target", xCoord);
 		SmartDashboard.putNumber("Y of target", yCoord);
 
-		double cameraHeightDifference = (78 - OldConstants.Shooter.Camera.MOUNT_HEIGHT);
-		double pixelDifference = (OldConstants.Shooter.Camera.HEIGHT_PX - yCoord) / OldConstants.Shooter.Camera.HEIGHT_PX;
-		double angle = OldConstants.Shooter.Camera.MOUNT_ANGLE +
-				(OldConstants.Shooter.Camera.HEIGHT_FOV * pixelDifference);
+		double cameraHeightDifference = (78 - Constants.ShooterVision.Camera.MOUNT_HEIGHT);
+		double pixelDifference = (Constants.ShooterVision.Camera.HEIGHT_PX - yCoord) / Constants.ShooterVision.Camera.HEIGHT_PX;
+		double angle = Constants.ShooterVision.Camera.MOUNT_ANGLE +
+				(Constants.ShooterVision.Camera.HEIGHT_FOV * pixelDifference);
 		angle = Math.toRadians(angle);
 		double distance = cameraHeightDifference * (1 / Math.tan(angle));
 

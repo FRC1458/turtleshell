@@ -3,7 +3,6 @@ package org.usfirst.frc.team1458.robot.components;
 import com.team1458.turtleshell2.movement.TurtleSmartMotor;
 import com.team1458.turtleshell2.movement.TurtleSmartMotor.BrakeMode;
 import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
-import com.team1458.turtleshell2.pid.PID;
 import com.team1458.turtleshell2.pid.ShooterPID;
 import com.team1458.turtleshell2.sensor.TurtleHallSensor;
 import com.team1458.turtleshell2.util.PIDConstants;
@@ -111,6 +110,6 @@ public class BlastoiseShooter {
 	}
 
 	public enum ShooterStatus {
-		SHOOTING, STOPPED, DUMPING, MANUAL
+		SHOOTING, STOPPED, UNCLOGGING, MANUAL
 	}
 }

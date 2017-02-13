@@ -22,7 +22,6 @@ import org.usfirst.frc.team1458.robot.components.BlastoiseClimber;
 import org.usfirst.frc.team1458.robot.components.BlastoiseIntake;
 import org.usfirst.frc.team1458.robot.components.BlastoiseShooter;
 import org.usfirst.frc.team1458.robot.constants.Constants;
-import org.usfirst.frc.team1458.robot.constants.OldConstants;
 import org.usfirst.frc.team1458.robot.vision.BlastoiseVision;
 
 import java.util.ArrayList;
@@ -59,8 +58,8 @@ public class BlastoiseRobot implements AutoModeHolder {
 	/**
 	 * Vision
 	 */
-	BlastoiseVision vision = new BlastoiseVision(OldConstants.Shooter.Camera.CAMERA_URL);
-	PID turnPid = new PID(OldConstants.Shooter.TurnPID.PID_CONSTANTS, 165, 0);
+	BlastoiseVision vision = new BlastoiseVision(Constants.ShooterVision.Camera.URL);
+	PID turnPid = new PID(Constants.ShooterVision.VisionPID.PID_CONSTANTS, 165, 0);
 
 	private Logger logger;
 
@@ -109,12 +108,12 @@ public class BlastoiseRobot implements AutoModeHolder {
 	private void setupInput() {
 		BlastoiseController controller = new BlastoiseController();
 
-		if (OldConstants.USE_XBOX_CONTROLLER) {
-			XboxController xboxController = new XboxController(OldConstants.UsbPorts.XBOX_CONTROLLER);
+		if (Constants.DriverStation.USE_XBOX_CONTROLLER) {
+			XboxController xboxController = new XboxController(Constants.DriverStation.UsbPorts.XBOX_CONTROLLER);
 			inputManager = new BlastoiseInputManager(xboxController, controller);
 		} else {
-			FlightStick leftStick = new FlightStick(OldConstants.UsbPorts.LEFT_STICK);
-			FlightStick rightStick = new FlightStick(OldConstants.UsbPorts.RIGHT_STICK);
+			FlightStick leftStick = new FlightStick(Constants.DriverStation.UsbPorts.LEFT_STICK);
+			FlightStick rightStick = new FlightStick(Constants.DriverStation.UsbPorts.RIGHT_STICK);
 			inputManager = new BlastoiseInputManager(leftStick, rightStick, controller);
 		}
 	}
@@ -297,9 +296,9 @@ public class BlastoiseRobot implements AutoModeHolder {
 		}
 
 		MotorValue leftPower = new MotorValue(
-				TurtleMaths.deadband(inputManager.getLeft(), OldConstants.JOYSTICK_DEADBAND));
+				TurtleMaths.deadband(inputManager.getLeft(), Constants.DriverStation.JOYSTICK_DEADBAND));
 		MotorValue rightPower = new MotorValue(
-				TurtleMaths.deadband(inputManager.getRight(), OldConstants.JOYSTICK_DEADBAND));
+				TurtleMaths.deadband(inputManager.getRight(), Constants.DriverStation.JOYSTICK_DEADBAND));
 
 		PIDConstants turnConstants = TurtleDashboard.getPidConstants("TurnPID");
 
@@ -322,7 +321,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 		if (inputManager.slowButton.getButton()) {
 			leftPower = leftPower.halve();
 			rightPower = rightPower.halve();
-		} else if (OldConstants.LOGISTIC_SCALE) {
+		} else if (Constants.DriverStation.LOGISTIC_SCALE) {
 			leftPower = new MotorValue(TurtleMaths.logisticStepScale(leftPower.getValue()));
 			rightPower = new MotorValue(TurtleMaths.logisticStepScale(rightPower.getValue()));
 		}
