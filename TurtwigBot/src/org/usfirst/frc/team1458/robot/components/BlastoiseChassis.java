@@ -30,10 +30,6 @@ public class BlastoiseChassis {
 
 	private Logger logger;
 
-	/**
-	 * Main constructor for BlastoiseChassis
-	 * Accepts TurtleAnalogInputs and TurtleDigitalInputs
-	 */
 	public BlastoiseChassis(TurtleNavX navX, Logger logger) {
 		this.navX = navX;
 
@@ -80,6 +76,7 @@ public class BlastoiseChassis {
 				navX.getYawAxis()
 			);
 		}
+		logger.info("Chassis initialised.");
 	}
 
 	public Distance getLeftDistance() {
