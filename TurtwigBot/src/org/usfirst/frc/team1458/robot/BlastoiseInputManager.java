@@ -89,8 +89,10 @@ public class BlastoiseInputManager implements Rumbleable {
 		// Slow Button for finer control
 		this.slowButton = controller.getButton(XboxController.XboxButton.A);
 
-		this.alignShooterButton = controller.getButton(XboxController.XboxButton.Y);
+		this.alignShooterButton = new FakeButtonInput(); //controller.getButton(XboxController.XboxButton.Y);
 
+		this.shootButton = controller.getButton(XboxController.XboxButton.Y);
+		
 		// POV switch
 		this.pov = controller.getDPad();
 

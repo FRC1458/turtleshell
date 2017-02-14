@@ -94,12 +94,12 @@ public class Constants {
 	 */
 	public static final class LeftShooter {
 		public static final int MOTOR_PORT = 19;
-		public static final int HALL_PORT = -1;
+		public static final int HALL_PORT = 2;
 		public static final double SPEED_RPM = 3600;
 		public static final boolean motorReversed = false;
 
-		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0, 0, 0);
-		public static final MotorValue baseValue = new MotorValue(0.65);
+		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.00009, 0, 0.000001);
+		public static final MotorValue baseValue = new MotorValue(0.75);
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class Constants {
 	 */
 	public static final class RightShooter {
 		public static final int MOTOR_PORT = 18;
-		public static final int HALL_PORT = -1;
+		public static final int HALL_PORT = 8;
 		public static final double SPEED_RPM = 3600;
 		public static final boolean motorReversed = true;
 

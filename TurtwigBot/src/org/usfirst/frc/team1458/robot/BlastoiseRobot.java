@@ -250,7 +250,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 	private void shooterUpdate() {
 		if (inputManager.shootButton.getButton()) {
 
-			if (inputManager.shootButton.getDown()) {
+			if (shooterLeft.getStatus() != BlastoiseShooter.ShooterStatus.SHOOTING) {
 				if (Constants.DEBUG) {
 					shooterLeft.setPIDConstants(TurtleDashboard.getPidConstants("LeftShooterPID"));
 					shooterLeft.setSpeedTarget(SmartDashboard.getNumber("LeftShooterSpeed", 0));
@@ -261,23 +261,23 @@ public class BlastoiseRobot implements AutoModeHolder {
 				shooterLeft.start();
 				shooterRight.start();
 
-			} else if (inputManager.shootButton.getUp()) {
-				shooterLeft.stop();
-				shooterRight.stop();
 			}
 
 			shooterLeft.teleUpdate();
-			shooterRight.teleUpdate();
+			//shooterRight.teleUpdate();
 
 			SmartDashboard.putNumber("Shooter Left RPM", shooterLeft.getSpeed());
 			SmartDashboard.putNumber("Shooter Right RPM", shooterRight.getSpeed());
 			SmartDashboard.putBoolean("Shooting", true);
-
+			
 		} else {
 			SmartDashboard.putNumber("Shooter Left RPM", 0);
 			SmartDashboard.putNumber("Shooter Right RPM", 0);
 			SmartDashboard.putBoolean("Shooting", false);
+			shooterLeft.stop();
+			shooterRight.stop();
 		}
+		SmartDashboard.putString("Status", shooterLeft.getStatus().toString());
 	}
 
 	/**

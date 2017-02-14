@@ -101,12 +101,17 @@ public class BlastoiseShooter {
 			motor.set(new MotorValue(0.7));
 		}
 	}
+	
 
 	/**
 	 * Get the speed of the shooter in RPM
 	 */
 	public double getSpeed() {
 		return hallSensor.getRPM();
+	}
+	
+	public ShooterStatus getStatus() {
+		return status;
 	}
 
 	public enum ShooterStatus {
