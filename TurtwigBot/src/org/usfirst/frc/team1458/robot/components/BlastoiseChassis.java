@@ -24,7 +24,7 @@ public class BlastoiseChassis {
 	/**
 	 * Drive train
 	 */
-	private TankDrive tankDrive;
+	private TankDriveChassis tankDrive;
 
 	// Sensors
 	private TurtleNavX navX = null;
@@ -50,7 +50,7 @@ public class BlastoiseChassis {
 	private void setupDrivetrain() {
 		if(!Robot.isReal()) {
 			// Simulation
-			tankDrive = new TankDrive(
+			tankDrive = new TankDriveChassis(
 					new MotorSet(
 							new TurtleTalonSR(1),
 							new TurtleTalonSR(2)
@@ -61,9 +61,10 @@ public class BlastoiseChassis {
 					),
 					new TurtleFakeRotationEncoder()
 			);
+					navX.getYawAxis()
 		} else {
 			// Blastoise Chassis
-			tankDrive = new TankDrive(
+			tankDrive = new TankDriveChassis(
 				new FollowerMotorSet(
 						new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR1),
 						new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR2),
@@ -96,7 +97,7 @@ public class BlastoiseChassis {
 		tankDrive.stopMotors();
 	}
 	
-	public TankDrive getDriveTrain() {
+	public TankDriveChassis getDriveTrain() {
 		return tankDrive;
 	}
 
