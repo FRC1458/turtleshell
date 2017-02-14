@@ -6,7 +6,7 @@ import com.team1458.turtleshell2.core.TestMode;
 import com.team1458.turtleshell2.input.FlightStick;
 import com.team1458.turtleshell2.input.XboxController;
 import com.team1458.turtleshell2.movement.FollowerMotorSet;
-import com.team1458.turtleshell2.movement.TankDrive;
+import com.team1458.turtleshell2.movement.TankDriveChassis;
 import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
 import com.team1458.turtleshell2.pid.PID;
 import com.team1458.turtleshell2.sensor.TurtleLIDARLite;
@@ -17,12 +17,10 @@ import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.MotorValue;
-
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team1458.robot.autonomous.TestAutonomous;
-import org.usfirst.frc.team1458.robot.components.BlastoiseChassis;
 import org.usfirst.frc.team1458.robot.components.BlastoiseClimber;
 import org.usfirst.frc.team1458.robot.components.BlastoiseIntake;
 import org.usfirst.frc.team1458.robot.components.BlastoiseShooter;
@@ -51,7 +49,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 	/**
 	 * Robot Actuators
 	 */
-	private TankDrive chassis;
+	private TankDriveChassis chassis;
 
 	private BlastoiseClimber climber;
 	private BlastoiseIntake intake;
@@ -128,12 +126,19 @@ public class BlastoiseRobot implements AutoModeHolder {
 	}
 
 	private void setupActuators() {
-		chassis = new TankDrive(new FollowerMotorSet(new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR1),
-				new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR2), new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR3)),
-				new FollowerMotorSet(new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR1, true),
+		chassis = new TankDriveChassis(
+				new FollowerMotorSet(
+						new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR1),
+						new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR2),
+						new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR3)
+				),
+				new FollowerMotorSet(
+						new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR1, true),
 						new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR2, true),
-						new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR3, true)),
-				navX.getYawAxis());
+						new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR3, true)
+				),
+				navX.getYawAxis()
+		);
 
 		climber = new BlastoiseClimber(0, Constants.Climber.SPEED, Constants.Climber.SPEED_LOW);
 		intake = new BlastoiseIntake(0, Constants.Intake.SPEED);
@@ -167,12 +172,14 @@ public class BlastoiseRobot implements AutoModeHolder {
 		/**
 		 * Things that are done here:
 		 *
-		 * 1. Start climbing if switch is active 2. If robot is climbing, do
-		 * nothing else 3. Update intake movement based on switch 4. Update
-		 * shooter actions based on switch 5. Drive Code: a. If holding down
-		 * shooter align button, use PID loop to align with high goal b. If
-		 * holding down gear align button, use PID loop to align while also
-		 * driving forward c. Else drive normal teleop mode
+		 * 1. Start climbing if switch is active
+		 * 2. If robot is climbing, do nothing else
+		 * 3. Update intake movement based on switch
+		 * 4. Update shooter actions based on switch
+		 * 5. Drive Code:
+		 * a. If holding down shooter align button, use PID loop to align with high goal
+		 * b. If holding down gear align button, use PID loop to align while also driving forward
+		 * c. Else drive normal teleop mode
 		 */
 
 		/**
@@ -213,7 +220,8 @@ public class BlastoiseRobot implements AutoModeHolder {
 
 		double targetX = vision.getShooterTargetX();
 
-		SmartDashboard.putBoolean("On Target", TurtleMaths.absDiff(targetX, 165) < 30);
+		SmartDashboard.putBoolean("On Target", TurtleMaths.absDiff(targetX, 165) < 45);
+		SmartDashboard.putBoolean("Target Visible", targetX > -1);
 	}
 
 	private void climberUpdate() {
