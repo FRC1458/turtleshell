@@ -5,6 +5,9 @@ import com.team1458.turtleshell2.core.AutoModeHolder;
 import com.team1458.turtleshell2.core.TestMode;
 import com.team1458.turtleshell2.input.FlightStick;
 import com.team1458.turtleshell2.input.XboxController;
+import com.team1458.turtleshell2.movement.FollowerMotorSet;
+import com.team1458.turtleshell2.movement.TankDrive;
+import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
 import com.team1458.turtleshell2.pid.PID;
 import com.team1458.turtleshell2.sensor.TurtleLIDARLite;
 import com.team1458.turtleshell2.sensor.TurtleNavX;
@@ -14,6 +17,8 @@ import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.MotorValue;
+
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team1458.robot.autonomous.TestAutonomous;
@@ -21,7 +26,6 @@ import org.usfirst.frc.team1458.robot.components.BlastoiseChassis;
 import org.usfirst.frc.team1458.robot.components.BlastoiseClimber;
 import org.usfirst.frc.team1458.robot.components.BlastoiseIntake;
 import org.usfirst.frc.team1458.robot.components.BlastoiseShooter;
-import org.usfirst.frc.team1458.robot.constants.Constants;
 import org.usfirst.frc.team1458.robot.vision.BlastoiseShooterVision;
 
 import java.util.ArrayList;
@@ -47,7 +51,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 	/**
 	 * Robot Actuators
 	 */
-	private BlastoiseChassis chassis;
+	private TankDrive chassis;
 
 	private BlastoiseClimber climber;
 	private BlastoiseIntake intake;
@@ -100,9 +104,14 @@ public class BlastoiseRobot implements AutoModeHolder {
 		}
 	}
 
+	private void setupAutoModes() {
+		autoModes.add(new TestAutonomous(chassis, logger, navX));
+		selectedAutoMode = 0;
+	}
+
 	private void setupSensors() {
-		navX = TurtleNavX.getInstanceI2C();
-		lidar = TurtleLIDARLite.getInstanceMXP();
+		navX = new TurtleNavX(I2C.Port.kOnboard);
+		lidar = new TurtleLIDARLite(I2C.Port.kMXP);
 	}
 
 	private void setupInput() {
@@ -119,7 +128,12 @@ public class BlastoiseRobot implements AutoModeHolder {
 	}
 
 	private void setupActuators() {
-		chassis = new BlastoiseChassis(navX, logger);
+		chassis = new TankDrive(new FollowerMotorSet(new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR1),
+				new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR2), new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR3)),
+				new FollowerMotorSet(new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR1, true),
+						new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR2, true),
+						new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR3, true)),
+				navX.getYawAxis());
 
 		climber = new BlastoiseClimber(0, Constants.Climber.SPEED, Constants.Climber.SPEED_LOW);
 		intake = new BlastoiseIntake(0, Constants.Intake.SPEED);
@@ -170,23 +184,27 @@ public class BlastoiseRobot implements AutoModeHolder {
 		 * If robot is climbing, do nothing else
 		 */
 		if (climber.isClimbing()) {
-			return;//TODO: This is a bad idea for several reasons. ONe major one is that other components aren't stopped.
+			intake.stop();
+			shooterLeft.stop();
+			shooterRight.stop();
+			chassis.stopMotors();
+			// Don't do the thing
+		} else {
+			/**
+			 * Update intake movement based on switch
+			 */
+			intakeUpdate();
+
+			/**
+			 * Update shooter actions based on switch
+			 */
+			shooterUpdate();
+
+			/**
+			 * Drive Code
+			 */
+			driveUpdate();
 		}
-
-		/**
-		 * Update intake movement based on switch
-		 */
-		intakeUpdate();
-
-		/**
-		 * Update shooter actions based on switch
-		 */
-		shooterUpdate();
-
-		/**
-		 * Drive Code
-		 */
-		driveUpdate();
 
 		/**
 		 * Extra Info
@@ -319,27 +337,23 @@ public class BlastoiseRobot implements AutoModeHolder {
 		 * Smoother control of the robot
 		 */
 		if (inputManager.slowButton.getButton()) {
-			leftPower = leftPower.halve();
-			rightPower = rightPower.halve();
+			leftPower = leftPower.scale(Constants.Drive.slowSpeed);
+			rightPower = rightPower.scale(Constants.Drive.slowSpeed);
 		} else if (Constants.DriverStation.LOGISTIC_SCALE) {
 			leftPower = new MotorValue(TurtleMaths.logisticStepScale(leftPower.getValue()));
 			rightPower = new MotorValue(TurtleMaths.logisticStepScale(rightPower.getValue()));
 		}
 
-		// TODO ask drivers for input on this scheme - Only need one turn button
 		if (inputManager.straightButton.getButton()) {
-			chassis.updateMotors(leftPower, leftPower);
-		} else if (inputManager.turnLeftButton.getButton()) {
-			chassis.updateMotors(leftPower.invert(), leftPower);
-		} else if (inputManager.turnRightButton.getButton()) {
-			chassis.updateMotors(rightPower, rightPower.invert());
+			chassis.updateMotors(rightPower, rightPower);
+		} else if (inputManager.turnButton.getButton()) {
+			chassis.updateMotors(leftPower, leftPower.invert());
 		} else {
 			chassis.updateMotors(leftPower, rightPower);
 		}
 
-		chassis.getDriveTrain().teleUpdate();
+		chassis.teleUpdate(); // Needed for Turn PID
 
-		SmartDashboard.putNumber("Yaw", navX.getYawAxis().getRotation().getDegrees());
 	}
 
 	/**
@@ -388,9 +402,9 @@ public class BlastoiseRobot implements AutoModeHolder {
 	private TestMode testMode;
 
 	private void setupRobotModes() {
-		autoModes.add(new TestAutonomous(chassis, logger, navX));
-		selectedAutoMode = 0;
+		setupAutoModes();
 		testMode = () -> {
+			SmartDashboard.putString("Test", "Successful");
 		};
 	}
 

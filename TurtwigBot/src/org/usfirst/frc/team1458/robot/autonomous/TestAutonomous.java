@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1458.robot.autonomous;
 
+import com.team1458.turtleshell2.movement.TankDrive;
 import com.team1458.turtleshell2.sensor.TurtleNavX;
 import com.team1458.turtleshell2.util.Logger;
 
@@ -18,8 +19,8 @@ import org.usfirst.frc.team1458.robot.components.BlastoiseChassis;
  */
 public class TestAutonomous extends BlastoiseAutoMode {
 
-	public TestAutonomous(BlastoiseChassis chassis, Logger logger, TurtleNavX navX) {
-		super(chassis.getDriveTrain(), logger, navX.getYawAxis());
+	public TestAutonomous(TankDrive chassis, Logger logger, TurtleNavX navX) {
+		super(chassis, logger, navX.getYawAxis());
 	}
 
 	/**

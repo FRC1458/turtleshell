@@ -17,9 +17,8 @@ public class ShooterPID extends PID {
 	}
 
 	@Override
-	public double newValue(double value) {//Cannot be less than zero, and openLoop is added.
+	public double newValue(double value) {// Cannot be less than zero, and openLoop is added.
 		return new MotorValue(TurtleMaths.biggerOf(super.newValue(value) + openLoop.getValue(), 0)).getValue();
-
 	}
 
 }

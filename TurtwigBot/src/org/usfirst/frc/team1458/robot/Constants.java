@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1458.robot.constants;
+package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.util.PIDConstants;
@@ -31,6 +31,10 @@ public class Constants {
 
 			public static final int XBOX_CONTROLLER = 3;
 		}
+	}
+	
+	public static final class Drive {
+		public static final double slowSpeed = 0.5;
 	}
 
 	/**

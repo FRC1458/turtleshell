@@ -26,6 +26,9 @@ public class MultiButtonInput extends SampleButtonInput {
 				case XOR:
 					value = value ^ buttonInput.getButton();
 					break;
+				case NAND:
+					value = !(value && buttonInput.getButton());
+					break;
 			}
 		}
 
@@ -33,6 +36,6 @@ public class MultiButtonInput extends SampleButtonInput {
 	}
 
 	public enum Operator {
-		AND, OR, XOR
+		AND, OR, XOR, NAND
 	}
 }
