@@ -9,8 +9,6 @@ import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.MotorValue;
 import edu.wpi.first.wpilibj.Timer;
 
-import org.usfirst.frc.team1458.robot.constants.Constants;
-
 /**
  * Command-based controller for autonomous mode. This is an abstract
  * implementation of AutoMode with some utility functions, but it must be

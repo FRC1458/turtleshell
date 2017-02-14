@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.vision.VisionThread;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
-import org.usfirst.frc.team1458.robot.constants.Constants;
+import org.usfirst.frc.team1458.robot.Constants;
 
 import java.io.IOException;
 import java.util.*;

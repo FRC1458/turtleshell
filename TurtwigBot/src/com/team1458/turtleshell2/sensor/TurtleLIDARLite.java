@@ -64,12 +64,4 @@ public class TurtleLIDARLite implements TurtleDistanceSensor {
 		return (int) byteArray[0] > 0 ? (byteArray[0] * 256 + Byte.toUnsignedInt(byteArray[1]))
 				: Byte.toUnsignedInt(byteArray[0]) * 256 + Byte.toUnsignedInt(byteArray[1]) - 65536;
 	}
-
-	public static TurtleLIDARLite getInstanceI2C() {
-		return new TurtleLIDARLite(I2C.Port.kOnboard);
-	}
-
-	public static TurtleLIDARLite getInstanceMXP() {
-		return new TurtleLIDARLite(I2C.Port.kMXP);
-	}
 }

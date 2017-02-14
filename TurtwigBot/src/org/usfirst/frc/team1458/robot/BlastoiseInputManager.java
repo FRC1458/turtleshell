@@ -17,8 +17,7 @@ public class BlastoiseInputManager implements Rumbleable {
 
 	// Extra Drive Functions
 	ButtonInput straightButton;
-	ButtonInput turnRightButton;
-	ButtonInput turnLeftButton;
+	ButtonInput turnButton;
 
 	// Turn for degrees buttons
 	ButtonInput right90button;
@@ -50,10 +49,9 @@ public class BlastoiseInputManager implements Rumbleable {
 		this.rightJoystick = rightStick.getAxis(FlightStick.FlightAxis.PITCH);
 
 		// Extra Drive Functions
-		this.turnLeftButton = leftStick.getButton(FlightStick.FlightButton.TRIGGER);
-		this.turnRightButton = rightStick.getButton(FlightStick.FlightButton.TRIGGER);
-		this.straightButton = new MultiButtonInput(MultiButtonInput.Operator.AND, this.turnLeftButton, this.turnRightButton);
-
+		this.turnButton = leftStick.getButton(FlightStick.FlightButton.TRIGGER);
+		this.straightButton = rightStick.getButton(FlightStick.FlightButton.TRIGGER);
+		
 		// Turn for degrees buttons
 		this.right90button = rightStick.getButton(FlightStick.FlightButton.THREE);
 		this.left90button = leftStick.getButton(FlightStick.FlightButton.FOUR);
@@ -81,10 +79,9 @@ public class BlastoiseInputManager implements Rumbleable {
 		this.rightJoystick = controller.getAxis(XboxController.XboxAxis.RY);
 
 		// Extra Drive Functions
-		this.turnLeftButton = controller.getButton(XboxController.XboxButton.LBUMP);
-		this.turnRightButton = controller.getButton(XboxController.XboxButton.RBUMP);
-		this.straightButton = new MultiButtonInput(MultiButtonInput.Operator.AND, this.turnLeftButton, this.turnRightButton);
-
+		this.turnButton = controller.getButton(XboxController.XboxButton.LBUMP);
+		this.straightButton = controller.getButton(XboxController.XboxButton.RBUMP);
+		
 		// Turn for degrees buttons
 		this.right90button = controller.getButton(XboxController.XboxButton.B);
 		this.left90button = controller.getButton(XboxController.XboxButton.X);
