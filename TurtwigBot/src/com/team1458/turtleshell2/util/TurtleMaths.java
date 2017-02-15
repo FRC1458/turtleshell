@@ -130,8 +130,7 @@ public class TurtleMaths {
 		public AdvancedRangeShifter(double[] from, double[] to) {
 			super(0, 0, 0, 0);
 			if (from.length != to.length) {
-				// throw new Exception("Can't work with different size arrays");
-				// - this should throw an exception about arguments
+				throw new IllegalArgumentException("From Array and To Array must be same size");
 			}
 			rs = new RangeShifter[from.length];
 			sp = from;

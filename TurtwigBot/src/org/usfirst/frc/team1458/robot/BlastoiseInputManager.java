@@ -9,7 +9,7 @@ import com.team1458.turtleshell2.input.fake.FakeRumbleable;
  *
  * @author asinghani
  */
-public class BlastoiseInputManager implements Rumbleable {
+public class BlastoiseInputManager implements Rumbleable {//Should probably reference Constants
 
 	// Drive Joysticks
 	AnalogInput leftJoystick;
@@ -35,7 +35,7 @@ public class BlastoiseInputManager implements Rumbleable {
 	ButtonInput shootButton = new FakeButtonInput();
 
 	// POV switch
-	DigitalInput pov;
+	TurtleJoystickPOVSwitch pov;
 
 	// Rumble
 	Rumbleable rumbleController;
