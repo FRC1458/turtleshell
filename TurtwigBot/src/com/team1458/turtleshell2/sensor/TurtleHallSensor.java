@@ -27,7 +27,7 @@ public class TurtleHallSensor implements TurtleRotationSensor {
 		c.setSemiPeriodMode(countHighs);
 		c.setMaxPeriod(1);
 		c.setDistancePerPulse(1);
-		c.setSamplesToAverage(1);
+		c.setSamplesToAverage(6);
 	}
 
 	@Override
