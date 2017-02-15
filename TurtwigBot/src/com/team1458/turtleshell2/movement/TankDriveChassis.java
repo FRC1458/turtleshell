@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * Represents a full tank drive
  * @author asinghani
  */
-public class TankDrive implements DriveTrain {
+public class TankDriveChassis implements DriveTrain {
 
 	/**
 	 * Drive
@@ -48,8 +48,8 @@ public class TankDrive implements DriveTrain {
 	PID straightDrivePID;
 
 
-	public TankDrive(MotorSet leftDrive, MotorSet rightDrive,
-					 TurtleDistanceSensor leftDistance, TurtleDistanceSensor rightDistance, TurtleRotationSensor rotationSensor) {
+	public TankDriveChassis(MotorSet leftDrive, MotorSet rightDrive,
+	                        TurtleDistanceSensor leftDistance, TurtleDistanceSensor rightDistance, TurtleRotationSensor rotationSensor) {
 		this.leftDrive = leftDrive;
 		this.rightDrive = rightDrive;
 		this.leftDistance = leftDistance;
@@ -57,7 +57,7 @@ public class TankDrive implements DriveTrain {
 		this.rotationSensor = rotationSensor;
 	}
 
-	public TankDrive(MotorSet leftDrive, MotorSet rightDrive, TurtleRotationSensor rotationSensor) {
+	public TankDriveChassis(MotorSet leftDrive, MotorSet rightDrive, TurtleRotationSensor rotationSensor) {
 		this.leftDrive = leftDrive;
 		this.rightDrive = rightDrive;
 		this.leftDistance = new TurtleFakeDistanceEncoder();
