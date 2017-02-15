@@ -307,18 +307,13 @@ public class BlastoiseRobot implements AutoModeHolder {
 	 */
 	private void driveUpdate() {
 
-		/*
-		 * if (inputManager.alignShooterButton.getButton()){
-		 * shooterAlignUpdate(); } else { driveUpdate(); }
-		 */
-
 		/**
 		 * If holding down shooter align button, use PID loop to align with high
 		 * goal
 		 */
 		if (inputManager.alignShooterButton.getButton()) {
 			shooterAlignUpdate();
-			return;
+			return;//premature return = bad, especially given teleUpdate is below
 		}
 
 		MotorValue leftPower = new MotorValue(
