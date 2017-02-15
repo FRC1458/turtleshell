@@ -8,7 +8,7 @@ import com.team1458.turtleshell2.util.PIDConstants;
 import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.RobotState;
 
 /**
  * Represents a full tank drive
@@ -16,40 +16,28 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class TankDriveChassis implements DriveTrain {
 
-	/**
-	 * Drive
-	 */
+	// Drive
 	private MotorSet leftDrive;
 	private MotorSet rightDrive;
 
-	/**
-	 * Encoders
-	 */
+	// Encoders
 	private TurtleDistanceSensor leftDistance;
 	private TurtleDistanceSensor rightDistance;
 
-	/**
-	 * Others
-	 */
+	// Others
 	private TurtleRotationSensor rotationSensor;
 
-	/**
-	 * Turning
-	 */
-	boolean turning = false;
-	MotorValue turnSpeed = MotorValue.zero;
-	PID turnPID;
+	// Driving
+	MotorValue speed = MotorValue.zero;
+	PID drivePID;
+	Angle turnAngle;
+	Distance moveDistance;
 
-	/**
-	 * Straight Driving
-	 */
-	boolean drivingStraight = false;
-	MotorValue straightDriveSpeed = MotorValue.zero;
-	PID straightDrivePID;
-
+	private DriveState state = DriveState.NONE;
 
 	public TankDriveChassis(MotorSet leftDrive, MotorSet rightDrive,
-	                        TurtleDistanceSensor leftDistance, TurtleDistanceSensor rightDistance, TurtleRotationSensor rotationSensor) {
+	                        TurtleDistanceSensor leftDistance, TurtleDistanceSensor rightDistance,
+							TurtleRotationSensor rotationSensor) {
 		this.leftDrive = leftDrive;
 		this.rightDrive = rightDrive;
 		this.leftDistance = leftDistance;
@@ -58,69 +46,53 @@ public class TankDriveChassis implements DriveTrain {
 	}
 
 	public TankDriveChassis(MotorSet leftDrive, MotorSet rightDrive, TurtleRotationSensor rotationSensor) {
-		this.leftDrive = leftDrive;
-		this.rightDrive = rightDrive;
-		this.leftDistance = new TurtleFakeDistanceEncoder();
-		this.rightDistance = new TurtleFakeDistanceEncoder();
-		this.rotationSensor = rotationSensor;
+		this(leftDrive, rightDrive, new TurtleFakeDistanceEncoder(), new TurtleFakeDistanceEncoder(), rotationSensor);
 	}
 
-	public void teleUpdate() {
-		/**
-		 * Turning during Teleop
-		 */
-		if(turning){
-			if(turnPID.atTarget()){
-				System.out.println(rotationSensor.getRotation().getDegrees()+" deg");
-				stopMotors();
-				turning = false;
-				System.err.println("Finished Turning");
-			} else {
-				MotorValue motorValue =
-						new MotorValue(turnPID.newValue(rotationSensor.getRotation().getDegrees()))
-								.mapToSpeed(turnSpeed);
-
-				updateMotors(motorValue, motorValue.invert());
-				System.out.println(motorValue.getValue()+" motor value");
-				
-				SmartDashboard.putNumber("PID MOTOR VALUE", motorValue.getValue());
+	public void update() {
+		if(state == DriveState.TURNING){
+			if(drivePID.atTarget()){
+				state = DriveState.MANUAL;
+				stop();
 			}
-			return;
-		} else if(drivingStraight) {
-			MotorValue motorValue =
-					new MotorValue(straightDrivePID.newValue(rotationSensor.getRotation().getDegrees()))
-							.mapToSpeed(straightDriveSpeed);
 
-			updateMotors(motorValue, motorValue);
+			MotorValue motorValue = new MotorValue(drivePID.newValue(rotationSensor.getRotation().getDegrees()))
+							.mapToSpeed(speed);
+			updateMotorsInternal(motorValue, motorValue.invert());
+
+			return;
+		} else if(state == DriveState.STRAIGHT_DRIVING) {
+			MotorValue motorValue =
+					new MotorValue(drivePID.newValue(rotationSensor.getRotation().getDegrees()))
+							.mapToSpeed(speed);
+
+			updateMotorsInternal(motorValue, motorValue);
 		}
 	}
 
 	public void driveStraight(MotorValue speed, PIDConstants constants) {
-		this.drivingStraight = true;
-		this.straightDriveSpeed = speed;
-		this.straightDrivePID = new PID(constants, rotationSensor.getRotation().getDegrees(), 0);
+		state = DriveState.STRAIGHT_DRIVING;
+		this.speed = speed;
+		this.drivePID = new PID(constants, rotationSensor.getRotation().getDegrees(), 0);
+
+		if(isAutonomous()) {
+			while(isAutonomous() && state == DriveState.STRAIGHT_DRIVING) {
+				update();
+			}
+		}
 	}
 
-	public void stopDrivingStraight() {
-		this.drivingStraight = false;
-		stopMotors();
-	}
-
-	public void turn(Angle angle, MotorValue speed, PIDConstants constants) {
-		this.turning = true;
-		this.turnSpeed = speed;
+	public void turn(Angle angle, MotorValue speed, PIDConstants constants, int tolerance) {
+		state = DriveState.TURNING;
 		rotationSensor.reset();
-		this.turnPID = new PID(constants, angle.getDegrees(), 5);
-		System.out.println("started turning: "+angle.getDegrees()+" speed="+speed.getValue());
-	}
+		this.speed = speed;
+		this.drivePID = new PID(constants, angle.getDegrees(), tolerance);
 
-	public void stopTurn() {
-		this.turning = false;
-		stopMotors();
-	}
-
-	public boolean isTurning() {
-		return turning;
+		if(isAutonomous()) {
+			while(isAutonomous() && state == DriveState.TURNING) {
+				update();
+			}
+		}
 	}
 
 	/**
@@ -141,8 +113,14 @@ public class TankDriveChassis implements DriveTrain {
 	 * Sends raw values directly to the drive system
 	 */
 	public void updateMotors(MotorValue leftPower, MotorValue rightPower) {
-		SmartDashboard.putNumber("Left Thingy", leftPower.getValue());
-		SmartDashboard.putNumber("Right Thingy", rightPower.getValue());
+		updateMotorsInternal(leftPower, rightPower);
+		state = DriveState.MANUAL;
+	}
+
+	/**
+	 * Sends raw values directly to the drive system
+	 */
+	private void updateMotorsInternal(MotorValue leftPower, MotorValue rightPower) {
 		leftDrive.set(leftPower);
 		rightDrive.set(rightPower);
 	}
@@ -151,13 +129,22 @@ public class TankDriveChassis implements DriveTrain {
 	 * Set all drive motors to zero speed
 	 */
 	@Override
-	public void stopMotors() {
+	public void stop() {
 		updateMotors(MotorValue.zero, MotorValue.zero);
+		state = DriveState.MANUAL;
 	}
 
-	public void resetEncoders() {
+	public void reset() {
 		leftDistance.reset();
 		rightDistance.reset();
 		rotationSensor.reset();
+	}
+
+	public static boolean isAutonomous() {
+		return RobotState.isAutonomous();
+	}
+
+	public enum DriveState {
+		MANUAL, TURNING, STRAIGHT_DRIVING, NONE
 	}
 }

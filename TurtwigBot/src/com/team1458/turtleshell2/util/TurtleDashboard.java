@@ -94,7 +94,7 @@ public class TurtleDashboard {
 	 * Call when entering teleop mode
 	 */
 	public static void teleop() {
-		SmartDashboard.putString("RobotState", "TELEOP");
+		SmartDashboard.putString("RobotState", "MANUAL");
 	}
 
 	/**

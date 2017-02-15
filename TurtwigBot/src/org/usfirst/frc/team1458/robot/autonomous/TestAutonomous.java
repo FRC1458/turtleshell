@@ -3,19 +3,14 @@ package org.usfirst.frc.team1458.robot.autonomous;
 import com.team1458.turtleshell2.movement.TankDriveChassis;
 import com.team1458.turtleshell2.sensor.TurtleNavX;
 import com.team1458.turtleshell2.util.Logger;
-import org.usfirst.frc.team1458.robot.BlastoiseAutoMode;
+import com.team1458.turtleshell2.core.SampleAutoMode;
 
 /**
- * Time-based autonomous test program
- *
- * Drives the robot forward for 1 second,
- * then turns right for one second,
- * then drives backward for one second,
- * then turns left for one second
+ * Test autonomous program
  *
  * @author asinghani
  */
-public class TestAutonomous extends BlastoiseAutoMode {
+public class TestAutonomous extends SampleAutoMode {
 
 	public TestAutonomous(TankDriveChassis chassis, Logger logger, TurtleNavX navX) {
 		super(chassis, logger, navX.getYawAxis());
@@ -26,11 +21,6 @@ public class TestAutonomous extends BlastoiseAutoMode {
 	 */
 	@Override
 	public void auto(){
-		//moveMillis(1000, 0.7);
-		//turnMillis(500, 0.7);
-		//moveMillis(1000, -0.7);
-		//turnMillis(500, -0.7);
 		
-		turnDegrees(90, 0.7);
 	}
 }

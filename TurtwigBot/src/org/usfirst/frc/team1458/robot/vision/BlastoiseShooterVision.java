@@ -58,8 +58,7 @@ public class BlastoiseShooterVision {
 	}
 
 	/**
-	 * Instantiates BlastoiseVision with a USB camera. USE AT YOUR OWN RISK, THIS HAS A HIGH CHANCE OF CAUSING MEMORY LEAKS!
-	 * Also, drivers will not be able to see camera feed on driver station if this is used.
+	 * Instantiates BlastoiseVision with a USB camera. USE AT YOUR OWN RISK, THIS CAUSES MEMORY LEAKS!
 	 * @param cameraNumber
 	 */
 	public BlastoiseShooterVision(int cameraNumber) {

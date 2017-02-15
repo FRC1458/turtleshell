@@ -162,7 +162,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 	 */
 
 	/**
-	 * ----------------------- START TELEOP CODE -----------------------
+	 * ----------------------- START MANUAL CODE -----------------------
 	 */
 
 	/**
@@ -194,7 +194,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 			intake.stop();
 			shooterLeft.stop();
 			shooterRight.stop();
-			chassis.stopMotors();
+			chassis.stop();
 			// Don't do the thing
 		} else {
 			/**
@@ -231,7 +231,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 			intake.stop();
 			shooterRight.stop();
 			shooterLeft.stop();
-			chassis.stopMotors();
+			chassis.stop();
 		} else if (inputManager.climberSwitch.getUp()) {
 			climber.stop();
 		}
@@ -306,61 +306,62 @@ public class BlastoiseRobot implements AutoModeHolder {
 	 * User-controlled
 	 */
 	private void driveUpdate() {
-
 		/**
 		 * If holding down shooter align button, use PID loop to align with high
 		 * goal
 		 */
 		if (inputManager.alignShooterButton.getButton()) {
+			if(inputManager.alignShooterButton.getDown()) {
+				chassis.stop();
+			}
 			shooterAlignUpdate();
-			return;//premature return = bad, especially given teleUpdate is below
-		}
-
-		MotorValue leftPower = new MotorValue(
-				TurtleMaths.deadband(inputManager.getLeft(), Constants.DriverStation.JOYSTICK_DEADBAND));
-		MotorValue rightPower = new MotorValue(
-				TurtleMaths.deadband(inputManager.getRight(), Constants.DriverStation.JOYSTICK_DEADBAND));
-
-		PIDConstants turnConstants = TurtleDashboard.getPidConstants("TurnPID");
-
-		/**
-		 * Left/Right turn with buttons
-		 */
-		if (inputManager.right90button.getUp()) {
-			chassis.turn(new Angle(90), new MotorValue(0.7), turnConstants);
-			return;
-		}
-
-		if (inputManager.left90button.getUp()) {
-			chassis.turn(new Angle(-90), new MotorValue(0.7), turnConstants);
-			return;
-		}
-
-		/**
-		 * Smoother control of the robot
-		 */
-		if (inputManager.slowButton.getButton()) {
-			leftPower = leftPower.scale(Constants.Drive.slowSpeed);
-			rightPower = rightPower.scale(Constants.Drive.slowSpeed);
-		} else if (Constants.DriverStation.LOGISTIC_SCALE) {
-			leftPower = new MotorValue(TurtleMaths.logisticStepScale(leftPower.getValue()));
-			rightPower = new MotorValue(TurtleMaths.logisticStepScale(rightPower.getValue()));
-		}
-
-		if (inputManager.straightButton.getButton()) {
-			chassis.updateMotors(rightPower, rightPower);
-		} else if (inputManager.turnButton.getButton()) {
-			chassis.updateMotors(leftPower, leftPower.invert());
 		} else {
-			chassis.updateMotors(leftPower, rightPower);
-		}
+			MotorValue leftPower = new MotorValue(
+					TurtleMaths.deadband(inputManager.getLeft(), Constants.DriverStation.JOYSTICK_DEADBAND));
+			MotorValue rightPower = new MotorValue(
+					TurtleMaths.deadband(inputManager.getRight(), Constants.DriverStation.JOYSTICK_DEADBAND));
 
-		chassis.teleUpdate(); // Needed for Turn PID
+			PIDConstants turnConstants = TurtleDashboard.getPidConstants("TurnPID");
+
+			/**
+			 * Left/Right turn with buttons
+			 */
+			if (inputManager.right90button.getUp()) {
+				chassis.turn(new Angle(90), new MotorValue(0.7), turnConstants);
+				return;
+			}
+
+			if (inputManager.left90button.getUp()) {
+				chassis.turn(new Angle(-90), new MotorValue(0.7), turnConstants);
+				return;
+			}
+
+			/**
+			 * Smoother control of the robot
+			 */
+			if (inputManager.slowButton.getButton()) {
+				leftPower = leftPower.scale(Constants.Drive.slowSpeed);
+				rightPower = rightPower.scale(Constants.Drive.slowSpeed);
+			} else if (Constants.DriverStation.LOGISTIC_SCALE) {
+				leftPower = new MotorValue(TurtleMaths.logisticStepScale(leftPower.getValue()));
+				rightPower = new MotorValue(TurtleMaths.logisticStepScale(rightPower.getValue()));
+			}
+
+			if (inputManager.straightButton.getButton()) {
+				chassis.updateMotors(rightPower, rightPower);
+			} else if (inputManager.turnButton.getButton()) {
+				chassis.updateMotors(leftPower, leftPower.invert());
+			} else {
+				chassis.updateMotors(leftPower, rightPower);
+			}
+
+			chassis.teleUpdate(); // Needed for Turn PID
+		}
 
 	}
 
 	/**
-	 * ----------------------- END TELEOP CODE -----------------------
+	 * ----------------------- END MANUAL CODE -----------------------
 	 */
 
 	/**
@@ -400,7 +401,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 	/**
 	 * Handles Different Robot Modes (Auto & Test)
 	 */
-	private ArrayList<BlastoiseAutoMode> autoModes = new ArrayList<>();
+	private ArrayList<AutoMode> autoModes = new ArrayList<>();
 	private int selectedAutoMode = 0;
 	private TestMode testMode;
 
@@ -414,7 +415,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 	/**
 	 * Get the list of auto modes
 	 */
-	public ArrayList<BlastoiseAutoMode> getAutoModes() {
+	public ArrayList<AutoMode> getAutoModes() {
 		return autoModes;
 	}
 
