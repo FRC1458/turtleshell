@@ -113,7 +113,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 	}
 
 	private void setupInput() {
-		BlastoiseController controller = new BlastoiseController();
+		BlastoiseController controller = new BlastoiseController(0);
 
 		if (Constants.DriverStation.USE_XBOX_CONTROLLER) {
 			XboxController xboxController = new XboxController(Constants.DriverStation.UsbPorts.XBOX_CONTROLLER);
@@ -264,7 +264,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 			}
 
 			shooterLeft.teleUpdate();
-			//shooterRight.teleUpdate();
+			shooterRight.teleUpdate();
 
 			SmartDashboard.putNumber("Shooter Left RPM", shooterLeft.getSpeed());
 			SmartDashboard.putNumber("Shooter Right RPM", shooterRight.getSpeed());

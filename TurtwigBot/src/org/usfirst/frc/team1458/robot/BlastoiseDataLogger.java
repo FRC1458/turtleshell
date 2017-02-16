@@ -20,11 +20,5 @@ public class BlastoiseDataLogger {
 		pdp = new PowerDistributionPanel();
 		// need to do the thing
 	}
-	
-	public JoystickAxis getAxis(XboxController.XboxAxis a) {
-		if (a == XboxController.XboxAxis.LY || a == XboxController.XboxAxis.RY) {
-			return new JoystickAxis(j, a.val, true);
-		}
-		return new JoystickAxis(j, a.val);
-	}
+
 }
