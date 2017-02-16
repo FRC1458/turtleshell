@@ -80,6 +80,13 @@ public class BlastoiseShooter {
 	}
 
 	/**
+	 * Starts shooting in reverse.
+	 */
+	public void startReverse() {
+		status = ShooterStatus.REVERSED;
+	}
+
+	/**
 	 * Stops the shooter
 	 */
 	public void stop() {
@@ -99,6 +106,8 @@ public class BlastoiseShooter {
 			SmartDashboard.putNumber("ShooterMotorPower", motorPower);
 		} else if (status == ShooterStatus.MANUAL) {
 			motor.set(new MotorValue(0.7));
+		} else if (status == ShooterStatus.REVERSED) {
+			motor.set(MotorValue.fullBackward);
 		}
 	}
 	
@@ -115,6 +124,6 @@ public class BlastoiseShooter {
 	}
 
 	public enum ShooterStatus {
-		SHOOTING, STOPPED, UNCLOGGING, MANUAL
+		SHOOTING, STOPPED, REVERSED, MANUAL
 	}
 }

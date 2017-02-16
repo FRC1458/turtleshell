@@ -11,7 +11,10 @@ import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team1458.robot.Constants;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Vision detection code for 2017
@@ -33,7 +36,8 @@ public class BlastoiseShooterVision {
 	public BlastoiseShooterVision(VideoSource videoSource) {
 		this.videoSource = videoSource;
 		videoSource.setResolution(Constants.ShooterVision.Camera.WIDTH_PX, Constants.ShooterVision.Camera.HEIGHT_PX);
-		
+
+
 		VisionThread visionThread = new VisionThread(videoSource, new DetectTargetPipeline(), pipeline -> {
 			synchronized (lock) {
 				processContours(pipeline.filterContours0Output());

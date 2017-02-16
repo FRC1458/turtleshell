@@ -82,10 +82,6 @@ public class Constants {
 
 		public static final MotorValue SPEED = MotorValue.fullForward;
 		public static final MotorValue SPEED_LOW = new MotorValue(0.3);
-		public static final MotorValue SPEED_ZERO = new MotorValue(0.1);
-		// Run at very low speed when at top (to prevent slipping)
-		// TODO: ZERO not being zero is not a good idea. The climber should have
-		// a ratchet, but failing that just rename this
 
 	}
 
@@ -96,10 +92,10 @@ public class Constants {
 		public static final int MOTOR_PORT = 19;
 		public static final int HALL_PORT = 2;
 		public static final double SPEED_RPM = 4000;
-		public static final boolean motorReversed = false;
+		public static final boolean MOTOR_REVERSED = false;
 
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.00009, 0, 0.000001);
-		public static final MotorValue baseValue = new MotorValue(0.70);
+		public static final MotorValue BASE_VALUE = new MotorValue(0.70);
 	}
 
 	/**
@@ -109,10 +105,10 @@ public class Constants {
 		public static final int MOTOR_PORT = 18;
 		public static final int HALL_PORT = 8;
 		public static final double SPEED_RPM = 4000;
-		public static final boolean motorReversed = true;
+		public static final boolean MOTOR_REVERSED = true;
 
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.00009, 0, 0.000001);
-		public static final MotorValue baseValue = new MotorValue(0.70);
+		public static final MotorValue BASE_VALUE = new MotorValue(0.70);
 	}
 
 	public static final class ShooterVision {

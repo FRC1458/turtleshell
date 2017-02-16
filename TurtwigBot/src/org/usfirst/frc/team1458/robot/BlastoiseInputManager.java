@@ -9,7 +9,7 @@ import com.team1458.turtleshell2.input.fake.FakeRumbleable;
  *
  * @author asinghani
  */
-public class BlastoiseInputManager implements Rumbleable {//Should probably reference Constants
+public class BlastoiseInputManager implements Rumbleable {
 
 	// Drive Joysticks
 	AnalogInput leftJoystick;
@@ -39,6 +39,8 @@ public class BlastoiseInputManager implements Rumbleable {//Should probably refe
 
 	// Rumble
 	Rumbleable rumbleController;
+
+	ButtonInput panicButton = new FakeButtonInput();
 
 	/**
 	 * Instantiate BlastoiseInputManager with 2 flight sticks

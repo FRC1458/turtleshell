@@ -140,16 +140,16 @@ public class BlastoiseRobot implements AutoModeHolder {
 				navX.getYawAxis()
 		);
 
-		climber = new BlastoiseClimber(0, Constants.Climber.SPEED, Constants.Climber.SPEED_LOW);
-		intake = new BlastoiseIntake(0, Constants.Intake.SPEED);
+		climber = new BlastoiseClimber(Constants.Climber.MOTOR_PORT, Constants.Climber.SPEED, Constants.Climber.SPEED_LOW);
+		intake = new BlastoiseIntake(Constants.Intake.MOTOR_PORT, Constants.Intake.SPEED);
 
 		shooterLeft = new BlastoiseShooter(Constants.LeftShooter.MOTOR_PORT, Constants.LeftShooter.HALL_PORT,
 				Constants.LeftShooter.PID_CONSTANTS, Constants.LeftShooter.SPEED_RPM,
-				Constants.LeftShooter.motorReversed, Constants.LeftShooter.baseValue);
+				Constants.LeftShooter.MOTOR_REVERSED, Constants.LeftShooter.BASE_VALUE);
 
 		shooterRight = new BlastoiseShooter(Constants.RightShooter.MOTOR_PORT, Constants.RightShooter.HALL_PORT,
 				Constants.RightShooter.PID_CONSTANTS, Constants.RightShooter.SPEED_RPM,
-				Constants.RightShooter.motorReversed, Constants.RightShooter.baseValue);
+				Constants.RightShooter.MOTOR_REVERSED, Constants.RightShooter.BASE_VALUE);
 	}
 
 	private void setupUI() {
@@ -183,34 +183,45 @@ public class BlastoiseRobot implements AutoModeHolder {
 		 */
 
 		/**
-		 * Start climbing if switch is active
+		 * Panic Button Functionality
 		 */
-		climberUpdate();
+		if(inputManager.panicButton.getButton()) {
+			climber.startReverse();
+			intake.startReverse();
+			shooterLeft.startReverse();
+			shooterRight.startReverse();
 
-		/**
-		 * If robot is climbing, do nothing else
-		 */
-		if (climber.isClimbing()) {
-			intake.stop();
-			shooterLeft.stop();
-			shooterRight.stop();
-			chassis.stop();
-			// Don't do the thing
 		} else {
 			/**
-			 * Update intake movement based on switch
+			 * Start climbing if switch is active
 			 */
-			intakeUpdate();
+			climberUpdate();
 
 			/**
-			 * Update shooter actions based on switch
+			 * If robot is climbing, do nothing else
 			 */
-			shooterUpdate();
+			if (climber.isClimbing()) {
+				intake.stop();
+				shooterLeft.stop();
+				shooterRight.stop();
+				chassis.stop();
+				// Don't do the thing
+			} else {
+				/**
+				 * Update intake movement based on switch
+				 */
+				intakeUpdate();
 
-			/**
-			 * Drive Code
-			 */
-			driveUpdate();
+				/**
+				 * Update shooter actions based on switch
+				 */
+				shooterUpdate();
+
+				/**
+				 * Drive Code
+				 */
+				driveUpdate();
+			}
 		}
 
 		/**
@@ -220,7 +231,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 
 		double targetX = vision.getShooterTargetX();
 
-		SmartDashboard.putBoolean("On Target", TurtleMaths.absDiff(targetX, 165) < 45);
+		SmartDashboard.putBoolean("Shooter On Target", TurtleMaths.absDiff(targetX, 165) < 45);
 		SmartDashboard.putBoolean("Target Visible", targetX > -1);
 	}
 
