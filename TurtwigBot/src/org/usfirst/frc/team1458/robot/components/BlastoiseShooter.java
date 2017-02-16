@@ -107,7 +107,7 @@ public class BlastoiseShooter {
 		} else if (status == ShooterStatus.MANUAL) {
 			motor.set(new MotorValue(0.7));
 		} else if (status == ShooterStatus.REVERSED) {
-			motor.set(MotorValue.fullBackward);
+			motor.set(MotorValue.fullBackward);//TODO: NO THIS SHOULD NOT BE FULL POWER
 		}
 	}
 	

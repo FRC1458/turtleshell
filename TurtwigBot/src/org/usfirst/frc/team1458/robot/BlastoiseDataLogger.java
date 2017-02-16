@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author asinghani
  */
-public class BlastoiseDataLogger {
+public class BlastoiseDataLogger {//TODO: The Strings and such probably need closing braces
 	private PowerDistributionPanel pdp;
 	private ArrayList<IEvent> events;
 
@@ -41,7 +41,7 @@ public class BlastoiseDataLogger {
 		}
 	}
 
-	public enum EventType {
+	public enum EventType {//TODO: Why do these have ints associated with them
 		ROBOT_INIT(0), ROBOT_AUTO(1), ROBOT_TELEOP(2), ROBOT_TEST(3), ROBOT_DISABLED(4), // Robot Status
 		SHOOTER_START(5), SHOOTER_STOP(6), CLIMBER_START(7), CLIMBER_STOP(8), // Shooter / Climber
 		INTAKE_START(9), INTAKE_START_REVERSE(10), INTAKE_STOP(11), // Intake
@@ -55,7 +55,7 @@ public class BlastoiseDataLogger {
 
 	// TODO Fix
 
-	interface IEvent {
+	interface IEvent {//TODO: Maybe call this Loggable or something like that?
 		String toString();
 	}
 
