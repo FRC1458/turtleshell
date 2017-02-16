@@ -32,7 +32,7 @@ public class Constants {
 			public static final int XBOX_CONTROLLER = 3;
 		}
 	}
-	
+
 	public static final class Drive {
 		public static final double slowSpeed = 0.5;
 	}
@@ -41,9 +41,9 @@ public class Constants {
 	 * Right drive system
 	 */
 	public static final class RightDrive {
-		public static final int MOTOR1 = 13;
-		public static final int MOTOR2 = 14;
-		public static final int MOTOR3 = 15;
+		public static final int MOTOR1 = TalonID.DILLON.id;
+		public static final int MOTOR2 = TalonID.ELSA.id;
+		public static final int MOTOR3 = TalonID.FITZ.id;
 
 		public static final int ENCODER_A = -1;
 		public static final int ENCODER_B = -1;
@@ -54,9 +54,9 @@ public class Constants {
 	 * Left drive system
 	 */
 	public static final class LeftDrive {
-		public static final int MOTOR1 = 10;
-		public static final int MOTOR2 = 11;
-		public static final int MOTOR3 = 12;
+		public static final int MOTOR1 = TalonID.ALLEN.id;
+		public static final int MOTOR2 = TalonID.BOB.id;
+		public static final int MOTOR3 = TalonID.CARTER.id;
 
 		public static final int ENCODER_A = -1;
 		public static final int ENCODER_B = -1;
@@ -67,7 +67,7 @@ public class Constants {
 	 * Intake-related constants
 	 */
 	public static final class Intake {
-		public static final int MOTOR_PORT = 60;
+		public static final int MOTOR_PORT = TalonID.ORIGINAL.id;
 		public static final MotorValue SPEED = MotorValue.fullForward;
 
 		public static final MotorValue UNCLOG_SPEED = MotorValue.fullForward;
@@ -78,7 +78,7 @@ public class Constants {
 	 * Climber-related constants
 	 */
 	public static final class Climber {
-		public static final int MOTOR_PORT = 20;
+		public static final int MOTOR_PORT = TalonID.KAREN.id;
 
 		public static final MotorValue SPEED = MotorValue.fullForward;
 		public static final MotorValue SPEED_LOW = new MotorValue(0.3);
@@ -89,7 +89,7 @@ public class Constants {
 	 * Shooter-related constants
 	 */
 	public static final class LeftShooter {
-		public static final int MOTOR_PORT = 19;
+		public static final int MOTOR_PORT = TalonID.JESSICA.id;
 		public static final int HALL_PORT = 2;
 		public static final double SPEED_RPM = 4000;
 		public static final boolean MOTOR_REVERSED = false;
@@ -102,7 +102,7 @@ public class Constants {
 	 * Shooter-related constants
 	 */
 	public static final class RightShooter {
-		public static final int MOTOR_PORT = 18;
+		public static final int MOTOR_PORT = TalonID.ISAAC.id;
 		public static final int HALL_PORT = 8;
 		public static final double SPEED_RPM = 4000;
 		public static final boolean MOTOR_REVERSED = true;
@@ -159,6 +159,16 @@ public class Constants {
 
 		public static final MotorValue TURN_SPEED = new MotorValue(0.65);
 		public static final MotorValue MIN_SPEED = new MotorValue(0.15);
+	}
+
+	public static enum TalonID {
+		ORIGINAL(60), ALLEN(10), BOB(11), CARTER(12), DILLON(13), ELSA(14), FITZ(15), GRANT(16), HITAGI(17), ISAAC(
+				18), JESSICA(19), KAREN(20), LISA(21);
+		public final int id;
+
+		TalonID(int id) {
+			this.id = id;
+		}
 	}
 
 	/**
