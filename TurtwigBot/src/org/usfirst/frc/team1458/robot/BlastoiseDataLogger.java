@@ -1,11 +1,14 @@
 package org.usfirst.frc.team1458.robot;
 
+import com.team1458.turtleshell2.input.JoystickAxis;
+import com.team1458.turtleshell2.input.XboxController;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 import java.util.ArrayList;
 
 /**
  * Logs various pieces of data throughout the match
+ * This is going to result in a whole lot of data, packaged into a JSON format
  *
  * @author asinghani
  */
@@ -15,18 +18,13 @@ public class BlastoiseDataLogger {
 
 	public BlastoiseDataLogger() {
 		pdp = new PowerDistributionPanel();
+		// need to do the thing
 	}
-
-	public void startAuto() {
-
-	}
-
-
-	class Event {
-
-	}
-
-	class DataPoint {
-
+	
+	public JoystickAxis getAxis(XboxController.XboxAxis a) {
+		if (a == XboxController.XboxAxis.LY || a == XboxController.XboxAxis.RY) {
+			return new JoystickAxis(j, a.val, true);
+		}
+		return new JoystickAxis(j, a.val);
 	}
 }

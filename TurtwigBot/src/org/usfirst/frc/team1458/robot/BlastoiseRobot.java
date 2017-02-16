@@ -327,12 +327,12 @@ public class BlastoiseRobot implements AutoModeHolder {
 			 * Left/Right turn with buttons
 			 */
 			if (inputManager.right90button.getUp()) {
-				chassis.turn(new Angle(90), new MotorValue(0.7), turnConstants);
+				chassis.turn(new Angle(90), new MotorValue(0.7), turnConstants, 5);
 				return;
 			}
 
 			if (inputManager.left90button.getUp()) {
-				chassis.turn(new Angle(-90), new MotorValue(0.7), turnConstants);
+				chassis.turn(new Angle(-90), new MotorValue(0.7), turnConstants, 5);
 				return;
 			}
 
@@ -355,7 +355,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 				chassis.updateMotors(leftPower, rightPower);
 			}
 
-			chassis.teleUpdate(); // Needed for Turn PID
+			chassis.update(); // Needed for Turn PID
 		}
 
 	}
