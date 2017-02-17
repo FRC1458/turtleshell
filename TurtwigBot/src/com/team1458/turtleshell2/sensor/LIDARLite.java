@@ -10,46 +10,64 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.TimerTask;
 
 /**
- * LIDARLite v3 Sensor over I2C interface. Uses a Timer / Thread in the background
+ * LIDARLite v3 Sensor over I2C interface. Uses a Timer / Thread in the background.
  * 
  * @author mehnadnerd & asinghani
  */
 public class LIDARLite implements TurtleDistanceSensor {
-	private final I2C ic;
+	private final I2C sensor;
+
+	private Distance lastDistance = Distance.error;
+	private Rate<Distance> velocity = Rate.distanceZero;
+	private double lastTime = 0; 
 
 	private Distance distance = Distance.error;
 
 	private static Object lock = new Object();
 
-	public LIDARLite(I2C.Port port, long update) {
-		ic = new I2C(port, 0x62);
+	/**
+	 * Instantiates LIDARLite with given port and update speed
+	 * @param port
+	 * @param updateMillis
+	 */
+	public LIDARLite(I2C.Port port, long updateMillis) {
+		sensor = new I2C(port, 0x62);
 
 		// Configure Sensor. See http://static.garmin.com/pumac/LIDAR_Lite_v3_Operation_Manual_and_Technical_Specifications.pdf
 
-		ic.write(0x02, 0x80); // Maximum number of acquisitions during measurement
-		ic.write(0x04, 0x08); // Acquisition mode control
-		ic.write(0x1c, 0x00); // Peak detection threshold bypass
+		sensor.write(0x02, 0x80); // Maximum number of acquisitions during measurement
+		sensor.write(0x04, 0x08); // Acquisition mode control
+		sensor.write(0x1c, 0x00); // Peak detection threshold bypass
 
 		new java.util.Timer().schedule(new TimerTask() {
 			@Override
 			public void run() {
 				synchronized (lock) {
 					distance = measureDistance();
+					velocity = measureVelocity();
 				}
 			}
-		}, update, update);
+		}, updateMillis, updateMillis);
+	}
+
+	/**
+	 * Instantiates LIDARLite with given port and 25Hz update speed
+	 * @param port
+	 */
+	public LIDARLite(I2C.Port port) {
+		this(port, 40);
 	}
 
 	/**
 	 * Measures distance and puts into distance variable
 	 */
-	public Distance measureDistance() {
+	private Distance measureDistance() {
 		byte[] high = new byte[]{0x00};
 		byte[] low = new byte[]{0x00};
 		byte[] status = { Byte.MAX_VALUE }; // All bits are 1
 
 		// This is the command for starting distance measurement with bias correction
-		ic.write(0x00, 0x04);
+		sensor.write(0x00, 0x04);
 
 
 		// TODO make this not fail and get stuck in a loop
@@ -58,7 +76,7 @@ public class LIDARLite implements TurtleDistanceSensor {
 		 */
 		int timeout = 500;
 		while ((status[0] & 0b0000_0001) == 0b0000_0001 && timeout > 0) { // TODO need to check if this is correct for LSB
-			ic.read(0x01, 1, status); // check status
+			sensor.read(0x01, 1, status); // check status
 			SmartDashboard.putString("Status", Integer.toBinaryString(status[0]));
 			timeout--;
 		}
@@ -67,8 +85,8 @@ public class LIDARLite implements TurtleDistanceSensor {
 			return Distance.error;
 		}
 
-		if (!ic.read(0x0f, 1, high)) {
-			if (!ic.read(0x10, 1, low)) {
+		if (!sensor.read(0x0f, 1, high)) {
+			if (!sensor.read(0x10, 1, low)) {
 				Timer.delay(0.01);
 				SmartDashboard.putString("High", Integer.toBinaryString(high[0]));
 				SmartDashboard.putString("Low", Integer.toBinaryString(low[0]));
@@ -80,24 +98,30 @@ public class LIDARLite implements TurtleDistanceSensor {
 
 		return Distance.error;
 	}
-
-	@Override
-	public Distance getDistance() {
-		synchronized (lock) {
-			distance = measureDistance();
-		}
-		return distance;
+	
+	private Rate<Distance> measureVelocity() {
+		Rate<Distance> rate = new Rate<>((distance.getInches() - lastDistance.getInches()) / ((lastTime - Timer.getFPGATimestamp())/1000.0));
+		lastTime = Timer.getFPGATimestamp();
+		lastDistance = distance;
+		return rate;
 	}
 
 	@Override
+	public Distance getDistance() {
+		return distance;
+	}
+
+	/**
+	 * Returns the calculated velocity between the last 2 data points.
+	 */
+	@Override
 	public Rate<Distance> getVelocity() {
-		// not yet implemented
-		return null;
+		return velocity;
 	}
 
 	@Override
 	public void reset() {
-		ic.write(0x00, 0x00);
+		sensor.write(0x00, 0x00);
 	}
 
 	/**

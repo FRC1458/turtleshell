@@ -9,7 +9,6 @@ import com.team1458.turtleshell2.movement.FollowerMotorSet;
 import com.team1458.turtleshell2.movement.TankDriveChassis;
 import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
 import com.team1458.turtleshell2.pid.PID;
-import com.team1458.turtleshell2.sensor.LIDAR;
 import com.team1458.turtleshell2.sensor.LIDARLite;
 import com.team1458.turtleshell2.sensor.TurtleNavX;
 import com.team1458.turtleshell2.util.Logger;
@@ -108,13 +107,9 @@ public class BlastoiseRobot implements AutoModeHolder {
 		selectedAutoMode = 0;
 	}
 	
-	LIDAR otherlidar;
-
 	private void setupSensors() {
 		navX = new TurtleNavX(I2C.Port.kMXP);
-		//lidar = new LIDARLite(I2C.Port.kOnboard);
-		otherlidar = new LIDAR(I2C.Port.kOnboard);
-		otherlidar.start();
+		lidar = new LIDARLite(I2C.Port.kOnboard);
 	}
 
 	private void setupInput() {
@@ -188,8 +183,8 @@ public class BlastoiseRobot implements AutoModeHolder {
 		 * c. Else drive normal teleop mode
 		 */
 
-		SmartDashboard.putNumber("LIDAR Distance", otherlidar.getDistance());
-		//SmartDashboard.putNumber("LIDAR Velocity", lidar.getVelocity().getValue());
+		SmartDashboard.putNumber("OtherLidar Distance", lidar.getDistance().getInches());
+		//SmartDashboard.putNumber("OtherLidar Velocity", lidar.getVelocity().getValue());
 		
 		if(1 == 1) return; // TODO REMOVE THIS IS VERY BAD AND BREAKS EVERYTHING
 

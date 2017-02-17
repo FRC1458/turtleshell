@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.SensorBase;
  
-public class LIDAR {
+public class OtherLidar {
 	private I2C i2c;
 	private static byte[] distance;
 	private java.util.Timer updater;
@@ -22,7 +22,7 @@ public class LIDAR {
 	private final int LIDAR_CONFIG_REGISTER = 0x00;
 	private final int LIDAR_DISTANCE_REGISTER = 0x8f;
 	
-	public LIDAR(Port port) {
+	public OtherLidar(Port port) {
 		i2c = new I2C(port, LIDAR_ADDR);
 		
 		distance = new byte[2];
@@ -80,7 +80,7 @@ public class LIDAR {
 				else{
 					SmartDashboard.putBoolean("Correct distance to stacks", false);
 				}
-				SmartDashboard.putNumber("LIDAR distance Inches", (getDistance() / 2.54));
+				SmartDashboard.putNumber("OtherLidar distance Inches", (getDistance() / 2.54));
 				try {
 					Thread.sleep(10);
 				} catch (InterruptedException e) {
