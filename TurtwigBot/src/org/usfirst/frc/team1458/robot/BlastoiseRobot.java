@@ -9,7 +9,8 @@ import com.team1458.turtleshell2.movement.FollowerMotorSet;
 import com.team1458.turtleshell2.movement.TankDriveChassis;
 import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
 import com.team1458.turtleshell2.pid.PID;
-import com.team1458.turtleshell2.sensor.TurtleLIDARLite;
+import com.team1458.turtleshell2.sensor.LIDAR;
+import com.team1458.turtleshell2.sensor.LIDARLite;
 import com.team1458.turtleshell2.sensor.TurtleNavX;
 import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.util.PIDConstants;
@@ -39,7 +40,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 	 * Sensors
 	 */
 	TurtleNavX navX = null;
-	TurtleLIDARLite lidar = null;
+	LIDARLite lidar = null;
 
 	/**
 	 * Input
@@ -106,14 +107,19 @@ public class BlastoiseRobot implements AutoModeHolder {
 		autoModes.add(new TestAutonomous(chassis, logger, navX));
 		selectedAutoMode = 0;
 	}
+	
+	LIDAR otherlidar;
 
 	private void setupSensors() {
-		navX = new TurtleNavX(I2C.Port.kOnboard);
-		lidar = new TurtleLIDARLite(I2C.Port.kMXP);
+		navX = new TurtleNavX(I2C.Port.kMXP);
+		//lidar = new LIDARLite(I2C.Port.kOnboard);
+		otherlidar = new LIDAR(I2C.Port.kOnboard);
+		otherlidar.start();
 	}
 
 	private void setupInput() {
-		BlastoiseController controller = new BlastoiseController(0);
+		BlastoiseController controller = new BlastoiseController(5);
+		XboxController xController = new XboxController(Constants.DriverStation.UsbPorts.XBOX_CONTROLLER);
 
 		if (Constants.DriverStation.USE_XBOX_CONTROLLER) {
 			XboxController xboxController = new XboxController(Constants.DriverStation.UsbPorts.XBOX_CONTROLLER);
@@ -121,7 +127,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 		} else {
 			FlightStick leftStick = new FlightStick(Constants.DriverStation.UsbPorts.LEFT_STICK);
 			FlightStick rightStick = new FlightStick(Constants.DriverStation.UsbPorts.RIGHT_STICK);
-			inputManager = new BlastoiseInputManager(leftStick, rightStick, controller);
+			inputManager = new BlastoiseInputManager(leftStick, rightStick, xController);
 		}
 	}
 
@@ -181,6 +187,11 @@ public class BlastoiseRobot implements AutoModeHolder {
 		 * b. If holding down gear align button, use PID loop to align while also driving forward
 		 * c. Else drive normal teleop mode
 		 */
+
+		SmartDashboard.putNumber("LIDAR Distance", otherlidar.getDistance());
+		//SmartDashboard.putNumber("LIDAR Velocity", lidar.getVelocity().getValue());
+		
+		if(1 == 1) return; // TODO REMOVE THIS IS VERY BAD AND BREAKS EVERYTHING
 
 		/**
 		 * Panic Button Functionality

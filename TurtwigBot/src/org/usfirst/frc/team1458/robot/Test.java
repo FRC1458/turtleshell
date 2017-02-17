@@ -6,6 +6,7 @@ package org.usfirst.frc.team1458.robot;
  */
 public class Test {
 	public static void main(String[] args){
-
+		//BlastoiseDataLogger.Update update = new BlastoiseDataLogger.Update();
+		//System.out.println(update.toJSON());
 	}
 }

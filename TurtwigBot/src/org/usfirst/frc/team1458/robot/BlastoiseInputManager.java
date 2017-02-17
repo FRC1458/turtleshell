@@ -73,6 +73,42 @@ public class BlastoiseInputManager implements Rumbleable {
 	}
 
 	/**
+	 * Instantiate BlastoiseInputManager with 2 flight sticks & xbox
+	 */
+	public BlastoiseInputManager(FlightStick leftStick, FlightStick rightStick, XboxController xboxController) {
+		// Drive Joysticks
+		this.leftJoystick = leftStick.getAxis(FlightStick.FlightAxis.PITCH);
+		this.rightJoystick = rightStick.getAxis(FlightStick.FlightAxis.PITCH);
+
+		// Extra Drive Functions
+		this.turnButton = leftStick.getButton(FlightStick.FlightButton.TRIGGER);
+		this.straightButton = rightStick.getButton(FlightStick.FlightButton.TRIGGER);
+
+		// Turn for degrees buttons
+		this.right90button = rightStick.getButton(FlightStick.FlightButton.THREE);
+		this.left90button = leftStick.getButton(FlightStick.FlightButton.FOUR);
+
+		// Slow Button for finer control
+		this.slowButton = new MultiButtonInput(MultiButtonInput.Operator.OR,
+				rightStick.getButton(FlightStick.FlightButton.TWO),
+				leftStick.getButton(FlightStick.FlightButton.TWO));
+
+		this.alignShooterButton = rightStick.getButton(FlightStick.FlightButton.FIVE);
+
+		// POV switch
+		this.pov = rightStick.getPOVSwitch();
+
+		// Rumble
+		this.rumbleController = new FakeRumbleable();
+
+		ButtonInput climberSwitch = xboxController.getButton(XboxController.XboxButton.X);
+		ButtonInput intakeSwitch = xboxController.getButton(XboxController.XboxButton.B);
+		ButtonInput shootButton = xboxController.getButton(XboxController.XboxButton.Y);
+
+		ButtonInput panicButton = xboxController.getButton(XboxController.XboxButton.A);
+	}
+
+	/**
 	 * Instantiate BlastoiseInputManager with xbox controller
 	 */
 	public BlastoiseInputManager(XboxController controller, BlastoiseController blastoiseController) {

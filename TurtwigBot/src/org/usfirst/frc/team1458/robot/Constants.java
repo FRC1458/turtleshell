@@ -15,7 +15,8 @@ public class Constants {
 
 	public static boolean DEBUG = true;
 	public static final Logger.LogFormat LOGGER_MODE = Logger.LogFormat.PLAINTEXT;
-	public static final double COLLISION_THRESHOLD = 1.5f;
+
+	public static final boolean LOGGER_PRETTY_PRINT = true;
 
 	/**
 	 * Control code

@@ -1,7 +1,10 @@
 package org.usfirst.frc.team1458.robot;
 
+import com.eclipsesource.json.Json;
+import com.eclipsesource.json.JsonObject;
+import com.eclipsesource.json.WriterConfig;
+import com.team1458.turtleshell2.sensor.PDP;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Timer;
 
 import java.util.ArrayList;
@@ -10,38 +13,97 @@ import java.util.ArrayList;
  * Logs various pieces of data throughout the match
  * This is going to result in a whole lot of data, packaged into a JSON format
  *
+ * NOTE - This class requires the jar minimal-json-0.9.4.jar in order to function
+ * (this jar should be in the lib folder in this project)
+ *
  * @author asinghani
  */
-public class BlastoiseDataLogger {//TODO: The Strings and such probably need closing braces
-	private PowerDistributionPanel pdp;
+public class BlastoiseDataLogger {
+	private PDP pdp;
 	private ArrayList<IEvent> events;
 
 	public BlastoiseDataLogger() {
-		pdp = new PowerDistributionPanel();
-		// need to do the thing
+		pdp = new PDP();
 	}
 
 	public void update() {
 
 	}
 
-	class Update implements IEvent {
-		private final double matchTime;
-		private final double systemTime;
+	public void event(EventType type, String data) {
+		events.add(new Event(type, data));
+	}
 
-		public Update() {
-			this.matchTime = DriverStation.getInstance().getMatchTime();
-			this.systemTime = Timer.getFPGATimestamp();
+	static class Update implements IEvent {
+		private double matchTime;
+		private double systemTime;
+
+		private double leftDrive;
+		private double rightDrive;
+
+		private double leftShooterMotorValue;
+		private double rightShooterMotorValue;
+
+		private double leftShooterRPM;
+		private double rightShooterRPM;
+
+		private double intakeMotorValue;
+
+		private double climberMotorValue;
+
+		// MEM FORMATTED: free -m | awk 'NR==2{printf "Memory Usage: %s/%sMB (%.2f%%)\n", $3,$2,$3*100/$2 }'
+		// MEM PERCENT: free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }'
+
+		private RobotState robotState;
+
+		private double batteryVoltage;
+
+		private double pdpTemperature;
+		private double pdpTotalCurrent;
+		private double pdpTotalPower;
+		private double pdpVoltage;
+
+		private double[] current = new double[16];
+
+		public Update(PDP pdp) {
+			this.batteryVoltage = DriverStation.getInstance().getBatteryVoltage();
+			this.pdpTemperature = pdp.getTemperature();
+			this.pdpTotalCurrent = pdp.getTotalCurrent();
+			this.pdpTotalPower = pdp.getTotalPower();
+			this.pdpVoltage = pdp.getVoltage();
+
+			for(int channel = 0; channel <= 15; channel++) {
+				current[channel] = pdp.getCurrent(channel);
+			}
+
+			this.robotState = getRobotState();
+
+			try {
+				this.matchTime = DriverStation.getInstance().getMatchTime();
+				this.systemTime = Timer.getFPGATimestamp();
+			} catch (Throwable e) {
+				this.matchTime = -1;
+				this.systemTime = (int) Math.round(System.currentTimeMillis() / 1000.0);
+			}
 		}
 
 		@Override
-		public String toString() {
-			return String.format("{type: 1, matchTime: %f, systemTime: %f",
-					matchTime, systemTime);
+		public String toJSON() {
+			JsonObject object = Json.object();
+
+			object.set("type", 1);
+			object.set("matchTime", matchTime);
+			object.set("systemTime", systemTime);
+
+			return object.toString(Constants.LOGGER_PRETTY_PRINT ? WriterConfig.PRETTY_PRINT : WriterConfig.MINIMAL);
 		}
 	}
 
-	public enum EventType {//TODO: Why do these have ints associated with them
+	/**
+	 * This is a type of event for the robot.
+	 * The associated int values MUST NOT be changed or else parsing code will break.
+	 */
+	public enum EventType {
 		ROBOT_INIT(0), ROBOT_AUTO(1), ROBOT_TELEOP(2), ROBOT_TEST(3), ROBOT_DISABLED(4), // Robot Status
 		SHOOTER_START(5), SHOOTER_STOP(6), CLIMBER_START(7), CLIMBER_STOP(8), // Shooter / Climber
 		INTAKE_START(9), INTAKE_START_REVERSE(10), INTAKE_STOP(11), // Intake
@@ -53,23 +115,35 @@ public class BlastoiseDataLogger {//TODO: The Strings and such probably need clo
 		}
 	}
 
-	// TODO Fix
+	/**
+	 * ------------- CODE BELOW IS MOSTLY BOILERPLATE, DO NOT EDIT -------------
+ 	 */
 
-	interface IEvent {//TODO: Maybe call this Loggable or something like that?
-		String toString();
+	interface IEvent {
+		String toJSON();
 	}
 
-	class Event implements IEvent {
+	static class Event implements IEvent {
 		private final EventType type;
 		private final String data;
-		private final double matchTime;
-		private final double systemTime;
+		private double matchTime;
+		private double systemTime;
+
+		private RobotState robotState;
 
 		public Event(EventType type, String data) {
 			this.type = type;
 			this.data = data;
-			this.matchTime = DriverStation.getInstance().getMatchTime();
-			this.systemTime = Timer.getFPGATimestamp();
+
+			this.robotState = getRobotState();
+
+			try {
+				this.matchTime = DriverStation.getInstance().getMatchTime();
+				this.systemTime = Timer.getFPGATimestamp();
+			} catch (Throwable e) {
+				this.matchTime = -1;
+				this.systemTime = (int) Math.round(System.currentTimeMillis() / 1000.0);
+			}
 		}
 
 		public EventType getType() {
@@ -81,9 +155,44 @@ public class BlastoiseDataLogger {//TODO: The Strings and such probably need clo
 		}
 
 		@Override
-		public String toString() {
-			return String.format("{type: 0, eventType: %f, data: \"%s\", matchTime: %f, systemTime: %f",
-					type.val, data, matchTime, systemTime);
+		public String toJSON() {
+			JsonObject object = Json.object();
+
+			object.set("type", 0);
+			object.set("eventType", type.val);
+			object.set("data", data);
+			object.set("matchTime", matchTime);
+			object.set("systemTime", systemTime);
+
+			return object.toString(Constants.LOGGER_PRETTY_PRINT ? WriterConfig.PRETTY_PRINT : WriterConfig.MINIMAL);
 		}
+	}
+
+	public static RobotState getRobotState() {
+		try {
+			if(edu.wpi.first.wpilibj.RobotState.isDisabled()) {
+				return RobotState.DISABLED;
+			}
+
+			if(edu.wpi.first.wpilibj.RobotState.isAutonomous()) {
+				return RobotState.AUTO;
+			}
+
+			if(edu.wpi.first.wpilibj.RobotState.isOperatorControl()) {
+				return RobotState.TELEOP;
+			}
+
+			if(edu.wpi.first.wpilibj.RobotState.isTest()) {
+				return RobotState.TEST;
+			}
+		} catch (Exception e) {
+
+		}
+
+		return RobotState.DISABLED;
+	}
+
+	public enum RobotState {
+		DISABLED, TELEOP, AUTO, TEST
 	}
 }
