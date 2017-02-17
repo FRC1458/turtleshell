@@ -47,16 +47,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BlastoiseInputManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseInputManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1114">
-              <caret line="104" column="89" selection-start-line="104" selection-start-column="89" selection-end-line="104" selection-end-column="89" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="BlastoiseController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseController.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -99,11 +89,11 @@
       <file leaf-file-name="LIDARLite.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/sensor/LIDARLite.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1854">
-              <caret line="110" column="98" selection-start-line="110" selection-start-column="98" selection-end-line="110" selection-end-column="98" />
+            <state relative-caret-position="234">
+              <caret line="66" column="34" selection-start-line="66" selection-start-column="34" selection-end-line="66" selection-end-column="34" />
               <folding>
-                <element signature="e#2482#2483#0" expanded="true" />
-                <element signature="e#2509#2510#0" expanded="true" />
+                <element signature="e#2661#2662#0" expanded="true" />
+                <element signature="e#2688#2689#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1443,13 +1433,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/sensor/TurtleXtrinsicMagnetometer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3332">
+          <caret line="113" column="7" selection-start-line="113" selection-start-column="7" selection-end-line="113" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/sensor/LIDARLite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1854">
-          <caret line="110" column="98" selection-start-line="110" selection-start-column="98" selection-end-line="110" selection-end-column="98" />
+        <state relative-caret-position="234">
+          <caret line="66" column="34" selection-start-line="66" selection-start-column="34" selection-end-line="66" selection-end-column="34" />
           <folding>
-            <element signature="e#2482#2483#0" expanded="true" />
-            <element signature="e#2509#2510#0" expanded="true" />
+            <element signature="e#2661#2662#0" expanded="true" />
+            <element signature="e#2688#2689#0" expanded="true" />
           </folding>
         </state>
       </provider>

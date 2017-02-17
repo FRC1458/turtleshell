@@ -10,10 +10,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.TimerTask;
 
 /**
- * LIDARLite v3 Sensor over I2C interface.
+ * LIDARLite v3 Sensor over I2C interface. Uses a Timer / Thread in the background
  * 
- * @author mehnadnerd
- *
+ * @author mehnadnerd & asinghani
  */
 public class LIDARLite implements TurtleDistanceSensor {
 	private final I2C ic;
@@ -57,9 +56,15 @@ public class LIDARLite implements TurtleDistanceSensor {
 		/**
 		 * This block waits until the sensor is ready with new data
 		 */
-		while ((status[0] & 0b0000_0001) == 0b0000_0001) { // TODO need to check if this is correct for LSB
+		int timeout = 500;
+		while ((status[0] & 0b0000_0001) == 0b0000_0001 && timeout > 0) { // TODO need to check if this is correct for LSB
 			ic.read(0x01, 1, status); // check status
 			SmartDashboard.putString("Status", Integer.toBinaryString(status[0]));
+			timeout--;
+		}
+
+		if((status[0] & 0b0000_0001) != 0b0000_0001) {
+			return Distance.error;
 		}
 
 		if (!ic.read(0x0f, 1, high)) {
