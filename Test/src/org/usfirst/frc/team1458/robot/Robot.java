@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -29,7 +30,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * instead if you're new.
  */
 public class Robot extends SampleRobot {
-	private LIDARTest l;
+	private LIDARLite l;
 
 	public Robot() {
 
@@ -37,7 +38,7 @@ public class Robot extends SampleRobot {
 
 	@Override
 	public void robotInit() {
-		l = new LIDARTest(I2C.Port.kOnboard);
+		l = new LIDARLite(SerialPort.Port.kMXP);
 	}
 
 	/**
@@ -63,7 +64,16 @@ public class Robot extends SampleRobot {
 	public void operatorControl() {
 
 		while (isOperatorControl() && isEnabled()) {
-			SmartDashboard.putNumber("Turtwig LIDAR", l.getDistance());
+			//double d = l.getDistance();
+			//System.out.println(d);
+			//SmartDashboard.putNumber("Turtwig LIDAR", d);
+			String str = l.getStr();
+			try {
+				if(str.isEmpty()) continue;
+				SmartDashboard.putString("LIDAR STRING", str);
+				System.out.println("str = "+str);
+			} catch (Exception e) {
+			}
 		}
 	}
 

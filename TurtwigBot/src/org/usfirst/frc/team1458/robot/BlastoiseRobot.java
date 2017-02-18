@@ -112,7 +112,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 	
 	private void setupSensors() {
 		navX = new TurtleNavX(SerialPort.Port.kUSB);
-		lidar = new LIDARLite(I2C.Port.kOnboard);
+		lidar = new LIDARLite(I2C.Port.kMXP);
 	}
 
 	private void setupInput() {
@@ -194,6 +194,8 @@ public class BlastoiseRobot implements AutoModeHolder {
 		
 		//SmartDashboard.putNumber("SensorValue", counter.getPeriod()/0.000001);
 		
+
+		SmartDashboard.putNumber("Yaw", navX.getYawAxis().getRotation().getDegrees());
 		
 		if(1 == 1) return; // TODO REMOVE THIS IS VERY BAD AND BREAKS EVERYTHING
 
