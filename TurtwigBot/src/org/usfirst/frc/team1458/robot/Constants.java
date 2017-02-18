@@ -35,7 +35,7 @@ public class Constants {
 	}
 
 	public static final class Drive {
-		public static final double slowSpeed = 0.5;
+		public static final double SLOW_SPEED = 0.5;
 	}
 
 	/**
@@ -46,9 +46,10 @@ public class Constants {
 		public static final int MOTOR2 = TalonID.ELSA.id;
 		public static final int MOTOR3 = TalonID.FITZ.id;
 
-		public static final int ENCODER_A = -1;
-		public static final int ENCODER_B = -1;
-		public static final double ENCODER_RATIO = 0.0697777777;
+		public static final int ENCODER_A = 2;
+		public static final int ENCODER_B = 3;
+		public static final double ENCODER_RATIO = 4 * Math.PI / 600; // (Diameter * PI) / (Ticks Per Rotation)
+		// Wheel diameter = 4 inches
 	}
 
 	/**
@@ -59,9 +60,9 @@ public class Constants {
 		public static final int MOTOR2 = TalonID.BOB.id;
 		public static final int MOTOR3 = TalonID.CARTER.id;
 
-		public static final int ENCODER_A = -1;
-		public static final int ENCODER_B = -1;
-		public static final double ENCODER_RATIO = 0.0697777777;
+		public static final int ENCODER_A = 0;
+		public static final int ENCODER_B = 1;
+		public static final double ENCODER_RATIO = 4 * Math.PI / 600; // (Diameter * PI) / (Ticks Per Rotation)
 	}
 
 	/**
@@ -70,9 +71,6 @@ public class Constants {
 	public static final class Intake {
 		public static final int MOTOR_PORT = TalonID.ORIGINAL.id;
 		public static final MotorValue SPEED = MotorValue.fullForward;
-
-		public static final MotorValue UNCLOG_SPEED = MotorValue.fullForward;
-		public static final Time UNCLOG_TIME = Time.one;
 	}
 
 	/**
@@ -91,7 +89,7 @@ public class Constants {
 	 */
 	public static final class LeftShooter {
 		public static final int MOTOR_PORT = TalonID.JESSICA.id;
-		public static final int HALL_PORT = 2;
+		public static final int HALL_PORT = 4;
 		public static final double SPEED_RPM = 4000;
 		public static final boolean MOTOR_REVERSED = false;
 
@@ -104,7 +102,7 @@ public class Constants {
 	 */
 	public static final class RightShooter {
 		public static final int MOTOR_PORT = TalonID.ISAAC.id;
-		public static final int HALL_PORT = 8;
+		public static final int HALL_PORT = 5;
 		public static final double SPEED_RPM = 4000;
 		public static final boolean MOTOR_REVERSED = true;
 
