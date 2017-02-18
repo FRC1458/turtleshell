@@ -2,6 +2,7 @@ package org.usfirst.frc.team1458.robot;
 
 import com.ctre.CANTalon;
 
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -28,13 +29,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * instead if you're new.
  */
 public class Robot extends SampleRobot {
-	Joystick stick = new Joystick(0);
-	CANTalon a = new CANTalon(10);
-	CANTalon b = new CANTalon(11);
-	CANTalon c = new CANTalon(12);
-	CANTalon d = new CANTalon(13);
-	CANTalon e = new CANTalon(14);
-	CANTalon f = new CANTalon(15);
+	private LIDARTest l;
 
 	public Robot() {
 
@@ -42,6 +37,7 @@ public class Robot extends SampleRobot {
 
 	@Override
 	public void robotInit() {
+		l = new LIDARTest(I2C.Port.kOnboard);
 	}
 
 	/**
@@ -57,7 +53,7 @@ public class Robot extends SampleRobot {
 	 */
 	@Override
 	public void autonomous() {
-		
+
 	}
 
 	/**
@@ -65,15 +61,9 @@ public class Robot extends SampleRobot {
 	 */
 	@Override
 	public void operatorControl() {
-		
+
 		while (isOperatorControl() && isEnabled()) {
-			a.set(stick.getAxis(AxisType.kY));
-			b.set(stick.getAxis(AxisType.kY));
-			c.set(stick.getAxis(AxisType.kY));
-			
-			d.set(stick.getAxis(AxisType.kX));
-			e.set(stick.getAxis(AxisType.kX));
-			f.set(stick.getAxis(AxisType.kX));
+			SmartDashboard.putNumber("Turtwig LIDAR", l.getDistance());
 		}
 	}
 

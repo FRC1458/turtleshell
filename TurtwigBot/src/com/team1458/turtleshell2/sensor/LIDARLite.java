@@ -35,7 +35,7 @@ public class LIDARLite implements TurtleDistanceSensor {
 		
 		Timer.delay(1.5);
 		
-		sensor
+		//sensor
 		
 		SmartDashboard.putBoolean("SensorAddress", sensor.addressOnly());
 		
