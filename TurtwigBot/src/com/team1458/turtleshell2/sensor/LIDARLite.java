@@ -38,6 +38,8 @@ public class LIDARLite implements TurtleDistanceSensor {
 		sensor.write(0x02, 0x80); // Maximum number of acquisitions during measurement
 		sensor.write(0x04, 0x08); // Acquisition mode control
 		sensor.write(0x1c, 0x00); // Peak detection threshold bypass
+		
+		reset();
 
 		new java.util.Timer().schedule(new TimerTask() {
 			@Override
@@ -45,6 +47,7 @@ public class LIDARLite implements TurtleDistanceSensor {
 				synchronized (lock) {
 					distance = measureDistance();
 					velocity = measureVelocity();
+					//System.out.println(distance.getInches()+" "+velocity.getValue());
 				}
 			}
 		}, updateMillis, updateMillis);
@@ -55,45 +58,52 @@ public class LIDARLite implements TurtleDistanceSensor {
 	 * @param port
 	 */
 	public LIDARLite(I2C.Port port) {
-		this(port, 40);
+		this(port, 1000);
 	}
 
 	/**
 	 * Measures distance and puts into distance variable
 	 */
 	private Distance measureDistance() {
-		byte[] high = new byte[]{0x00};
-		byte[] low = new byte[]{0x00};
+		byte[] high = new byte[]{0x00, 0x00};
 		byte[] status = { Byte.MAX_VALUE }; // All bits are 1
 
 		// This is the command for starting distance measurement with bias correction
 		sensor.write(0x00, 0x04);
+		Timer.delay(0.5);
 
 
 		// TODO make this not fail and get stuck in a loop
 		/**
 		 * This block waits until the sensor is ready with new data
 		 */
-		int timeout = 500;
-		while ((status[0] & 0b0000_0001) == 0b0000_0001 && timeout > 0) { // TODO need to check if this is correct for LSB
+		int timeout = 500000;
+		//sensor.read(0x01, 1, status); // check status
+		/*while ((status[0] & 0b0000_0001) != 0b0000_0001) { // TODO need to check if this is correct for LSB
 			sensor.read(0x01, 1, status); // check status
-			SmartDashboard.putString("Status", Integer.toBinaryString(status[0]));
+			if(status[0] != 0) System.out.println("Status "+Integer.toBinaryString(status[0]));
 			timeout--;
-		}
+		}*/
 
-		if((status[0] & 0b0000_0001) != 0b0000_0001) {
+		Timer.delay(0.01);
+		/*if((status[0] & 0b0000_0001) != 0b0000_0001) {
 			return Distance.error;
-		}
+		}*/
+		Timer.delay(0.01);
 
-		if (!sensor.read(0x0f, 1, high)) {
-			if (!sensor.read(0x10, 1, low)) {
-				Timer.delay(0.01);
-				SmartDashboard.putString("High", Integer.toBinaryString(high[0]));
-				SmartDashboard.putString("Low", Integer.toBinaryString(low[0]));
-				int value = doubleByteToInt(new byte[] { high[0], low[0] });
-				System.out.println(value);
-				return Distance.createCentimetres(value);
-			}
+		//System.out.println(sensor.transaction(dataToSend, sendSize, dataReceived, receiveSize))
+		
+		if (1 == 1) {
+			sensor.transaction(new byte[] {0x01}, 1, high, 2);
+			/*if (!sensor.read(0x10, 1, low)) {
+				
+			}*/
+			Timer.delay(0.01);
+			SmartDashboard.putString("High", Integer.toBinaryString(high[0]));
+			SmartDashboard.putString("Low", Integer.toBinaryString(high[1]));
+			int value = doubleByteToInt(new byte[] { high[0], high[1] });
+			//System.out.println(value);
+			return Distance.createCentimetres(value);
 		}
 
 		return Distance.error;
