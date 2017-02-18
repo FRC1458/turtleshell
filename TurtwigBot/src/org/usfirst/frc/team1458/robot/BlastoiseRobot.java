@@ -21,6 +21,7 @@ import com.team1458.turtleshell2.util.types.MotorValue;
 import edu.wpi.first.wpilibj.GearTooth;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.RobotState;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team1458.robot.autonomous.TestAutonomous;
 import org.usfirst.frc.team1458.robot.components.BlastoiseClimber;
@@ -110,7 +111,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 	}
 	
 	private void setupSensors() {
-		navX = new TurtleNavX(I2C.Port.kMXP);
+		navX = new TurtleNavX(SerialPort.Port.kUSB);
 		lidar = new LIDARLite(I2C.Port.kOnboard);
 	}
 
@@ -168,8 +169,9 @@ public class BlastoiseRobot implements AutoModeHolder {
 	 * ----------------------- START MANUAL CODE -----------------------
 	 */
 	
-	GearTooth counter = new GearTooth(8);
+	GearTooth counter = new GearTooth(5);
 
+	
 	/**
 	 * Single source of control for the entire robot
 	 */
@@ -187,10 +189,10 @@ public class BlastoiseRobot implements AutoModeHolder {
 		 * c. Else drive normal teleop mode
 		 */
 
-		//SmartDashboard.putNumber("OtherLidar Distance", lidar.getDistance().getInches());
+		SmartDashboard.putNumber("OtherLidar Distance", lidar.getDistance().getInches());
 		//SmartDashboard.putNumber("OtherLidar Velocity", lidar.getVelocity().getValue());
 		
-		SmartDashboard.putNumber("SensorValue", counter.getPeriod()/0.000001);
+		//SmartDashboard.putNumber("SensorValue", counter.getPeriod()/0.000001);
 		
 		
 		if(1 == 1) return; // TODO REMOVE THIS IS VERY BAD AND BREAKS EVERYTHING

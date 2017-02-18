@@ -31,8 +31,14 @@ public class LIDARLite implements TurtleDistanceSensor {
 	 * @param updateMillis
 	 */
 	public LIDARLite(I2C.Port port, long updateMillis) {
-		sensor = new I2C(port, 0x62);
-
+		sensor = new I2C(port, 98);
+		
+		Timer.delay(1.5);
+		
+		sensor
+		
+		SmartDashboard.putBoolean("SensorAddress", sensor.addressOnly());
+		
 		// Configure Sensor. See http://static.garmin.com/pumac/LIDAR_Lite_v3_Operation_Manual_and_Technical_Specifications.pdf
 
 		sensor.write(0x02, 0x80); // Maximum number of acquisitions during measurement
@@ -44,11 +50,9 @@ public class LIDARLite implements TurtleDistanceSensor {
 		new java.util.Timer().schedule(new TimerTask() {
 			@Override
 			public void run() {
-				synchronized (lock) {
-					distance = measureDistance();
-					velocity = measureVelocity();
-					//System.out.println(distance.getInches()+" "+velocity.getValue());
-				}
+				distance = measureDistance();
+				velocity = measureVelocity();
+				//System.out.println(distance.getInches()+" "+velocity.getValue());
 			}
 		}, updateMillis, updateMillis);
 	}
@@ -65,12 +69,17 @@ public class LIDARLite implements TurtleDistanceSensor {
 	 * Measures distance and puts into distance variable
 	 */
 	private Distance measureDistance() {
+		byte[] val = new byte[] {0x13};
+		sensor.read(0x04, 1, val);
+		Timer.delay(0.1);
+		System.out.println(Integer.toHexString(val[0]));
+		
+		
 		byte[] high = new byte[]{0x00, 0x00};
 		byte[] status = { Byte.MAX_VALUE }; // All bits are 1
 
 		// This is the command for starting distance measurement with bias correction
 		sensor.write(0x00, 0x04);
-		Timer.delay(0.5);
 
 
 		// TODO make this not fail and get stuck in a loop
