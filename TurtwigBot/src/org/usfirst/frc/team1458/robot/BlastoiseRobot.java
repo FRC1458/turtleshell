@@ -9,7 +9,8 @@ import com.team1458.turtleshell2.movement.FollowerMotorSet;
 import com.team1458.turtleshell2.movement.TankDriveChassis;
 import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
 import com.team1458.turtleshell2.pid.PID;
-import com.team1458.turtleshell2.sensor.LIDARLite;
+import com.team1458.turtleshell2.sensor.LIDARSerial;
+import com.team1458.turtleshell2.sensor.TurtleDistanceSensor;
 import com.team1458.turtleshell2.sensor.TurtleNavX;
 import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.util.PIDConstants;
@@ -19,10 +20,10 @@ import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.MotorValue;
 
 import edu.wpi.first.wpilibj.GearTooth;
-import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team1458.robot.autonomous.TestAutonomous;
 import org.usfirst.frc.team1458.robot.components.BlastoiseClimber;
 import org.usfirst.frc.team1458.robot.components.BlastoiseIntake;
@@ -42,7 +43,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 	 * Sensors
 	 */
 	TurtleNavX navX = null;
-	LIDARLite lidar = null;
+	TurtleDistanceSensor lidar = null;
 
 	/**
 	 * Input
@@ -112,7 +113,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 	
 	private void setupSensors() {
 		navX = new TurtleNavX(SerialPort.Port.kUSB);
-		lidar = new LIDARLite(I2C.Port.kMXP);
+		lidar = new LIDARSerial(SerialPort.Port.kOnboard);
 	}
 
 	private void setupInput() {
@@ -189,15 +190,7 @@ public class BlastoiseRobot implements AutoModeHolder {
 		 * c. Else drive normal teleop mode
 		 */
 
-		SmartDashboard.putNumber("OtherLidar Distance", lidar.getDistance().getInches());
-		//SmartDashboard.putNumber("OtherLidar Velocity", lidar.getVelocity().getValue());
-		
-		//SmartDashboard.putNumber("SensorValue", counter.getPeriod()/0.000001);
-		
-
 		SmartDashboard.putNumber("Yaw", navX.getYawAxis().getRotation().getDegrees());
-		
-		if(1 == 1) return; // TODO REMOVE THIS IS VERY BAD AND BREAKS EVERYTHING
 
 		/**
 		 * Panic Button Functionality

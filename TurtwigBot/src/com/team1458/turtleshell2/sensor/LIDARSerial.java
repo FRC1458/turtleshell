@@ -1,15 +1,10 @@
 package com.team1458.turtleshell2.sensor;
 
-import edu.wpi.first.wpilibj.I2C;
+import com.team1458.turtleshell2.util.types.Distance;
+import com.team1458.turtleshell2.util.types.Rate;
+
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import java.io.IOException;
-import java.io.Reader;
-import java.util.Scanner;
-import java.util.StringTokenizer;
-import java.util.TimerTask;
 
 /**
  * LIDARLite v3 Sensor over serial interface. Uses a Timer / Thread in the
@@ -17,56 +12,55 @@ import java.util.TimerTask;
  * 
  * @author mehnadnerd & asinghani
  */
-public class LIDARLite {
+public class LIDARSerial implements TurtleDistanceSensor {
 	private final SerialPort sensor;
 
 	private double lastDistance = Double.MIN_VALUE;
-	private double velocity = 0;
 	private double lastTime = 0;
 
 	private double distance = Double.MIN_VALUE;
-
-	private static Object lock = new Object();
-	private java.util.Timer t;
 
 	/**
 	 * Instantiates LIDARLite with given port and update speed
 	 * 
 	 * @param port
 	 */
-	public LIDARLite(SerialPort.Port port) {
+	public LIDARSerial(SerialPort.Port port) {
 		sensor = new SerialPort(9600, port);
-		
+
 	}
 
-	public double getDistance() {
+	@Override
+	public Distance getDistance() {
 		try {
 			distance = Double.parseDouble(getStr());
 		} catch (Throwable e) {
 			distance = Double.NaN;
 		}
 		measureVelocity();
-		return distance;
+		return Distance.createCentimetres(distance);
 	}
-	
+
 	String datas = new String();
 	String realValue = "";
-	
+
 	public String getStr() {
 
 		String s = sensor.readString();
-		
+
 		datas += s;
-		
+
 		String[] array = datas.split("\n");
-		
-		
+
 		String value = "";
-		if(array.length >= 2) value = array[array.length - 2];
-		if(value.contains("START") && value.contains("END")) realValue = value.replaceAll("START", "").replaceAll("END", "");
-		
-		if(datas.length() > 250) datas = value+"\n";
-		
+		if (array.length >= 2)
+			value = array[array.length - 2];
+		if (value.contains("START") && value.contains("END"))
+			realValue = value.replaceAll("START", "").replaceAll("END", "");
+
+		if (datas.length() > 250)
+			datas = value + "\n";
+
 		return realValue;
 	}
 
@@ -82,5 +76,10 @@ public class LIDARLite {
 		// Don't do the thing
 	}
 
-	
+	@Override
+	public Rate<Distance> getVelocity() {
+		this.getDistance();
+		return new Rate<>(measureVelocity());
+	}
+
 }

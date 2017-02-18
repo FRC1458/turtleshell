@@ -3,6 +3,11 @@ package com.team1458.turtleshell2.sensor;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.Rate;
 
+/**
+ * Interface for distance sensor.
+ * @author mehnadnerd
+ *
+ */
 public interface TurtleDistanceSensor {
 	/**
 	 * 
