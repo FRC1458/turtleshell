@@ -14,7 +14,7 @@ import java.util.TimerTask;
  * 
  * @author mehnadnerd & asinghani
  */
-public class LIDARLite implements TurtleDistanceSensor {
+public class ExtraLIDAR implements TurtleDistanceSensor {
 	private final I2C sensor;
 
 	private Distance lastDistance = Distance.error;
@@ -30,7 +30,7 @@ public class LIDARLite implements TurtleDistanceSensor {
 	 * @param port
 	 * @param updateMillis
 	 */
-	public LIDARLite(I2C.Port port, long updateMillis) {
+	public ExtraLIDAR(I2C.Port port, long updateMillis) {
 		sensor = new I2C(port, 98);
 		
 		Timer.delay(1.5);
@@ -61,7 +61,7 @@ public class LIDARLite implements TurtleDistanceSensor {
 	 * Instantiates LIDARLite with given port and 25Hz update speed
 	 * @param port
 	 */
-	public LIDARLite(I2C.Port port) {
+	public ExtraLIDAR(I2C.Port port) {
 		this(port, 1000);
 	}
 
