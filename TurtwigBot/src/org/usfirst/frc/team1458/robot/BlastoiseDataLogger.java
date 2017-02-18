@@ -7,6 +7,8 @@ import com.team1458.turtleshell2.sensor.PDP;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
@@ -53,6 +55,11 @@ public class BlastoiseDataLogger {
 
 		// MEM FORMATTED: free -m | awk 'NR==2{printf "Memory Usage: %s/%sMB (%.2f%%)\n", $3,$2,$3*100/$2 }'
 		// MEM PERCENT: free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }'
+		// MEM USED: free -m | awk 'NR==2{printf "%s", $3}'
+		// MEM TOTAL: free -m | awk 'NR==2{printf "%s", $2}'
+
+		// CPU FORMATTED: top -bn1 | grep load | awk '{printf "CPU Load: %.2f\n", $(NF-2)}'
+		// CPU RAW: top -bn1 | grep load | awk '{printf "%.2f", $(NF-2)}'
 
 		private RobotState robotState;
 
@@ -118,6 +125,27 @@ public class BlastoiseDataLogger {
 	/**
 	 * ------------- CODE BELOW IS MOSTLY BOILERPLATE, DO NOT EDIT -------------
  	 */
+
+	private static String runCommand(String command) {
+
+		StringBuffer output = new StringBuffer();
+
+		Process p;
+		try {
+			p = Runtime.getRuntime().exec(command);
+			p.waitFor();
+			BufferedReader reader =
+					new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+			output.append(reader.readLine());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return output.toString();
+
+	}
 
 	interface IEvent {
 		String toJSON();

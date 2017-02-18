@@ -24,7 +24,7 @@ public class LIDARLite implements TurtleDistanceSensor {
 	private Distance distance = Distance.error;
 
 	private static Object lock = new Object();
-
+	
 	/**
 	 * Instantiates LIDARLite with given port and update speed
 	 * @param port
