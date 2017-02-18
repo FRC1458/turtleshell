@@ -368,8 +368,8 @@ public class BlastoiseRobot implements AutoModeHolder {
 			 * Smoother control of the robot
 			 */
 			if (inputManager.slowButton.getButton()) {
-				leftPower = leftPower.scale(Constants.Drive.slowSpeed);
-				rightPower = rightPower.scale(Constants.Drive.slowSpeed);
+				leftPower = leftPower.scale(Constants.Drive.SLOW_SPEED);
+				rightPower = rightPower.scale(Constants.Drive.SLOW_SPEED);
 			} else if (Constants.DriverStation.LOGISTIC_SCALE) {
 				leftPower = new MotorValue(TurtleMaths.logisticStepScale(leftPower.getValue()));
 				rightPower = new MotorValue(TurtleMaths.logisticStepScale(rightPower.getValue()));

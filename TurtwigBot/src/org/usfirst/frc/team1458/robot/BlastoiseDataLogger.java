@@ -53,13 +53,11 @@ public class BlastoiseDataLogger {
 
 		private double climberMotorValue;
 
-		// MEM FORMATTED: free -m | awk 'NR==2{printf "Memory Usage: %s/%sMB (%.2f%%)\n", $3,$2,$3*100/$2 }'
-		// MEM PERCENT: free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }'
-		// MEM USED: free -m | awk 'NR==2{printf "%s", $3}'
-		// MEM TOTAL: free -m | awk 'NR==2{printf "%s", $2}'
+		private double pitch;
+		private double roll;
+		private double yaw;
 
-		// CPU FORMATTED: top -bn1 | grep load | awk '{printf "CPU Load: %.2f\n", $(NF-2)}'
-		// CPU RAW: top -bn1 | grep load | awk '{printf "%.2f", $(NF-2)}'
+		private double
 
 		private RobotState robotState;
 
@@ -70,9 +68,19 @@ public class BlastoiseDataLogger {
 		private double pdpTotalPower;
 		private double pdpVoltage;
 
+
 		private double[] current = new double[16];
 
+		private double ramUsed = -1;
+		private double ramTotal = -1;
+
+		private double cpuUsed = -1;
+
 		public Update(PDP pdp) {
+
+
+
+			// Get Data
 			this.batteryVoltage = DriverStation.getInstance().getBatteryVoltage();
 			this.pdpTemperature = pdp.getTemperature();
 			this.pdpTotalCurrent = pdp.getTotalCurrent();
@@ -81,6 +89,15 @@ public class BlastoiseDataLogger {
 
 			for(int channel = 0; channel <= 15; channel++) {
 				current[channel] = pdp.getCurrent(channel);
+			}
+
+			try {
+				this.ramUsed = Double.parseDouble(runCommand(new String[] {"/bin/sh", "-c", "free -m | awk 'NR==2{printf \"%s\", $3}'"}));
+				this.ramTotal = Double.parseDouble(runCommand(new String[] {"/bin/sh", "-c", "free -m | awk 'NR==2{printf \"%s\", $2}'"}));
+
+				this.cpuUsed = Double.parseDouble(runCommand(new String[] {"/bin/sh", "-c", "top -bn1 | grep load | awk '{printf \"%.2f\", $(NF-2)}'"}));
+			} catch (Throwable e) {
+
 			}
 
 			this.robotState = getRobotState();
@@ -92,6 +109,14 @@ public class BlastoiseDataLogger {
 				this.matchTime = -1;
 				this.systemTime = (int) Math.round(System.currentTimeMillis() / 1000.0);
 			}
+
+			// MEM FORMATTED: free -m | awk 'NR==2{printf "Memory Usage: %s/%sMB (%.2f%%)\n", $3,$2,$3*100/$2 }'
+			// MEM PERCENT: free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }'
+			// MEM USED: free -m | awk 'NR==2{printf "%s", $3}'
+			// MEM TOTAL: free -m | awk 'NR==2{printf "%s", $2}'
+
+			// CPU FORMATTED: top -bn1 | grep load | awk '{printf "CPU Load: %.2f\n", $(NF-2)}'
+			// CPU RAW: top -bn1 | grep load | awk '{printf "%.2f", $(NF-2)}'
 		}
 
 		@Override
@@ -126,7 +151,7 @@ public class BlastoiseDataLogger {
 	 * ------------- CODE BELOW IS MOSTLY BOILERPLATE, DO NOT EDIT -------------
  	 */
 
-	private static String runCommand(String command) {
+	private static String runCommand(String[] command) {
 
 		StringBuffer output = new StringBuffer();
 
