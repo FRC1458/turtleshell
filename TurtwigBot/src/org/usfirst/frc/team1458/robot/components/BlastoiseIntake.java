@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1458.robot.components;
 
+import org.usfirst.frc.team1458.robot.BlastoiseFluxStore;
 import org.usfirst.frc.team1458.robot.Constants;
 
 import com.team1458.turtleshell2.movement.TurtleMotor;
@@ -17,32 +18,25 @@ public class BlastoiseIntake {
 	private final MotorValue speed = Constants.Intake.SPEED;
 	private final MotorValue reverseSpeed = Constants.Intake.REVERSE_SPEED;
 
-	private IntakeStatus status;
+	private final BlastoiseFluxStore store;
 
 	public BlastoiseIntake() {
-		this.status = IntakeStatus.STOPPED;
+		store = BlastoiseFluxStore.getInstance();
+		store.intakeStatus = BlastoiseFluxStore.IntakeStatus.STOPPED;
 	}
 
 	public void start() {
-		status = IntakeStatus.RUNNING;
+		store.intakeStatus = BlastoiseFluxStore.IntakeStatus.RUNNING;
 		motor.set(speed);
 	}
 
 	public void startReverse() {
-		status = IntakeStatus.REVERSED;
+		store.intakeStatus = BlastoiseFluxStore.IntakeStatus.REVERSED;
 		motor.set(reverseSpeed);
 	}
 
 	public void stop() {
-		status = IntakeStatus.STOPPED;
+		store.intakeStatus = BlastoiseFluxStore.IntakeStatus.STOPPED;
 		motor.set(MotorValue.zero);
-	}
-
-	public IntakeStatus getStatus() {
-		return status;
-	}
-
-	public enum IntakeStatus {
-		RUNNING, REVERSED, STOPPED
 	}
 }

@@ -38,14 +38,14 @@ import java.util.ArrayList;
  */
 public class Robot extends SampleRobot implements AutoModeHolder {
 
-	//Sensors
+	// Sensors
 	private TurtleNavX navX = null;
 	private TurtleDistanceSensor lidar = null;
 
-	//Input
+	// Input
 	private BlastoiseInputManager inputManager;
 
-	//Robot Actuators
+	// Robot Actuators
 	private TankDriveChassis chassis;
 
 	private BlastoiseClimber climber;
@@ -54,7 +54,9 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	private BlastoiseShooter shooterLeft;
 	private BlastoiseShooter shooterRight;
 
-	//Vision
+	private BlastoiseFluxStore store;
+
+	// Vision
 	private BlastoiseShooterVision vision = new BlastoiseShooterVision(
 			Constants.ShooterVision.Camera.URL);
 	private PID turnPid = new PID(
@@ -64,6 +66,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 	public Robot() {
 		this.logger = new Logger(Logger.LogFormat.PLAINTEXT);
+		store = BlastoiseFluxStore.getInstance();
 	}
 
 	protected void robotInit() {
@@ -147,14 +150,16 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 				Constants.LeftShooter.PID_CONSTANTS,
 				Constants.LeftShooter.SPEED_RPM,
 				Constants.LeftShooter.MOTOR_REVERSED,
-				Constants.LeftShooter.BASE_VALUE);
+				Constants.LeftShooter.BASE_VALUE,
+				false);
 
 		shooterRight = new BlastoiseShooter(Constants.RightShooter.MOTOR_PORT,
 				Constants.RightShooter.HALL_PORT,
 				Constants.RightShooter.PID_CONSTANTS,
 				Constants.RightShooter.SPEED_RPM,
 				Constants.RightShooter.MOTOR_REVERSED,
-				Constants.RightShooter.BASE_VALUE);
+				Constants.RightShooter.BASE_VALUE,
+				true);
 	}
 
 	private void setupUI() {
@@ -163,7 +168,6 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 				inputManager.rightJoystick);
 	}
 
-	//Single source of control for the entire robot
 	protected void teleUpdate() {
 
 		SmartDashboard.putNumber("Yaw", navX.getYawAxis().getRotation()
@@ -178,7 +182,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			climberUpdate();
 
 			// If robot is climbing, do nothing else
-			if (climber.isClimbing()) {
+			if (store.isRobotClimbingRope()) {
 				intake.stop();
 				shooterLeft.stop();
 				shooterRight.stop();
@@ -225,7 +229,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	private void shooterUpdate() {
 		if (inputManager.shootButton.getButton()) {
 
-			if (shooterLeft.getStatus() != BlastoiseShooter.ShooterStatus.SHOOTING) {
+			if (store.leftShooterStatus != BlastoiseFluxStore.ShooterStatus.SHOOTING) {
 				if (Constants.DEBUG) {
 					shooterLeft.setPIDConstants(TurtleDashboard
 							.getPidConstants("LeftShooterPID"));
@@ -239,7 +243,6 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 				}
 				shooterLeft.start();
 				shooterRight.start();
-
 			}
 
 			shooterLeft.teleUpdate();
@@ -258,7 +261,6 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			shooterLeft.stop();
 			shooterRight.stop();
 		}
-		SmartDashboard.putString("Status", shooterLeft.getStatus().toString());
 	}
 
 	// Shooter alignment. Only left/right for now.
@@ -300,7 +302,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 					Constants.DriverStation.JOYSTICK_DEADBAND));
 
 			// Smoother control of the robot
-			if (inputManager.slowButton.getButton() || climber.isClimbing()) {
+			if (inputManager.slowButton.getButton() || store.isRobotClimbingRope()) {
 				leftPower = leftPower.scale(Constants.Drive.SLOW_SPEED);
 				rightPower = rightPower.scale(Constants.Drive.SLOW_SPEED);
 			} else if (Constants.DriverStation.LOGISTIC_SCALE) {

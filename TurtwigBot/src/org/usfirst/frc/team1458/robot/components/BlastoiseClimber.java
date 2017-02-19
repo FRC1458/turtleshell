@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1458.robot.components;
 
+import org.usfirst.frc.team1458.robot.BlastoiseFluxStore;
 import org.usfirst.frc.team1458.robot.Constants;
 
 import com.team1458.turtleshell2.movement.TurtleMotor;
@@ -14,28 +15,19 @@ import edu.wpi.first.wpilibj.DriverStation;
  * @author asinghani
  */
 public class BlastoiseClimber {
-
-	//Motor
 	private final TurtleMotor motor = new TurtleTalonSRXCAN(Constants.Climber.MOTOR_PORT);
 	private final MotorValue speed = Constants.Climber.SPEED;
 	private final MotorValue lowSpeed = Constants.Climber.SPEED_LOW;
 
-	private ClimberStatus status;
+	private final BlastoiseFluxStore store;
 
 	public BlastoiseClimber() {
-		this.status = ClimberStatus.STOPPED;
-	}
-
-	public boolean isClimbing() {
-		return status == ClimberStatus.CLIMBING;
-	}
-
-	public ClimberStatus getStatus() {
-		return status;
+		store = BlastoiseFluxStore.getInstance();
+		store.climberStatus = BlastoiseFluxStore.ClimberStatus.STOPPED;
 	}
 
 	public boolean isReadyToClimb() {
-		return isRopeLowered() && status == ClimberStatus.STOPPED;
+		return isRopeLowered() && store.climberStatus == BlastoiseFluxStore.ClimberStatus.STOPPED;
 	}
 
 	/**
@@ -51,12 +43,12 @@ public class BlastoiseClimber {
 
 	public void start() {
 		motor.set(speed);
-		status = ClimberStatus.CLIMBING;
+		store.climberStatus = BlastoiseFluxStore.ClimberStatus.CLIMBING;
 	}
 
 	public void startReverse() {
 		motor.set(speed.invert());
-		status = ClimberStatus.DESCENDING;
+		store.climberStatus = BlastoiseFluxStore.ClimberStatus.DESCENDING;
 	}
 
 	/**
@@ -64,15 +56,11 @@ public class BlastoiseClimber {
 	 */
 	public void finish() {
 		motor.set(lowSpeed);
-		status = ClimberStatus.FINISHED;
+		store.climberStatus = BlastoiseFluxStore.ClimberStatus.FINISHED;
 	}
 
 	public void stop() {
 		motor.set(MotorValue.zero);
-		status = ClimberStatus.STOPPED;
-	}
-
-	public enum ClimberStatus {
-		CLIMBING, FINISHED, DESCENDING, STOPPED
+		store.climberStatus = BlastoiseFluxStore.ClimberStatus.STOPPED;
 	}
 }
