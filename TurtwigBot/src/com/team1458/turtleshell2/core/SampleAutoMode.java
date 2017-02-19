@@ -1,16 +1,14 @@
 package com.team1458.turtleshell2.core;
 
-import com.team1458.turtleshell2.movement.TankDriveChassis;
+import com.team1458.turtleshell2.movement.TankDrive;
 import com.team1458.turtleshell2.pid.PID;
 import com.team1458.turtleshell2.sensor.TurtleRotationSensor;
 import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.util.PIDConstants;
-import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
 import edu.wpi.first.wpilibj.Timer;
-import org.usfirst.frc.team1458.robot.Constants;
 
 /**
  * Command-based controller for autonomous mode. This is an abstract
@@ -20,12 +18,12 @@ import org.usfirst.frc.team1458.robot.Constants;
  * @author asinghani
  */
 public abstract class SampleAutoMode implements AutoMode {
-	protected TankDriveChassis drive;
+	protected TankDrive drive;
 	protected Logger logger;
 
 	protected TurtleRotationSensor rotationSensor;
 
-	public SampleAutoMode(TankDriveChassis drive, Logger logger, TurtleRotationSensor rotationSensor) {
+	public SampleAutoMode(TankDrive drive, Logger logger, TurtleRotationSensor rotationSensor) {
 		this.drive = drive;
 		this.logger = logger;
 		this.rotationSensor = rotationSensor;
@@ -59,7 +57,7 @@ public abstract class SampleAutoMode implements AutoMode {
 	 */
 	public void moveMillis(long millis, double speed) {
 		MotorValue motorValue = new MotorValue(speed);
-		drive.updateMotors(motorValue, motorValue);
+		drive.tankDrive(motorValue, motorValue);
 
 		Timer.delay(millis / 1000.0); // WPILib Timer, not java.util.Timer
 		drive.stop();
@@ -78,7 +76,7 @@ public abstract class SampleAutoMode implements AutoMode {
 	public void turnMillis(long millis, double speed) {
 		MotorValue right = new MotorValue(speed);
 		MotorValue left = new MotorValue(-1.0 * speed);
-		drive.updateMotors(left, right);
+		drive.tankDrive(left, right);
 
 		Timer.delay(millis / 1000.0); // WPILib Timer, not java.util.Timer
 		drive.stop();
@@ -98,7 +96,7 @@ public abstract class SampleAutoMode implements AutoMode {
 			MotorValue leftValue = new MotorValue(left.newValue(drive.getRightDistance().getCentimetres()))
 					.scale(speed.getValue());
 
-			drive.updateMotors(leftValue, rightValue);
+			drive.tankDrive(leftValue, rightValue);
 		}
 		drive.stop();
 	}

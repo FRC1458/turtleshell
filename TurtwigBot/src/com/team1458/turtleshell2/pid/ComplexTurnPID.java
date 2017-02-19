@@ -6,14 +6,16 @@ import com.team1458.turtleshell2.util.types.MotorValue;
 import com.team1458.turtleshell2.util.types.Tuple;
 
 /**
- * A PID class for turning, uses only a gyro sensor
+ * A PID class for turning, uses gyro sensor and encoders for turning
  * 
  * @author asinghani
  */
-public class SimpleTurnPID {
+
+// TODO finish
+public class ComplexTurnPID {
 	private final PID pid;
 
-	public SimpleTurnPID(Angle angle, Angle deadband, PIDConstants constants) {
+	public ComplexTurnPID(Angle angle, Angle deadband, PIDConstants constants) {
 		pid = new PID(constants, angle.getDegrees(), deadband.getDegrees());
 
 	}

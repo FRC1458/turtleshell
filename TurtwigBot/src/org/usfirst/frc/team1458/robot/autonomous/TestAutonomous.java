@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1458.robot.autonomous;
 
-import com.team1458.turtleshell2.movement.TankDriveChassis;
+import com.team1458.turtleshell2.movement.TankDrive;
 import com.team1458.turtleshell2.sensor.TurtleNavX;
 import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.core.SampleAutoMode;
@@ -12,7 +12,7 @@ import com.team1458.turtleshell2.core.SampleAutoMode;
  */
 public class TestAutonomous extends SampleAutoMode {
 
-	public TestAutonomous(TankDriveChassis chassis, Logger logger, TurtleNavX navX) {
+	public TestAutonomous(TankDrive chassis, Logger logger, TurtleNavX navX) {
 		super(chassis, logger, navX.getYawAxis());
 	}
 

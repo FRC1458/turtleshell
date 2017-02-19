@@ -37,6 +37,10 @@ public final class Distance implements Unit {
 		return new Distance(metres/0.0254);
 	}
 
+	public static boolean isError(Distance distance) {
+		return Double.isNaN(distance.getValue());
+	}
+
 	/**
 	 * Get the value in inches
 	 * 
@@ -81,5 +85,12 @@ public final class Distance implements Unit {
 	 */
 	public double getMetres() {
 		return value*0.0254;
+	}
+
+	/**
+	 * Get the negative of the value. Useful for moving the robot backwards.
+	 */
+	public Distance invert() {
+		return new Distance(value * -1);
 	}
 }

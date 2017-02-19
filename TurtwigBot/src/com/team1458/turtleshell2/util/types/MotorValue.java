@@ -54,7 +54,7 @@ public final class MotorValue implements Comparable<MotorValue>, Unit, Mathable<
 		return this.scale(-1);
 	}
 
-	public MotorValue mapToSpeed(MotorValue speed) {
+	public MotorValue scale(MotorValue speed) {
 		return this.scale(speed.getValue());
 	}
 

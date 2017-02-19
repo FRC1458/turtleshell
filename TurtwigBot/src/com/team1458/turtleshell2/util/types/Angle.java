@@ -63,4 +63,11 @@ public final class Angle implements Unit {
 	public double getRevolutions() {
 		return value/360;
 	}
+
+	/**
+	 * Get the negative of the value. Useful for turning the robot the other way
+	 */
+	public Angle invert() {
+		return new Angle(value * -1);
+	}
 }

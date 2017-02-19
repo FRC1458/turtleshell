@@ -122,16 +122,18 @@ public class Constants {
 
 	public static final class StraightDrivePID {
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0, 0, 0);
+		public static final PIDConstants TURN_PID_CONSTANTS = new PIDConstants(0, 0, 0);
 		public static final double kLR = 0.00005;
 		public static final double TOLERANCE = 2;
+
+		public static final MotorValue SPEED = new MotorValue(0.65);
 	}
 	
 	public static final class TurnPID {
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.01, 0.001, 0.002);
 		public static final double TOLERANCE = 3;
 
-		public static final MotorValue TURN_SPEED = new MotorValue(0.65);
-		public static final MotorValue MIN_SPEED = new MotorValue(0.15);
+		public static final MotorValue SPEED = new MotorValue(0.65);
 	}
 
 	public static enum TalonID {

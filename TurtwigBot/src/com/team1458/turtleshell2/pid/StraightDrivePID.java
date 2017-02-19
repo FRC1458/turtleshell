@@ -1,6 +1,9 @@
 package com.team1458.turtleshell2.pid;
 
 import com.team1458.turtleshell2.util.PIDConstants;
+import com.team1458.turtleshell2.util.types.Angle;
+import com.team1458.turtleshell2.util.types.Distance;
+import com.team1458.turtleshell2.util.types.MotorValue;
 import com.team1458.turtleshell2.util.types.Tuple;
 
 /**
@@ -25,26 +28,26 @@ public class StraightDrivePID {
 	 * @param leftConstants
 	 * @param rightConstants
 	 * @param turnConstants
-	 * @param kLR
+	 * @param kLR If this is set to 0, then no angle correction is performed
 	 */
-	public StraightDrivePID(double distance, double deadband, double angleDeadband, PIDConstants leftConstants,
-			PIDConstants rightConstants, PIDConstants turnConstants, double kLR) {
+	public StraightDrivePID(Distance distance, Distance deadband, PIDConstants leftConstants,
+							PIDConstants rightConstants, PIDConstants turnConstants, double kLR) {
 		this.kLR = kLR;
-		left = new PID(leftConstants, distance, deadband);
-		right = new PID(rightConstants, distance, deadband);
-		angle = new PID(turnConstants, 0, angleDeadband);
+		left = new PID(leftConstants, distance.getInches(), deadband.getInches());
+		right = new PID(rightConstants, distance.getInches(), deadband.getInches());
+		angle = new PID(turnConstants, 0, 0);
 
 	}
 
-	public Tuple<Double, Double> newValue(double distanceLeft, double distanceRight, double currentAngle) {
-		double l = left.newValue(distanceLeft);
-		double r = right.newValue(distanceLeft);
-		double a = angle.newValue(currentAngle);
-		return new Tuple<>(l + kLR * a, r - kLR * a);
+	public Tuple<MotorValue, MotorValue> newValue(Distance distanceLeft, Distance distanceRight, Angle currentAngle) {
+		double l = left.newValue(distanceLeft.getInches());
+		double r = right.newValue(distanceLeft.getInches());
+		double a = angle.newValue(currentAngle.getDegrees());
+
+		return new Tuple<>(new MotorValue(l + kLR * a), new MotorValue(r - kLR * a));
 	}
 
 	public boolean atTarget() {
-		return left.atTarget() && right.atTarget() && angle.atTarget();
+		return left.atTarget() && right.atTarget();
 	}
-
 }

@@ -7,7 +7,7 @@ import com.team1458.turtleshell2.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.input.FlightStick;
 import com.team1458.turtleshell2.input.XboxController;
 import com.team1458.turtleshell2.movement.FollowerMotorSet;
-import com.team1458.turtleshell2.movement.TankDriveChassis;
+import com.team1458.turtleshell2.movement.TankDrive;
 import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
 import com.team1458.turtleshell2.pid.PID;
 import com.team1458.turtleshell2.sensor.LIDARSerial;
@@ -46,7 +46,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	private BlastoiseInputManager inputManager;
 
 	// Robot Actuators
-	private TankDriveChassis chassis;
+	private TankDrive chassis;
 
 	private BlastoiseClimber climber;
 	private BlastoiseIntake intake;
@@ -126,7 +126,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	}
 
 	private void setupActuators() {
-		chassis = new TankDriveChassis(
+		chassis = new TankDrive(
 				new FollowerMotorSet(new TurtleTalonSRXCAN(
 						Constants.LeftDrive.MOTOR1), new TurtleTalonSRXCAN(
 						Constants.LeftDrive.MOTOR2), new TurtleTalonSRXCAN(
@@ -140,7 +140,13 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 						Constants.LeftDrive.ENCODER_RATIO),
 				new TurtleDistanceEncoder(Constants.RightDrive.ENCODER_A,
 						Constants.RightDrive.ENCODER_B,
-						Constants.RightDrive.ENCODER_RATIO), navX.getYawAxis());
+						Constants.RightDrive.ENCODER_RATIO),
+				navX.getYawAxis(),
+				Constants.StraightDrivePID.PID_CONSTANTS,
+				Constants.StraightDrivePID.TURN_PID_CONSTANTS,
+				Constants.TurnPID.PID_CONSTANTS,
+				Constants.StraightDrivePID.kLR
+		);
 
 		climber = new BlastoiseClimber();
 		intake = new BlastoiseIntake();
@@ -276,9 +282,9 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 		}
 
 		MotorValue motorValue = new MotorValue(turnPid.newValue(targetX))
-				.mapToSpeed(Constants.ShooterVision.VisionPID.SPEED);
+				.scale(Constants.ShooterVision.VisionPID.SPEED);
 
-		chassis.updateMotors(motorValue.invert(), motorValue);
+		chassis.tankDrive(motorValue.invert(), motorValue);
 
 		SmartDashboard.putNumber("Shooter_TargetX", vision.getShooterTargetX());
 		SmartDashboard.putNumber("Shooter_MotorValue", motorValue.getValue());
@@ -313,16 +319,13 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			}
 
 			if (inputManager.straightButton.getButton()) {
-				chassis.updateMotors(rightPower, rightPower);
+				chassis.tankDrive(rightPower, rightPower);
 			} else if (inputManager.turnButton.getButton()) {
-				chassis.updateMotors(leftPower, leftPower.invert());
+				chassis.tankDrive(leftPower, leftPower.invert());
 			} else {
-				chassis.updateMotors(leftPower, rightPower);
+				chassis.tankDrive(leftPower, rightPower);
 			}
-
-			chassis.update(); // Needed for Turn PID
 		}
-
 	}
 
 	// Below methods are mostly wrappers and should NOT be edited or removed

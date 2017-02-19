@@ -10,21 +10,21 @@ import com.team1458.turtleshell2.util.types.Tuple;
  * 
  * @author asinghani
  */
-public class TurnPID {
+public class SimpleTurnPID {
 	private final PID pid;
 
-	public TurnPID(Angle angle, Angle deadband, PIDConstants constants) {
+	public SimpleTurnPID(Angle angle, Angle deadband, PIDConstants constants) {
 		pid = new PID(constants, angle.getDegrees(), deadband.getDegrees());
 
 	}
 
 	public Tuple<MotorValue, MotorValue> newValue(Angle currentAngle) {
-		double value = pid.newValue(currentAngle.getDegrees())
+		double value = pid.newValue(currentAngle.getDegrees());
 
-		return new Tuple<>(new MotorValue(l + kLR * a), new MotorValue(r - kLR * a));
+		return new Tuple<>(new MotorValue(value), new MotorValue(-1 * value));
 	}
 
 	public boolean atTarget() {
-		return left.atTarget() && right.atTarget();
+		return pid.atTarget();
 	}
 }

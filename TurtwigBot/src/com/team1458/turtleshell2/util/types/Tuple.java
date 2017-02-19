@@ -19,4 +19,12 @@ public class Tuple<X, Y> {
 		this.x = x;
 		this.y = y;
 	}
+
+	public X getX() {
+		return x;
+	}
+
+	public Y getY() {
+		return y;
+	}
 }

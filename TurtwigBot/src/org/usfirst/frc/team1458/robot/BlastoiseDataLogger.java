@@ -57,7 +57,12 @@ public class BlastoiseDataLogger {
 		private double roll;
 		private double yaw;
 
+		private double lidarDistance;
 
+		private String climberStatus;
+		private String intakeStatus;
+		private String leftShooterStatus;
+		private String rightShooterStatus;
 
 		private RobotState robotState;
 
@@ -67,7 +72,6 @@ public class BlastoiseDataLogger {
 		private double pdpTotalCurrent;
 		private double pdpTotalPower;
 		private double pdpVoltage;
-
 
 		private double[] current = new double[16];
 
