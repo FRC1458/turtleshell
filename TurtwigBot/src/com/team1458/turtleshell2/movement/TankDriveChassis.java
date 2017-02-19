@@ -17,15 +17,15 @@ import edu.wpi.first.wpilibj.RobotState;
 public class TankDriveChassis implements DriveTrain {
 
 	// Drive
-	private TurtleMotor leftDrive;
-	private TurtleMotor rightDrive;
+	protected TurtleMotor leftDrive;
+	protected TurtleMotor rightDrive;
 
 	// Encoders
-	private TurtleDistanceSensor leftDistance;
-	private TurtleDistanceSensor rightDistance;
+	protected TurtleDistanceSensor leftDistance;
+	protected TurtleDistanceSensor rightDistance;
 
 	// Others
-	private TurtleRotationSensor rotationSensor;
+	protected TurtleRotationSensor rotationSensor;
 
 	// Driving
 	MotorValue speed = MotorValue.zero;
@@ -33,7 +33,7 @@ public class TankDriveChassis implements DriveTrain {
 	Angle turnAngle;
 	Distance moveDistance;
 
-	private DriveState state = DriveState.NONE;
+	protected DriveState state = DriveState.NONE;
 
 	public TankDriveChassis(TurtleMotor leftDrive, TurtleMotor rightDrive,
 	                        TurtleDistanceSensor leftDistance, TurtleDistanceSensor rightDistance,

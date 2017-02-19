@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1458.robot.components;
 
+import org.usfirst.frc.team1458.robot.BlastoiseFluxStore;
 import org.usfirst.frc.team1458.robot.Constants;
 
 import com.team1458.turtleshell2.movement.TurtleSmartMotor;
@@ -25,20 +26,30 @@ public class BlastoiseShooter {
 	private PIDConstants pidConstants;
 	private double speedTarget;
 
-	private ShooterStatus status;
-
 	private MotorValue openLoop;
 
+	private final BlastoiseFluxStore store;
+	private final boolean rightShooter;
+
 	/**
-	 * reversed if on right side
+	 * Reversed if on right side
+	 * @param motorPort
+	 * @param hallPort
+	 * @param pidConstants
+	 * @param speedTarget
+	 * @param reversed
+	 * @param openLoop
+	 * @param rightShooter
 	 */
 	public BlastoiseShooter(int motorPort, int hallPort, PIDConstants pidConstants, double speedTarget,
-			boolean reversed, MotorValue openLoop) {
+			boolean reversed, MotorValue openLoop, boolean rightShooter) {
 		this.hallSensor = new TurtleHallSensor(hallPort);
 		this.motor = new TurtleTalonSRXCAN(motorPort, reversed);
 		motor.setBrakeMode(BrakeMode.COAST); // Prevents the shooter from killing the motor
 
-		this.status = ShooterStatus.STOPPED;
+		this.rightShooter = rightShooter;
+		this.store = BlastoiseFluxStore.getInstance();
+
 		this.pidConstants = pidConstants;
 		this.openLoop = openLoop;
 		setSpeedTargetRpm(speedTarget);
@@ -60,16 +71,29 @@ public class BlastoiseShooter {
 	}
 
 	public void start() {
-		status = ShooterStatus.SHOOTING;
+		if(rightShooter) {
+			store.rightShooterStatus = BlastoiseFluxStore.ShooterStatus.SHOOTING;
+		} else {
+			store.leftShooterStatus = BlastoiseFluxStore.ShooterStatus.SHOOTING;
+		}
 		setSpeedTargetRpm(speedTarget);
 	}
 
 	public void startReverse() {
-		status = ShooterStatus.REVERSED;
+		if(rightShooter) {
+			store.rightShooterStatus = BlastoiseFluxStore.ShooterStatus.REVERSED;
+		} else {
+			store.leftShooterStatus = BlastoiseFluxStore.ShooterStatus.REVERSED;
+		}
+		setSpeedTargetRpm(speedTarget);
 	}
 
 	public void stop() {
-		status = ShooterStatus.STOPPED;
+		if(rightShooter) {
+			store.rightShooterStatus = BlastoiseFluxStore.ShooterStatus.STOPPED;
+		} else {
+			store.leftShooterStatus = BlastoiseFluxStore.ShooterStatus.STOPPED;
+		}
 		motor.set(MotorValue.zero);
 	}
 
@@ -77,13 +101,13 @@ public class BlastoiseShooter {
 	 * Adjusts the shooter speed based on desired RPM
 	 */
 	public void teleUpdate() {
-		if (status == ShooterStatus.SHOOTING) {
+		if (getStatus() == BlastoiseFluxStore.ShooterStatus.SHOOTING) {
 			double motorPower = pid.newValue(hallSensor.getRPM());
 			MotorValue motorValue = new MotorValue(motorPower);
 			motor.set(motorValue);
 
 			SmartDashboard.putNumber("ShooterMotorPower", motorPower);
-		} else if (status == ShooterStatus.REVERSED) {
+		} else if (getStatus() == BlastoiseFluxStore.ShooterStatus.REVERSED) {
 			motor.set(Constants.Shooter.REVERSE_SPEED);
 		}
 	}
@@ -93,11 +117,11 @@ public class BlastoiseShooter {
 		return hallSensor.getRPM();
 	}
 	
-	public ShooterStatus getStatus() {
-		return status;
-	}
-
-	public enum ShooterStatus {
-		SHOOTING, STOPPED, REVERSED
+	private BlastoiseFluxStore.ShooterStatus getStatus() {
+		if(rightShooter) {
+			return store.rightShooterStatus;
+		} else {
+			return store.leftShooterStatus;
+		}
 	}
 }
