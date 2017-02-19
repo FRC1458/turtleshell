@@ -29,10 +29,6 @@ public final class Rate<T extends Unit> implements Unit {
 		value=(numerator.getValue() / denominator.getValue());
 	}
 	
-	/**
-	 * Constructor with value already set
-	 * @param value
-	 */
 	public Rate(double value) {
 		this.value = value;
 	}

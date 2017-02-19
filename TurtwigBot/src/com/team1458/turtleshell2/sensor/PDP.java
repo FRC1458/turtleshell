@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
  * @author asinghani
  */
 public class PDP {
-	PowerDistributionPanel powerDistributionPanel;
+	private PowerDistributionPanel powerDistributionPanel;
 
 	public PDP() {
 		try {
@@ -32,7 +32,9 @@ public class PDP {
 	 * @return The voltage of the PDP in volts
 	 */
 	public double getVoltage() {
-		if(powerDistributionPanel == null) return 12;
+		if (powerDistributionPanel == null) {
+			return 12;
+		}
 		return powerDistributionPanel.getVoltage();
 	}
 
@@ -42,7 +44,9 @@ public class PDP {
 	 * @return The temperature of the PDP in degrees Celsius
 	 */
 	public double getTemperature() {
-		if(powerDistributionPanel == null) return 12;
+		if (powerDistributionPanel == null) {
+			return 12;
+		}
 		return powerDistributionPanel.getTemperature();
 	}
 
@@ -53,7 +57,9 @@ public class PDP {
 	 * @param channel
 	 */
 	public double getCurrent(int channel) {
-		if(powerDistributionPanel == null) return 5.9375;
+		if (powerDistributionPanel == null) {
+			return 5.9375;
+		}
 		return powerDistributionPanel.getCurrent(channel);
 	}
 
@@ -63,7 +69,9 @@ public class PDP {
 	 * @return The current of all the channels in Amperes
 	 */
 	public double getTotalCurrent() {
-		if(powerDistributionPanel == null) return 95;
+		if (powerDistributionPanel == null) {
+			return 95;
+		}
 		return powerDistributionPanel.getTotalCurrent();
 	}
 
@@ -73,7 +81,9 @@ public class PDP {
 	 * @return the total power in Watts
 	 */
 	public double getTotalPower() {
-		if(powerDistributionPanel == null) return 1140;
+		if (powerDistributionPanel == null) {
+			return 1140;
+		}
 		return powerDistributionPanel.getTotalPower();
 	}
 
@@ -83,7 +93,9 @@ public class PDP {
 	 * @return the total energy in Joules
 	 */
 	public double getTotalEnergy() {
-		if(powerDistributionPanel == null) return 43;
+		if (powerDistributionPanel == null) {
+			return 43;
+		}
 		return powerDistributionPanel.getTotalEnergy();
 	}
 
@@ -91,13 +103,17 @@ public class PDP {
 	 * Reset the total energy to 0.
 	 */
 	public void resetTotalEnergy() {
-		if(powerDistributionPanel != null) powerDistributionPanel.resetTotalEnergy();
+		if (powerDistributionPanel != null) {
+			powerDistributionPanel.resetTotalEnergy();
+		}
 	}
 
 	/**
 	 * Clear all PDP sticky faults.
 	 */
 	public void clearStickyFaults() {
-		if(powerDistributionPanel != null) powerDistributionPanel.clearStickyFaults();
+		if (powerDistributionPanel != null) {
+			powerDistributionPanel.clearStickyFaults();
+		}
 	}
 }

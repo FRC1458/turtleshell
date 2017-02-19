@@ -11,14 +11,19 @@ public class ShooterPID extends PID {
 	 */
 	private final MotorValue openLoop;
 
-	public ShooterPID(PIDConstants constants, double target, double deadband, MotorValue openLoop) {
+	public ShooterPID(PIDConstants constants, double target, double deadband,
+			MotorValue openLoop) {
 		super(constants, target, deadband);
 		this.openLoop = openLoop;
 	}
 
 	@Override
-	public double newValue(double value) {// Cannot be less than zero, and openLoop is added.
-		return new MotorValue(TurtleMaths.biggerOf(super.newValue(value) + openLoop.getValue(), 0)).getValue();
+	public double newValue(double value) {// Cannot be less than zero, and
+											// openLoop is added.
+		return new MotorValue(TurtleMaths.biggerOf(super.newValue(value)
+				+ openLoop.getValue(), 0)).getValue(); // Prevents motor from
+														// killing itself by
+														// switching directions
 	}
 
 }

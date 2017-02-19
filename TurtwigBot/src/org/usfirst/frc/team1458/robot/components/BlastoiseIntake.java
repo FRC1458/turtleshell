@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1458.robot.components;
 
+import org.usfirst.frc.team1458.robot.Constants;
+
 import com.team1458.turtleshell2.movement.TurtleMotor;
 import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
 import com.team1458.turtleshell2.util.types.MotorValue;
@@ -10,52 +12,32 @@ import com.team1458.turtleshell2.util.types.MotorValue;
  * @author asinghani
  */
 public class BlastoiseIntake {
-	/**
-	 * Motor
-	 */
-	private TurtleMotor motor;
-	private MotorValue speed;
+	private final TurtleMotor motor = new TurtleTalonSRXCAN(Constants.Intake.MOTOR_PORT);
+	
+	private final MotorValue speed = Constants.Intake.SPEED;
+	private final MotorValue reverseSpeed = Constants.Intake.REVERSE_SPEED;
 
 	private IntakeStatus status;
 
-	/**
-	 * Instantiates BlastoiseIntake
-	 * @param motorPort
-	 * @param speed
-	 */
-	public BlastoiseIntake(int motorPort, MotorValue speed) {
-		this.motor = new TurtleTalonSRXCAN(motorPort);
+	public BlastoiseIntake() {
 		this.status = IntakeStatus.STOPPED;
-		this.speed = speed;
 	}
 
-	/**
-	 * Start running the intake
-	 */
 	public void start() {
 		status = IntakeStatus.RUNNING;
 		motor.set(speed);
 	}
 
-	/**
-	 * Start running the intake in reverse
-	 */
 	public void startReverse() {
 		status = IntakeStatus.REVERSED;
-		motor.set(speed.invert());
+		motor.set(reverseSpeed);
 	}
 
-	/**
-	 * Stop running the intake
-	 */
 	public void stop() {
 		status = IntakeStatus.STOPPED;
 		motor.set(MotorValue.zero);
 	}
 
-	/**
-	 * Get the current status of the intake
-	 */
 	public IntakeStatus getStatus() {
 		return status;
 	}

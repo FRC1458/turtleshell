@@ -1,9 +1,11 @@
 package org.usfirst.frc.team1458.robot.components;
 
+import org.usfirst.frc.team1458.robot.Constants;
+
 import com.team1458.turtleshell2.movement.TurtleMotor;
 import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
-
 import com.team1458.turtleshell2.util.types.MotorValue;
+
 import edu.wpi.first.wpilibj.DriverStation;
 
 /**
@@ -13,43 +15,25 @@ import edu.wpi.first.wpilibj.DriverStation;
  */
 public class BlastoiseClimber {
 
-	/**
-	 * Motor
-	 */
-	private TurtleMotor motor;
-	private MotorValue speed;
-	private MotorValue lowSpeed;
+	//Motor
+	private final TurtleMotor motor = new TurtleTalonSRXCAN(Constants.Climber.MOTOR_PORT);
+	private final MotorValue speed = Constants.Climber.SPEED;
+	private final MotorValue lowSpeed = Constants.Climber.SPEED_LOW;
 
 	private ClimberStatus status;
 
-	/**
-	 * Instantiates BlastoiseClimber
-	 * @param motorPort
-	 */
-	public BlastoiseClimber(int motorPort, MotorValue speed, MotorValue lowSpeed) {
-		this.motor = new TurtleTalonSRXCAN(motorPort);
-		this.speed = speed;
-		this.lowSpeed = lowSpeed;
+	public BlastoiseClimber() {
 		this.status = ClimberStatus.STOPPED;
 	}
 
-	/**
-	 * Returns whether the robot is currently climbing the rope.
-	 */
 	public boolean isClimbing() {
 		return status == ClimberStatus.CLIMBING;
 	}
 
-	/**
-	 * Returns the current status of the climber.
-	 */
 	public ClimberStatus getStatus() {
 		return status;
 	}
 
-	/**
-	 * Returns if the robot is ready to climb.
-	 */
 	public boolean isReadyToClimb() {
 		return isRopeLowered() && status == ClimberStatus.STOPPED;
 	}
@@ -65,17 +49,11 @@ public class BlastoiseClimber {
 		return true;
 	}
 
-	/**
-	 * Starts climbing
-	 */
 	public void start() {
 		motor.set(speed);
 		status = ClimberStatus.CLIMBING;
 	}
 
-	/**
-	 * Starts descending
-	 */
 	public void startReverse() {
 		motor.set(speed.invert());
 		status = ClimberStatus.DESCENDING;
@@ -89,9 +67,6 @@ public class BlastoiseClimber {
 		status = ClimberStatus.FINISHED;
 	}
 
-	/**
-	 * Stops climbing
-	 */
 	public void stop() {
 		motor.set(MotorValue.zero);
 		status = ClimberStatus.STOPPED;

@@ -17,8 +17,8 @@ import edu.wpi.first.wpilibj.RobotState;
 public class TankDriveChassis implements DriveTrain {
 
 	// Drive
-	private MotorSet leftDrive;
-	private MotorSet rightDrive;
+	private TurtleMotor leftDrive;
+	private TurtleMotor rightDrive;
 
 	// Encoders
 	private TurtleDistanceSensor leftDistance;
@@ -35,7 +35,7 @@ public class TankDriveChassis implements DriveTrain {
 
 	private DriveState state = DriveState.NONE;
 
-	public TankDriveChassis(MotorSet leftDrive, MotorSet rightDrive,
+	public TankDriveChassis(TurtleMotor leftDrive, TurtleMotor rightDrive,
 	                        TurtleDistanceSensor leftDistance, TurtleDistanceSensor rightDistance,
 							TurtleRotationSensor rotationSensor) {
 		this.leftDrive = leftDrive;
@@ -45,7 +45,7 @@ public class TankDriveChassis implements DriveTrain {
 		this.rotationSensor = rotationSensor;
 	}
 
-	public TankDriveChassis(MotorSet leftDrive, MotorSet rightDrive, TurtleRotationSensor rotationSensor) {
+	public TankDriveChassis(TurtleMotor leftDrive, TurtleMotor rightDrive, TurtleRotationSensor rotationSensor) {
 		this(leftDrive, rightDrive, new TurtleFakeDistanceEncoder(), new TurtleFakeDistanceEncoder(), rotationSensor);
 	}
 

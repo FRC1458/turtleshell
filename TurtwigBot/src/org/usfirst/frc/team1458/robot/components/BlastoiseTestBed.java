@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1458.robot.components;
 
-import com.team1458.turtleshell2.core.RobotComponent;
 import com.team1458.turtleshell2.input.AnalogInput;
 import com.team1458.turtleshell2.input.ButtonInput;
 import com.team1458.turtleshell2.input.XboxController;
@@ -30,16 +29,12 @@ public class BlastoiseTestBed {
 	private PID pid;
 	private MotorValue pow;
 
-	/**
-	 * Test bed for shooter
-	 */
 	AnalogInput shooterSpeed;
 	ButtonInput smart;
 
 	double lastTarget = 4500/16.425;
 	
 	PIDConstants constants = new PIDConstants(0.07, 0.09, 0.04);
-	
 	{
 		c = new TurtleHallSensor(9, false);
 		shooter = new TurtleVictorSP(9);

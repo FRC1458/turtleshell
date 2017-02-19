@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1458.robot.components;
 
+import org.usfirst.frc.team1458.robot.Constants;
+
 import com.team1458.turtleshell2.movement.TurtleSmartMotor;
 import com.team1458.turtleshell2.movement.TurtleSmartMotor.BrakeMode;
 import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
@@ -16,8 +18,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author asinghani
  */
 public class BlastoiseShooter {
-	private TurtleHallSensor hallSensor;
-	private TurtleSmartMotor motor;
+	private final TurtleHallSensor hallSensor;
+	private final TurtleSmartMotor motor;
 
 	private ShooterPID pid;
 	private PIDConstants pidConstants;
@@ -28,67 +30,44 @@ public class BlastoiseShooter {
 	private MotorValue openLoop;
 
 	/**
-	 * Instantiates BlastoiseShooter
-	 * 
-	 * @param hallPort
-	 * @param motorPort
-	 * @param pidConstants
-	 * @param speedTarget
-	 * @param reversed
-	 *            Whether this should be reversed, i.e. If is the right side
+	 * reversed if on right side
 	 */
 	public BlastoiseShooter(int motorPort, int hallPort, PIDConstants pidConstants, double speedTarget,
 			boolean reversed, MotorValue openLoop) {
 		this.hallSensor = new TurtleHallSensor(hallPort);
 		this.motor = new TurtleTalonSRXCAN(motorPort, reversed);
-		motor.setBrakeMode(BrakeMode.COAST);
+		motor.setBrakeMode(BrakeMode.COAST); // Prevents the shooter from killing the motor
 
 		this.status = ShooterStatus.STOPPED;
 		this.pidConstants = pidConstants;
 		this.openLoop = openLoop;
-		setSpeedTarget(speedTarget);
+		setSpeedTargetRpm(speedTarget);
 	}
 
-	/**
-	 * Sets the speed target in RPM. Also recreates PID loop, resetting I and D
-	 * terms.
-	 * 
-	 * @param speedTarget
-	 */
-	public void setSpeedTarget(double speedTarget) {
+	public void setSpeedTargetRpm(double speedTarget) {
 		this.speedTarget = speedTarget;
 		pid = new ShooterPID(pidConstants, speedTarget, 0, openLoop);
 	}
+	
+	public void setOpenLoop(double openLoop) {
+		this.openLoop = new MotorValue(openLoop);
+		pid = new ShooterPID(pidConstants, speedTarget, 0, this.openLoop);
+	}
 
-	/**
-	 * Sets new PID constants for the shooter. Also recreates PID loop,
-	 * resetting I and D terms.
-	 * 
-	 * @param constants
-	 */
 	public void setPIDConstants(PIDConstants constants) {
 		this.pidConstants = constants;
-		setSpeedTarget(speedTarget);
+		setSpeedTargetRpm(speedTarget);
 	}
 
-	/**
-	 * Starts shooting. Also recreates PID loop, resetting I and D terms.
-	 */
 	public void start() {
 		status = ShooterStatus.SHOOTING;
-		setSpeedTarget(speedTarget);
+		setSpeedTargetRpm(speedTarget);
 	}
 
-	/**
-	 * Starts shooting in reverse.
-	 */
 	public void startReverse() {
 		status = ShooterStatus.REVERSED;
 	}
 
-	/**
-	 * Stops the shooter
-	 */
 	public void stop() {
 		status = ShooterStatus.STOPPED;
 		motor.set(MotorValue.zero);
@@ -104,17 +83,12 @@ public class BlastoiseShooter {
 			motor.set(motorValue);
 
 			SmartDashboard.putNumber("ShooterMotorPower", motorPower);
-		} else if (status == ShooterStatus.MANUAL) {
-			motor.set(new MotorValue(0.7));
 		} else if (status == ShooterStatus.REVERSED) {
-			motor.set(MotorValue.fullBackward);//TODO: NO THIS SHOULD NOT BE FULL POWER
+			motor.set(Constants.Shooter.REVERSE_SPEED);
 		}
 	}
 	
-
-	/**
-	 * Get the speed of the shooter in RPM
-	 */
+	
 	public double getSpeed() {
 		return hallSensor.getRPM();
 	}
@@ -124,6 +98,6 @@ public class BlastoiseShooter {
 	}
 
 	public enum ShooterStatus {
-		SHOOTING, STOPPED, REVERSED, MANUAL
+		SHOOTING, STOPPED, REVERSED
 	}
 }
