@@ -56,6 +56,8 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 	private BlastoiseFluxStore store;
 
+	private int last = -10;
+
 	// Vision
 	private BlastoiseShooterVision vision = new BlastoiseShooterVision(
 			Constants.ShooterVision.Camera.URL);
@@ -93,6 +95,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 					Constants.RightShooter.PID_CONSTANTS, "RightShooterPID");
 			SmartDashboard.putNumber("RightShooterSpeed",
 					Constants.RightShooter.SPEED_RPM);
+			SmartDashboard.putNumber("RightShooterOpenLoop", 0.7);
 		}
 	}
 
@@ -109,12 +112,12 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	private void setupInput() {
 		BlastoiseController controller = new BlastoiseController(5);
 		XboxController xController = new XboxController(
-				Constants.DriverStation.UsbPorts.XBOX_CONTROLLER);
+				Constants.DriverStation.UsbPorts.DEBUG_XBOX_CONTROLLER);
 
 		if (Constants.DriverStation.USE_XBOX_CONTROLLER) {
 			XboxController xboxController = new XboxController(
 					Constants.DriverStation.UsbPorts.XBOX_CONTROLLER);
-			inputManager = new BlastoiseInputManager(xboxController, controller);
+			inputManager = new BlastoiseInputManager(xboxController, xController);
 		} else {
 			FlightStick leftStick = new FlightStick(
 					Constants.DriverStation.UsbPorts.LEFT_STICK);
@@ -184,6 +187,9 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			shooterLeft.startReverse();
 			shooterRight.startReverse();
 
+			shooterLeft.teleUpdate();
+			shooterRight.teleUpdate();
+
 		} else {
 			climberUpdate();
 
@@ -201,6 +207,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 		SmartDashboard.putNumber("Yaw", navX.getYawAxis().getRotation()
 				.getDegrees());
+		
 
 		double targetX = vision.getShooterTargetX();
 
@@ -234,31 +241,62 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 	private void shooterUpdate() {
 		if (inputManager.shootButton.getButton()) {
-
-			if (store.leftShooterStatus != BlastoiseFluxStore.ShooterStatus.SHOOTING) {
-				if (Constants.DEBUG) {
+			if(inputManager.autoManualToggle.getButton()) {
+				if (store.leftShooterStatus != BlastoiseFluxStore.ShooterStatus.SHOOTING || inputManager.shooterSpeed.get() != last || inputManager.autoManualToggle.getDown()) {
+					last = inputManager.shooterSpeed.get();
 					shooterLeft.setPIDConstants(TurtleDashboard
 							.getPidConstants("LeftShooterPID"));
-					shooterLeft.setSpeedTargetRpm(SmartDashboard.getNumber(
-							"LeftShooterSpeed", 0));
+					shooterLeft.setSpeedTargetRpm(inputManager.shooterSpeed.get() * (5000/11));
 
 					shooterRight.setPIDConstants(TurtleDashboard
 							.getPidConstants("RightShooterPID"));
-					shooterRight.setSpeedTargetRpm(SmartDashboard.getNumber(
-							"RightShooterSpeed", 0));
+					shooterRight.setSpeedTargetRpm(inputManager.shooterSpeed.get() * (5000/11));
+
+					shooterLeft.start();
+					shooterRight.start();
 				}
-				shooterLeft.start();
-				shooterRight.start();
+
+				shooterLeft.teleUpdate();
+				shooterRight.teleUpdate();
+
+				SmartDashboard
+						.putNumber("Shooter Left RPM", shooterLeft.getSpeed());
+				SmartDashboard.putNumber("Shooter Right RPM",
+						shooterRight.getSpeed());
+				SmartDashboard.putBoolean("Shooting", true);
+			} else {
+				if (store.leftShooterStatus != BlastoiseFluxStore.ShooterStatus.SHOOTING || inputManager.autoManualToggle.getUp()) {
+					shooterLeft.setPIDConstants(TurtleDashboard
+							.getPidConstants("RightShooterPID"));
+					shooterLeft.setSpeedTargetRpm(SmartDashboard.getNumber("RightShooterSpeed",
+							Constants.RightShooter.SPEED_RPM));
+
+					shooterLeft.setOpenLoop(SmartDashboard.getNumber("RightShooterOpenLoop",
+							Constants.RightShooter.SPEED_RPM));
+
+					shooterRight.setPIDConstants(TurtleDashboard
+							.getPidConstants("RightShooterPID"));
+					shooterRight.setSpeedTargetRpm(SmartDashboard.getNumber("RightShooterSpeed",
+							Constants.LeftShooter.SPEED_RPM)); // TODO make this actually auto with number
+
+					shooterRight.setOpenLoop(SmartDashboard.getNumber("RightShooterOpenLoop",
+							0.7));
+					
+					shooterLeft.start();
+					shooterRight.start();
+				}
+
+				shooterLeft.teleUpdate();
+				shooterRight.teleUpdate();
+
+				SmartDashboard
+						.putNumber("Shooter Left RPM", shooterLeft.getSpeed());
+				SmartDashboard.putNumber("Shooter Right RPM",
+						shooterRight.getSpeed());
+				SmartDashboard.putBoolean("Shooting", true);
 			}
 
-			shooterLeft.teleUpdate();
-			shooterRight.teleUpdate();
 
-			SmartDashboard
-					.putNumber("Shooter Left RPM", shooterLeft.getSpeed());
-			SmartDashboard.putNumber("Shooter Right RPM",
-					shooterRight.getSpeed());
-			SmartDashboard.putBoolean("Shooting", true);
 
 		} else {
 			SmartDashboard.putNumber("Shooter Left RPM", 0);
@@ -331,10 +369,11 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	// Below methods are mostly wrappers and should NOT be edited or removed
 
 	public void disabled() {
-
+		TurtleDashboard.disabled();
 	}
 
 	public void autonomous() {
+		TurtleDashboard.autonomous();
 		AutoMode autoMode = autoModes.get(selectedAutoMode);
 
 		if (autoMode == null) {
@@ -345,12 +384,14 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	}
 
 	public void operatorControl() {
+		TurtleDashboard.teleop();
 		while (RobotState.isOperatorControl() && RobotState.isEnabled()) {
 			teleUpdate();
 		}
 	}
 
 	public void test() {
+		TurtleDashboard.test();
 		if (testMode == null) {
 			logger.warn("Test mode not implemented");
 		} else {

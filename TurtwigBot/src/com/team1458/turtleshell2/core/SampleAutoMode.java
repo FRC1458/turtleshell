@@ -55,13 +55,13 @@ public abstract class SampleAutoMode implements AutoMode {
 	 * @param speed
 	 *            Speed for the robot, between -1 and 1
 	 */
-	public void moveMillis(long millis, double speed) {
+	/*public void moveMillis(long millis, double speed) {
 		MotorValue motorValue = new MotorValue(speed);
 		drive.tankDrive(motorValue, motorValue);
 
 		Timer.delay(millis / 1000.0); // WPILib Timer, not java.util.Timer
 		drive.stop();
-	}
+	}*/
 
 	/**
 	 * Turn for a certain amount of time at a certain speed. Positive speeds
@@ -73,16 +73,16 @@ public abstract class SampleAutoMode implements AutoMode {
 	 * @param speed
 	 *            Speed for the robot, between -1 and 1
 	 */
-	public void turnMillis(long millis, double speed) {
+	/*public void turnMillis(long millis, double speed) {
 		MotorValue right = new MotorValue(speed);
 		MotorValue left = new MotorValue(-1.0 * speed);
 		drive.tankDrive(left, right);
 
 		Timer.delay(millis / 1000.0); // WPILib Timer, not java.util.Timer
 		drive.stop();
-	}
+	}*/
 
-	public void turnAngle(Angle angle, MotorValue speed, PIDConstants constants, int tolerance) {
+	/*public void turnAngle(Angle angle, MotorValue speed, PIDConstants constants, int tolerance) {
 		drive.turn(angle, speed, constants, tolerance);
 	}
 
@@ -99,5 +99,5 @@ public abstract class SampleAutoMode implements AutoMode {
 			drive.tankDrive(leftValue, rightValue);
 		}
 		drive.stop();
-	}
+	}*/
 }

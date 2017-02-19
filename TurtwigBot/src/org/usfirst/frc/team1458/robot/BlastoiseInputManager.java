@@ -1,8 +1,12 @@
 package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell2.input.*;
+import com.team1458.turtleshell2.input.AnalogInput;
+import com.team1458.turtleshell2.input.DigitalInput;
+import com.team1458.turtleshell2.input.XboxController;
 import com.team1458.turtleshell2.input.fake.FakeButtonInput;
 import com.team1458.turtleshell2.input.fake.FakeRumbleable;
+import edu.wpi.first.wpilibj.*;
 
 /**
  * Manages all input/control for Robot
@@ -24,9 +28,13 @@ public class BlastoiseInputManager implements Rumbleable {
 	final DigitalInput intakeSwitch;
 	final ButtonInput shootButton;
 
+	final DigitalInput shooterSpeed;
+
 	final TurtleJoystickPOVSwitch pov;
 	
 	final Rumbleable rumbleController;
+
+	final ButtonInput autoManualToggle;
 
 	final ButtonInput panicButton;
 
@@ -49,6 +57,14 @@ public class BlastoiseInputManager implements Rumbleable {
 		this.climberSwitch = new FakeButtonInput();
 		this.intakeSwitch = new FakeButtonInput();
 		this.shootButton = new FakeButtonInput();
+		this.shooterSpeed = new DigitalInput() {
+			@Override
+			public int get() {
+				return 0;
+			}
+		};
+
+		autoManualToggle = new FakeButtonInput();
 		
 		this.panicButton = new FakeButtonInput();
 	}
@@ -68,13 +84,17 @@ public class BlastoiseInputManager implements Rumbleable {
 
 		this.pov = rightStick.getPOVSwitch();
 
-		this.rumbleController = new FakeRumbleable();
+		this.rumbleController = xboxController;
 
 		this.climberSwitch = xboxController.getButton(XboxController.XboxButton.X);
 		this.intakeSwitch = xboxController.getButton(XboxController.XboxButton.B);
 		this.shootButton = xboxController.getButton(XboxController.XboxButton.Y);
 
+		this.shooterSpeed = new XboxShooterThing(xboxController.getButton(XboxController.XboxButton.LBUMP),
+				xboxController.getButton(XboxController.XboxButton.RBUMP));
+
 		this.panicButton = xboxController.getButton(XboxController.XboxButton.A);
+		autoManualToggle = new FakeButtonInput();
 	}
 
 	public BlastoiseInputManager(XboxController controller, BlastoiseController blastoiseController) {
@@ -87,7 +107,14 @@ public class BlastoiseInputManager implements Rumbleable {
 		this.slowButton = controller.getButton(XboxController.XboxButton.A);
 		this.alignShooterButton = new FakeButtonInput(); //controller.getButton(XboxController.XboxButton.Y);
 		this.shootButton = controller.getButton(XboxController.XboxButton.Y);
-		
+
+		this.shooterSpeed = new DigitalInput() {
+			@Override
+			public int get() {
+				return 0;
+			}
+		};
+
 		this.pov = controller.getDPad();
 
 		this.rumbleController = controller;
@@ -96,6 +123,33 @@ public class BlastoiseInputManager implements Rumbleable {
 		this.intakeSwitch = new FakeButtonInput();
 		
 		this.panicButton = new FakeButtonInput();
+		autoManualToggle = new FakeButtonInput();
+	}
+	
+	public BlastoiseInputManager(XboxController controller, XboxController xbox2) {
+		this.leftJoystick = controller.getAxis(XboxController.XboxAxis.LY);
+		this.rightJoystick = controller.getAxis(XboxController.XboxAxis.RY);
+		
+		this.turnButton = controller.getButton(XboxController.XboxButton.LBUMP);
+		this.straightButton = controller.getButton(XboxController.XboxButton.RBUMP);
+
+		this.slowButton = controller.getButton(XboxController.XboxButton.A);
+		this.alignShooterButton = controller.getButton(XboxController.XboxButton.Y);
+
+		this.pov = controller.getDPad();
+		
+		this.rumbleController = xbox2;
+
+		this.climberSwitch = xbox2.getButton(XboxController.XboxButton.X);
+		this.intakeSwitch = xbox2.getButton(XboxController.XboxButton.B);
+		this.shootButton = xbox2.getButton(XboxController.XboxButton.Y);
+
+		this.shooterSpeed = new XboxShooterThing(xbox2.getButton(XboxController.XboxButton.LBUMP),
+						xbox2.getButton(XboxController.XboxButton.RBUMP));
+
+		this.panicButton = xbox2.getButton(XboxController.XboxButton.A);
+
+		this.autoManualToggle = new XboxButtonToggleThingy(xbox2.getButton(XboxController.XboxButton.SELECT), xbox2.getButton(XboxController.XboxButton.START));
 	}
 
 	@Override

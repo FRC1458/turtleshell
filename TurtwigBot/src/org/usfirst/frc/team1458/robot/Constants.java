@@ -26,7 +26,8 @@ public class Constants {
 			public static final int RIGHT_STICK = 0;
 			public static final int LEFT_STICK = 1;
 
-			public static final int XBOX_CONTROLLER = 3;
+			public static final int XBOX_CONTROLLER = 2;
+			public static final int DEBUG_XBOX_CONTROLLER = 3;
 		}
 	}
 
@@ -56,9 +57,9 @@ public class Constants {
 	}
 
 	public static final class Intake {
-		public static final int MOTOR_PORT = TalonID.ORIGINAL.id;
-		public static final MotorValue SPEED = MotorValue.fullForward;
-		public static final MotorValue REVERSE_SPEED = MotorValue.fullBackward;
+		public static final int MOTOR_PORT = TalonID.KAREN.id;
+		public static final MotorValue SPEED = new MotorValue(0.6);
+		public static final MotorValue REVERSE_SPEED = new MotorValue(-0.3);
 	}
 
 	public static final class Climber {
@@ -70,7 +71,7 @@ public class Constants {
 	}
 
 	public static final class Shooter {
-		public static final MotorValue REVERSE_SPEED = new MotorValue(-0.70);
+		public static final MotorValue REVERSE_SPEED = new MotorValue(-0.20);
 	}
 	
 	public static final class LeftShooter {
