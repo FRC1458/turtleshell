@@ -57,6 +57,8 @@ public class BlastoiseDataLogger {
 		private double roll;
 		private double yaw;
 
+
+
 		private RobotState robotState;
 
 		private double batteryVoltage;
