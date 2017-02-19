@@ -32,7 +32,7 @@ public class BlastoiseFluxStore {
 	}
 
 	public enum ShooterStatus {
-		SHOOTING, STOPPED, REVERSED
+		SHOOTING, STOPPED, REVERSED, MANUAL
 	}
 
 	public static BlastoiseFluxStore getInstance() {

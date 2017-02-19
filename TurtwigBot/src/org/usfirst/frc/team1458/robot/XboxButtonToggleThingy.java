@@ -35,7 +35,7 @@ public class XboxButtonToggleThingy extends SampleButtonInput {
 			value = false;
 			hasChanged = true;
 		}
-		SmartDashboard.putBoolean("OnOffToggleThing", value);
+		SmartDashboard.putBoolean("is in teleop", value);
 	}
 
 	public boolean hasChanged() {

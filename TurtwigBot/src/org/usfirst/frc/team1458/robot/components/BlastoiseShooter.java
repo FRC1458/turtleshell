@@ -87,6 +87,15 @@ public class BlastoiseShooter {
 		}
 		setSpeedTargetRpm(speedTarget);
 	}
+	
+	public void startManual(double pow) {
+		if(rightShooter) {
+			store.rightShooterStatus = BlastoiseFluxStore.ShooterStatus.MANUAL;
+		} else {
+			store.leftShooterStatus = BlastoiseFluxStore.ShooterStatus.MANUAL;
+		}
+		motor.set(new MotorValue(pow));
+	}
 
 	public void stop() {
 		if(rightShooter) {
