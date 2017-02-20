@@ -47,7 +47,7 @@ public class BlastoiseClimber {
 	}
 
 	public void startReverse() {
-		motor.set(speed.invert());
+		motor.set(new MotorValue(-0.2));
 		store.climberStatus = BlastoiseFluxStore.ClimberStatus.DESCENDING;
 	}
 

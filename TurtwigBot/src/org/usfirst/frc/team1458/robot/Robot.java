@@ -131,6 +131,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			inputManager = new BlastoiseInputManager(leftStick, rightStick,
 					xController);
 		}
+		
 	}
 
 	private void setupActuators() {
@@ -207,8 +208,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 	protected void teleUpdate() {
 
-		SmartDashboard.putNumber("Yaw", navX.getYawAxis().getRotation()
-				.getDegrees());
+		SmartDashboard.putNumber("LIDAR", lidar.getDistance().getInches());
 
 		if (inputManager.panicButton.getButton()) {
 			intake.startReverse();
@@ -217,6 +217,8 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 			shooterLeft.teleUpdate();
 			shooterRight.teleUpdate();
+			
+			climber.startReverse();
 
 		} else {
 			climberUpdate();
@@ -256,7 +258,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			intake.stop();
 			// shooterRight.stop();
 			// shooterLeft.stop();
-			chassis.stop();
+			//chassis.stop();
 		} else if (inputManager.climberSwitch.getUp()) {
 			climber.stop();
 		}
