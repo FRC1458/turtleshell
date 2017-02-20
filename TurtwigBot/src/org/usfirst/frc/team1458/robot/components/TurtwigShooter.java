@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1458.robot.components;
 
+import com.team1458.turtleshell2.movement.TurtleFakeMotor;
+import com.team1458.turtleshell2.movement.TurtleMotor;
 import org.usfirst.frc.team1458.robot.Constants;
 
 import com.team1458.turtleshell2.movement.TurtleSmartMotor;
@@ -13,10 +15,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TurtwigShooter {
 	private final TurtleSmartMotor motor;
+	private final TurtleMotor agitator;
 	private ShooterPID pid;
 	private final TurtleHallSensor hall;
 
 	private boolean isManualPower = false;
+	private boolean isReverse = false;
 	private double manualPower = 0;
 
 	private double targetRPM = 0;
@@ -32,10 +36,12 @@ public class TurtwigShooter {
 	public TurtwigShooter(boolean isRight) {
 		if (isRight) {
 			motor = new TurtleTalonSRXCAN(Constants.RightShooter.MOTOR_PORT, false);
+			agitator = new TurtleTalonSRXCAN(Constants.Shooter.AGITATOR_PORT);
 			hall = new TurtleHallSensor(Constants.RightShooter.HALL_PORT);
 			con = Constants.RightShooter.PID_CONSTANTS;
 		} else {
 			motor = new TurtleTalonSRXCAN(Constants.LeftShooter.MOTOR_PORT, true);
+			agitator = new TurtleFakeMotor();
 			hall = new TurtleHallSensor(Constants.LeftShooter.HALL_PORT);
 			con = Constants.LeftShooter.PID_CONSTANTS;
 		}
@@ -45,32 +51,43 @@ public class TurtwigShooter {
 
 	public void teleUpdate() {
 		SmartDashboard.putNumber(getSmartDashboardTag() + "ShooterMotorCurrent", motor.getCurrent());
-		if (isManualPower) {
-			motor.set(new MotorValue(manualPower));
+
+		if(isReverse) {
+			motor.set(Constants.Shooter.REVERSE_SPEED);
 		} else {
-			motor.set(new MotorValue(pid.newValue(hall.getRPM())));
+			if (isManualPower) {
+				motor.set(new MotorValue(manualPower));
+			} else {
+				motor.set(new MotorValue(pid.newValue(hall.getRPM())));
+			}
 		}
+
+		agitator.set(Constants.Shooter.AGITATOR_SPEED);
+
 		SmartDashboard.putNumber(getSmartDashboardTag() + "TurtwigShooter MotorValue", motor.get().getValue());
 		SmartDashboard.putNumber(getSmartDashboardTag() + "TurtwigShooter RPM", hall.getRPM());
-
 	}
 
 	private String getSmartDashboardTag() {
 		return isRight ? "Right " : "Left ";
 	}
 
+	public void startReverse() {
+		isReverse = true;
+	}
+
 	private void regenPID() {
 		if (Constants.Shooter.UBP) {
-			pid = new ShooterPID(Constants.Shooter.PID_CONSTANTS, targetRPM, 0,
-					new MotorValue(Constants.Shooter.UBPS * targetRPM));
+			pid = new ShooterPID(Constants.Shooter.PID_CONSTANTS, targetRPM, 0, new MotorValue(Constants.Shooter.UBPS * targetRPM));
 		} else {
 			pid = new ShooterPID(con, targetRPM, 0, targetOpenLoop);
 		}
-
+		isReverse = false;
 	}
 
 	public void stop() {
 		motor.set(new MotorValue(0));
+		isReverse = false;
 	}
 
 	public void setPIDConstants(PIDConstants p) {
@@ -80,10 +97,12 @@ public class TurtwigShooter {
 
 	public void setIsManualPower(boolean a) {
 		this.isManualPower = a;
+		isReverse = false;
 	}
 
 	public void setManualPower(double d) {
 		this.manualPower = d;
+		isReverse = false;
 	}
 
 	public void setRPMTarget(double d) {

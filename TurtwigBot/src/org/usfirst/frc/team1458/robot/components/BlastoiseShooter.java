@@ -14,7 +14,7 @@ import com.team1458.turtleshell2.util.types.MotorValue;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Basic code for a single shooter. Maintains constant motor speed.
+ * The old shooter THIS IS NO LONGER USED
  * 
  * @author asinghani
  */
@@ -118,7 +118,7 @@ public class BlastoiseShooter {
 			SmartDashboard.putNumber("ShooterMotorPower", motorPower);
 		} else if (getStatus() == BlastoiseFluxStore.ShooterStatus.REVERSED) {
 			motor.set(Constants.Shooter.REVERSE_SPEED);
-		}
+		} 
 	}
 	
 	

@@ -7,6 +7,8 @@ import com.team1458.turtleshell2.movement.TurtleMotor;
 import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
 import com.team1458.turtleshell2.util.types.MotorValue;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * Intake code
  *
@@ -23,11 +25,13 @@ public class BlastoiseIntake {
 	public BlastoiseIntake() {
 		store = BlastoiseFluxStore.getInstance();
 		store.intakeStatus = BlastoiseFluxStore.IntakeStatus.STOPPED;
+		
+		SmartDashboard.putNumber("IntakeSpeed", speed.getValue());
 	}
 
 	public void start() {
 		store.intakeStatus = BlastoiseFluxStore.IntakeStatus.RUNNING;
-		motor.set(speed);
+		motor.set(new MotorValue( SmartDashboard.getNumber("IntakeSpeed", speed.getValue()) ));
 	}
 
 	public void startReverse() {

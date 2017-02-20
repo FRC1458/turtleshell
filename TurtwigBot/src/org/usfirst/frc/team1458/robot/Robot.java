@@ -3,23 +3,22 @@ package org.usfirst.frc.team1458.robot;
 import com.team1458.turtleshell2.core.AutoMode;
 import com.team1458.turtleshell2.core.AutoModeHolder;
 import com.team1458.turtleshell2.core.TestMode;
+import com.team1458.turtleshell2.movement.*;
 import com.team1458.turtleshell2.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.input.FlightStick;
 import com.team1458.turtleshell2.input.XboxController;
-import com.team1458.turtleshell2.movement.TurtleMotor;
-import com.team1458.turtleshell2.movement.FollowerMotorSet;
-import com.team1458.turtleshell2.movement.TankDrive;
-import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
 import com.team1458.turtleshell2.pid.PID;
 import com.team1458.turtleshell2.sensor.LIDARSerial;
 import com.team1458.turtleshell2.sensor.PDP;
 import com.team1458.turtleshell2.sensor.TurtleDistanceSensor;
 import com.team1458.turtleshell2.sensor.TurtleNavX;
+import com.team1458.turtleshell2.sensor.fake.TurtleFakeRotationEncoder;
 import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.MotorValue;
 
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.SampleRobot;
@@ -109,7 +108,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	}
 
 	private void setupSensors() {
-		navX = new TurtleNavX(SerialPort.Port.kUSB);
+		navX = new TurtleNavX(I2C.Port.kOnboard);
 		lidar = new LIDARSerial(SerialPort.Port.kMXP);
 		pdp = new PowerDistributionPanel();
 	}
@@ -135,27 +134,54 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	}
 
 	private void setupActuators() {
-		chassis = new TankDrive(new FollowerMotorSet(new TurtleTalonSRXCAN(
-				Constants.LeftDrive.MOTOR1), new TurtleTalonSRXCAN(
-				Constants.LeftDrive.MOTOR2), new TurtleTalonSRXCAN(
-				Constants.LeftDrive.MOTOR3)), new FollowerMotorSet(
-				new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR1, true),
-				new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR2, true),
-				new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR3, true)),
-				new TurtleDistanceEncoder(Constants.LeftDrive.ENCODER_A,
+		chassis = new TankDrive(
+				new FollowerMotorSet(
+						new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR1),
+						new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR2),
+						new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR3)
+				),
+				new FollowerMotorSet(
+					new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR1, true),
+					new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR2, true),
+					new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR3, true)
+				),
+				new TurtleDistanceEncoder(
+						Constants.LeftDrive.ENCODER_A,
 						Constants.LeftDrive.ENCODER_B,
-						Constants.LeftDrive.ENCODER_RATIO),
-				new TurtleDistanceEncoder(Constants.RightDrive.ENCODER_A,
+						Constants.LeftDrive.ENCODER_RATIO
+				),
+				new TurtleDistanceEncoder(
+						Constants.RightDrive.ENCODER_A,
 						Constants.RightDrive.ENCODER_B,
-						Constants.RightDrive.ENCODER_RATIO), navX.getYawAxis(),
+						Constants.RightDrive.ENCODER_RATIO,
+						true
+				),
+				navX.getYawAxis(),
 				Constants.StraightDrivePID.PID_CONSTANTS,
 				Constants.StraightDrivePID.TURN_PID_CONSTANTS,
-				Constants.TurnPID.PID_CONSTANTS, Constants.StraightDrivePID.kLR);
+				Constants.TurnPID.PID_CONSTANTS, Constants.StraightDrivePID.kLR
+		);
+
+
+		// TODO THIS WILL BREAK SOMETHING
+		// This is the chassis for the practice bot, DO NOT MOVE THIS INTO CONSTANTS CLASS
+		// Also don't question it
+		/*chassis = new TankDrive(
+				new TurtleTalonSR(8),
+				new TurtleTalonSR(7, true),
+				new TurtleDistanceEncoder(2, 3, 0.0697777777, true),
+				new TurtleDistanceEncoder(0, 1, 0.0697777777),
+				navX.getYawAxis(),
+				Constants.StraightDrivePID.PID_CONSTANTS,
+				Constants.StraightDrivePID.TURN_PID_CONSTANTS,
+				Constants.TurnPID.PID_CONSTANTS, Constants.StraightDrivePID.kLR
+		);*/
 
 		climber = new BlastoiseClimber();
 		intake = new BlastoiseIntake();
 		shooterLeft = new TurtwigShooter(false);
 		shooterRight = new TurtwigShooter(true);
+
 		/*
 		 * shooterLeft = new BlastoiseShooter(Constants.LeftShooter.MOTOR_PORT,
 		 * Constants.LeftShooter.HALL_PORT, Constants.LeftShooter.PID_CONSTANTS,
@@ -186,11 +212,11 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 		if (inputManager.panicButton.getButton()) {
 			intake.startReverse();
-			// shooterLeft.startReverse();
-			// shooterRight.startReverse();
+			shooterLeft.startReverse();
+			shooterRight.startReverse();
 
-			// shooterLeft.teleUpdate();
-			// shooterRight.teleUpdate();
+			shooterLeft.teleUpdate();
+			shooterRight.teleUpdate();
 
 		} else {
 			climberUpdate();
@@ -198,8 +224,10 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			// If robot is climbing, do nothing else
 			if (store.isRobotClimbingRope()) {
 				intake.stop();
-				// shooterLeft.stop();
-				// shooterRight.stop();
+				shooterLeft.stop();
+				shooterRight.stop();
+
+				driveUpdate();
 			} else {
 				intakeUpdate();
 				shooterUpdate();
@@ -315,24 +343,24 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	private void driveUpdate() {
 		// If holding down shooter align button, use PID loop to align with high
 		// goal
+
 		if (inputManager.alignShooterButton.getButton()) {
 			if (inputManager.alignShooterButton.getDown()) {
 				chassis.stop();
 			}
 			shooterAlignUpdate();
 		} else {
-			MotorValue leftPower = new MotorValue(TurtleMaths.deadband(
-					inputManager.getLeft(),
-					Constants.DriverStation.JOYSTICK_DEADBAND));
-			MotorValue rightPower = new MotorValue(TurtleMaths.deadband(
-					inputManager.getRight(),
-					Constants.DriverStation.JOYSTICK_DEADBAND));
+			MotorValue leftPower = new MotorValue(
+					TurtleMaths.deadband(inputManager.getLeft(), Constants.DriverStation.JOYSTICK_DEADBAND));
+
+			MotorValue rightPower = new MotorValue(
+					TurtleMaths.deadband(inputManager.getRight(), Constants.DriverStation.JOYSTICK_DEADBAND));
 
 			// Smoother control of the robot
-			if (inputManager.slowButton.getButton()
-					|| store.isRobotClimbingRope()) {
+			if (inputManager.slowButton.getButton() || store.isRobotClimbingRope() || inputManager.gearButton.getButton()) {
 				leftPower = leftPower.scale(Constants.Drive.SLOW_SPEED);
 				rightPower = rightPower.scale(Constants.Drive.SLOW_SPEED);
+
 			} else if (Constants.DriverStation.LOGISTIC_SCALE) {
 				leftPower = new MotorValue(
 						TurtleMaths.logisticStepScale(leftPower.getValue()));
@@ -340,13 +368,32 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 						TurtleMaths.logisticStepScale(rightPower.getValue()));
 			}
 
+			if(inputManager.gearButton.getButton()) {
+				// This reverses motor directions while swapping sides
+				MotorValue leftTemp = rightPower.invert();
+				MotorValue rightTemp = leftPower.invert();
+
+				leftPower = leftTemp;
+				rightPower = rightTemp;
+
+			}
+			
 			if (inputManager.straightButton.getButton()) {
-				chassis.tankDrive(rightPower, rightPower);
+				if(inputManager.gearButton.getButton()) {
+					chassis.tankDrive(leftPower, leftPower);
+				} else {
+					chassis.tankDrive(rightPower, rightPower);
+				}
 			} else if (inputManager.turnButton.getButton()) {
-				chassis.tankDrive(leftPower, leftPower.invert());
+				if(inputManager.gearButton.getButton()) {
+					chassis.tankDrive(rightPower, rightPower.invert());
+				} else {
+					chassis.tankDrive(leftPower, leftPower.invert());
+				}
 			} else {
 				chassis.tankDrive(leftPower, rightPower);
 			}
+
 
 			/*
 			 * waggle code - gives robot seizure chassis.tankDrive( new

@@ -38,6 +38,8 @@ public class BlastoiseInputManager implements Rumbleable {
 
 	final ButtonInput panicButton;
 
+	final ButtonInput gearButton;
+
 	public BlastoiseInputManager(FlightStick leftStick, FlightStick rightStick, BlastoiseController blastoiseController) {
 		this.leftJoystick = leftStick.getAxis(FlightStick.FlightAxis.PITCH);
 		this.rightJoystick = rightStick.getAxis(FlightStick.FlightAxis.PITCH);
@@ -67,6 +69,10 @@ public class BlastoiseInputManager implements Rumbleable {
 		autoManualToggle = new FakeButtonInput();
 		
 		this.panicButton = new FakeButtonInput();
+
+		gearButton = new MultiButtonInput(MultiButtonInput.Operator.OR,
+				rightStick.getButton(FlightStick.FlightButton.THREE),
+				leftStick.getButton(FlightStick.FlightButton.THREE));
 	}
 
 	public BlastoiseInputManager(FlightStick leftStick, FlightStick rightStick, XboxController xboxController) {
@@ -95,6 +101,10 @@ public class BlastoiseInputManager implements Rumbleable {
 
 		this.panicButton = xboxController.getButton(XboxController.XboxButton.A);
 		autoManualToggle = new FakeButtonInput();
+
+		gearButton = new MultiButtonInput(MultiButtonInput.Operator.OR,
+				rightStick.getButton(FlightStick.FlightButton.THREE),
+				leftStick.getButton(FlightStick.FlightButton.THREE));
 	}
 
 	public BlastoiseInputManager(XboxController controller, BlastoiseController blastoiseController) {
@@ -124,6 +134,8 @@ public class BlastoiseInputManager implements Rumbleable {
 		
 		this.panicButton = new FakeButtonInput();
 		autoManualToggle = new FakeButtonInput();
+
+		gearButton = controller.getButton(XboxController.XboxButton.X);
 	}
 	
 	public BlastoiseInputManager(XboxController controller, XboxController xbox2) {
@@ -150,6 +162,8 @@ public class BlastoiseInputManager implements Rumbleable {
 		this.panicButton = xbox2.getButton(XboxController.XboxButton.A);
 
 		this.autoManualToggle = new XboxButtonToggleThingy(xbox2.getButton(XboxController.XboxButton.SELECT), xbox2.getButton(XboxController.XboxButton.START));
+
+		gearButton = controller.getButton(XboxController.XboxButton.X);
 	}
 
 	@Override

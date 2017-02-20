@@ -60,13 +60,13 @@ public class Constants {
 	}
 
 	public static final class Intake {
-		public static final int MOTOR_PORT = TalonID.KAREN.id;
-		public static final MotorValue SPEED = new MotorValue(0.6);
-		public static final MotorValue REVERSE_SPEED = new MotorValue(-0.3);
+		public static final int MOTOR_PORT = TalonID.GRANT.id;
+		public static final MotorValue SPEED = new MotorValue(0.8);
+		public static final MotorValue REVERSE_SPEED = new MotorValue(-0.5);
 	}
 
 	public static final class Climber {
-		public static final int MOTOR_PORT = TalonID.KAREN.id;
+		public static final int MOTOR_PORT = TalonID.HITAGI.id;
 
 		public static final MotorValue SPEED = MotorValue.fullForward;
 		public static final MotorValue SPEED_LOW = new MotorValue(0.3);
@@ -78,6 +78,9 @@ public class Constants {
 		public static final boolean UBP = true;
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.00009, 0, 0.000001);
 		public static final double UBPS = 0.000175;
+
+		public static final int AGITATOR_PORT = TalonID.KAREN.id;
+		public static final MotorValue AGITATOR_SPEED = new MotorValue(0.6);
 	}
 
 	public static final class LeftShooter {
