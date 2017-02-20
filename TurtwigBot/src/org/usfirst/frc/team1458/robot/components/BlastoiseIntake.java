@@ -39,4 +39,5 @@ public class BlastoiseIntake {
 		store.intakeStatus = BlastoiseFluxStore.IntakeStatus.STOPPED;
 		motor.set(MotorValue.zero);
 	}
+
 }

@@ -1,5 +1,7 @@
 package com.team1458.turtleshell2.movement;
 
+import java.util.ArrayList;
+
 import com.team1458.turtleshell2.pid.PID;
 import com.team1458.turtleshell2.pid.SimpleTurnPID;
 import com.team1458.turtleshell2.pid.StraightDrivePID;
@@ -11,6 +13,7 @@ import com.team1458.turtleshell2.util.types.Angle;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
 import com.team1458.turtleshell2.util.types.Tuple;
+
 import edu.wpi.first.wpilibj.RobotState;
 
 /**
@@ -34,6 +37,10 @@ public class TankDrive implements DriveTrain {
 	private PIDConstants straightDriveTurnConstants;
 	private PIDConstants turnConstants;
 	private double kLR;
+	
+	private final double avgSamples = 15;
+	private final ArrayList<MotorValue> lastLeftValues = new ArrayList<>();
+	private final ArrayList<MotorValue> lastRightValues = new ArrayList<>();
 
 	public TankDrive(TurtleMotor leftMotor, TurtleMotor rightMotor,
 					 TurtleDistanceSensor leftEncoder, TurtleDistanceSensor rightEncoder,
@@ -119,7 +126,33 @@ public class TankDrive implements DriveTrain {
 	 * Sends raw values directly to the drive system
 	 */
 	public void tankDrive(MotorValue leftPower, MotorValue rightPower) {
-		setMotors(leftPower, rightPower);
+		
+		// "Ramp Up" code when starting
+		lastLeftValues.add(leftPower);
+		if(lastLeftValues.size() > avgSamples) {
+			lastLeftValues.remove(0);
+		}
+		
+		lastRightValues.add(rightPower);
+		if(lastRightValues.size() > avgSamples) {
+			lastRightValues.remove(0);
+		}
+		
+		double leftVal = 0;
+		double rightVal = 0;
+		
+		for(MotorValue value : lastLeftValues) {
+			leftVal += value.getValue();
+		}
+		
+		for(MotorValue value : lastRightValues) {
+			rightVal += value.getValue();
+		}
+		
+		leftVal /= lastLeftValues.size();
+		rightVal /= lastRightValues.size();
+		
+		setMotors(new MotorValue(leftVal), new MotorValue(rightVal));
 		state = DriveState.MANUAL;
 	}
 

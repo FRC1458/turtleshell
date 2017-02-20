@@ -29,8 +29,6 @@ public interface TurtleSmartMotor extends TurtleMotor {
 		BRAKE, COAST
 	}
 	
-	
-	
-	
+	public double getCurrent();
 
 }

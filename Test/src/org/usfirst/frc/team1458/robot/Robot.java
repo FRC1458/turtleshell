@@ -3,10 +3,12 @@ package org.usfirst.frc.team1458.robot;
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -31,7 +33,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends SampleRobot {
 	private LIDARLite l;
+	
+	private Joystick j = new Joystick(3);
 
+	private CANTalon talon1 = new CANTalon(18);
+	private CANTalon talon2 = new CANTalon(19);
+	
 	public Robot() {
 
 	}
@@ -62,18 +69,18 @@ public class Robot extends SampleRobot {
 	 */
 	@Override
 	public void operatorControl() {
+		
+		PowerDistributionPanel panel = new PowerDistributionPanel();
 
 		while (isOperatorControl() && isEnabled()) {
-			//double d = l.getDistance();
-			//System.out.println(d);
-			//SmartDashboard.putNumber("Turtwig LIDAR", d);
-			String str = l.getStr();
-			try {
-				if(str.isEmpty()) continue;
-				SmartDashboard.putString("LIDAR STRING", str);
-				System.out.println("str = "+str);
-			} catch (Exception e) {
-			}
+			talon1.set(j.getAxis(AxisType.kY));
+			talon2.set(-j.getAxis(AxisType.kY));
+			
+			SmartDashboard.putNumber("Talon1", talon1.getOutputCurrent());
+			SmartDashboard.putNumber("Talon2", talon2.getOutputCurrent());
+
+			SmartDashboard.putNumber("Talon1 PDP", panel.getCurrent(11));
+			SmartDashboard.putNumber("Talon2 PDP", panel.getCurrent(4));
 		}
 	}
 

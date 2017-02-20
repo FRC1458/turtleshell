@@ -116,6 +116,11 @@ public class TurtleTalonSRXCAN implements TurtleSmartMotor, TurtleFollowerMotor 
 	}
 
 	@Override
+	public double getCurrent() {
+		return v.getOutputCurrent();
+	}
+
+	@Override
 	public void setRotationRate(Rate<Angle> rate) {
 		v.changeControlMode(TalonControlMode.Speed);
 		v.set(kRotationRate * rate.getValue());
