@@ -34,10 +34,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends SampleRobot {
 	private LIDARLite l;
 	
-	private Joystick j = new Joystick(3);
+	private Joystick j = new Joystick(0);
+	private Joystick j1 = new Joystick(1);
 
 	private CANTalon talon1 = new CANTalon(18);
 	private CANTalon talon2 = new CANTalon(19);
+
+	private CANTalon agitator = new CANTalon(13);
 	
 	public Robot() {
 
@@ -73,14 +76,19 @@ public class Robot extends SampleRobot {
 		PowerDistributionPanel panel = new PowerDistributionPanel();
 
 		while (isOperatorControl() && isEnabled()) {
-			talon1.set(j.getAxis(AxisType.kY));
-			talon2.set(-j.getAxis(AxisType.kY));
+			talon1.set(-j.getAxis(AxisType.kZ));
+			talon2.set(j.getAxis(AxisType.kZ));
+			
+			SmartDashboard.putNumber("JoystickValue", j.getAxis(AxisType.kZ));
 			
 			SmartDashboard.putNumber("Talon1", talon1.getOutputCurrent());
 			SmartDashboard.putNumber("Talon2", talon2.getOutputCurrent());
 
 			SmartDashboard.putNumber("Talon1 PDP", panel.getCurrent(11));
 			SmartDashboard.putNumber("Talon2 PDP", panel.getCurrent(4));
+			
+			agitator.set(j1.getAxis(AxisType.kZ));
+			SmartDashboard.putNumber("Joystick2Value", j1.getAxis(AxisType.kZ));
 		}
 	}
 

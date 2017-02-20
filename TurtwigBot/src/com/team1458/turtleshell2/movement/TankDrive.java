@@ -38,7 +38,7 @@ public class TankDrive implements DriveTrain {
 	private PIDConstants turnConstants;
 	private double kLR;
 	
-	private final double avgSamples = 15;
+	private final double avgSamples = 5;
 	private final ArrayList<MotorValue> lastLeftValues = new ArrayList<>();
 	private final ArrayList<MotorValue> lastRightValues = new ArrayList<>();
 

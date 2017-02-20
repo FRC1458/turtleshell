@@ -61,7 +61,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	private TurtwigShooter shooter2;
 
 	private BlastoiseFluxStore store;
-	
+
 	private PowerDistributionPanel pdp;
 
 	private int last = -10;
@@ -213,6 +213,10 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 		SmartDashboard.putNumber("Yaw", navX.getYawAxis().getRotation()
 				.getDegrees());
+		
+
+		SmartDashboard.putNumber("LeftEncoder", chassis.getLeftDistance().getInches());
+		SmartDashboard.putNumber("RightEncoder", chassis.getRightDistance ().getInches());
 
 		double targetX = vision.getShooterTargetX();
 
@@ -243,7 +247,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			intake.stop();
 		}
 	}
-	
+
 	private void shooterUpdate() {
 		SmartDashboard.putNumber("PDP current shooter", pdp.getCurrent(11));
 		SmartDashboard.putNumber("PDP current no breaker", pdp.getCurrent(5));
@@ -251,27 +255,30 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 		SmartDashboard.putNumber("PDP temperature", pdp.getTemperature());
 		SmartDashboard.putNumber("PDP total current", pdp.getTotalCurrent());
 		SmartDashboard.putNumber("PDP voltage", pdp.getVoltage());
-		
-		
-		if(inputManager.shootButton.getButton()) {
+
+		if (inputManager.shootButton.getButton()) {
 			if (inputManager.autoManualToggle.getButton()) {
 				shooter.setIsManualPower(true);
 				shooter2.setIsManualPower(true);
-				
+
 				shooter.setManualPower(inputManager.shooterSpeed.get() / 100.0);
 				shooter2.setManualPower(inputManager.shooterSpeed.get() / 100.0);
 			} else {
 				shooter.setIsManualPower(false);
-				shooter.setRPMTarget(SmartDashboard.getNumber("RightShooterSpeed",
-						0));
+				shooter.setRPMTarget(SmartDashboard.getNumber(
+						"RightShooterSpeed", 0));
 			}
 			if (inputManager.shootButton.getButton()) {
 				shooter.setPIDConstants(TurtleDashboard
 						.getPidConstants("LeftShooterPID"));
+				shooter2.setPIDConstants(TurtleDashboard
+						.getPidConstants("RightShooterPID"));
 				System.out.println(TurtleDashboard
 						.getPidConstants("LeftShooterPID"));
-				shooter.setTargetOpenLoop(new MotorValue(SmartDashboard.getNumber(
-						"RightShooterOpenLoop", 0)));
+				shooter.setTargetOpenLoop(new MotorValue(SmartDashboard
+						.getNumber("RightShooterOpenLoop", 0)));
+				shooter2.setTargetOpenLoop(new MotorValue(SmartDashboard
+						.getNumber("RightShooterOpenLoop", 0)));
 			}
 
 			shooter.teleUpdate();
@@ -332,20 +339,21 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 				rightPower = new MotorValue(
 						TurtleMaths.logisticStepScale(rightPower.getValue()));
 			}
-			
-			  if (inputManager.straightButton.getButton()) {
-			  chassis.tankDrive(rightPower, rightPower); } else if
-			  (inputManager.turnButton.getButton()) {
-			  chassis.tankDrive(leftPower, leftPower.invert()); } else {
-			  chassis.tankDrive(leftPower, rightPower); }
-			 
-			
-			/*waggle code - gives robot seizure
-			chassis.tankDrive(
-					new MotorValue(
-							Math.sin(System.currentTimeMillis() / 25.0) * 0.35),
-					new MotorValue(
-							-Math.sin(System.currentTimeMillis() / 25.0) * 0.35));*/
+
+			if (inputManager.straightButton.getButton()) {
+				chassis.tankDrive(rightPower, rightPower);
+			} else if (inputManager.turnButton.getButton()) {
+				chassis.tankDrive(leftPower, leftPower.invert());
+			} else {
+				chassis.tankDrive(leftPower, rightPower);
+			}
+
+			/*
+			 * waggle code - gives robot seizure chassis.tankDrive( new
+			 * MotorValue( Math.sin(System.currentTimeMillis() / 25.0) * 0.35),
+			 * new MotorValue( -Math.sin(System.currentTimeMillis() / 25.0) *
+			 * 0.35));
+			 */
 		}
 	}
 
