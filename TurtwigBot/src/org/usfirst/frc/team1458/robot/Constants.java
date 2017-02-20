@@ -43,12 +43,8 @@ public class Constants {
 
 		public static final int ENCODER_A = 2;
 		public static final int ENCODER_B = 3;
-		public static final double ENCODER_RATIO = 4 * Math.PI / 600; // (Diameter
-																		// * PI)
-																		// /
-																		// (Ticks
-																		// Per
-																		// Rotation)
+		public static final double ENCODER_RATIO = 4 * Math.PI / 600;
+		// (Diameter * PI) / (Ticks Per Rotation)
 		// Wheel diameter = 4 inches
 	}
 
@@ -59,12 +55,8 @@ public class Constants {
 
 		public static final int ENCODER_A = 0;
 		public static final int ENCODER_B = 1;
-		public static final double ENCODER_RATIO = 4 * Math.PI / 600; // (Diameter
-																		// * PI)
-																		// /
-																		// (Ticks
-																		// Per
-																		// Rotation)
+		public static final double ENCODER_RATIO = 4 * Math.PI / 600;
+		// (Diameter * PI) / (Ticks Per Rotation)
 	}
 
 	public static final class Intake {
@@ -83,6 +75,9 @@ public class Constants {
 
 	public static final class Shooter {
 		public static final MotorValue REVERSE_SPEED = new MotorValue(-0.20);
+		public static final boolean UBP = true;
+		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.00009, 0, 0.000001);
+		public static final double UBPS = 0.000175;
 	}
 
 	public static final class LeftShooter {
@@ -91,10 +86,9 @@ public class Constants {
 		public static final double SPEED_RPM = 4000;
 		public static final boolean MOTOR_REVERSED = false;
 
-		public static final PIDConstants PID_CONSTANTS = new PIDConstants(
-				0.001, 0, 0);
+		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.001, 0, 0);
 		public static final MotorValue BASE_VALUE = new MotorValue(0);
-		
+
 		// Inches
 		public static final TurtleMaths.AdvancedRangeShifter RPM_SHIFTER = new TurtleMaths.AdvancedRangeShifter(
 				new double[] { 0.0 }, new double[] { 0.0 });
@@ -108,8 +102,7 @@ public class Constants {
 		public static final double SPEED_RPM = 4000;
 		public static final boolean MOTOR_REVERSED = true;
 
-		public static final PIDConstants PID_CONSTANTS = new PIDConstants(
-				0.001, 0, 0);
+		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.001, 0, 0);
 		public static final MotorValue BASE_VALUE = new MotorValue(0);
 
 		// Inches
@@ -134,8 +127,7 @@ public class Constants {
 		}
 
 		public static final class VisionPID {
-			public static final PIDConstants PID_CONSTANTS = new PIDConstants(
-					0.006, 0, 0);
+			public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.006, 0, 0);
 			public static final MotorValue SPEED = new MotorValue(0.5);
 		}
 	}
@@ -148,10 +140,8 @@ public class Constants {
 	}
 
 	public static final class StraightDrivePID {
-		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0, 0,
-				0);
-		public static final PIDConstants TURN_PID_CONSTANTS = new PIDConstants(
-				0, 0, 0);
+		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0, 0, 0);
+		public static final PIDConstants TURN_PID_CONSTANTS = new PIDConstants(0, 0, 0);
 		public static final double kLR = 0.00005;
 		public static final double TOLERANCE = 2;
 
@@ -159,17 +149,15 @@ public class Constants {
 	}
 
 	public static final class TurnPID {
-		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.01,
-				0.001, 0.002);
+		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.01, 0.001, 0.002);
 		public static final double TOLERANCE = 3;
 
 		public static final MotorValue SPEED = new MotorValue(0.65);
 	}
 
 	public static enum TalonID {
-		ORIGINAL(60), ALLEN(10), BOB(11), CARTER(12), DILLON(13), ELSA(14), FITZ(
-				15), GRANT(16), HITAGI(17), ISAAC(18), JESSICA(19), KAREN(20), LISA(
-				21);
+		ORIGINAL(60), ALLEN(10), BOB(11), CARTER(12), DILLON(13), ELSA(14), FITZ(15), GRANT(16), HITAGI(17), ISAAC(
+				18), JESSICA(19), KAREN(20), LISA(21);
 		public final int id;
 
 		TalonID(int id) {
@@ -184,7 +172,6 @@ public class Constants {
 	 *             when called
 	 */
 	private Constants() {
-		throw new IllegalStateException(
-				"Constants cannot be initialized. Something very bad has happened.");
+		throw new IllegalStateException("Constants cannot be initialized. Something very bad has happened.");
 	}
 }

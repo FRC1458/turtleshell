@@ -4,7 +4,6 @@ import org.usfirst.frc.team1458.robot.Constants;
 
 import com.team1458.turtleshell2.movement.TurtleSmartMotor;
 import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
-import com.team1458.turtleshell2.movement.TurtleMotor;
 import com.team1458.turtleshell2.pid.ShooterPID;
 import com.team1458.turtleshell2.sensor.TurtleHallSensor;
 import com.team1458.turtleshell2.util.PIDConstants;
@@ -23,7 +22,7 @@ public class TurtwigShooter {
 	private double targetRPM = 0;
 	private MotorValue targetOpenLoop = MotorValue.zero;
 	private PIDConstants con;
-	
+
 	private final boolean isRight;
 
 	/**
@@ -32,7 +31,7 @@ public class TurtwigShooter {
 	 */
 	public TurtwigShooter(boolean isRight) {
 		if (isRight) {
-			motor = new TurtleTalonSRXCAN(Constants.RightShooter.MOTOR_PORT,false);
+			motor = new TurtleTalonSRXCAN(Constants.RightShooter.MOTOR_PORT, false);
 			hall = new TurtleHallSensor(Constants.RightShooter.HALL_PORT);
 			con = Constants.RightShooter.PID_CONSTANTS;
 		} else {
@@ -45,30 +44,35 @@ public class TurtwigShooter {
 	}
 
 	public void teleUpdate() {
-		SmartDashboard.putNumber(getSmartDashboardTag()+"ShooterMotorCurrent", motor.getCurrent());
+		SmartDashboard.putNumber(getSmartDashboardTag() + "ShooterMotorCurrent", motor.getCurrent());
 		if (isManualPower) {
 			motor.set(new MotorValue(manualPower));
 		} else {
 			motor.set(new MotorValue(pid.newValue(hall.getRPM())));
 		}
-		SmartDashboard.putNumber(getSmartDashboardTag()+"TurtwigShooter MotorValue", motor.get()
-				.getValue());
-		SmartDashboard.putNumber(getSmartDashboardTag()+"TurtwigShooter RPM", hall.getRPM());
+		SmartDashboard.putNumber(getSmartDashboardTag() + "TurtwigShooter MotorValue", motor.get().getValue());
+		SmartDashboard.putNumber(getSmartDashboardTag() + "TurtwigShooter RPM", hall.getRPM());
 
 	}
-	
+
 	private String getSmartDashboardTag() {
 		return isRight ? "Right " : "Left ";
 	}
 
 	private void regenPID() {
-		pid = new ShooterPID(con, targetRPM, 0, targetOpenLoop);
+		if (Constants.Shooter.UBP) {
+			pid = new ShooterPID(Constants.Shooter.PID_CONSTANTS, targetRPM, 0,
+					new MotorValue(Constants.Shooter.UBPS * targetRPM));
+		} else {
+			pid = new ShooterPID(con, targetRPM, 0, targetOpenLoop);
+		}
+
 	}
 
 	public void stop() {
 		motor.set(new MotorValue(0));
 	}
-	
+
 	public void setPIDConstants(PIDConstants p) {
 		this.con = p;
 		regenPID();

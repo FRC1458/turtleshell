@@ -1,6 +1,9 @@
 package com.team1458.turtleshell2.util;
 
+import java.util.ArrayList;
 import java.util.function.UnaryOperator;
+
+import com.team1458.turtleshell2.util.types.MotorValue;
 
 /**
  * A class holding helpful static methods for maths-related things.
@@ -268,6 +271,14 @@ public class TurtleMaths {
 		return sum / num.length;
 	}
 
+	public static double avg(ArrayList<Double> num) {
+		double sum = 0;
+		for (double d : num) {
+			sum += d;
+		}
+		return sum / num.size();
+	}
+
 	/**
 	 * Scales a value quadratically while preserving signs, i.e 1 -> 1, .5 ->
 	 * .25, and -1 -> -1
@@ -326,6 +337,28 @@ public class TurtleMaths {
 		public Double apply(Double t) {
 			return op.apply(t);
 		}
+	}
+
+	public static class InputSmoother extends InputFunction {
+		private ArrayList<Double> store;
+		private final int samplesToAverage;
+
+		public InputSmoother(int samplesToAverage) {
+			super(InputFunction.identity);
+			store = new ArrayList<>(samplesToAverage);
+			this.samplesToAverage = samplesToAverage;
+		}
+
+		@Override
+		public Double apply(Double t) {
+			store.add(t);
+			if (store.size() > samplesToAverage) {
+				store.remove(0);
+			}
+
+			return TurtleMaths.avg(store);
+		}
+
 	}
 
 	/**

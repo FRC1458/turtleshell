@@ -55,16 +55,12 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	private BlastoiseClimber climber;
 	private BlastoiseIntake intake;
 
-	// private BlastoiseShooter shooterLeft;
-	// private BlastoiseShooter shooterRight;
-	private TurtwigShooter shooter;
-	private TurtwigShooter shooter2;
+	private TurtwigShooter shooterLeft;
+	private TurtwigShooter shooterRight;
 
 	private BlastoiseFluxStore store;
 
 	private PowerDistributionPanel pdp;
-
-	private int last = -10;
 
 	// Vision
 	private BlastoiseShooterVision vision = new BlastoiseShooterVision(
@@ -158,8 +154,8 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 		climber = new BlastoiseClimber();
 		intake = new BlastoiseIntake();
-		shooter = new TurtwigShooter(false);
-		shooter2 = new TurtwigShooter(true);
+		shooterLeft = new TurtwigShooter(false);
+		shooterRight = new TurtwigShooter(true);
 		/*
 		 * shooterLeft = new BlastoiseShooter(Constants.LeftShooter.MOTOR_PORT,
 		 * Constants.LeftShooter.HALL_PORT, Constants.LeftShooter.PID_CONSTANTS,
@@ -258,34 +254,38 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 		if (inputManager.shootButton.getButton()) {
 			if (inputManager.autoManualToggle.getButton()) {
-				shooter.setIsManualPower(true);
-				shooter2.setIsManualPower(true);
+				shooterLeft.setIsManualPower(true);
+				shooterRight.setIsManualPower(true);
 
-				shooter.setManualPower(inputManager.shooterSpeed.get() / 100.0);
-				shooter2.setManualPower(inputManager.shooterSpeed.get() / 100.0);
+				shooterLeft.setManualPower(inputManager.shooterSpeed.get() / 100.0);
+				shooterRight.setManualPower(inputManager.shooterSpeed.get() / 100.0);
 			} else {
-				shooter.setIsManualPower(false);
-				shooter.setRPMTarget(SmartDashboard.getNumber(
+				shooterLeft.setIsManualPower(false);
+				shooterLeft.setRPMTarget(SmartDashboard.getNumber(
+						"LeftShooterSpeed", 0));
+				shooterRight.setIsManualPower(false);
+				shooterRight.setRPMTarget(SmartDashboard.getNumber(
 						"RightShooterSpeed", 0));
 			}
-			if (inputManager.shootButton.getButton()) {
-				shooter.setPIDConstants(TurtleDashboard
+			/*if (inputManager.shootButton.getButton()) {
+				shooterLeft.setPIDConstants(TurtleDashboard
 						.getPidConstants("LeftShooterPID"));
-				shooter2.setPIDConstants(TurtleDashboard
+				shooterRight.setPIDConstants(TurtleDashboard
 						.getPidConstants("RightShooterPID"));
 				System.out.println(TurtleDashboard
 						.getPidConstants("LeftShooterPID"));
-				shooter.setTargetOpenLoop(new MotorValue(SmartDashboard
+				shooterLeft.setTargetOpenLoop(new MotorValue(SmartDashboard
+						.getNumber("LeftShooterOpenLoop", 0)));
+				shooterRight.setTargetOpenLoop(new MotorValue(SmartDashboard
 						.getNumber("RightShooterOpenLoop", 0)));
-				shooter2.setTargetOpenLoop(new MotorValue(SmartDashboard
-						.getNumber("RightShooterOpenLoop", 0)));
-			}
+			}*/
+			//disabled, code for adjusting constants
 
-			shooter.teleUpdate();
-			shooter2.teleUpdate();
+			shooterLeft.teleUpdate();
+			shooterRight.teleUpdate();
 		} else {
-			shooter.stop();
-			shooter2.stop();
+			shooterLeft.stop();
+			shooterRight.stop();
 		}
 
 	}
