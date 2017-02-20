@@ -35,7 +35,7 @@ public class XboxButtonToggleThingy extends SampleButtonInput {
 			value = false;
 			hasChanged = true;
 		}
-		SmartDashboard.putBoolean("is in teleop", value);
+		SmartDashboard.putBoolean("Using Manual Shooter Power", value);
 	}
 
 	public boolean hasChanged() {

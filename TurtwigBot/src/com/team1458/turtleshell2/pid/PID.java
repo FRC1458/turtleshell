@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.util.BaseSystemNotInitializedException;
  */
 public class PID {
 	private final PIDConstants constants;
-	private final double target;
+	private double target;
 	private final double deadband;
 
 	private double lastError = 0;
@@ -36,6 +36,10 @@ public class PID {
 		this.lastError = Double.POSITIVE_INFINITY;
 		this.decay = decay;
 	}
+	
+	public void setTarget(double d) {
+		this.target=d;
+	}
 
 	/**
 	 * Get new value from PID
@@ -52,7 +56,7 @@ public class PID {
 		}
 
 		double output = constants.kP * error + // P term
-				constants.kI * sum + // I term
+				constants.kI * sum - // I term
 				constants.kD * derivative; // D term
 
 		lastTime = getTime();

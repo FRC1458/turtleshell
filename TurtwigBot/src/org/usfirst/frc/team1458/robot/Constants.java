@@ -92,8 +92,8 @@ public class Constants {
 		public static final boolean MOTOR_REVERSED = false;
 
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(
-				0.00009, 0, 0.000001);
-		public static final MotorValue BASE_VALUE = new MotorValue(0.70);
+				0.001, 0, 0);
+		public static final MotorValue BASE_VALUE = new MotorValue(0);
 		
 		// Inches
 		public static final TurtleMaths.AdvancedRangeShifter RPM_SHIFTER = new TurtleMaths.AdvancedRangeShifter(
@@ -109,8 +109,8 @@ public class Constants {
 		public static final boolean MOTOR_REVERSED = true;
 
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(
-				0.00009, 0, 0.000001);
-		public static final MotorValue BASE_VALUE = new MotorValue(0.70);
+				0.001, 0, 0);
+		public static final MotorValue BASE_VALUE = new MotorValue(0);
 
 		// Inches
 		public static final TurtleMaths.AdvancedRangeShifter RPM_SHIFTER = new TurtleMaths.AdvancedRangeShifter(

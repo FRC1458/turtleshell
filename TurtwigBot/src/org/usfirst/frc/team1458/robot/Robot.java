@@ -27,6 +27,7 @@ import org.usfirst.frc.team1458.robot.autonomous.TestAutonomous;
 import org.usfirst.frc.team1458.robot.components.BlastoiseClimber;
 import org.usfirst.frc.team1458.robot.components.BlastoiseIntake;
 import org.usfirst.frc.team1458.robot.components.BlastoiseShooter;
+import org.usfirst.frc.team1458.robot.components.TurtwigShooter;
 import org.usfirst.frc.team1458.robot.vision.BlastoiseShooterVision;
 
 import java.util.ArrayList;
@@ -51,8 +52,9 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	private BlastoiseClimber climber;
 	private BlastoiseIntake intake;
 
-	private BlastoiseShooter shooterLeft;
-	private BlastoiseShooter shooterRight;
+//	private BlastoiseShooter shooterLeft;
+	//private BlastoiseShooter shooterRight;
+	private TurtwigShooter shooter;
 
 	private BlastoiseFluxStore store;
 
@@ -95,7 +97,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 					Constants.RightShooter.PID_CONSTANTS, "RightShooterPID");
 			SmartDashboard.putNumber("RightShooterSpeed",
 					Constants.RightShooter.SPEED_RPM);
-			SmartDashboard.putNumber("RightShooterOpenLoop", 0.7);
+			SmartDashboard.putNumber("RightShooterOpenLoop", 0.0);
 		}
 	}
 
@@ -149,8 +151,8 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 		climber = new BlastoiseClimber();
 		intake = new BlastoiseIntake();
-
-		shooterLeft = new BlastoiseShooter(Constants.LeftShooter.MOTOR_PORT,
+		shooter = new TurtwigShooter();
+		/*shooterLeft = new BlastoiseShooter(Constants.LeftShooter.MOTOR_PORT,
 				Constants.LeftShooter.HALL_PORT,
 				Constants.LeftShooter.PID_CONSTANTS,
 				Constants.LeftShooter.SPEED_RPM,
@@ -162,7 +164,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 				Constants.RightShooter.PID_CONSTANTS,
 				Constants.RightShooter.SPEED_RPM,
 				Constants.RightShooter.MOTOR_REVERSED,
-				Constants.RightShooter.BASE_VALUE, true);
+				Constants.RightShooter.BASE_VALUE, true);*/
 	}
 
 	private void setupUI() {
@@ -178,11 +180,11 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 		if (inputManager.panicButton.getButton()) {
 			intake.startReverse();
-			shooterLeft.startReverse();
-			shooterRight.startReverse();
+			//shooterLeft.startReverse();
+			//shooterRight.startReverse();
 
-			shooterLeft.teleUpdate();
-			shooterRight.teleUpdate();
+			//shooterLeft.teleUpdate();
+			//shooterRight.teleUpdate();
 
 		} else {
 			climberUpdate();
@@ -190,8 +192,8 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			// If robot is climbing, do nothing else
 			if (store.isRobotClimbingRope()) {
 				intake.stop();
-				shooterLeft.stop();
-				shooterRight.stop();
+				//shooterLeft.stop();
+				//shooterRight.stop();
 			} else {
 				intakeUpdate();
 				shooterUpdate();
@@ -214,8 +216,8 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			climber.start();
 
 			intake.stop();
-			shooterRight.stop();
-			shooterLeft.stop();
+			//shooterRight.stop();
+			//shooterLeft.stop();
 			chassis.stop();
 		} else if (inputManager.climberSwitch.getUp()) {
 			climber.stop();
@@ -233,115 +235,21 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	}
 
 	private void shooterUpdate() {
-		/*if (inputManager.shootButton.getButton()) {
-			if (inputManager.autoManualToggle.getButton()) {
-				if (store.leftShooterStatus != BlastoiseFluxStore.ShooterStatus.SHOOTING
-						|| inputManager.shooterSpeed.get() != last
-						|| inputManager.autoManualToggle.getDown() || true) {
-					last = inputManager.shooterSpeed.get();
-					//shooterLeft.setPIDConstants(TurtleDashboard
-							//.getPidConstants("LeftShooterPID"));
-					//shooterLeft.setSpeedTargetRpm(inputManager.shooterSpeed
-							//.get() * (6500.0 / 11.0));
-					
-					double motorNumber = 0.5 + ((double)inputManager.shooterSpeed.get()) * (0.01);
-					shooterLeft.startManual(motorNumber);
-
-					/*shooterRight.setPIDConstants(TurtleDashboard
-							.getPidConstants("RightShooterPID"));*/
-					//shooterRight.setSpeedTargetRpm(inputManager.shooterSpeed
-							//.get() * (6500.0 / 11.0));
-					//shooterRight.startManual(motorNumber);
-					SmartDashboard.putNumber("shooter motor value manual", motorNumber);
-
-					shooterLeft.start();
-					shooterRight.start();
-				}
-
-				shooterLeft.teleUpdate();
-				//shooterRight.teleUpdate();
-
-				SmartDashboard.putNumber("Shooter Left RPM",
-						shooterLeft.getSpeed());
-				/*SmartDashboard.putNumber("Shooter Right RPM",
-						shooterRight.getSpeed());*/
-				SmartDashboard.putBoolean("Shooting", true);
-			} else {
-				if (store.leftShooterStatus != BlastoiseFluxStore.ShooterStatus.SHOOTING
-						|| inputManager.autoManualToggle.getUp()) {
-					
-					//double distanceInches = lidar.getDistance().getInches();
-					
-					//double leftRPM = Constants.LeftShooter.RPM_SHIFTER.shift(distanceInches);
-					//double leftOpenLoop = Constants.LeftShooter.OPENLOOP_SHIFTER.shift(distanceInches);
-					
-					//double rightRPM = Constants.RightShooter.RPM_SHIFTER.shift(distanceInches);
-					//double rightOpenLoop = Constants.RightShooter.OPENLOOP_SHIFTER.shift(distanceInches);
-					
-
-					shooterLeft.setPIDConstants(TurtleDashboard
-							.getPidConstants("RightShooterPID"));
-					
-					shooterLeft.setSpeedTargetRpm(SmartDashboard.getNumber(
-							"RightShooterSpeed",
-							Constants.RightShooter.SPEED_RPM));
-
-					shooterLeft.setOpenLoop(SmartDashboard.getNumber(
-							"RightShooterOpenLoop",
-							Constants.RightShooter.SPEED_RPM));
-
-					
-					shooterRight.setPIDConstants(TurtleDashboard
-							.getPidConstants("RightShooterPID"));
-					
-					shooterRight.setSpeedTargetRpm(SmartDashboard.getNumber(
-							"RightShooterSpeed",
-							Constants.LeftShooter.SPEED_RPM));
-
-					shooterRight.setOpenLoop(SmartDashboard.getNumber(
-							"RightShooterOpenLoop", 0.7));
-					
-					
-					/*shooterLeft.setPIDConstants(Constants.LeftShooter.PID_CONSTANTS);
-					
-					shooterLeft.setSpeedTargetRpm(leftRPM);
-
-					shooterLeft.setOpenLoop(leftOpenLoop);
-
-					
-					shooterRight.setPIDConstants(Constants.RightShooter.PID_CONSTANTS);
-					
-					shooterRight.setSpeedTargetRpm(rightRPM);
-
-					shooterRight.setOpenLoop(rightOpenLoop);*/
-
-					shooterLeft.start();
-					shooterRight.start();
-				}
-
-				shooterLeft.teleUpdate();
-				shooterRight.teleUpdate();
-
-				SmartDashboard.putNumber("Shooter Left RPM",
-						shooterLeft.getSpeed());
-				SmartDashboard.putNumber("Shooter Right RPM",
-						shooterRight.getSpeed());
-				SmartDashboard.putBoolean("Shooting", true);
-			}
-			//waggle code/shimmy
-			chassis.tankDrive(
-					new MotorValue(
-							Math.sin(System.currentTimeMillis() / 100.0) * 0.1),
-					new MotorValue(
-							-Math.sin(System.currentTimeMillis() / 100.0) * 0.1));
-
+		if (inputManager.autoManualToggle.getButton()) {
+			shooter.setIsManualPower(true);
+			shooter.setManualPower(inputManager.shooterSpeed.get()/100.0);
 		} else {
-			SmartDashboard.putNumber("Shooter Left RPM", 0);
-			SmartDashboard.putNumber("Shooter Right RPM", 0);
-			SmartDashboard.putBoolean("Shooting", false);
-			shooterLeft.stop();
-			shooterRight.stop();
-		}*/
+			shooter.setIsManualPower(false);
+			shooter.setRPMTarget(SmartDashboard.getNumber("RightShooterSpeed", 0));
+		}
+		if(inputManager.shootButton.getButton()) {
+			shooter.setPIDConstants(TurtleDashboard.getPidConstants("LeftShooterPID"));
+			System.out.println(TurtleDashboard.getPidConstants("LeftShooterPID"));
+			shooter.setTargetOpenLoop(new MotorValue(SmartDashboard.getNumber("RightShooterOpenLoop", 0)));
+		}
+		
+		shooter.teleUpdate();
+		
 	}
 
 	// Shooter alignment. Only left/right for now.
