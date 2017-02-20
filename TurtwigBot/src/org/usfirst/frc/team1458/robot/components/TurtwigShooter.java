@@ -35,12 +35,12 @@ public class TurtwigShooter {
 	 */
 	public TurtwigShooter(boolean isRight) {
 		if (isRight) {
-			motor = new TurtleTalonSRXCAN(Constants.RightShooter.MOTOR_PORT, false);
+			motor = new TurtleTalonSRXCAN(Constants.RightShooter.MOTOR_PORT, true);
 			agitator = new TurtleTalonSRXCAN(Constants.Shooter.AGITATOR_PORT);
 			hall = new TurtleHallSensor(Constants.RightShooter.HALL_PORT);
 			con = Constants.RightShooter.PID_CONSTANTS;
 		} else {
-			motor = new TurtleTalonSRXCAN(Constants.LeftShooter.MOTOR_PORT, true);
+			motor = new TurtleTalonSRXCAN(Constants.LeftShooter.MOTOR_PORT, false);
 			agitator = new TurtleFakeMotor();
 			hall = new TurtleHallSensor(Constants.LeftShooter.HALL_PORT);
 			con = Constants.LeftShooter.PID_CONSTANTS;
