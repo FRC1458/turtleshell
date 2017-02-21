@@ -1,8 +1,8 @@
 package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell2.input.JoystickAxis;
+import com.team1458.turtleshell2.input.TurtleJoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * Interface with custom driver station buttons
@@ -27,19 +27,23 @@ public class BlastoiseController {
 	}
 
 
-	public JoystickButton getFeeder() {
-		return new JoystickButton(joystick, 0);
+	public TurtleJoystickButton getFeeder() {
+		return new TurtleJoystickButton(joystick, 0);
 	}
 
-	public JoystickButton getShooterToggle() {
-		return new JoystickButton(joystick, 1);
+	public TurtleJoystickButton getShooterToggle() {
+		return new TurtleJoystickButton(joystick, 1);
 	}
 
-	public JoystickButton getClimber() {
-		return new JoystickButton(joystick, 2);
+	public TurtleJoystickButton getClimber() {
+		return new TurtleJoystickButton(joystick, 2);
 	}
 
-	public JoystickButton getPanic() {
-		return new JoystickButton(joystick, 3);
+	public TurtleJoystickButton getPanic() {
+		return new TurtleJoystickButton(joystick, 3);
+	}
+
+	public TurtleJoystickButton getShooterAutoManual() {
+		return new TurtleJoystickButton(joystick, 4);
 	}
 }

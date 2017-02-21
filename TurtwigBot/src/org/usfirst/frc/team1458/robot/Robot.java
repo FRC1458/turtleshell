@@ -171,6 +171,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 
 		// TODO THIS WILL BREAK SOMETHING
+		 
 		// This is the chassis for the practice bot, DO NOT MOVE THIS INTO CONSTANTS CLASS
 		// Also don't question it
 		/*chassis = new TankDrive(
@@ -297,18 +298,49 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 		if (inputManager.shootButton.getButton()) {
 			if (inputManager.autoManualToggle.getButton()) {
-				shooterLeft.setIsManualPower(true);
+				/*shooterLeft.setIsManualPower(true);
 				shooterRight.setIsManualPower(true);
 
 				shooterLeft.setManualPower(inputManager.shooterSpeed.get() / 100.0);
-				shooterRight.setManualPower(inputManager.shooterSpeed.get() / 100.0);
-			} else {
+				shooterRight.setManualPower(inputManager.shooterSpeed.get() / 100.0);*/
+				// This will also use PID now
+
 				shooterLeft.setIsManualPower(false);
-				shooterLeft.setRPMTarget(SmartDashboard.getNumber(
-						"LeftShooterSpeed", 0));
+				shooterLeft.setRPMTarget(inputManager.shooterSpeed.get() * (5000/11));
 				shooterRight.setIsManualPower(false);
-				shooterRight.setRPMTarget(SmartDashboard.getNumber(
-						"RightShooterSpeed", 0));
+				shooterRight.setRPMTarget(inputManager.shooterSpeed.get() * (5000/11));
+
+				SmartDashboard.putBoolean("Auto Shooter Working", false);
+			} else {
+				// TODO make this work with lidar sensor
+				double distance = lidar.getDistance().getInches();
+
+				double visionDistance = vision.getShooterTargetDistance();
+
+				if(distance > 25 && distance < 12*25 && visionDistance > 20 && visionDistance < 12*25 &&
+						TurtleMaths.absDiff(visionDistance, distance) < 20) {  // 25 inch min, 25 feet max
+					
+					double leftRPM = Constants.LeftShooter.RPM_SHIFTER.shift(distance);
+					double rightRPM = Constants.LeftShooter.RPM_SHIFTER.shift(distance);
+
+					shooterLeft.setIsManualPower(false);
+					shooterLeft.setRPMTarget(leftRPM);
+
+					shooterRight.setIsManualPower(false);
+					shooterRight.setRPMTarget(rightRPM);
+
+					SmartDashboard.putBoolean("Auto Shooter Working", true);
+				} else {
+
+					shooterLeft.setIsManualPower(false);
+					shooterLeft.setRPMTarget(inputManager.shooterSpeed.get() * (5000/11));
+
+					shooterRight.setIsManualPower(false);
+					shooterRight.setRPMTarget(inputManager.shooterSpeed.get() * (5000/11));
+
+					SmartDashboard.putBoolean("Auto Shooter Working", false);
+				}
+
 			}
 			/*if (inputManager.shootButton.getButton()) {
 				shooterLeft.setPIDConstants(TurtleDashboard

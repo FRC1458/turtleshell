@@ -20,7 +20,7 @@ public class Constants {
 
 	public static final class DriverStation {
 		public static final double JOYSTICK_DEADBAND = 0.1;
-		public static final boolean USE_XBOX_CONTROLLER = false;
+		public static final boolean USE_XBOX_CONTROLLER = true;
 		public static final boolean LOGISTIC_SCALE = false;
 
 		public static final class UsbPorts {

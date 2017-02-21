@@ -5,6 +5,7 @@ import com.team1458.turtleshell2.input.XboxController;
 import com.team1458.turtleshell2.input.FlightStick.FlightButton;
 import com.team1458.turtleshell2.input.fake.FakeButtonInput;
 import com.team1458.turtleshell2.input.fake.FakeRumbleable;
+import com.team1458.turtleshell2.util.TurtleMaths;
 
 /**
  * Manages all input/control for Robot
@@ -37,9 +38,10 @@ public class BlastoiseInputManager implements Rumbleable {
 	final ButtonInput panicButton;
 
 	final ButtonInput gearButton;
-	ButtonInput agitateButton;
 
-	public BlastoiseInputManager(FlightStick leftStick, FlightStick rightStick, BlastoiseController blastoiseController) {
+	final ButtonInput agitateButton;
+
+	public BlastoiseInputManager(FlightStick leftStick, FlightStick rightStick, final BlastoiseController blastoiseController) {
 		this.leftJoystick = leftStick.getAxis(FlightStick.FlightAxis.PITCH);
 		this.rightJoystick = rightStick.getAxis(FlightStick.FlightAxis.PITCH);
 
@@ -54,24 +56,32 @@ public class BlastoiseInputManager implements Rumbleable {
 
 		this.pov = rightStick.getPOVSwitch();
 		this.rumbleController = new FakeRumbleable();
-		
-		this.climberSwitch = new FakeButtonInput();
-		this.intakeSwitch = new FakeButtonInput();
-		this.shootButton = new FakeButtonInput();
-		this.shooterSpeed = new DigitalInput() {
-			@Override
-			public int get() {
+
+		this.climberSwitch = blastoiseController.getClimber();
+
+		// This block of code changes analog value to digital integer between 0 and 2
+		this.intakeSwitch = () -> {
+			if(TurtleMaths.absDiff(blastoiseController.getIntake().get(), -1) < 0.5) {
+				return 2;
+			} else if(TurtleMaths.absDiff(blastoiseController.getIntake().get(), 1) < 0.5) {
+				return 1;
+			} else {
 				return 0;
 			}
 		};
 
-		autoManualToggle = new FakeButtonInput();
-		
-		this.panicButton = new FakeButtonInput();
+		this.shootButton = blastoiseController.getShooterToggle();
+		this.agitateButton = blastoiseController.getFeeder();
+
+		// This code changes shooter speed analog input to integer between 0 and 11
+		this.shooterSpeed = () -> (int) Math.round(TurtleMaths.shift(blastoiseController.getShooterSpeed().get(), -1, 1, 0, 11));
+		this.autoManualToggle = blastoiseController.getShooterAutoManual();
+		this.panicButton = blastoiseController.getPanic();
 
 		gearButton = new MultiButtonInput(MultiButtonInput.Operator.OR,
 				rightStick.getButton(FlightStick.FlightButton.THREE),
 				leftStick.getButton(FlightStick.FlightButton.THREE));
+
 	}
 
 	public BlastoiseInputManager(FlightStick leftStick, FlightStick rightStick, XboxController xboxController) {
@@ -136,6 +146,7 @@ public class BlastoiseInputManager implements Rumbleable {
 		autoManualToggle = new FakeButtonInput();
 
 		gearButton = controller.getButton(XboxController.XboxButton.X);
+		agitateButton = new FakeButtonInput();
 	}
 	
 	public BlastoiseInputManager(XboxController controller, XboxController xbox2) {
@@ -164,6 +175,7 @@ public class BlastoiseInputManager implements Rumbleable {
 		this.autoManualToggle = new XboxButtonToggleThingy(xbox2.getButton(XboxController.XboxButton.SELECT), xbox2.getButton(XboxController.XboxButton.START));
 
 		gearButton = controller.getButton(XboxController.XboxButton.X);
+		agitateButton = new FakeButtonInput();
 	}
 
 	@Override
