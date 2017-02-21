@@ -224,7 +224,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			shooterLeft.teleUpdate();
 			shooterRight.teleUpdate();
 			
-			climber.startReverse();
+			//climber.startReverse();
 
 		} else {
 			climberUpdate();
@@ -265,6 +265,8 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			//chassis.stop();
 		} else if (inputManager.climberSwitch.getUp()) {
 			climber.stop();
+		} else if (inputManager.climberSwitch.getButton() == false) {
+			climber.stop();
 		}
 	}
 
@@ -287,7 +289,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 		SmartDashboard.putNumber("PDP voltage", pdp.getVoltage());
 		
 		if (inputManager.agitateButton.getButton()) {
-			agitator.set(new MotorValue(1));
+			agitator.set(Constants.Shooter.AGITATOR_SPEED);
 		}
 		else {
 			agitator.set(new MotorValue(0));
