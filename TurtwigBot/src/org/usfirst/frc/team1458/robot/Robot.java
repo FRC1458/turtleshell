@@ -317,8 +317,8 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 				double visionDistance = vision.getShooterTargetDistance();
 
-				if(distance > 25 && distance < 12*25 && visionDistance > 20 && visionDistance < 12*25 &&
-						TurtleMaths.absDiff(visionDistance, distance) < 20) {  // 25 inch min, 25 feet max
+				if(distance > 25 && distance < 12*25 /*&& visionDistance > 20 && visionDistance < 12*25 &&
+						TurtleMaths.absDiff(visionDistance, distance) < 20*/) {  // 25 inch min, 25 feet max
 					
 					double leftRPM = Constants.LeftShooter.RPM_SHIFTER.shift(distance);
 					double rightRPM = Constants.RightShooter.RPM_SHIFTER.shift(distance);
@@ -331,7 +331,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 					SmartDashboard.putBoolean("Auto Shooter Working", true);
 				} else {
-
+					//auto targeting failure, resort to manual
 					shooterLeft.setIsManualPower(false);
 					shooterLeft.setRPMTarget(inputManager.shooterSpeed.get() * (5000/11));
 
@@ -339,6 +339,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 					shooterRight.setRPMTarget(inputManager.shooterSpeed.get() * (5000/11));
 
 					SmartDashboard.putBoolean("Auto Shooter Working", false);
+					
 				}
 
 			}
