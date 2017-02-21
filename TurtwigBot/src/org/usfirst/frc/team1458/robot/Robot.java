@@ -115,7 +115,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 	private void setupSensors() {
 		navX = new TurtleNavX(I2C.Port.kOnboard);
-		lidar = new LIDARSerial(SerialPort.Port.kMXP);
+		lidar = new LIDARSerial(SerialPort.Port.kUSB1);
 		pdp = new PowerDistributionPanel();
 	}
 
@@ -135,7 +135,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			FlightStick rightStick = new FlightStick(
 					Constants.DriverStation.UsbPorts.RIGHT_STICK);
 			inputManager = new BlastoiseInputManager(leftStick, rightStick,
-					xController);
+					controller);
 		}
 		
 	}
@@ -225,7 +225,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			shooterLeft.teleUpdate();
 			shooterRight.teleUpdate();
 			
-			climber.startReverse();
+			//climber.startReverse();
 
 		} else {
 			climberUpdate();
@@ -266,6 +266,8 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			//chassis.stop();
 		} else if (inputManager.climberSwitch.getUp()) {
 			climber.stop();
+		} else if (inputManager.climberSwitch.getButton() == false) {
+			climber.stop();
 		}
 	}
 
@@ -288,7 +290,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 		SmartDashboard.putNumber("PDP voltage", pdp.getVoltage());
 		
 		if (inputManager.agitateButton.getButton()) {
-			agitator.set(new MotorValue(1));
+			agitator.set(Constants.Shooter.AGITATOR_SPEED);
 		}
 		else {
 			agitator.set(new MotorValue(0));
@@ -314,11 +316,11 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 				double visionDistance = vision.getShooterTargetDistance();
 
-				if(distance > 25 && distance < 12*25 && visionDistance > 20 && visionDistance < 12*25 &&
-						TurtleMaths.absDiff(visionDistance, distance) < 20) {  // 25 inch min, 25 feet max
-
+				if(distance > 25 && distance < 12*25 /*&& visionDistance > 20 && visionDistance < 12*25 &&
+						TurtleMaths.absDiff(visionDistance, distance) < 20*/) {  // 25 inch min, 25 feet max
+					
 					double leftRPM = Constants.LeftShooter.RPM_SHIFTER.shift(distance);
-					double rightRPM = Constants.LeftShooter.RPM_SHIFTER.shift(distance);
+					double rightRPM = Constants.RightShooter.RPM_SHIFTER.shift(distance);
 
 					shooterLeft.setIsManualPower(false);
 					shooterLeft.setRPMTarget(leftRPM);
@@ -328,7 +330,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 					SmartDashboard.putBoolean("Auto Shooter Working", true);
 				} else {
-
+					//auto targeting failure, resort to manual
 					shooterLeft.setIsManualPower(false);
 					shooterLeft.setRPMTarget(inputManager.shooterSpeed.get() * (5000/11));
 
@@ -336,6 +338,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 					shooterRight.setRPMTarget(inputManager.shooterSpeed.get() * (5000/11));
 
 					SmartDashboard.putBoolean("Auto Shooter Working", false);
+					
 				}
 
 			}

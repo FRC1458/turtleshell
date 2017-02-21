@@ -45,11 +45,11 @@ public class LIDARSerial implements TurtleDistanceSensor {
 	String realValue = "";
 
 	public String getStr() {
-
+		
 		String s = sensor.readString();
-
+		
 		datas += s;
-
+		System.out.println("LIDAR THINGY: "+datas);
 		String[] array = datas.split("\n");
 
 		String value = "";

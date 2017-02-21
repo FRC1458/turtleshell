@@ -20,7 +20,7 @@ public class Constants {
 
 	public static final class DriverStation {
 		public static final double JOYSTICK_DEADBAND = 0.1;
-		public static final boolean USE_XBOX_CONTROLLER = true;
+		public static final boolean USE_XBOX_CONTROLLER = false;
 		public static final boolean LOGISTIC_SCALE = false;
 
 		public static final class UsbPorts {
@@ -62,7 +62,7 @@ public class Constants {
 	public static final class Intake {
 		public static final int MOTOR_PORT = TalonID.GRANT.id;
 		public static final MotorValue SPEED = new MotorValue(1);
-		public static final MotorValue REVERSE_SPEED = new MotorValue(-0.5);
+		public static final MotorValue REVERSE_SPEED = new MotorValue(-1);
 	}
 
 	public static final class Climber {
@@ -86,7 +86,7 @@ public class Constants {
 	public static final class LeftShooter {
 		public static final int MOTOR_PORT = TalonID.JESSICA.id;
 		public static final int HALL_PORT = 4;
-		public static final double SPEED_RPM = 4500;
+		public static final double SPEED_RPM = 4850;
 		public static final boolean MOTOR_REVERSED = false;
 
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.001, 0, 0);
@@ -97,15 +97,13 @@ public class Constants {
 
 		// Inches
 		public static final TurtleMaths.AdvancedRangeShifter RPM_SHIFTER = new TurtleMaths.AdvancedRangeShifter(
-				new double[] { 0.0 }, new double[] { 0.0 });
-		public static final TurtleMaths.AdvancedRangeShifter OPENLOOP_SHIFTER = new TurtleMaths.AdvancedRangeShifter(
-				new double[] { 0.0 }, new double[] { 0.0 });
+				new double[] { 72,84,96 }, new double[] { 4475,4600,4850 });
 	}
 
 	public static final class RightShooter {
 		public static final int MOTOR_PORT = TalonID.ISAAC.id;
 		public static final int HALL_PORT = 5;
-		public static final double SPEED_RPM = 4850;
+		public static final double SPEED_RPM = 4350;
 		public static final boolean MOTOR_REVERSED = true;
 
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.001, 0, 0);
@@ -116,9 +114,7 @@ public class Constants {
 
 		// Inches
 		public static final TurtleMaths.AdvancedRangeShifter RPM_SHIFTER = new TurtleMaths.AdvancedRangeShifter(
-				new double[] { 0.0 }, new double[] { 0.0 });
-		public static final TurtleMaths.AdvancedRangeShifter OPENLOOP_SHIFTER = new TurtleMaths.AdvancedRangeShifter(
-				new double[] { 0.0 }, new double[] { 0.0 });
+				new double[] { 72,84,96 }, new double[] { 4000,4100,4350 });
 	}
 
 	public static final class ShooterVision {

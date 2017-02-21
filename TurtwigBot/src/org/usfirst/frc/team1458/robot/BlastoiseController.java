@@ -28,22 +28,22 @@ public class BlastoiseController {
 
 
 	public TurtleJoystickButton getFeeder() {
-		return new TurtleJoystickButton(joystick, 0);
-	}
-
-	public TurtleJoystickButton getShooterToggle() {
 		return new TurtleJoystickButton(joystick, 1);
 	}
 
-	public TurtleJoystickButton getClimber() {
+	public TurtleJoystickButton getShooterToggle() {
 		return new TurtleJoystickButton(joystick, 2);
 	}
 
-	public TurtleJoystickButton getPanic() {
+	public TurtleJoystickButton getClimber() {
 		return new TurtleJoystickButton(joystick, 3);
 	}
 
-	public TurtleJoystickButton getShooterAutoManual() {
+	public TurtleJoystickButton getPanic() {
 		return new TurtleJoystickButton(joystick, 4);
+	}
+
+	public TurtleJoystickButton getShooterAutoManual() {
+		return new TurtleJoystickButton(joystick, 5);
 	}
 }
