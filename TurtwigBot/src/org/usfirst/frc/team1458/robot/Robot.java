@@ -115,7 +115,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 	private void setupSensors() {
 		navX = new TurtleNavX(I2C.Port.kOnboard);
-		lidar = new LIDARSerial(SerialPort.Port.kMXP);
+		lidar = new LIDARSerial(SerialPort.Port.kUSB1);
 		pdp = new PowerDistributionPanel();
 	}
 
@@ -135,7 +135,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			FlightStick rightStick = new FlightStick(
 					Constants.DriverStation.UsbPorts.RIGHT_STICK);
 			inputManager = new BlastoiseInputManager(leftStick, rightStick,
-					xController);
+					controller);
 		}
 		
 	}
@@ -321,7 +321,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 						TurtleMaths.absDiff(visionDistance, distance) < 20) {  // 25 inch min, 25 feet max
 					
 					double leftRPM = Constants.LeftShooter.RPM_SHIFTER.shift(distance);
-					double rightRPM = Constants.LeftShooter.RPM_SHIFTER.shift(distance);
+					double rightRPM = Constants.RightShooter.RPM_SHIFTER.shift(distance);
 
 					shooterLeft.setIsManualPower(false);
 					shooterLeft.setRPMTarget(leftRPM);
