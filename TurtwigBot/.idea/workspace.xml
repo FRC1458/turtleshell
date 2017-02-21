@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="756521d3-8dfe-4259-82c8-03bbba3a86b2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseController.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseInputManager.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseInputManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Constants.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Constants.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Robot.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Robot.java" />
     </list>
     <ignored path="TurtwigBot.iws" />
@@ -27,16 +23,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MotorValue.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/util/types/MotorValue.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="56" column="27" selection-start-line="56" selection-start-column="27" selection-end-line="56" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="BlastoiseController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseController.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -65,13 +51,23 @@
       <file leaf-file-name="Robot.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Robot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="310" column="73" selection-start-line="310" selection-start-column="73" selection-end-line="310" selection-end-column="73" />
+            <state relative-caret-position="196">
+              <caret line="319" column="20" selection-start-line="319" selection-start-column="20" selection-end-line="319" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#14409#14410#0" expanded="true" />
-                <element signature="e#14442#14443#0" expanded="true" />
+                <element signature="e#14588#14589#0" expanded="true" />
+                <element signature="e#14621#14622#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BlastoiseShooterVision.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/vision/BlastoiseShooterVision.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="105" column="83" selection-start-line="105" selection-start-column="83" selection-end-line="105" selection-end-column="83" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -79,8 +75,8 @@
       <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="449">
-              <caret line="111" column="66" selection-start-line="111" selection-start-column="66" selection-end-line="111" selection-end-column="66" />
+            <state relative-caret-position="215">
+              <caret line="120" column="39" selection-start-line="120" selection-start-column="39" selection-end-line="120" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -1011,13 +1007,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/sensor/TurtleHallSensor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-308">
-          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/constants/Constants.java" />
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/vision/BlastoiseVision.java" />
     <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/core/AutoMode.java">
@@ -1444,22 +1433,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/vision/BlastoiseShooterVision.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="105" column="83" selection-start-line="105" selection-start-column="83" selection-end-line="105" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
-          <caret line="111" column="66" selection-start-line="111" selection-start-column="66" selection-end-line="111" selection-end-column="66" />
+        <state relative-caret-position="215">
+          <caret line="120" column="39" selection-start-line="120" selection-start-column="39" selection-end-line="120" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Robot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="310" column="73" selection-start-line="310" selection-start-column="73" selection-end-line="310" selection-end-column="73" />
+        <state relative-caret-position="196">
+          <caret line="319" column="20" selection-start-line="319" selection-start-column="20" selection-end-line="319" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#14409#14410#0" expanded="true" />
-            <element signature="e#14442#14443#0" expanded="true" />
+            <element signature="e#14588#14589#0" expanded="true" />
+            <element signature="e#14621#14622#0" expanded="true" />
           </folding>
         </state>
       </provider>

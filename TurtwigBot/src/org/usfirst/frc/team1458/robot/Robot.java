@@ -313,7 +313,11 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 				// TODO make this work with lidar sensor
 				double distance = lidar.getDistance().getInches();
 
-				if(distance > 25 && distance < 12*25) {  // 25 inch min, 25 feet max
+				double visionDistance = vision.getShooterTargetDistance();
+
+				if(distance > 25 && distance < 12*25 && visionDistance > 20 && visionDistance < 12*25 &&
+						TurtleMaths.absDiff(visionDistance, distance) < 20) {  // 25 inch min, 25 feet max
+					
 					double leftRPM = Constants.LeftShooter.RPM_SHIFTER.shift(distance);
 					double rightRPM = Constants.LeftShooter.RPM_SHIFTER.shift(distance);
 
