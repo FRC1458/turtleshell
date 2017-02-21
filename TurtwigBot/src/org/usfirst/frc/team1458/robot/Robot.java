@@ -4,6 +4,7 @@ import com.team1458.turtleshell2.core.AutoMode;
 import com.team1458.turtleshell2.core.AutoModeHolder;
 import com.team1458.turtleshell2.core.TestMode;
 import com.team1458.turtleshell2.movement.*;
+import com.team1458.turtleshell2.movement.TurtleSmartMotor.BrakeMode;
 import com.team1458.turtleshell2.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.input.FlightStick;
 import com.team1458.turtleshell2.input.XboxController;
@@ -17,12 +18,14 @@ import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleMaths;
 import com.team1458.turtleshell2.util.types.MotorValue;
+import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1458.robot.autonomous.TestAutonomous;
@@ -40,6 +43,7 @@ import java.util.ArrayList;
  * @author asinghani
  */
 public class Robot extends SampleRobot implements AutoModeHolder {
+	private Timer heartbeat;
 
 	// Sensors
 	private TurtleNavX navX = null;
@@ -60,6 +64,8 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	private BlastoiseFluxStore store;
 
 	private PowerDistributionPanel pdp;
+	
+	private TurtleTalonSRXCAN agitator = new TurtleTalonSRXCAN(20, false, BrakeMode.BRAKE, 1);
 
 	// Vision
 	private BlastoiseShooterVision vision = new BlastoiseShooterVision(
@@ -225,16 +231,14 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 			// If robot is climbing, do nothing else
 			if (store.isRobotClimbingRope()) {
-				intake.stop();
 				shooterLeft.stop();
 				shooterRight.stop();
-
 				driveUpdate();
 			} else {
-				intakeUpdate();
 				shooterUpdate();
 				driveUpdate();
 			}
+			intakeUpdate();
 		}
 
 		SmartDashboard.putNumber("Yaw", navX.getYawAxis().getRotation()
@@ -281,6 +285,13 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 		SmartDashboard.putNumber("PDP temperature", pdp.getTemperature());
 		SmartDashboard.putNumber("PDP total current", pdp.getTotalCurrent());
 		SmartDashboard.putNumber("PDP voltage", pdp.getVoltage());
+		
+		if (inputManager.agitateButton.getButton()) {
+			agitator.set(new MotorValue(1));
+		}
+		else {
+			agitator.set(new MotorValue(0));
+		}
 
 		if (inputManager.shootButton.getButton()) {
 			if (inputManager.autoManualToggle.getButton()) {

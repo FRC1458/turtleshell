@@ -1,12 +1,10 @@
 package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell2.input.*;
-import com.team1458.turtleshell2.input.AnalogInput;
-import com.team1458.turtleshell2.input.DigitalInput;
 import com.team1458.turtleshell2.input.XboxController;
+import com.team1458.turtleshell2.input.FlightStick.FlightButton;
 import com.team1458.turtleshell2.input.fake.FakeButtonInput;
 import com.team1458.turtleshell2.input.fake.FakeRumbleable;
-import edu.wpi.first.wpilibj.*;
 
 /**
  * Manages all input/control for Robot
@@ -39,6 +37,7 @@ public class BlastoiseInputManager implements Rumbleable {
 	final ButtonInput panicButton;
 
 	final ButtonInput gearButton;
+	ButtonInput agitateButton;
 
 	public BlastoiseInputManager(FlightStick leftStick, FlightStick rightStick, BlastoiseController blastoiseController) {
 		this.leftJoystick = leftStick.getAxis(FlightStick.FlightAxis.PITCH);
@@ -105,6 +104,7 @@ public class BlastoiseInputManager implements Rumbleable {
 		gearButton = new MultiButtonInput(MultiButtonInput.Operator.OR,
 				rightStick.getButton(FlightStick.FlightButton.THREE),
 				leftStick.getButton(FlightStick.FlightButton.THREE));
+		agitateButton = rightStick.getButton(FlightButton.SEVEN);
 	}
 
 	public BlastoiseInputManager(XboxController controller, BlastoiseController blastoiseController) {

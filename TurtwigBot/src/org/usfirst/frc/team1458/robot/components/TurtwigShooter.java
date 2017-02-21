@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TurtwigShooter {
 	private final TurtleSmartMotor motor;
-	private final TurtleMotor agitator;
 	private ShooterPID pid;
 	private final TurtleHallSensor hall;
 
@@ -36,12 +35,10 @@ public class TurtwigShooter {
 	public TurtwigShooter(boolean isRight) {
 		if (isRight) {
 			motor = new TurtleTalonSRXCAN(Constants.RightShooter.MOTOR_PORT, true);
-			agitator = new TurtleTalonSRXCAN(Constants.Shooter.AGITATOR_PORT);
 			hall = new TurtleHallSensor(Constants.RightShooter.HALL_PORT);
 			con = Constants.RightShooter.PID_CONSTANTS;
 		} else {
 			motor = new TurtleTalonSRXCAN(Constants.LeftShooter.MOTOR_PORT, false);
-			agitator = new TurtleFakeMotor();
 			hall = new TurtleHallSensor(Constants.LeftShooter.HALL_PORT);
 			con = Constants.LeftShooter.PID_CONSTANTS;
 		}
@@ -62,12 +59,12 @@ public class TurtwigShooter {
 			}
 		}
 
-		agitator.set(Constants.Shooter.AGITATOR_SPEED);
+		//agitator.set(Constants.Shooter.AGITATOR_SPEED);
 
 		SmartDashboard.putNumber(getSmartDashboardTag() + "TurtwigShooter MotorValue", motor.get().getValue());
 		SmartDashboard.putNumber(getSmartDashboardTag() + "TurtwigShooter RPM", hall.getRPM());
 	}
-
+	
 	private String getSmartDashboardTag() {
 		return isRight ? "Right " : "Left ";
 	}
