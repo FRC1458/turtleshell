@@ -44,7 +44,7 @@ public class BlastoiseController {
 	}
 
 	/**
-	 * Basic tele-op mode, joystick values (forward/backward) sent directly to drive train
+	 * Basic tele-op mode, joystick values (forward/backward) sent directly to chassis train
 	 */
 	public void teleUpdate() {
 		if(chassis == null) {

@@ -16,26 +16,26 @@ import com.team1458.turtleshell2.util.types.Tuple;
 import edu.wpi.first.wpilibj.RobotState;
 
 /**
- * Represents a tank drive
+ * Represents a tank chassis
  * @author asinghani
  */
 public class TankDrive implements DriveTrain {
 
-	protected TurtleMotor leftMotor;
-	protected TurtleMotor rightMotor;
+	protected final TurtleMotor leftMotor;
+	protected final TurtleMotor rightMotor;
 
-	protected TurtleDistanceSensor leftEncoder;
-	protected TurtleDistanceSensor rightEncoder;
+	protected final TurtleDistanceSensor leftEncoder;
+	protected final TurtleDistanceSensor rightEncoder;
 
 	// This must be a gyro or compass sensor
-	protected TurtleRotationSensor rotationSensor;
+	protected final TurtleRotationSensor rotationSensor;
 
 	protected DriveState state = DriveState.NONE;
 
-	private PIDConstants straightDriveConstants;
-	private PIDConstants straightDriveTurnConstants;
-	private PIDConstants turnConstants;
-	private double kLR;
+	private final PIDConstants straightDriveConstants;
+	private final PIDConstants straightDriveTurnConstants;
+	private final PIDConstants turnConstants;
+	private final double kLR;
 	
 	private final double avgSamples = 5;
 	private final ArrayList<MotorValue> lastLeftValues = new ArrayList<>();
@@ -70,11 +70,10 @@ public class TankDrive implements DriveTrain {
 	 * Drive forward for given distance. Only to be used in autonomous, THIS WILL BLOCK THE MAIN THREAD.
 	 * @param distance
 	 * @param speed
-	 * @param constants
 	 * @param tolerance
 	 */
 	@Override
-	public void driveForward(Distance distance, MotorValue speed, PIDConstants constants, Distance tolerance) {
+	public void driveForward(Distance distance, MotorValue speed, Distance tolerance) {
 		state = DriveState.STRAIGHT_DRIVING;
 		StraightDrivePID straightDrivePID = new StraightDrivePID(distance, tolerance,
 				straightDriveConstants, straightDriveConstants, straightDriveTurnConstants, kLR);
@@ -93,14 +92,13 @@ public class TankDrive implements DriveTrain {
 	 * Turn for given angle. Only to be used in autonomous, THIS WILL BLOCK THE MAIN THREAD.
 	 * @param angle
 	 * @param speed
-	 * @param constants
 	 * @param tolerance
 	 */
 	@Override
-	public void turnRight(Angle angle, MotorValue speed, PIDConstants constants, Angle tolerance) {
+	public void turnRight(Angle angle, MotorValue speed, Angle tolerance) {
 		state = DriveState.TURNING;
 		rotationSensor.reset();
-		SimpleTurnPID turnPID = new SimpleTurnPID(angle, tolerance, constants);
+		SimpleTurnPID turnPID = new SimpleTurnPID(angle, tolerance, turnConstants);
 
 		while(isAutonomous() && !turnPID.atTarget()) {
 			Tuple<MotorValue, MotorValue> motorValues = turnPID.newValue(rotationSensor.getRotation());
@@ -109,7 +107,7 @@ public class TankDrive implements DriveTrain {
 	}
 
 	@Override
-	public void driveRight(Distance distance, MotorValue speed, PIDConstants constants, Distance tolerance) {
+	public void driveRight(Distance distance, MotorValue speed, Distance tolerance) {
 		throw new UnsupportedOperationException("Tank Drive cannot move sideways. Use a Mecanum or Swerve Drive.");
 	}
 
@@ -122,7 +120,7 @@ public class TankDrive implements DriveTrain {
 	}
 
 	/**
-	 * Sends raw values directly to the drive system
+	 * Sends raw values directly to the chassis system
 	 */
 	public void tankDrive(MotorValue leftPower, MotorValue rightPower) {
 		
@@ -156,7 +154,7 @@ public class TankDrive implements DriveTrain {
 	}
 
 	/**
-	 * Sends raw values directly to the drive system
+	 * Sends raw values directly to the chassis system
 	 */
 	private void setMotors(MotorValue leftPower, MotorValue rightPower) {
 		leftMotor.set(leftPower);
@@ -168,7 +166,7 @@ public class TankDrive implements DriveTrain {
 	}
 
 	/**
-	 * Set all drive motors to zero speed
+	 * Set all chassis motors to zero speed
 	 */
 	@Override
 	public void stop() {

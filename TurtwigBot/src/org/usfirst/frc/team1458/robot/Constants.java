@@ -92,6 +92,9 @@ public class Constants {
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.001, 0, 0);
 		public static final MotorValue BASE_VALUE = new MotorValue(0);
 
+		public static final double MIN_SPEED = 4000; // Speed at manual farthest left option
+		public static final double MAX_SPEED = 5000; // Speed at manual farthest right option
+
 		// Inches
 		public static final TurtleMaths.AdvancedRangeShifter RPM_SHIFTER = new TurtleMaths.AdvancedRangeShifter(
 				new double[] { 0.0 }, new double[] { 0.0 });
@@ -107,6 +110,9 @@ public class Constants {
 
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.001, 0, 0);
 		public static final MotorValue BASE_VALUE = new MotorValue(0);
+
+		public static final double MIN_SPEED = 4000; // Speed at manual farthest left option
+		public static final double MAX_SPEED = 5000; // Speed at manual farthest right option
 
 		// Inches
 		public static final TurtleMaths.AdvancedRangeShifter RPM_SHIFTER = new TurtleMaths.AdvancedRangeShifter(

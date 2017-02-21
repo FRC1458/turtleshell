@@ -206,7 +206,7 @@ public class TurtleMaths {
 	}
 
 	/**
-	 * Normalises a slope to between zero and one. Used in arcade drive code
+	 * Normalises a slope to between zero and one. Used in arcade chassis code
 	 * 
 	 * @param m
 	 *            The slope to normalise

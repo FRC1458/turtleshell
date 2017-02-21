@@ -66,7 +66,7 @@ public class Robot extends SampleRobot {
    */
   public void autonomous() {
       myRobot.setSafetyEnabled(false);
-      myRobot.drive(-0.5, 0.0);	// drive forwards half speed
+      myRobot.drive(-0.5, 0.0);	// chassis forwards half speed
       Timer.delay(2.0);		//    for 2 seconds
       myRobot.drive(0.0, 0.0);	// stop robot
   }
