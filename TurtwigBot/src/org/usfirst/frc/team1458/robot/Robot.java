@@ -13,6 +13,7 @@ import com.team1458.turtleshell2.sensor.LIDARSerial;
 import com.team1458.turtleshell2.sensor.PDP;
 import com.team1458.turtleshell2.sensor.TurtleDistanceSensor;
 import com.team1458.turtleshell2.sensor.TurtleNavX;
+import com.team1458.turtleshell2.sensor.fake.TurtleFakeDistanceEncoder;
 import com.team1458.turtleshell2.sensor.fake.TurtleFakeRotationEncoder;
 import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.util.TurtleDashboard;
@@ -28,6 +29,7 @@ import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team1458.robot.autonomous.MiddleGear;
 import org.usfirst.frc.team1458.robot.autonomous.TestAutonomous;
 import org.usfirst.frc.team1458.robot.components.BlastoiseClimber;
 import org.usfirst.frc.team1458.robot.components.BlastoiseIntake;
@@ -110,12 +112,14 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 	private void setupAutoModes() {
 		autoModes.add(new TestAutonomous(chassis, logger, navX));
+		autoModes.add(new MiddleGear(chassis, logger, navX));
 		selectedAutoMode = 0;
+		SmartDashboard.putString("AutoModeSetting2", "set4");
 	}
 
 	private void setupSensors() {
 		navX = new TurtleNavX(I2C.Port.kOnboard);
-		lidar = new LIDARSerial(SerialPort.Port.kUSB1);
+		lidar = new TurtleFakeDistanceEncoder();// snew LIDARSerial(SerialPort.Port.kUSB1);
 		pdp = new PowerDistributionPanel();
 	}
 
@@ -208,7 +212,6 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	}
 
 	private void setupUI() {
-		TurtleDashboard.setAutoModeHolder(this);
 		TurtleDashboard.logAxis(inputManager.rightJoystick,
 				inputManager.rightJoystick);
 	}
@@ -251,6 +254,9 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 		double targetX = vision.getShooterTargetX();
 
+
+		SmartDashboard.putNumber("TargetX", targetX);
+		
 		SmartDashboard.putBoolean("Shooter On Target",
 				TurtleMaths.absDiff(targetX, 165) < 45);
 		SmartDashboard.putBoolean("Target Visible", targetX > -1);
@@ -490,10 +496,14 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	private TestMode testMode;
 
 	private void setupRobotModes() {
+		SmartDashboard.putString("AutoModeSetting0", "set0");
 		setupAutoModes();
 		testMode = () -> {
 			SmartDashboard.putString("Test", "Successful");
 		};
+		SmartDashboard.putString("AutoModeSetting1", "set1");
+		TurtleDashboard.setAutoModeHolder(this);
+		SmartDashboard.putString("AutoModeSetting2", "set2");
 	}
 
 	public ArrayList<AutoMode> getAutoModes() {

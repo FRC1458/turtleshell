@@ -31,11 +31,15 @@ public class DetectTargetPipeline implements VisionPipeline {
 	 * This is the primary method that runs the entire pipeline and updates the outputs.
 	 */
 	public void process(Mat source0, ArrayList<MatOfPoint> source1) {
+
+		//Mat newMat = source0.clone();
+		Mat newMat = new Mat(source0.cols(), source0.rows(), source0.type());
+		Core.flip(source0, newMat, 1); // 90 deg = 1, 270 deg = 0
 		// Step HSL_Threshold0:
-		Mat hslThresholdInput = source0;
-		double[] hslThresholdHue = {59.0, 85.0};
-		double[] hslThresholdSaturation = {245.0, 255.0};
-		double[] hslThresholdLuminance = {28.0, 255.0};
+		Mat hslThresholdInput = newMat;
+		double[] hslThresholdHue = {59.0, 88.0};
+		double[] hslThresholdSaturation = {239.0, 255.0};
+		double[] hslThresholdLuminance = {26.0, 255.0};
 		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
 
 		// Step Find_Contours0:
@@ -54,8 +58,8 @@ public class DetectTargetPipeline implements VisionPipeline {
 		double[] filterContours0Solidity = {0, 100};
 		double filterContours0MaxVertices = 1000000.0;
 		double filterContours0MinVertices = 0.0;
-		double filterContours0MinRatio = 1.0;
-		double filterContours0MaxRatio = 4.0;
+		double filterContours0MinRatio = 0.25;
+		double filterContours0MaxRatio = 1;
 		filterContours(filterContours0Contours, filterContours0MinArea, filterContours0MinPerimeter, filterContours0MinWidth, filterContours0MaxWidth, filterContours0MinHeight, filterContours0MaxHeight, filterContours0Solidity, filterContours0MaxVertices, filterContours0MinVertices, filterContours0MinRatio, filterContours0MaxRatio, filterContours0Output);
 
 		// Step Filter_Contours1:
@@ -79,6 +83,7 @@ public class DetectTargetPipeline implements VisionPipeline {
 			contour.release();
 		}*/
 		source0.release();
+		newMat.release();
 	}
 
 	/**

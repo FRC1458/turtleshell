@@ -29,14 +29,16 @@ public class BlastoiseShooterVision {
 
 	private List<Rect> contours = new ArrayList<>();
 
+	private HttpCamera httpCamera;
+
 	/**
-	 * Instantiates BlastoiseVision with a VideoSource object. This method is not recommended.
+	 * Instantiates BlastoiseVision with a VideoSource object.
+	 * This method is not recommended to be used directly, use one of the others instead.
 	 * @param videoSource
 	 */
 	public BlastoiseShooterVision(VideoSource videoSource) {
 		this.videoSource = videoSource;
 		videoSource.setResolution(Constants.ShooterVision.Camera.WIDTH_PX, Constants.ShooterVision.Camera.HEIGHT_PX);
-
 
 		VisionThread visionThread = new VisionThread(videoSource, new DetectTargetPipeline(), pipeline -> {
 			synchronized (lock) {
@@ -46,6 +48,11 @@ public class BlastoiseShooterVision {
 		visionThread.start();
 	}
 
+	private BlastoiseShooterVision(HttpCamera camera) {
+		this((VideoSource) camera);
+		this.httpCamera = camera;
+	}
+
 	/**
 	 * Instantiates BlastoiseVision with a MJPG stream url. This is the recommended method.
 	 * @param streamUrl
@@ -53,12 +60,17 @@ public class BlastoiseShooterVision {
 	public BlastoiseShooterVision(String streamUrl) {
 		this(new HttpCamera(streamUrl+uniqueId, streamUrl, HttpCamera.HttpCameraKind.kMJPGStreamer));
 		uniqueId++;
-		try {
+
+		//httpCamera.setBrightness(5);
+		//httpCamera.setExposureManual(0);
+		//httpCamera.setExposureAuto();
+
+		/*try {
 			CameraSetup.initialSetup("localhost", 5800);
 			CameraSetup.startVision("localhost", 5800);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	/**
@@ -139,6 +151,7 @@ public class BlastoiseShooterVision {
 
 	public double getShooterTargetX() {
 		ArrayList<Rect> contours = getCorrectContours();
+		System.out.println(contours.toString());
 		if(contours.size() != 2){
 			return -1;
 		}
