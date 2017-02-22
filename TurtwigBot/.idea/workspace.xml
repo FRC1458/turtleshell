@@ -2,7 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="756521d3-8dfe-4259-82c8-03bbba3a86b2" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/CrossBaseline.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/LeftGear.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/MiddleGear.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/extracode/BlastoiseController.java" afterPath="$PROJECT_DIR$/extracode/BlastoiseController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/navx-examples/navXMXP_Java_AutoBalance/src/org/usfirst/frc/team2465/robot/Robot.java" afterPath="$PROJECT_DIR$/lib/navx-examples/navXMXP_Java_AutoBalance/src/org/usfirst/frc/team2465/robot/Robot.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/navx-examples/navXMXP_Java_CollisionDetection/src/org/usfirst/frc/team2465/robot/Robot.java" afterPath="$PROJECT_DIR$/lib/navx-examples/navXMXP_Java_CollisionDetection/src/org/usfirst/frc/team2465/robot/Robot.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/navx-examples/navXMXP_Java_FieldCentricDrive/src/org/usfirst/frc/team2465/robot/Robot.java" afterPath="$PROJECT_DIR$/lib/navx-examples/navXMXP_Java_FieldCentricDrive/src/org/usfirst/frc/team2465/robot/Robot.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/navx-examples/navXMXP_Java_MotionDetection/src/org/usfirst/frc/team2465/robot/Robot.java" afterPath="$PROJECT_DIR$/lib/navx-examples/navXMXP_Java_MotionDetection/src/org/usfirst/frc/team2465/robot/Robot.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/navx-examples/navXMXP_Java_RotateToAngle/src/org/usfirst/frc/team2465/robot/Robot.java" afterPath="$PROJECT_DIR$/lib/navx-examples/navXMXP_Java_RotateToAngle/src/org/usfirst/frc/team2465/robot/Robot.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/team1458/turtleshell2/core/SampleAutoMode.java" afterPath="$PROJECT_DIR$/src/com/team1458/turtleshell2/core/SampleAutoMode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/team1458/turtleshell2/movement/DriveTrain.java" afterPath="$PROJECT_DIR$/src/com/team1458/turtleshell2/movement/DriveTrain.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/team1458/turtleshell2/movement/TankDrive.java" afterPath="$PROJECT_DIR$/src/com/team1458/turtleshell2/movement/TankDrive.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/team1458/turtleshell2/util/TurtleMaths.java" afterPath="$PROJECT_DIR$/src/com/team1458/turtleshell2/util/TurtleMaths.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Constants.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Constants.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Robot.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Robot.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/XboxShooterThing.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/XboxShooterThing.java" />
     </list>
     <ignored path="TurtwigBot.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,51 +39,91 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="BlastoiseController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="29" column="30" selection-start-line="29" selection-start-column="30" selection-end-line="29" selection-end-column="30" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BlastoiseInputManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseInputManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="70" column="10" selection-start-line="70" selection-start-column="10" selection-end-line="70" selection-end-column="10" />
-              <folding>
-                <element signature="e#5124#5125#0" expanded="true" />
-                <element signature="e#5143#5144#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Robot.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Robot.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Robot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="319" column="20" selection-start-line="319" selection-start-column="20" selection-end-line="319" selection-end-column="20" />
+            <state relative-caret-position="70">
+              <caret line="298" column="45" selection-start-line="298" selection-start-column="45" selection-end-line="298" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#14588#14589#0" expanded="true" />
-                <element signature="e#14621#14622#0" expanded="true" />
+                <element signature="e#14544#14545#0" expanded="true" />
+                <element signature="e#14577#14578#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BlastoiseShooterVision.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/vision/BlastoiseShooterVision.java">
+      <file leaf-file-name="TestAutonomous.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/TestAutonomous.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="105" column="83" selection-start-line="105" selection-start-column="83" selection-end-line="105" selection-end-column="83" />
+            <state relative-caret-position="378">
+              <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+              <folding>
+                <element signature="e#445#446#0" expanded="true" />
+                <element signature="e#493#494#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CrossBaseline.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/CrossBaseline.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="12" column="52" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#724#725#0" expanded="true" />
+                <element signature="e#772#773#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MiddleGear.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/MiddleGear.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LeftGear.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/LeftGear.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="414">
+              <caret line="31" column="45" selection-start-line="31" selection-start-column="45" selection-end-line="31" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TankDrive.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/movement/TankDrive.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-360">
+              <caret line="23" column="19" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
+              <folding>
+                <element signature="method#tankDrive#0;class#TankDrive#0" expanded="false" />
+                <element signature="docComment;method#setMotors#0;class#TankDrive#0" expanded="false" />
+                <element signature="method#setMotors#0;class#TankDrive#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DriveTrain.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/movement/DriveTrain.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="448">
+              <caret line="49" column="39" selection-start-line="49" selection-start-column="39" selection-end-line="49" selection-end-column="39" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1695#1696#0" expanded="true" />
+                <element signature="e#1745#1746#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -75,18 +131,8 @@
       <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="120" column="39" selection-start-line="120" selection-start-column="39" selection-end-line="120" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BlastoiseIntake.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseIntake.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="27" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
+            <state relative-caret-position="431">
+              <caret line="112" column="0" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -108,43 +154,13 @@
       <file leaf-file-name="XboxShooterThing.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/XboxShooterThing.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+            <state relative-caret-position="502">
+              <caret line="34" column="26" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
               <folding>
-                <element signature="e#625#626#0" expanded="true" />
-                <element signature="e#644#645#0" expanded="true" />
-                <element signature="e#933#934#0" expanded="true" />
-                <element signature="e#952#953#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="XboxButtonToggleThingy.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/XboxButtonToggleThingy.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
-              <folding>
-                <element signature="e#641#642#0" expanded="true" />
-                <element signature="e#660#661#0" expanded="true" />
-                <element signature="e#937#938#0" expanded="true" />
-                <element signature="e#961#962#0" expanded="true" />
-                <element signature="e#1003#1004#0" expanded="true" />
-                <element signature="e#1022#1023#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BlastoiseFluxStore.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseFluxStore.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="21" column="19" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
-              <folding>
-                <element signature="e#577#578#0" expanded="true" />
-                <element signature="e#649#650#0" expanded="true" />
+                <element signature="e#624#625#0" expanded="true" />
+                <element signature="e#643#644#0" expanded="true" />
+                <element signature="e#930#931#0" expanded="true" />
+                <element signature="e#949#950#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -170,8 +186,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/constants/RobotConstants.java" />
-        <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/core/RobotComponent.java" />
         <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/input/ButtonInput.java" />
         <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/input/SampleButtonInput.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseTestBed.java" />
@@ -183,7 +197,6 @@
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseAutoMode.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/SampleAutoMode.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/TestAutonomous.java" />
-        <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/core/SampleAutoMode.java" />
         <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/util/DataLogger.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/DataLogger.java" />
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -202,23 +215,28 @@
         <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/movement/TankDriveChassis.java" />
         <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/util/types/Angle.java" />
         <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/util/types/Distance.java" />
-        <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/movement/DriveTrain.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseFluxStore.java" />
         <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/util/types/Tuple.java" />
         <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/pid/StraightDrivePID.java" />
         <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/util/types/MotorValue.java" />
         <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/pid/TurnPID.java" />
         <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/pid/SimpleTurnPID.java" />
-        <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/movement/TankDrive.java" />
         <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/pid/ComplexTurnPID.java" />
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/XboxShooterThing.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/XboxButtonToggleThingy.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/BlastoiseShooter.java" />
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Constants.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/components/TurtwigShooter.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseController.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseInputManager.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/XboxShooterThing.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Constants.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Robot.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/ForwardDriveAutonomous.java" />
+        <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/core/SampleAutoMode.java" />
+        <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/movement/DriveTrain.java" />
+        <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/movement/TankDrive.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/CrossBaseline.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/MiddleGear.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/LeftGear.java" />
       </list>
     </option>
   </component>
@@ -672,6 +690,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.usfirst.frc.team1458.robot.autonomous" />
       <recent name="org.usfirst.frc.team1458.robot" />
       <recent name="com.team1458.turtleshell2.pid" />
       <recent name="org.usfirst.frc.team1458.robot.constants" />
@@ -971,7 +990,7 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2688822" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32853025" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32808024" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1007,29 +1026,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/constants/Constants.java" />
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/vision/BlastoiseVision.java" />
-    <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/core/AutoMode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/TestAutonomous.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="12" column="43" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/core/SampleAutoMode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="556">
-          <caret line="100" column="54" selection-start-line="100" selection-start-column="54" selection-end-line="100" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/wpilib/java/current/lib/WPILib-sources.jar!/edu/wpi/first/wpilibj/GenericHID.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -1258,16 +1254,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/movement/DriveTrain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="64" selection-start-line="9" selection-start-column="64" selection-end-line="9" selection-end-column="64" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/util/types/Tuple.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
@@ -1326,18 +1312,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/movement/TankDrive.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-56">
-          <caret line="84" column="42" selection-start-line="84" selection-start-column="42" selection-end-line="84" selection-end-column="42" />
-          <folding>
-            <element signature="method#tankDrive#0;class#TankDrive#0" expanded="false" />
-            <element signature="docComment;method#setMotors#0;class#TankDrive#0" expanded="false" />
-            <element signature="method#setMotors#0;class#TankDrive#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/util/types/MotorValue.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
@@ -1376,19 +1350,6 @@
           <folding>
             <element signature="e#577#578#0" expanded="true" />
             <element signature="e#649#650#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/XboxShooterThing.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding>
-            <element signature="e#625#626#0" expanded="true" />
-            <element signature="e#644#645#0" expanded="true" />
-            <element signature="e#933#934#0" expanded="true" />
-            <element signature="e#952#953#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1433,9 +1394,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/XboxShooterThing.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="34" column="26" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
+          <folding>
+            <element signature="e#624#625#0" expanded="true" />
+            <element signature="e#643#644#0" expanded="true" />
+            <element signature="e#930#931#0" expanded="true" />
+            <element signature="e#949#950#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/vision/BlastoiseShooterVision.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
+        <state relative-caret-position="539">
           <caret line="105" column="83" selection-start-line="105" selection-start-column="83" selection-end-line="105" selection-end-column="83" />
           <folding />
         </state>
@@ -1443,21 +1417,92 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="120" column="39" selection-start-line="120" selection-start-column="39" selection-end-line="120" selection-end-column="39" />
+        <state relative-caret-position="431">
+          <caret line="112" column="0" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Robot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="319" column="20" selection-start-line="319" selection-start-column="20" selection-end-line="319" selection-end-column="20" />
+        <state relative-caret-position="70">
+          <caret line="298" column="45" selection-start-line="298" selection-start-column="45" selection-end-line="298" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#14588#14589#0" expanded="true" />
-            <element signature="e#14621#14622#0" expanded="true" />
+            <element signature="e#14544#14545#0" expanded="true" />
+            <element signature="e#14577#14578#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/TestAutonomous.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+          <folding>
+            <element signature="e#445#446#0" expanded="true" />
+            <element signature="e#493#494#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/core/SampleAutoMode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/movement/DriveTrain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="49" column="39" selection-start-line="49" selection-start-column="39" selection-end-line="49" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1695#1696#0" expanded="true" />
+            <element signature="e#1745#1746#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/team1458/turtleshell2/movement/TankDrive.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-360">
+          <caret line="23" column="19" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
+          <folding>
+            <element signature="method#tankDrive#0;class#TankDrive#0" expanded="false" />
+            <element signature="docComment;method#setMotors#0;class#TankDrive#0" expanded="false" />
+            <element signature="method#setMotors#0;class#TankDrive#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/CrossBaseline.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="12" column="52" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#724#725#0" expanded="true" />
+            <element signature="e#772#773#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/MiddleGear.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/LeftGear.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="31" column="45" selection-start-line="31" selection-start-column="45" selection-end-line="31" selection-end-column="45" />
+          <folding />
         </state>
       </provider>
     </entry>

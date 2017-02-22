@@ -284,7 +284,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	private void shooterUpdate() {
 		SmartDashboard.putNumber("PDP current shooter", pdp.getCurrent(11));
 		SmartDashboard.putNumber("PDP current no breaker", pdp.getCurrent(5));
-		SmartDashboard.putNumber("PDP current drive", pdp.getCurrent(13));
+		SmartDashboard.putNumber("PDP current chassis", pdp.getCurrent(13));
 		SmartDashboard.putNumber("PDP temperature", pdp.getTemperature());
 		SmartDashboard.putNumber("PDP total current", pdp.getTotalCurrent());
 		SmartDashboard.putNumber("PDP voltage", pdp.getVoltage());
@@ -298,17 +298,16 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 		if (inputManager.shootButton.getButton()) {
 			if (inputManager.autoManualToggle.getButton()) {
-				/*shooterLeft.setIsManualPower(true);
-				shooterRight.setIsManualPower(true);
-
-				shooterLeft.setManualPower(inputManager.shooterSpeed.get() / 100.0);
-				shooterRight.setManualPower(inputManager.shooterSpeed.get() / 100.0);*/
 				// This will also use PID now
-
 				shooterLeft.setIsManualPower(false);
-				shooterLeft.setRPMTarget(inputManager.shooterSpeed.get() * (5000/11));
+				shooterLeft.setRPMTarget(
+						TurtleMaths.shift(inputManager.shooterSpeed.get(), 0, 11,
+								Constants.LeftShooter.MIN_SPEED, Constants.LeftShooter.MAX_SPEED));
+
 				shooterRight.setIsManualPower(false);
-				shooterRight.setRPMTarget(inputManager.shooterSpeed.get() * (5000/11));
+				shooterRight.setRPMTarget(
+						TurtleMaths.shift(inputManager.shooterSpeed.get(), 0, 11,
+								Constants.RightShooter.MIN_SPEED, Constants.RightShooter.MAX_SPEED));
 
 				SmartDashboard.putBoolean("Auto Shooter Working", false);
 			} else {

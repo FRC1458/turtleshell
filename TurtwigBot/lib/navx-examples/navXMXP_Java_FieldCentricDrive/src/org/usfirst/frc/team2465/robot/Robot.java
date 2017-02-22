@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj.Timer;
 
 /**
  * This is a demo program showing the use of the navX MXP to implement
- * field-centric ("field-oriented") drive system control of a Mecanum-
- * based drive system.  Note that field-centric drive can also be used
- * with other Holonomic drive systems (e.g., OmniWheel, Swerve).
+ * field-centric ("field-oriented") chassis system control of a Mecanum-
+ * based chassis system.  Note that field-centric chassis can also be used
+ * with other Holonomic chassis systems (e.g., OmniWheel, Swerve).
  *
  * This example also includes a feature allowing the driver to "reset"
  * the "yaw" angle.  When the reset occurs, the new gyro angle will be
@@ -61,7 +61,7 @@ public class Robot extends SampleRobot {
      */
     public void autonomous() {
         myRobot.setSafetyEnabled(false);
-        myRobot.drive(-0.5, 0.0);	 // drive forwards half speed
+        myRobot.drive(-0.5, 0.0);	 // chassis forwards half speed
         Timer.delay(2.0);		     //  for 2 seconds
         myRobot.drive(0.0, 0.0);	 // stop robot
     }
@@ -82,7 +82,7 @@ public class Robot extends SampleRobot {
                 myRobot.mecanumDrive_Cartesian(stick.getX(), stick.getY(), 
                                                stick.getTwist(), ahrs.getAngle());
             } catch( RuntimeException ex ) {
-                DriverStation.reportError("Error communicating with drive system:  " + ex.getMessage(), true);
+                DriverStation.reportError("Error communicating with chassis system:  " + ex.getMessage(), true);
             }
             Timer.delay(0.005);		// wait for a motor update time
         }

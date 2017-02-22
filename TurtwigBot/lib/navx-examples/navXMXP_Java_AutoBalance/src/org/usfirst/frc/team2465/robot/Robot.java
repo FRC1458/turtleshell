@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.Timer;
  * Pitch (rotation about the X axis) and Roll (rotation about the
  * Y axis) angles.  When these angles exceed the "off balance"
  * threshold and until these angles fall below the "on balance"
- * threshold, the drive system is automatically driven in the
+ * threshold, the chassis system is automatically driven in the
  * opposite direction at a magnitude proportional to the
  * Pitch or Roll angle.
  *
@@ -61,7 +61,7 @@ public class Robot extends SampleRobot {
      */
     public void autonomous() {
         myRobot.setSafetyEnabled(false);
-        myRobot.drive(-0.5, 0.0);	// drive forwards half speed
+        myRobot.drive(-0.5, 0.0);	// chassis forwards half speed
         Timer.delay(2.0);		//    for 2 seconds
         myRobot.drive(0.0, 0.0);	// stop robot
     }
@@ -104,7 +104,7 @@ public class Robot extends SampleRobot {
                 autoBalanceYMode = false;
             }
             
-            // Control drive system automatically, 
+            // Control chassis system automatically,
             // driving in reverse direction of pitch/roll angle,
             // with a magnitude based upon the angle
             

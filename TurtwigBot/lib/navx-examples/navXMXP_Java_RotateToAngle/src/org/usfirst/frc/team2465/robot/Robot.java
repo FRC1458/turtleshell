@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  *
  * This rotation can occur when the robot is still, but can also occur
  * when the robot is driving.  When using field-oriented control, this
- * will cause the robot to drive in a straight line, in whathever direction
+ * will cause the robot to chassis in a straight line, in whathever direction
  * is selected.
  *
  * This example also includes a feature allowing the driver to "reset"
@@ -31,7 +31,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * long practice sessions.
  *
  * Note that the PID Controller coefficients defined below will need to
- * be tuned for your drive system.
+ * be tuned for your chassis system.
  */
 
 public class Robot extends SampleRobot implements PIDOutput {
@@ -42,7 +42,7 @@ public class Robot extends SampleRobot implements PIDOutput {
     double rotateToAngleRate;
     
     /* The following PID Controller coefficients will need to be tuned */
-    /* to match the dynamics of your drive system.  Note that the      */
+    /* to match the dynamics of your chassis system.  Note that the      */
     /* SmartDashboard in Test mode has support for helping you tune    */
     /* controllers by displaying a form where you can enter new P, I,  */
     /* and D constants and test the mechanism.                         */
@@ -104,9 +104,9 @@ public class Robot extends SampleRobot implements PIDOutput {
     }
 
     /**
-     * Runs the motors with onnidirectional drive steering.
+     * Runs the motors with onnidirectional chassis steering.
      * 
-     * Implements Field-centric drive control.
+     * Implements Field-centric chassis control.
      * 
      * Also implements "rotate to angle", where the angle
      * being rotated to is defined by one of four buttons.
@@ -151,7 +151,7 @@ public class Robot extends SampleRobot implements PIDOutput {
                 myRobot.mecanumDrive_Cartesian(stick.getX(), stick.getY(), 
                                                currentRotationRate, ahrs.getAngle());
             } catch( RuntimeException ex ) {
-                DriverStation.reportError("Error communicating with drive system:  " + ex.getMessage(), true);
+                DriverStation.reportError("Error communicating with chassis system:  " + ex.getMessage(), true);
             }
             Timer.delay(0.005);		// wait for a motor update time
         }

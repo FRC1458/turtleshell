@@ -1,14 +1,8 @@
 package com.team1458.turtleshell2.core;
 
 import com.team1458.turtleshell2.movement.TankDrive;
-import com.team1458.turtleshell2.pid.PID;
 import com.team1458.turtleshell2.sensor.TurtleRotationSensor;
 import com.team1458.turtleshell2.util.Logger;
-import com.team1458.turtleshell2.util.PIDConstants;
-import com.team1458.turtleshell2.util.types.Angle;
-import com.team1458.turtleshell2.util.types.Distance;
-import com.team1458.turtleshell2.util.types.MotorValue;
-import edu.wpi.first.wpilibj.Timer;
 
 /**
  * Command-based controller for autonomous mode. This is an abstract
@@ -18,13 +12,13 @@ import edu.wpi.first.wpilibj.Timer;
  * @author asinghani
  */
 public abstract class SampleAutoMode implements AutoMode {
-	protected TankDrive drive;
+	protected TankDrive chassis;
 	protected Logger logger;
 
 	protected TurtleRotationSensor rotationSensor;
 
-	public SampleAutoMode(TankDrive drive, Logger logger, TurtleRotationSensor rotationSensor) {
-		this.drive = drive;
+	public SampleAutoMode(TankDrive chassis, Logger logger, TurtleRotationSensor rotationSensor) {
+		this.chassis = chassis;
 		this.logger = logger;
 		this.rotationSensor = rotationSensor;
 	}
@@ -51,16 +45,16 @@ public abstract class SampleAutoMode implements AutoMode {
 	 * speed. No PID controller or other stabilization methods are used.
 	 *
 	 * @param millis
-	 *            Amount of time for the robot to drive
+	 *            Amount of time for the robot to chassis
 	 * @param speed
 	 *            Speed for the robot, between -1 and 1
 	 */
 	/*public void moveMillis(long millis, double speed) {
 		MotorValue motorValue = new MotorValue(speed);
-		drive.tankDrive(motorValue, motorValue);
+		chassis.tankDrive(motorValue, motorValue);
 
 		Timer.delay(millis / 1000.0); // WPILib Timer, not java.util.Timer
-		drive.stop();
+		chassis.stop();
 	}*/
 
 	/**
@@ -76,14 +70,14 @@ public abstract class SampleAutoMode implements AutoMode {
 	/*public void turnMillis(long millis, double speed) {
 		MotorValue right = new MotorValue(speed);
 		MotorValue left = new MotorValue(-1.0 * speed);
-		drive.tankDrive(left, right);
+		chassis.tankDrive(left, right);
 
 		Timer.delay(millis / 1000.0); // WPILib Timer, not java.util.Timer
-		drive.stop();
+		chassis.stop();
 	}*/
 
 	/*public void turnAngle(Angle angle, MotorValue speed, PIDConstants constants, int tolerance) {
-		drive.turn(angle, speed, constants, tolerance);
+		chassis.turn(angle, speed, constants, tolerance);
 	}
 
 	public void driveStraight(MotorValue speed, Distance distance, PIDConstants constants, int tolerance) {
@@ -91,13 +85,13 @@ public abstract class SampleAutoMode implements AutoMode {
 		PID left = new PID(constants, distance.getCentimetres(), tolerance);
 
 		while(!(right.atTarget() && left.atTarget())) {
-			MotorValue rightValue = new MotorValue(right.newValue(drive.getRightDistance().getCentimetres()))
+			MotorValue rightValue = new MotorValue(right.newValue(chassis.getRightDistance().getCentimetres()))
 					.scale(speed.getValue());
-			MotorValue leftValue = new MotorValue(left.newValue(drive.getRightDistance().getCentimetres()))
+			MotorValue leftValue = new MotorValue(left.newValue(chassis.getRightDistance().getCentimetres()))
 					.scale(speed.getValue());
 
-			drive.tankDrive(leftValue, rightValue);
+			chassis.tankDrive(leftValue, rightValue);
 		}
-		drive.stop();
+		chassis.stop();
 	}*/
 }
