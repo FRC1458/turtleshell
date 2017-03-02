@@ -3,8 +3,6 @@ package com.team1458.turtleshell2.util;
 import java.util.ArrayList;
 import java.util.function.UnaryOperator;
 
-import com.team1458.turtleshell2.util.types.MotorValue;
-
 /**
  * A class holding helpful static methods for maths-related things.
  * 
