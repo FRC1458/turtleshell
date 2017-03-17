@@ -26,13 +26,14 @@ public class TestAutonomous extends SampleAutoMode {
 	 */
 	@Override
 	public void auto(){
-		chassis.turnRight(new Angle(90), new MotorValue(0.4), new Angle(5));
-		Timer.delay(3);
+		chassis.driveForward(new Distance(50), MotorValue.fullForward, new Distance(5));
+		//chassis.turnRight(new Angle(90), new MotorValue(0.4), new Angle(5));
+		//Timer.delay(3);
 		/*chassis.driveForward(Distance.createInches(10), new MotorValue(0.4), Distance.createInches(1));
 		Timer.delay(3);
 		chassis.driveBackward(Distance.createInches(10), new MotorValue(0.4), Distance.createInches(1));
 		Timer.delay(3);*/
-		chassis.turnLeft(new Angle(90), new MotorValue(0.4), new Angle(5));
-		Timer.delay(3);
+		//chassis.turnLeft(new Angle(90), new MotorValue(0.4), new Angle(5));
+		//Timer.delay(3);
 	}
 }

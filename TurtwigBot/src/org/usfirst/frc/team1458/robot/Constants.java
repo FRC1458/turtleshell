@@ -145,8 +145,8 @@ public class Constants {
 	}
 
 	public static final class StraightDrivePID {
-		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0, 0, 0);
-		public static final PIDConstants TURN_PID_CONSTANTS = new PIDConstants(0, 0, 0);
+		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.0125, 0, 0.001);
+		public static final PIDConstants TURN_PID_CONSTANTS = new PIDConstants(0.001, 0, 0);
 		public static final double kLR = 0.00005;
 		public static final double TOLERANCE = 2;
 
