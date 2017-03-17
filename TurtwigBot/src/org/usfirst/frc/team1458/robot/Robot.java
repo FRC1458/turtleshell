@@ -119,7 +119,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 	private void setupSensors() {
 		navX = new TurtleNavX(I2C.Port.kOnboard);
-		lidar = new TurtleFakeDistanceEncoder();// snew LIDARSerial(SerialPort.Port.kUSB1);
+		lidar = new TurtleFakeDistanceEncoder(); //new LIDARSerial(SerialPort.Port.kUSB);
 		pdp = new PowerDistributionPanel();
 	}
 
@@ -248,6 +248,13 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 		SmartDashboard.putNumber("Yaw", navX.getYawAxis().getRotation()
 				.getDegrees());
 		
+
+		SmartDashboard.putNumber("Pitch", navX.getPitchAxis().getRotation()
+				.getDegrees());
+		
+
+		SmartDashboard.putNumber("Roll", navX.getRollAxis().getRotation()
+				.getDegrees());
 
 		SmartDashboard.putNumber("LeftEncoder", chassis.getLeftDistance().getInches());
 		SmartDashboard.putNumber("RightEncoder", chassis.getRightDistance ().getInches());

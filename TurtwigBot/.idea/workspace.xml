@@ -4,13 +4,9 @@
     <list default="true" id="756521d3-8dfe-4259-82c8-03bbba3a86b2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/FRCUserProgram.jar" afterPath="$PROJECT_DIR$/dist/FRCUserProgram.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/team1458/turtleshell2/sensor/LIDARSerial.java" afterPath="$PROJECT_DIR$/src/com/team1458/turtleshell2/sensor/LIDARSerial.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Constants.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Constants.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Robot.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Robot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/LeftGear.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/LeftGear.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/TestAutonomous.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/TestAutonomous.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/vision/BlastoiseShooterVision.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/vision/BlastoiseShooterVision.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/vision/DetectTargetPipeline.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/vision/DetectTargetPipeline.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sysProps.xml" afterPath="$PROJECT_DIR$/sysProps.xml" />
     </list>
     <ignored path="TurtwigBot.iws" />
@@ -35,21 +31,21 @@
       <file leaf-file-name="Robot.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Robot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="71">
-              <caret line="175" column="0" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
+            <state relative-caret-position="305">
+              <caret line="124" column="0" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#14997#14998#0" expanded="true" />
-                <element signature="e#15030#15031#0" expanded="true" />
+                <element signature="e#15178#15179#0" expanded="true" />
+                <element signature="e#15211#15212#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2736">
+            <state relative-caret-position="810">
               <caret line="156" column="77" selection-start-line="156" selection-start-column="77" selection-end-line="156" selection-end-column="77" />
               <folding />
             </state>
@@ -71,30 +67,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
               <caret line="65" column="37" selection-start-line="65" selection-start-column="37" selection-end-line="65" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DetectTargetPipeline.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/vision/DetectTargetPipeline.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="53">
-              <caret line="21" column="68" selection-start-line="21" selection-start-column="68" selection-end-line="21" selection-end-column="68" />
               <folding>
-                <element signature="e#492#504#0" expanded="true" />
-                <marker date="1487734219000" expanded="false" signature="576:588" ph="&lt;~&gt;" />
-                <marker date="1487734219000" expanded="false" signature="660:672" ph="&lt;~&gt;" />
-                <marker date="1487734219000" expanded="false" signature="3745:3750" ph=" { " />
-                <marker date="1487734219000" expanded="false" signature="3776:3779" ph=" }" />
-                <marker date="1487734219000" expanded="false" signature="3975:3980" ph=" { " />
-                <marker date="1487734219000" expanded="false" signature="4006:4009" ph=" }" />
-                <marker date="1487734219000" expanded="false" signature="4212:4217" ph=" { " />
-                <marker date="1487734219000" expanded="false" signature="4246:4249" ph=" }" />
-                <marker date="1487734219000" expanded="false" signature="4452:4457" ph=" { " />
-                <marker date="1487734219000" expanded="false" signature="4486:4489" ph=" }" />
-                <marker date="1487734219000" expanded="false" signature="8095:8100" ph=" { " />
-                <marker date="1487734219000" expanded="false" signature="8144:8147" ph=" }" />
+                <element signature="e#2309#2310#0" expanded="true" />
+                <element signature="e#2375#2376#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -106,7 +81,7 @@
             <state relative-caret-position="360">
               <caret line="35" column="23" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="23" />
               <folding>
-                <element signature="e#1179#1180#0" expanded="true" />
+                <element signature="e#1183#1184#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -219,7 +194,6 @@
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseController.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/BlastoiseInputManager.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/XboxShooterThing.java" />
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Robot.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/ForwardDriveAutonomous.java" />
         <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/core/SampleAutoMode.java" />
         <option value="$PROJECT_DIR$/src/com/team1458/turtleshell2/movement/DriveTrain.java" />
@@ -228,9 +202,10 @@
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/MiddleGear.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/LeftGear.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/autonomous/TestAutonomous.java" />
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Constants.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/vision/BlastoiseShooterVision.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/vision/DetectTargetPipeline.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Robot.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Constants.java" />
       </list>
     </option>
   </component>
@@ -1474,16 +1449,41 @@
         <state relative-caret-position="360">
           <caret line="35" column="23" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="23" />
           <folding>
-            <element signature="e#1179#1180#0" expanded="true" />
+            <element signature="e#1183#1184#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Constants.java">
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/vision/DetectTargetPipeline.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2736">
-          <caret line="156" column="77" selection-start-line="156" selection-start-column="77" selection-end-line="156" selection-end-column="77" />
-          <folding />
+        <state relative-caret-position="53">
+          <caret line="21" column="68" selection-start-line="21" selection-start-column="68" selection-end-line="21" selection-end-column="68" />
+          <folding>
+            <element signature="e#492#504#0" expanded="true" />
+            <marker date="1487734263000" expanded="false" signature="576:588" ph="&lt;~&gt;" />
+            <marker date="1487734263000" expanded="false" signature="660:672" ph="&lt;~&gt;" />
+            <marker date="1487734263000" expanded="false" signature="3745:3750" ph=" { " />
+            <marker date="1487734263000" expanded="false" signature="3776:3779" ph=" }" />
+            <marker date="1487734263000" expanded="false" signature="3975:3980" ph=" { " />
+            <marker date="1487734263000" expanded="false" signature="4006:4009" ph=" }" />
+            <marker date="1487734263000" expanded="false" signature="4212:4217" ph=" { " />
+            <marker date="1487734263000" expanded="false" signature="4246:4249" ph=" }" />
+            <marker date="1487734263000" expanded="false" signature="4452:4457" ph=" { " />
+            <marker date="1487734263000" expanded="false" signature="4486:4489" ph=" }" />
+            <marker date="1487734263000" expanded="false" signature="8095:8100" ph=" { " />
+            <marker date="1487734263000" expanded="false" signature="8144:8147" ph=" }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/vision/BlastoiseShooterVision.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="65" column="37" selection-start-line="65" selection-start-column="37" selection-end-line="65" selection-end-column="37" />
+          <folding>
+            <element signature="e#2309#2310#0" expanded="true" />
+            <element signature="e#2375#2376#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1495,45 +1495,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/vision/BlastoiseShooterVision.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="65" column="37" selection-start-line="65" selection-start-column="37" selection-end-line="65" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Robot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="175" column="0" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
+        <state relative-caret-position="305">
+          <caret line="124" column="0" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#14997#14998#0" expanded="true" />
-            <element signature="e#15030#15031#0" expanded="true" />
+            <element signature="e#15178#15179#0" expanded="true" />
+            <element signature="e#15211#15212#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/vision/DetectTargetPipeline.java">
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team1458/robot/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="53">
-          <caret line="21" column="68" selection-start-line="21" selection-start-column="68" selection-end-line="21" selection-end-column="68" />
-          <folding>
-            <element signature="e#492#504#0" expanded="true" />
-            <marker date="1487734219000" expanded="false" signature="576:588" ph="&lt;~&gt;" />
-            <marker date="1487734219000" expanded="false" signature="660:672" ph="&lt;~&gt;" />
-            <marker date="1487734219000" expanded="false" signature="3745:3750" ph=" { " />
-            <marker date="1487734219000" expanded="false" signature="3776:3779" ph=" }" />
-            <marker date="1487734219000" expanded="false" signature="3975:3980" ph=" { " />
-            <marker date="1487734219000" expanded="false" signature="4006:4009" ph=" }" />
-            <marker date="1487734219000" expanded="false" signature="4212:4217" ph=" { " />
-            <marker date="1487734219000" expanded="false" signature="4246:4249" ph=" }" />
-            <marker date="1487734219000" expanded="false" signature="4452:4457" ph=" { " />
-            <marker date="1487734219000" expanded="false" signature="4486:4489" ph=" }" />
-            <marker date="1487734219000" expanded="false" signature="8095:8100" ph=" { " />
-            <marker date="1487734219000" expanded="false" signature="8144:8147" ph=" }" />
-          </folding>
+        <state relative-caret-position="810">
+          <caret line="156" column="77" selection-start-line="156" selection-start-column="77" selection-end-line="156" selection-end-column="77" />
+          <folding />
         </state>
       </provider>
     </entry>

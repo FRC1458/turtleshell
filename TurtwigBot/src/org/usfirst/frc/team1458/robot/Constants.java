@@ -68,7 +68,7 @@ public class Constants {
 	public static final class Climber {
 		public static final int MOTOR_PORT = TalonID.HITAGI.id;
 
-		public static final MotorValue SPEED = new MotorValue(0.8);
+		public static final MotorValue SPEED = new MotorValue(0.5);
 		public static final MotorValue SPEED_LOW = new MotorValue(0.3);
 
 	}
@@ -89,7 +89,7 @@ public class Constants {
 		public static final double SPEED_RPM = 4850;
 		public static final boolean MOTOR_REVERSED = false;
 
-		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.001, 0, 0);
+		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.0015, 0, 0);
 		public static final MotorValue BASE_VALUE = new MotorValue(0);
 
 		public static final double MIN_SPEED = 3900; // Speed at manual farthest left option
@@ -106,7 +106,7 @@ public class Constants {
 		public static final double SPEED_RPM = 4350;
 		public static final boolean MOTOR_REVERSED = true;
 
-		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.001, 0, 0);
+		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.0015, 0, 0);
 		public static final MotorValue BASE_VALUE = new MotorValue(0);
 
 		public static final double MIN_SPEED = 3400; // Speed at manual farthest left option
