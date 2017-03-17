@@ -97,6 +97,7 @@ public class LIDARLite implements TurtleDistanceSensor {
 			lastTime = thisTime;
 			thisTime = Timer.getFPGATimestamp();
 			// System.out.println(value);
+			SmartDashboard.putNumber("LIDAR Self Reported Value", value);
 			return Distance.createCentimetres(value);
 		} else if ((status[0] & 0b00000001) == 1) {
 			// busy, use previous values

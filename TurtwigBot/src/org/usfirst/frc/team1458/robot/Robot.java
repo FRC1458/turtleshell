@@ -103,7 +103,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	}
 
 	private void setupAutoModes() {
-		autoModes.add(new TestAutonomous(chassis, logger, navX));
+		autoModes.add(new TestAutonomous(chassis, logger, navX,this));
 		autoModes.add(new MiddleGear(chassis, logger, navX));
 		selectedAutoMode = 0;
 		SmartDashboard.putString("AutoModeSetting2", "set4");
