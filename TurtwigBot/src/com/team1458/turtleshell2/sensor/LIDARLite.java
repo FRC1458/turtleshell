@@ -21,10 +21,9 @@ public class LIDARLite implements TurtleDistanceSensor {
 	private Distance lastDistance = Distance.error;
 	private Rate<Distance> velocity = Rate.distanceZero;
 	private double lastTime = 0;
+	private double thisTime = 0;
 
 	private Distance distance = Distance.error;
-
-	private static Object lock = new Object();
 
 	/**
 	 * Instantiates LIDARLite with given port and update speed
@@ -33,13 +32,13 @@ public class LIDARLite implements TurtleDistanceSensor {
 	 * @param updateMillis
 	 */
 	public LIDARLite(I2C.Port port, long updateMillis) {
-		sensor = new I2C(port, 98);
+		sensor = new I2C(port, 0x62);
 
 		Timer.delay(1.5);
 
 		// sensor
 
-		SmartDashboard.putBoolean("SensorAddress", sensor.addressOnly());
+		SmartDashboard.putBoolean("SensorAddress - false is success", sensor.addressOnly());
 
 		// Configure Sensor. See
 		// http://static.garmin.com/pumac/LIDAR_Lite_v3_Operation_Manual_and_Technical_Specifications.pdf
@@ -75,47 +74,46 @@ public class LIDARLite implements TurtleDistanceSensor {
 	 * Measures distance and puts into distance variable
 	 */
 	private Distance measureDistance() {
-		byte[] val = new byte[] { 0x13 };
+		byte[] val = new byte[] { 0x00 };
 		sensor.read(0x04, 1, val);
-		Timer.delay(0.1);
+		Timer.delay(0.01);
 		System.out.println(Integer.toHexString(val[0]));
-
 		byte[] high = new byte[] { 0x00, 0x00 };
 		byte[] status = { Byte.MAX_VALUE }; // All bits are 1
 
 		// This is the command for starting distance measurement with bias
 		// correction
 		sensor.write(0x00, 0x04);
-
-		// TODO make this not fail and get stuck in a loop
-		/**
-		 * This block waits until the sensor is ready with new data
-		 */
-		int timeout = 500000;
-	
-
 		Timer.delay(0.01);
 
-		// System.out.println(sensor.transaction(dataToSend, sendSize,
-		// dataReceived, receiveSize))
-
-		if (1 == 1) {
-			sensor.read(0x00, 2, high);
+		sensor.read(0x01, 1, status);
+		if ((status[0] & 0b00000001) == 0) {
+			// not busy
+			sensor.read(0x8f, 2, high);
 			Timer.delay(0.01);
 			SmartDashboard.putString("High", Integer.toBinaryString(high[0]));
 			SmartDashboard.putString("Low", Integer.toBinaryString(high[1]));
 			int value = doubleByteToInt(new byte[] { high[0], high[1] });
+			lastTime = thisTime;
+			thisTime = Timer.getFPGATimestamp();
 			// System.out.println(value);
 			return Distance.createCentimetres(value);
-		}
+		} else if ((status[0] & 0b00000001) == 1) {
+			// busy, use previous values
 
-		return Distance.error;
+			// don't have to do anything, they are already set
+			return distance;
+		} else {
+			// I have no idea what is going on
+			return Distance.error;
+		}
 	}
 
 	private Rate<Distance> measureVelocity() {
+		this.measureDistance();
 		Rate<Distance> rate = new Rate<>(
-				(distance.getInches() - lastDistance.getInches()) / ((lastTime - Timer.getFPGATimestamp()) / 1000.0));
-		lastTime = Timer.getFPGATimestamp();
+				(distance.getInches() - lastDistance.getInches()) / ((lastTime - thisTime) / 1000.0));
+		// lastTime = Timer.getFPGATimestamp();
 		lastDistance = distance;
 		return rate;
 	}

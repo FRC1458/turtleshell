@@ -5,17 +5,14 @@ import com.team1458.turtleshell2.core.AutoModeHolder;
 import com.team1458.turtleshell2.core.TestMode;
 import com.team1458.turtleshell2.movement.*;
 import com.team1458.turtleshell2.movement.TurtleSmartMotor.BrakeMode;
+import com.team1458.turtleshell2.sensor.LIDARLite;
 import com.team1458.turtleshell2.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.input.FlightStick;
 import com.team1458.turtleshell2.input.XboxController;
 import com.team1458.turtleshell2.pid.PID;
-import com.team1458.turtleshell2.sensor.LIDARLite;
-import com.team1458.turtleshell2.sensor.LIDARSerial;
-import com.team1458.turtleshell2.sensor.PDP;
 import com.team1458.turtleshell2.sensor.TurtleDistanceSensor;
 import com.team1458.turtleshell2.sensor.TurtleNavX;
 import com.team1458.turtleshell2.sensor.fake.TurtleFakeDistanceEncoder;
-import com.team1458.turtleshell2.sensor.fake.TurtleFakeRotationEncoder;
 import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.util.TurtleDashboard;
 import com.team1458.turtleshell2.util.TurtleMaths;
@@ -26,7 +23,6 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.SampleRobot;
-import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -34,7 +30,6 @@ import org.usfirst.frc.team1458.robot.autonomous.MiddleGear;
 import org.usfirst.frc.team1458.robot.autonomous.TestAutonomous;
 import org.usfirst.frc.team1458.robot.components.BlastoiseClimber;
 import org.usfirst.frc.team1458.robot.components.BlastoiseIntake;
-import org.usfirst.frc.team1458.robot.components.BlastoiseShooter;
 import org.usfirst.frc.team1458.robot.components.TurtwigShooter;
 import org.usfirst.frc.team1458.robot.vision.BlastoiseShooterVision;
 
@@ -49,9 +44,8 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	private Timer heartbeat;
 
 	// Sensors
-	private TurtleNavX navX = null;
-	private TurtleDistanceSensor lidar = null;//new TurtleFakeDistanceEncoder();
-
+	private TurtleNavX navX;
+	private TurtleDistanceSensor lidar;
 	// Input
 	private BlastoiseInputManager inputManager;
 
@@ -68,14 +62,11 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 	private PowerDistributionPanel pdp;
 
-	private TurtleTalonSRXCAN agitator = new TurtleTalonSRXCAN(20, false,
-			BrakeMode.BRAKE, 1);
+	private TurtleTalonSRXCAN agitator = new TurtleTalonSRXCAN(20, false, BrakeMode.BRAKE, 1);
 
 	// Vision
-	private BlastoiseShooterVision vision = new BlastoiseShooterVision(
-			Constants.ShooterVision.Camera.URL);
-	private PID turnPid = new PID(
-			Constants.ShooterVision.VisionPID.PID_CONSTANTS, 165, 0);
+	private BlastoiseShooterVision vision = new BlastoiseShooterVision(Constants.ShooterVision.Camera.URL);
+	private PID turnPid = new PID(Constants.ShooterVision.VisionPID.PID_CONSTANTS, 165, 0);
 
 	private Logger logger;
 
@@ -93,21 +84,16 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 		// Debug & Configuration Code
 		if (Constants.DEBUG) {
-			TurtleDashboard.enablePidTuning(
-					Constants.ShooterVision.VisionPID.PID_CONSTANTS,
-					"ShooterVisionPID");
-			SmartDashboard.putNumber("ShooterVisionTurnSpeed",
-					Constants.ShooterVision.VisionPID.SPEED.getValue());
+			TurtleDashboard.enablePidTuning(Constants.ShooterVision.VisionPID.PID_CONSTANTS, "ShooterVisionPID");
+			SmartDashboard.putNumber("ShooterVisionTurnSpeed", Constants.ShooterVision.VisionPID.SPEED.getValue());
 
-			TurtleDashboard.enablePidTuning(
-					Constants.LeftShooter.PID_CONSTANTS, "LeftShooterPID");
+			TurtleDashboard.enablePidTuning(Constants.LeftShooter.PID_CONSTANTS, "LeftShooterPID");
 			/*
 			 * SmartDashboard.putNumber("LeftShooterSpeed",
 			 * Constants.LeftShooter.SPEED_RPM);
 			 */
 
-			TurtleDashboard.enablePidTuning(
-					Constants.RightShooter.PID_CONSTANTS, "RightShooterPID");
+			TurtleDashboard.enablePidTuning(Constants.RightShooter.PID_CONSTANTS, "RightShooterPID");
 			/*
 			 * SmartDashboard.putNumber("RightShooterSpeed",
 			 * Constants.RightShooter.SPEED_RPM);
@@ -125,49 +111,45 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 	private void setupSensors() {
 		navX = new TurtleNavX(I2C.Port.kOnboard);
-		lidar = new TurtleFakeDistanceEncoder();//new LIDARSerial(SerialPort.Port.kUSB1);  //= new LIDARLite(I2C.Port.kMXP);
-		
+		try {
+			lidar = new LIDARLite(I2C.Port.kMXP);
+			// new LIDARSerial(SerialPort.Port.kUSB1);
+		} catch (Exception e) {
+			e.printStackTrace();
+			lidar = new TurtleFakeDistanceEncoder();
+		}
+
 		pdp = new PowerDistributionPanel();
 	}
 
 	private void setupInput() {
 		BlastoiseController controller = new BlastoiseController(5);
-		XboxController xController = new XboxController(
-				Constants.DriverStation.UsbPorts.DEBUG_XBOX_CONTROLLER);
+		XboxController xController = new XboxController(Constants.DriverStation.UsbPorts.DEBUG_XBOX_CONTROLLER);
 
 		if (Constants.DriverStation.USE_XBOX_CONTROLLER) {
-			XboxController xboxController = new XboxController(
-					Constants.DriverStation.UsbPorts.XBOX_CONTROLLER);
-			inputManager = new BlastoiseInputManager(xboxController,
-					xController);
+			XboxController xboxController = new XboxController(Constants.DriverStation.UsbPorts.XBOX_CONTROLLER);
+			inputManager = new BlastoiseInputManager(xboxController, xController);
 		} else {
-			FlightStick leftStick = new FlightStick(
-					Constants.DriverStation.UsbPorts.LEFT_STICK);
-			FlightStick rightStick = new FlightStick(
-					Constants.DriverStation.UsbPorts.RIGHT_STICK);
-			inputManager = new BlastoiseInputManager(leftStick, rightStick,
-					controller);
+			FlightStick leftStick = new FlightStick(Constants.DriverStation.UsbPorts.LEFT_STICK);
+			FlightStick rightStick = new FlightStick(Constants.DriverStation.UsbPorts.RIGHT_STICK);
+			inputManager = new BlastoiseInputManager(leftStick, rightStick, controller);
 		}
 
 	}
 
 	private void setupActuators() {
-		chassis = new TankDrive(new FollowerMotorSet(new TurtleTalonSRXCAN(
-				Constants.LeftDrive.MOTOR1), new TurtleTalonSRXCAN(
-				Constants.LeftDrive.MOTOR2), new TurtleTalonSRXCAN(
-				Constants.LeftDrive.MOTOR3)), new FollowerMotorSet(
-				new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR1, true),
-				new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR2, true),
-				new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR3, true)),
-				new TurtleDistanceEncoder(Constants.LeftDrive.ENCODER_A,
-						Constants.LeftDrive.ENCODER_B,
+		chassis = new TankDrive(new FollowerMotorSet(new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR1),
+				new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR2), new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR3)),
+				new FollowerMotorSet(new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR1, true),
+						new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR2, true),
+						new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR3, true)),
+				new TurtleDistanceEncoder(Constants.LeftDrive.ENCODER_A, Constants.LeftDrive.ENCODER_B,
 						Constants.LeftDrive.ENCODER_RATIO),
-				new TurtleDistanceEncoder(Constants.RightDrive.ENCODER_A,
-						Constants.RightDrive.ENCODER_B,
+				new TurtleDistanceEncoder(Constants.RightDrive.ENCODER_A, Constants.RightDrive.ENCODER_B,
 						Constants.RightDrive.ENCODER_RATIO, true),
 				navX.getYawAxis(), Constants.StraightDrivePID.PID_CONSTANTS,
-				Constants.StraightDrivePID.TURN_PID_CONSTANTS,
-				Constants.TurnPID.PID_CONSTANTS, Constants.StraightDrivePID.kLR);
+				Constants.StraightDrivePID.TURN_PID_CONSTANTS, Constants.TurnPID.PID_CONSTANTS,
+				Constants.StraightDrivePID.kLR);
 
 		// TODO THIS WILL BREAK SOMETHING
 
@@ -206,8 +188,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	}
 
 	private void setupUI() {
-		TurtleDashboard.logAxis(inputManager.rightJoystick,
-				inputManager.rightJoystick);
+		TurtleDashboard.logAxis(inputManager.rightJoystick, inputManager.rightJoystick);
 	}
 
 	protected void teleUpdate() {
@@ -237,27 +218,21 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			intakeUpdate();
 		}
 
-		SmartDashboard.putNumber("Yaw", navX.getYawAxis().getRotation()
-				.getDegrees());
+		SmartDashboard.putNumber("Yaw", navX.getYawAxis().getRotation().getDegrees());
 
-		SmartDashboard.putNumber("Pitch", navX.getPitchAxis().getRotation()
-				.getDegrees());
+		SmartDashboard.putNumber("Pitch", navX.getPitchAxis().getRotation().getDegrees());
 
-		SmartDashboard.putNumber("Roll", navX.getRollAxis().getRotation()
-				.getDegrees());
+		SmartDashboard.putNumber("Roll", navX.getRollAxis().getRotation().getDegrees());
 
-		SmartDashboard.putNumber("LeftEncoder", chassis.getLeftDistance()
-				.getInches());
-		SmartDashboard.putNumber("RightEncoder", chassis.getRightDistance()
-				.getInches());
+		SmartDashboard.putNumber("LeftEncoder", chassis.getLeftDistance().getInches());
+		SmartDashboard.putNumber("RightEncoder", chassis.getRightDistance().getInches());
 		SmartDashboard.putNumber("LIDAR Thingy cm", lidar.getDistance().getCentimetres());
 
 		double targetX = vision.getShooterTargetX();
 
 		SmartDashboard.putNumber("TargetX", targetX);
 
-		SmartDashboard.putBoolean("Shooter On Target",
-				TurtleMaths.absDiff(targetX, 165) < 45);
+		SmartDashboard.putBoolean("Shooter On Target", TurtleMaths.absDiff(targetX, 165) < 45);
 		SmartDashboard.putBoolean("Target Visible", targetX > -1);
 	}
 
@@ -310,23 +285,20 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			} else {
 				// TODO make this work with lidar sensor
 				double distance = lidar.getDistance().getInches();
+				SmartDashboard.putNumber("LIDAR Distance", distance);
 
-				double visionDistance = vision.getShooterTargetDistance();
+				// double visionDistance = vision.getShooterTargetDistance();
 
-				if (distance > 25 && distance < 12 * 25 /*
-														 * && visionDistance >
-														 * 20 && visionDistance
-														 * < 12*25 &&
-														 * TurtleMaths
-														 * .absDiff(visionDistance
-														 * , distance) < 20
-														 */) { // 25 inch min,
-																// 25 feet max
+				if (distance > 25 && distance < 12
+						* 25 /*
+								 * && visionDistance > 20 && visionDistance <
+								 * 12*25 && TurtleMaths .absDiff(visionDistance
+								 * , distance) < 20
+								 */) { // 25 inch min,
+									// 25 feet max
 
-					double leftRPM = Constants.LeftShooter.RPM_SHIFTER
-							.shift(distance);
-					double rightRPM = Constants.RightShooter.RPM_SHIFTER
-							.shift(distance);
+					double leftRPM = Constants.LeftShooter.RPM_SHIFTER.shift(distance);
+					double rightRPM = Constants.RightShooter.RPM_SHIFTER.shift(distance);
 
 					shooterLeft.setIsManualPower(false);
 					shooterLeft.setRPMTarget(leftRPM);
@@ -369,24 +341,16 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 	private void manualShooter() {
 		shooterLeft.setIsManualPower(false);
-		shooterLeft.setRPMTarget(TurtleMaths.shift(
-				inputManager.shooterSpeed.get(), 0, 11,
-				Constants.LeftShooter.MIN_SPEED,
-				Constants.LeftShooter.MAX_SPEED));
-		SmartDashboard.putNumber("Left Target Manual", TurtleMaths.shift(
-				inputManager.shooterSpeed.get(), 0, 11,
-				Constants.LeftShooter.MIN_SPEED,
-				Constants.LeftShooter.MAX_SPEED));
+		shooterLeft.setRPMTarget(TurtleMaths.shift(inputManager.shooterSpeed.get(), 0, 11,
+				Constants.LeftShooter.MIN_SPEED, Constants.LeftShooter.MAX_SPEED));
+		SmartDashboard.putNumber("Left Target Manual", TurtleMaths.shift(inputManager.shooterSpeed.get(), 0, 11,
+				Constants.LeftShooter.MIN_SPEED, Constants.LeftShooter.MAX_SPEED));
 
 		shooterRight.setIsManualPower(false);
-		shooterRight.setRPMTarget(TurtleMaths.shift(
-				inputManager.shooterSpeed.get(), 0, 11,
-				Constants.RightShooter.MIN_SPEED,
-				Constants.RightShooter.MAX_SPEED));
-		SmartDashboard.putNumber("Right Target Manual", TurtleMaths.shift(
-				inputManager.shooterSpeed.get(), 0, 11,
-				Constants.RightShooter.MIN_SPEED,
-				Constants.RightShooter.MAX_SPEED));
+		shooterRight.setRPMTarget(TurtleMaths.shift(inputManager.shooterSpeed.get(), 0, 11,
+				Constants.RightShooter.MIN_SPEED, Constants.RightShooter.MAX_SPEED));
+		SmartDashboard.putNumber("Right Target Manual", TurtleMaths.shift(inputManager.shooterSpeed.get(), 0, 11,
+				Constants.RightShooter.MIN_SPEED, Constants.RightShooter.MAX_SPEED));
 
 		SmartDashboard.putBoolean("Auto Shooter Working", false);
 	}
@@ -394,8 +358,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	// Shooter alignment. Only left/right for now.
 	private void shooterAlignUpdate() {
 		if (inputManager.alignShooterButton.getDown()) {
-			turnPid = new PID(
-					TurtleDashboard.getPidConstants("ShooterTurnPID"), 165, 0);
+			turnPid = new PID(TurtleDashboard.getPidConstants("ShooterTurnPID"), 165, 0);
 		}
 		double targetX = vision.getShooterTargetX();
 
@@ -423,26 +386,21 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			}
 			shooterAlignUpdate();
 		} else {
-			MotorValue leftPower = new MotorValue(TurtleMaths.deadband(
-					inputManager.getLeft(),
-					Constants.DriverStation.JOYSTICK_DEADBAND));
+			MotorValue leftPower = new MotorValue(
+					TurtleMaths.deadband(inputManager.getLeft(), Constants.DriverStation.JOYSTICK_DEADBAND));
 
-			MotorValue rightPower = new MotorValue(TurtleMaths.deadband(
-					inputManager.getRight(),
-					Constants.DriverStation.JOYSTICK_DEADBAND));
+			MotorValue rightPower = new MotorValue(
+					TurtleMaths.deadband(inputManager.getRight(), Constants.DriverStation.JOYSTICK_DEADBAND));
 
 			// Smoother control of the robot
-			if (inputManager.slowButton.getButton()
-					|| store.isRobotClimbingRope()
+			if (inputManager.slowButton.getButton() || store.isRobotClimbingRope()
 					|| inputManager.gearButton.getButton()) {
 				leftPower = leftPower.scale(Constants.Drive.SLOW_SPEED);
 				rightPower = rightPower.scale(Constants.Drive.SLOW_SPEED);
 
 			} else if (Constants.DriverStation.LOGISTIC_SCALE) {
-				leftPower = new MotorValue(
-						TurtleMaths.logisticStepScale(leftPower.getValue()));
-				rightPower = new MotorValue(
-						TurtleMaths.logisticStepScale(rightPower.getValue()));
+				leftPower = new MotorValue(TurtleMaths.logisticStepScale(leftPower.getValue()));
+				rightPower = new MotorValue(TurtleMaths.logisticStepScale(rightPower.getValue()));
 			}
 
 			if (inputManager.gearButton.getButton()) {
@@ -509,10 +467,10 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 		if (testMode == null) {
 			logger.warn("Test mode not implemented");
 		} else {
-			while(isTest() && isEnabled()) {
+			while (isTest() && isEnabled()) {
 				SmartDashboard.putNumber("LIDARLite value", lidar.getDistance().getCentimetres());
 			}
-			//testMode.test();
+			// testMode.test();
 		}
 	}
 
