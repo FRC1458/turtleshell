@@ -9,6 +9,7 @@ import com.team1458.turtleshell2.sensor.TurtleDistanceEncoder;
 import com.team1458.turtleshell2.input.FlightStick;
 import com.team1458.turtleshell2.input.XboxController;
 import com.team1458.turtleshell2.pid.PID;
+import com.team1458.turtleshell2.sensor.LIDARLite;
 import com.team1458.turtleshell2.sensor.LIDARSerial;
 import com.team1458.turtleshell2.sensor.PDP;
 import com.team1458.turtleshell2.sensor.TurtleDistanceSensor;
@@ -49,7 +50,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 	// Sensors
 	private TurtleNavX navX = null;
-	private TurtleDistanceSensor lidar = null;
+	private TurtleDistanceSensor lidar = null;//new TurtleFakeDistanceEncoder();
 
 	// Input
 	private BlastoiseInputManager inputManager;
@@ -124,8 +125,8 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 	private void setupSensors() {
 		navX = new TurtleNavX(I2C.Port.kOnboard);
-		lidar = new TurtleFakeDistanceEncoder(); // new
-													// LIDARSerial(SerialPort.Port.kUSB);
+		lidar = new TurtleFakeDistanceEncoder();//new LIDARSerial(SerialPort.Port.kUSB1);  //= new LIDARLite(I2C.Port.kMXP);
+		
 		pdp = new PowerDistributionPanel();
 	}
 
@@ -249,6 +250,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 				.getInches());
 		SmartDashboard.putNumber("RightEncoder", chassis.getRightDistance()
 				.getInches());
+		SmartDashboard.putNumber("LIDAR Thingy cm", lidar.getDistance().getCentimetres());
 
 		double targetX = vision.getShooterTargetX();
 
@@ -507,7 +509,10 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 		if (testMode == null) {
 			logger.warn("Test mode not implemented");
 		} else {
-			testMode.test();
+			while(isTest() && isEnabled()) {
+				SmartDashboard.putNumber("LIDARLite value", lidar.getDistance().getCentimetres());
+			}
+			//testMode.test();
 		}
 	}
 
