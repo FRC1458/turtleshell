@@ -1,7 +1,5 @@
 package org.usfirst.frc.team1458.robot.components;
 
-import com.team1458.turtleshell2.movement.TurtleFakeMotor;
-import com.team1458.turtleshell2.movement.TurtleMotor;
 import org.usfirst.frc.team1458.robot.Constants;
 
 import com.team1458.turtleshell2.movement.TurtleSmartMotor;
@@ -48,7 +46,7 @@ public class TurtwigShooter {
 
 	public void teleUpdate() {
 		SmartDashboard.putNumber(getSmartDashboardTag() + "ShooterMotorCurrent", motor.getCurrent());
-
+		SmartDashboard.putNumber("Raw Hall"+getSmartDashboardTag(), hall.getHall());
 		if(isReverse) {
 			motor.set(Constants.Shooter.REVERSE_SPEED);
 		} else {

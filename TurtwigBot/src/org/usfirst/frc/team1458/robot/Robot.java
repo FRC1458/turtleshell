@@ -228,8 +228,6 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			shooterLeft.teleUpdate();
 			shooterRight.teleUpdate();
 			
-			//climber.startReverse();
-
 		} else {
 			climberUpdate();
 
@@ -311,6 +309,10 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 		if (inputManager.shootButton.getButton()) {
 			if (inputManager.autoManualToggle.getButton()) {
+				
+				
+				//SmartDashboard.getNumber(key, defaultValue)
+				
 				// This will also use PID now
 				shooterLeft.setIsManualPower(false);
 				shooterLeft.setRPMTarget(
