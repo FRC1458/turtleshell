@@ -99,13 +99,13 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 
 			TurtleDashboard.enablePidTuning(
 					Constants.LeftShooter.PID_CONSTANTS, "LeftShooterPID");
-			SmartDashboard.putNumber("LeftShooterSpeed",
-					Constants.LeftShooter.SPEED_RPM);
+			/*SmartDashboard.putNumber("LeftShooterSpeed",
+					Constants.LeftShooter.SPEED_RPM);*/
 
 			TurtleDashboard.enablePidTuning(
 					Constants.RightShooter.PID_CONSTANTS, "RightShooterPID");
-			SmartDashboard.putNumber("RightShooterSpeed",
-					Constants.RightShooter.SPEED_RPM);
+			/*SmartDashboard.putNumber("RightShooterSpeed",
+					Constants.RightShooter.SPEED_RPM);*/
 			SmartDashboard.putNumber("RightShooterOpenLoop", 0.0);
 		}
 	}
@@ -308,7 +308,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 		}
 
 		if (inputManager.shootButton.getButton()) {
-			if (inputManager.autoManualToggle.getButton()) {
+			if (!inputManager.autoManualToggle.getButton()) {
 				
 				
 				//SmartDashboard.getNumber(key, defaultValue)
@@ -318,11 +318,15 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 				shooterLeft.setRPMTarget(
 						TurtleMaths.shift(inputManager.shooterSpeed.get(), 0, 11,
 								Constants.LeftShooter.MIN_SPEED, Constants.LeftShooter.MAX_SPEED));
+				SmartDashboard.putNumber("Left Target Manual",TurtleMaths.shift(inputManager.shooterSpeed.get(), 0, 11,
+						Constants.LeftShooter.MIN_SPEED, Constants.LeftShooter.MAX_SPEED));
 
 				shooterRight.setIsManualPower(false);
 				shooterRight.setRPMTarget(
 						TurtleMaths.shift(inputManager.shooterSpeed.get(), 0, 11,
 								Constants.RightShooter.MIN_SPEED, Constants.RightShooter.MAX_SPEED));
+				SmartDashboard.putNumber("Right Target Manual",TurtleMaths.shift(inputManager.shooterSpeed.get(), 0, 11,
+						Constants.RightShooter.MIN_SPEED, Constants.RightShooter.MAX_SPEED));
 
 				SmartDashboard.putBoolean("Auto Shooter Working", false);
 			} else {

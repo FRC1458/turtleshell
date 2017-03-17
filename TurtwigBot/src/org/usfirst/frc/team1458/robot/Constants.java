@@ -86,14 +86,14 @@ public class Constants {
 	public static final class LeftShooter {
 		public static final int MOTOR_PORT = TalonID.JESSICA.id;
 		public static final int HALL_PORT = 4;
-		public static final double SPEED_RPM = 4850;
+		//public static final double SPEED_RPM = 4850;
 		public static final boolean MOTOR_REVERSED = false;
 
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.0015, 0, 0);
 		public static final MotorValue BASE_VALUE = new MotorValue(0);
 
-		public static final double MIN_SPEED = 3900; // Speed at manual farthest left option
-		public static final double MAX_SPEED = 5000; // Speed at manual farthest right option
+		public static final double MIN_SPEED = 3675; // Speed at manual farthest left option
+		public static final double MAX_SPEED = 4875; // Speed at manual farthest right option
 
 		// Inches
 		public static final TurtleMaths.AdvancedRangeShifter RPM_SHIFTER = new TurtleMaths.AdvancedRangeShifter(
@@ -103,14 +103,14 @@ public class Constants {
 	public static final class RightShooter {
 		public static final int MOTOR_PORT = TalonID.ISAAC.id;
 		public static final int HALL_PORT = 5;
-		public static final double SPEED_RPM = 4350;
+		//public static final double SPEED_RPM = 4350;
 		public static final boolean MOTOR_REVERSED = true;
 
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.0015, 0, 0);
 		public static final MotorValue BASE_VALUE = new MotorValue(0);
 
-		public static final double MIN_SPEED = 3400; // Speed at manual farthest left option
-		public static final double MAX_SPEED = 4500; // Speed at manual farthest right option
+		public static final double MIN_SPEED = 3450; // Speed at manual farthest left option 3300
+		public static final double MAX_SPEED = 4650; // Speed at manual farthest right option 4400
 
 		// Inches
 		public static final TurtleMaths.AdvancedRangeShifter RPM_SHIFTER = new TurtleMaths.AdvancedRangeShifter(
