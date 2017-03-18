@@ -170,7 +170,17 @@ public class TankDrive implements DriveTrain {
 	 */
 	@Override
 	public void stop() {
+		lastLeftValues.clear();
+		lastRightValues.clear();
+		for(int i = 0; i<avgSamples; i++) {
+			lastLeftValues.add(MotorValue.zero);
+		}
+		for(int i = 0; i<avgSamples; i++) {
+			lastRightValues.add(MotorValue.zero);
+		}
 		tankDrive(MotorValue.zero, MotorValue.zero);
+		leftMotor.set(MotorValue.zero);
+		rightMotor.set(MotorValue.zero);
 		state = DriveState.MANUAL;
 	}
 
@@ -178,6 +188,8 @@ public class TankDrive implements DriveTrain {
 		leftEncoder.reset();
 		rightEncoder.reset();
 		rotationSensor.reset();
+		lastLeftValues.clear();
+		lastRightValues.clear();
 	}
 
 	public static boolean isAutonomous() {

@@ -11,6 +11,7 @@ import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Test autonomous program
@@ -33,8 +34,9 @@ public class TestAutonomous extends SampleAutoMode {
 	public void auto() {
 		Timer t = new Timer();
 		t.start();
-		while (t.get() < 2 && r.isAutonomous() && r.isEnabled()) {
+		while (t.get() < 1 && r.isAutonomous() && r.isEnabled()) {
 			chassis.tankDrive(new MotorValue(-.8), new MotorValue(-.8));
+			SmartDashboard.putNumber("TV", t.get());
 		}
 		chassis.stop();
 		// chassis.driveForward(new Distance(6), MotorValue.fullForward, new

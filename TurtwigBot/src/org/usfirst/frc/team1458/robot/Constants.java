@@ -68,7 +68,7 @@ public class Constants {
 	public static final class Climber {
 		public static final int MOTOR_PORT = TalonID.HITAGI.id;
 
-		public static final MotorValue SPEED = new MotorValue(0.9);
+		public static final MotorValue SPEED = new MotorValue(1.0);
 		public static final MotorValue SPEED_LOW = new MotorValue(0.3);
 
 	}
