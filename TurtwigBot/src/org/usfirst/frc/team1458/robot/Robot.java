@@ -452,7 +452,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 			logger.warn("Autonomous mode not implemented");
 		} else {
 			autoMode.auto();
-		}
+		}//Turtwig is the best
 	}
 
 	public void operatorControl() {
