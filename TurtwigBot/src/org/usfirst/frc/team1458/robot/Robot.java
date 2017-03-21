@@ -123,7 +123,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	}
 
 	private void setupInput() {
-		BlastoiseController controller = new BlastoiseController(5);
+		BlastoiseController controller = new BlastoiseController(Constants.DriverStation.UsbPorts.ARDUINO_CONTROLLER);
 		XboxController xController = new XboxController(Constants.DriverStation.UsbPorts.DEBUG_XBOX_CONTROLLER);
 
 		if (Constants.DriverStation.USE_XBOX_CONTROLLER) {

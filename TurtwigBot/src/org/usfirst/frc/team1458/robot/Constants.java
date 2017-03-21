@@ -16,6 +16,9 @@ public class Constants {
 	public static boolean DEBUG = true;
 	public static final Logger.LogFormat LOGGER_MODE = Logger.LogFormat.PLAINTEXT;
 
+	public static final String LOG_PATH_FMS = null; // todo add directory name (must end with slash)
+	public static final String LOG_PATH_NO_FMS = null; // todo add directory name (must end with slash)
+
 	public static final boolean LOGGER_PRETTY_PRINT = true;
 
 	public static final class DriverStation {
@@ -29,6 +32,7 @@ public class Constants {
 
 			public static final int XBOX_CONTROLLER = 2;
 			public static final int DEBUG_XBOX_CONTROLLER = 3;
+			public static final int ARDUINO_CONTROLLER = 5;
 		}
 	}
 

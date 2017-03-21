@@ -12,6 +12,7 @@ public class TurtleTalonSRXCAN implements TurtleSmartMotor, TurtleFollowerMotor 
 	private final CANTalon v;
 	private final boolean isReversed;
 	private boolean inDirectControlMode = true;
+	private double lastValue;
 
 	/**
 	 * Talon SRX implementation over CANbus
@@ -97,12 +98,18 @@ public class TurtleTalonSRXCAN implements TurtleSmartMotor, TurtleFollowerMotor 
 			v.changeControlMode(TalonControlMode.PercentVbus);
 			this.inDirectControlMode = true;
 		}
+
+		lastValue = val.getValue();
 		v.set(TurtleMaths.reverseBool(isReversed) * val.getValue());
 	}
 
 	@Override
 	public MotorValue get() {
 		return new MotorValue(TurtleMaths.reverseBool(isReversed) * v.get());
+	}
+
+	public double getRaw() {
+		return lastValue;
 	}
 
 	@Override
@@ -118,6 +125,10 @@ public class TurtleTalonSRXCAN implements TurtleSmartMotor, TurtleFollowerMotor 
 	@Override
 	public double getCurrent() {
 		return v.getOutputCurrent();
+	}
+
+	public double getOutputVoltage() {
+		return v.getOutputVoltage();
 	}
 
 	@Override

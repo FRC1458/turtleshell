@@ -54,5 +54,8 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="library" name="CTRLib" level="project" />
+    <orderEntry type="library" name="minimal-json-0.9.4" level="project" />
+    <orderEntry type="library" name="navx_frc" level="project" />
   </component>
 </module>

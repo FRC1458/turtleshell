@@ -1,255 +1,233 @@
 package org.usfirst.frc.team1458.robot;
 
-import com.eclipsesource.json.Json;
-import com.eclipsesource.json.JsonObject;
-import com.eclipsesource.json.WriterConfig;
-import com.team1458.turtleshell2.sensor.PDP;
+import com.team1458.turtleshell2.input.FlightStick;
+import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
+import com.team1458.turtleshell2.sensor.TurtleDistanceSensor;
+import com.team1458.turtleshell2.sensor.TurtleNavX;
+import com.team1458.turtleshell2.util.TurtleMaths;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.RobotState;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Timer;
 
 /**
- * Logs various pieces of data throughout the match
- * This is going to result in a whole lot of data, packaged into a JSON format
- *
- * NOTE - This class requires the jar minimal-json-0.9.4.jar in order to function
- * (this jar should be in the lib folder in this project)
+ * Logs robot data throughout the match
  *
  * @author asinghani
  */
 public class BlastoiseDataLogger {
-	private PDP pdp;
-	private ArrayList<IEvent> events;
-
-	public BlastoiseDataLogger() {
-		pdp = new PDP();
-	}
-
-	public void update() {
-
-	}
-
-	public void event(EventType type, String data) {
-		events.add(new Event(type, data));
-	}
-
-	static class Update implements IEvent {
-		private double matchTime;
-		private double systemTime;
-
-		private double leftDrive;
-		private double rightDrive;
-
-		private double leftShooterMotorValue;
-		private double rightShooterMotorValue;
-
-		private double leftShooterRPM;
-		private double rightShooterRPM;
-
-		private double intakeMotorValue;
-
-		private double climberMotorValue;
-
-		private double pitch;
-		private double roll;
-		private double yaw;
-
-		private double lidarDistance;
-
-		private String climberStatus;
-		private String intakeStatus;
-		private String leftShooterStatus;
-		private String rightShooterStatus;
-
-		private RobotState robotState;
-
-		private double batteryVoltage;
-
-		private double pdpTemperature;
-		private double pdpTotalCurrent;
-		private double pdpTotalPower;
-		private double pdpVoltage;
-
-		private double[] current = new double[16];
-
-		private double ramUsed = -1;
-		private double ramTotal = -1;
-
-		private double cpuUsed = -1;
-
-		public Update(PDP pdp) {
-
-
-
-			// Get Data
-			this.batteryVoltage = DriverStation.getInstance().getBatteryVoltage();
-			this.pdpTemperature = pdp.getTemperature();
-			this.pdpTotalCurrent = pdp.getTotalCurrent();
-			this.pdpTotalPower = pdp.getTotalPower();
-			this.pdpVoltage = pdp.getVoltage();
-
-			for(int channel = 0; channel <= 15; channel++) {
-				current[channel] = pdp.getCurrent(channel);
-			}
-
-			try {
-				this.ramUsed = Double.parseDouble(runCommand(new String[] {"/bin/sh", "-c", "free -m | awk 'NR==2{printf \"%s\", $3}'"}));
-				this.ramTotal = Double.parseDouble(runCommand(new String[] {"/bin/sh", "-c", "free -m | awk 'NR==2{printf \"%s\", $2}'"}));
-
-				this.cpuUsed = Double.parseDouble(runCommand(new String[] {"/bin/sh", "-c", "top -bn1 | grep load | awk '{printf \"%.2f\", $(NF-2)}'"}));
-			} catch (Throwable e) {
-
-			}
-
-			this.robotState = getRobotState();
-
-			try {
-				this.matchTime = DriverStation.getInstance().getMatchTime();
-				this.systemTime = Timer.getFPGATimestamp();
-			} catch (Throwable e) {
-				this.matchTime = -1;
-				this.systemTime = (int) Math.round(System.currentTimeMillis() / 1000.0);
-			}
-
-			// MEM FORMATTED: free -m | awk 'NR==2{printf "Memory Usage: %s/%sMB (%.2f%%)\n", $3,$2,$3*100/$2 }'
-			// MEM PERCENT: free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }'
-			// MEM USED: free -m | awk 'NR==2{printf "%s", $3}'
-			// MEM TOTAL: free -m | awk 'NR==2{printf "%s", $2}'
-
-			// CPU FORMATTED: top -bn1 | grep load | awk '{printf "CPU Load: %.2f\n", $(NF-2)}'
-			// CPU RAW: top -bn1 | grep load | awk '{printf "%.2f", $(NF-2)}'
-		}
-
-		@Override
-		public String toJSON() {
-			JsonObject object = Json.object();
-
-			object.set("type", 1);
-			object.set("matchTime", matchTime);
-			object.set("systemTime", systemTime);
-
-			return object.toString(Constants.LOGGER_PRETTY_PRINT ? WriterConfig.PRETTY_PRINT : WriterConfig.MINIMAL);
-		}
-	}
-
 	/**
-	 * This is a type of event for the robot.
-	 * The associated int values MUST NOT be changed or else parsing code will break.
+	 * Data to be logged
 	 */
-	public enum EventType {
-		ROBOT_INIT(0), ROBOT_AUTO(1), ROBOT_TELEOP(2), ROBOT_TEST(3), ROBOT_DISABLED(4), // Robot Status
-		SHOOTER_START(5), SHOOTER_STOP(6), CLIMBER_START(7), CLIMBER_STOP(8), // Shooter / Climber
-		INTAKE_START(9), INTAKE_START_REVERSE(10), INTAKE_STOP(11), // Intake
-		EXCEPTION(12); // Misc
+	private static FlightStick rightStick;
+	private static FlightStick leftStick;
+	private static BlastoiseController controller;
 
-		public final int val;
-		EventType(int i) {
-			val = i;
+	private static TurtleTalonSRXCAN left1;
+	private static TurtleTalonSRXCAN left2;
+	private static TurtleTalonSRXCAN left3;
+
+	private static TurtleTalonSRXCAN right1;
+	private static TurtleTalonSRXCAN right2;
+	private static TurtleTalonSRXCAN right3;
+
+	private static TurtleTalonSRXCAN intake;
+	private static TurtleTalonSRXCAN climber;
+	private static TurtleTalonSRXCAN agitator;
+
+	private static TurtleTalonSRXCAN leftShooter;
+	private static TurtleTalonSRXCAN rightShooter;
+
+	private static TurtleNavX navX;
+	private static TurtleDistanceSensor lidar;
+
+	private static TurtleDistanceSensor leftEncoder;
+	private static TurtleDistanceSensor rightEncoder;
+
+	private static PowerDistributionPanel pdp;
+	private static DriverStation driverStation;
+
+	private static File logFile;
+	private static PrintWriter writer;
+
+	private static boolean fail = false;
+
+	private static final DecimalFormat POINT_TWO = new DecimalFormat(".##");
+
+	public static void setup(TurtleTalonSRXCAN left1, TurtleTalonSRXCAN left2, TurtleTalonSRXCAN left3, TurtleTalonSRXCAN right1, TurtleTalonSRXCAN right2, TurtleTalonSRXCAN right3, TurtleTalonSRXCAN intake, TurtleTalonSRXCAN climber, TurtleTalonSRXCAN agitator, TurtleTalonSRXCAN leftShooter, TurtleTalonSRXCAN rightShooter, TurtleNavX navX, TurtleDistanceSensor lidar, TurtleDistanceSensor leftEncoder, TurtleDistanceSensor rightEncoder) {
+		BlastoiseDataLogger.left1 = left1;
+		BlastoiseDataLogger.left2 = left2;
+		BlastoiseDataLogger.left3 = left3;
+		BlastoiseDataLogger.right1 = right1;
+		BlastoiseDataLogger.right2 = right2;
+		BlastoiseDataLogger.right3 = right3;
+		BlastoiseDataLogger.intake = intake;
+		BlastoiseDataLogger.climber = climber;
+		BlastoiseDataLogger.agitator = agitator;
+		BlastoiseDataLogger.leftShooter = leftShooter;
+		BlastoiseDataLogger.rightShooter = rightShooter;
+		BlastoiseDataLogger.navX = navX;
+		BlastoiseDataLogger.lidar = lidar;
+		BlastoiseDataLogger.leftEncoder = leftEncoder;
+		BlastoiseDataLogger.rightEncoder = rightEncoder;
+
+		// Instantiate everything
+		BlastoiseDataLogger.driverStation = DriverStation.getInstance();
+		BlastoiseDataLogger.pdp = new PowerDistributionPanel();
+
+		BlastoiseDataLogger.rightStick = new FlightStick(Constants.DriverStation.UsbPorts.RIGHT_STICK);
+		BlastoiseDataLogger.leftStick = new FlightStick(Constants.DriverStation.UsbPorts.LEFT_STICK);
+		BlastoiseDataLogger.controller = new BlastoiseController(Constants.DriverStation.UsbPorts.ARDUINO_CONTROLLER);
+
+		String path;
+		if(driverStation.isFMSAttached()) {
+			path = Constants.LOG_PATH_FMS;
+		} else {
+			path = Constants.LOG_PATH_NO_FMS;
+		}
+		DateFormat dateFormat = new SimpleDateFormat("MM-dd_HH:mm:ss");
+		path += "log"+dateFormat.format(new Date())+".txt";
+
+		logFile = new File(path);
+		try {
+			if(!logFile.createNewFile()) {
+				throw new Exception("File already exists");
+			}
+		} catch (Exception e) {
+			fail = true;
+		}
+
+		try {
+			writer = new PrintWriter(new FileOutputStream(logFile));
+		} catch (Exception e) {
+			fail = true;
 		}
 	}
 
-	/**
-	 * ------------- CODE BELOW IS MOSTLY BOILERPLATE, DO NOT EDIT -------------
- 	 */
+	private static void log() {
+		if(fail) return;
 
-	private static String runCommand(String[] command) {
+		StringBuilder line = new StringBuilder();
 
-		StringBuffer output = new StringBuffer();
+		line.append(getRobotState());  line.append(","); // Robot State: 0 = Disabled, 1 = Auto, 2 = Teleop, 3 = Test
+		line.append((int) driverStation.getMatchTime());  line.append(",");
 
-		Process p;
+		// DS data
+		line.append(toInt(driverStation.isFMSAttached()));  line.append(",");
+		line.append(toInt(driverStation.isDSAttached()));  line.append(",");
+		line.append(toInt(driverStation.isBrownedOut()));  line.append(",");
+
+		// PDP
+		line.append(POINT_TWO.format(pdp.getVoltage()));  line.append(",");
+		line.append(POINT_TWO.format(pdp.getTotalCurrent()));  line.append(",");
+		line.append(POINT_TWO.format(pdp.getTemperature()));  line.append(",");
+
+		for(int channel = 0; channel < 16; channel++) {
+			line.append(POINT_TWO.format(pdp.getCurrent(channel)));  line.append(",");
+		}
+
+		appendFlightStickData(line, rightStick);
+		appendFlightStickData(line, leftStick);
+		appendArduinoData(line, controller);
+
+		line.append(POINT_TWO.format(navX.getVelocityX().getValue()));  line.append(",");
+		line.append(POINT_TWO.format(navX.getVelocityY().getValue()));  line.append(",");
+		line.append(POINT_TWO.format(navX.getVelocityZ().getValue()));  line.append(",");
+
+		line.append(POINT_TWO.format(navX.getWorldLinearAccelX()));  line.append(",");
+		line.append(POINT_TWO.format(navX.getWorldLinearAccelY()));  line.append(",");
+		line.append(POINT_TWO.format(navX.getWorldLinearAccelZ()));  line.append(",");
+
+		line.append(POINT_TWO.format(navX.getPitchAxis().getRotation().getDegrees()));  line.append(",");
+		line.append(POINT_TWO.format(navX.getRollAxis().getRotation().getDegrees()));  line.append(",");
+		line.append(POINT_TWO.format(navX.getYawAxis().getRotation().getDegrees()));  line.append(",");
+
+		line.append(POINT_TWO.format(navX.getTempC()));  line.append(",");
+		line.append(POINT_TWO.format(navX.getCompassHeading().getDegrees()));  line.append(",");
+
+		line.append(POINT_TWO.format(lidar.getDistance()));  line.append(",");
+		
+		logTalonData(line, left1);
+
+		line.append(POINT_TWO.format(leftEncoder.getDistance()));  line.append(",");
+		line.append(POINT_TWO.format(rightEncoder.getDistance()));
+
 		try {
-			p = Runtime.getRuntime().exec(command);
-			p.waitFor();
-			BufferedReader reader =
-					new BufferedReader(new InputStreamReader(p.getInputStream()));
-
-			output.append(reader.readLine());
-
+			writer.println(line.toString());
+			writer.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return output.toString();
-
 	}
 
-	interface IEvent {
-		String toJSON();
+	private static void logTalonData(StringBuilder line, TurtleTalonSRXCAN motor) {
+		line.append(POINT_TWO.format(motor.get().getValue()));  line.append(",");
+		line.append(POINT_TWO.format(motor.getRaw()));  line.append(",");
+
+		line.append(POINT_TWO.format(motor.getOutputVoltage()));  line.append(",");
 	}
 
-	static class Event implements IEvent {
-		private final EventType type;
-		private final String data;
-		private double matchTime;
-		private double systemTime;
+	private static void appendArduinoData(StringBuilder line, BlastoiseController controller) {
+		line.append(controller.getClimber().get()); line.append(",");
+		line.append(controller.getFeeder().get()); line.append(",");
+		line.append(controller.getPanic().get()); line.append(",");
+		line.append(controller.getShooterToggle().get()); line.append(",");
+		line.append(controller.getShooterAutoManual().get()); line.append(",");
 
-		private RobotState robotState;
+		line.append(intakeAnalogToDigital(controller.getIntake().get())); line.append(",");
+		line.append(shooterAnalogToDigital(controller.getShooterSpeed().get())); line.append(",");
+	}
 
-		public Event(EventType type, String data) {
-			this.type = type;
-			this.data = data;
+	private static void appendFlightStickData(StringBuilder string, FlightStick flightStick) {
+		string.append(POINT_TWO.format(flightStick.getRawAxis(FlightStick.FlightAxis.PITCH)));  string.append(",");
+		string.append(POINT_TWO.format(flightStick.getRawAxis(FlightStick.FlightAxis.ROLL)));  string.append(",");
+		string.append(POINT_TWO.format(flightStick.getRawAxis(FlightStick.FlightAxis.YAW)));  string.append(",");
+		string.append(POINT_TWO.format(flightStick.getRawAxis(FlightStick.FlightAxis.THROTTLE)));  string.append(",");
+		string.append(toInt(flightStick.getRawButton(FlightStick.FlightButton.TRIGGER)));  string.append(",");
+		string.append(toInt(flightStick.getRawButton(FlightStick.FlightButton.TWO)));  string.append(",");
+		string.append(toInt(flightStick.getRawButton(FlightStick.FlightButton.THREE)));  string.append(",");
+		string.append(toInt(flightStick.getRawButton(FlightStick.FlightButton.FOUR)));  string.append(",");
+		string.append(toInt(flightStick.getRawButton(FlightStick.FlightButton.FIVE)));  string.append(",");
+		string.append(toInt(flightStick.getRawButton(FlightStick.FlightButton.SIX)));  string.append(",");
+	}
 
-			this.robotState = getRobotState();
-
-			try {
-				this.matchTime = DriverStation.getInstance().getMatchTime();
-				this.systemTime = Timer.getFPGATimestamp();
-			} catch (Throwable e) {
-				this.matchTime = -1;
-				this.systemTime = (int) Math.round(System.currentTimeMillis() / 1000.0);
-			}
-		}
-
-		public EventType getType() {
-			return type;
-		}
-
-		public String getData() {
-			return data;
-		}
-
-		@Override
-		public String toJSON() {
-			JsonObject object = Json.object();
-
-			object.set("type", 0);
-			object.set("eventType", type.val);
-			object.set("data", data);
-			object.set("matchTime", matchTime);
-			object.set("systemTime", systemTime);
-
-			return object.toString(Constants.LOGGER_PRETTY_PRINT ? WriterConfig.PRETTY_PRINT : WriterConfig.MINIMAL);
+	private static int intakeAnalogToDigital(double value) {
+		if(TurtleMaths.absDiff(value, -1) < 0.5) {
+			return 2;
+		} else if(TurtleMaths.absDiff(value, 1) < 0.5) {
+			return 1;
+		} else {
+			return 0;
 		}
 	}
 
-	public static RobotState getRobotState() {
-		try {
-			if(edu.wpi.first.wpilibj.RobotState.isDisabled()) {
-				return RobotState.DISABLED;
-			}
-
-			if(edu.wpi.first.wpilibj.RobotState.isAutonomous()) {
-				return RobotState.AUTO;
-			}
-
-			if(edu.wpi.first.wpilibj.RobotState.isOperatorControl()) {
-				return RobotState.TELEOP;
-			}
-
-			if(edu.wpi.first.wpilibj.RobotState.isTest()) {
-				return RobotState.TEST;
-			}
-		} catch (Exception e) {
-
-		}
-
-		return RobotState.DISABLED;
+	private static int shooterAnalogToDigital(double value) {
+		return (int) Math.round(TurtleMaths.shift(value, -1, 1, 0, 11));
 	}
 
-	public enum RobotState {
-		DISABLED, TELEOP, AUTO, TEST
+	private static int getRobotState() {
+		if(RobotState.isDisabled()){
+			return 0;
+		} else if (RobotState.isAutonomous()) {
+			return 1;
+		} else if (RobotState.isOperatorControl()) {
+			return 2;
+		} else if (RobotState.isTest()) {
+			return 3;
+		}
+		return -1;
+	}
+
+	private static int toInt(boolean value) {
+		return value ? 1 : 0;
 	}
 }

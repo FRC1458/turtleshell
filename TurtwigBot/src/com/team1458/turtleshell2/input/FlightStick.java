@@ -40,8 +40,16 @@ public class FlightStick {
 		return new JoystickAxis(j, a.val, false);
 	}
 
+	public double getRawAxis(FlightAxis a) {
+		return j.getRawAxis(a.val);
+	}
+
 	public TurtleJoystickButton getButton(FlightButton b) {
 		return new TurtleJoystickButton(j, b.val);
+	}
+
+	public boolean getRawButton(FlightButton b) {
+		return j.getRawButton(b.val);
 	}
 
 	public TurtleJoystickPOVSwitch getPOVSwitch() {
