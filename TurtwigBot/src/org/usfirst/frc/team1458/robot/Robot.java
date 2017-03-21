@@ -138,15 +138,25 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	}
 
 	private void setupActuators() {
-		chassis = new TankDrive(new FollowerMotorSet(new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR1),
-				new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR2), new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR3)),
-				new FollowerMotorSet(new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR1, true),
+		chassis = new TankDrive(
+				new MotorSet(
+						new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR1),
+						new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR2),
+						new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR3)
+				),
+				new MotorSet(
+						new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR1, true),
 						new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR2, true),
-						new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR3, true)),
-				new TurtleDistanceEncoder(Constants.LeftDrive.ENCODER_A, Constants.LeftDrive.ENCODER_B,
-						Constants.LeftDrive.ENCODER_RATIO),
-				new TurtleDistanceEncoder(Constants.RightDrive.ENCODER_A, Constants.RightDrive.ENCODER_B,
-						Constants.RightDrive.ENCODER_RATIO, true),
+						new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR3, true)
+				),
+				new TurtleDistanceEncoder(
+						Constants.LeftDrive.ENCODER_A, Constants.LeftDrive.ENCODER_B,
+						Constants.LeftDrive.ENCODER_RATIO
+				),
+				new TurtleDistanceEncoder(
+						Constants.RightDrive.ENCODER_A, Constants.RightDrive.ENCODER_B,
+						Constants.RightDrive.ENCODER_RATIO, true
+				),
 				navX.getYawAxis(), Constants.StraightDrivePID.PID_CONSTANTS,
 				Constants.StraightDrivePID.TURN_PID_CONSTANTS, Constants.TurnPID.PID_CONSTANTS,
 				Constants.StraightDrivePID.kLR);
