@@ -9,7 +9,7 @@ import java.util.TimerTask;
 
 public class XboxShooterThing implements DigitalInput {
 
-	int value = 5; // between 0 and 11 inclusive
+	int value = 11; // between 0 and 11 inclusive
 	
 	TurtleJoystickButton low;
 	TurtleJoystickButton high;
