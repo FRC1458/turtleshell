@@ -132,7 +132,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 		} else {
 			FlightStick leftStick = new FlightStick(Constants.DriverStation.UsbPorts.LEFT_STICK);
 			FlightStick rightStick = new FlightStick(Constants.DriverStation.UsbPorts.RIGHT_STICK);
-			inputManager = new BlastoiseInputManager(leftStick, rightStick, controller);
+			inputManager = new BlastoiseInputManager(leftStick, rightStick, xController);
 		}
 
 	}

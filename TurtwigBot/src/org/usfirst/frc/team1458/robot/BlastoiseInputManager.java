@@ -1,8 +1,9 @@
 package org.usfirst.frc.team1458.robot;
 
 import com.team1458.turtleshell2.input.*;
-import com.team1458.turtleshell2.input.XboxController;
 import com.team1458.turtleshell2.input.FlightStick.FlightButton;
+import com.team1458.turtleshell2.input.XboxController.XboxAxis;
+import com.team1458.turtleshell2.input.XboxController.XboxButton;
 import com.team1458.turtleshell2.input.fake.FakeButtonInput;
 import com.team1458.turtleshell2.input.fake.FakeRumbleable;
 import com.team1458.turtleshell2.util.TurtleMaths;
@@ -84,13 +85,13 @@ public class BlastoiseInputManager implements Rumbleable {
 
 	}
 
-	public BlastoiseInputManager(FlightStick leftStick, FlightStick rightStick, XboxController xboxController) {
+	public BlastoiseInputManager(FlightStick leftStick, FlightStick rightStick, final XboxController xbox) {
 		this.leftJoystick = leftStick.getAxis(FlightStick.FlightAxis.PITCH);
 		this.rightJoystick = rightStick.getAxis(FlightStick.FlightAxis.PITCH);
-		
+
 		this.turnButton = leftStick.getButton(FlightStick.FlightButton.TRIGGER);
 		this.straightButton = rightStick.getButton(FlightStick.FlightButton.TRIGGER);
-		
+
 		this.slowButton = new MultiButtonInput(MultiButtonInput.Operator.OR,
 				rightStick.getButton(FlightStick.FlightButton.TWO),
 				leftStick.getButton(FlightStick.FlightButton.TWO));
@@ -98,23 +99,63 @@ public class BlastoiseInputManager implements Rumbleable {
 		this.alignShooterButton = rightStick.getButton(FlightStick.FlightButton.FIVE);
 
 		this.pov = rightStick.getPOVSwitch();
+		this.rumbleController = new FakeRumbleable();
 
-		this.rumbleController = xboxController;
+		this.climberSwitch = xbox.getButton(XboxButton.A);
 
-		this.climberSwitch = xboxController.getButton(XboxController.XboxButton.X);
-		this.intakeSwitch = xboxController.getButton(XboxController.XboxButton.B);
-		this.shootButton = xboxController.getButton(XboxController.XboxButton.Y);
+		// This block of code changes analog value to digital integer between 0 and 2
+		this.intakeSwitch = () -> {
+			if(xbox.getButton(XboxButton.X).getButton()) {
+				return 2;
+			} else if(xbox.getButton(XboxButton.B).getButton()) {
+				return 1;
+			} else {
+				return 0;
+			}
+		};
 
-		this.shooterSpeed = new XboxShooterThing(xboxController.getButton(XboxController.XboxButton.LBUMP),
-				xboxController.getButton(XboxController.XboxButton.RBUMP));
+		this.shootButton = new SampleButtonInput() {
 
-		this.panicButton = xboxController.getButton(XboxController.XboxButton.A);
-		autoManualToggle = new FakeButtonInput();
+			@Override
+			public boolean getButton() {
+				return xbox.getAxis(XboxAxis.RT).get() > 0.5;
+			}
+			
+		};
+		this.agitateButton = new SampleButtonInput() {
+
+			@Override
+			public boolean getButton() {
+				return xbox.getAxis(XboxAxis.RT).get() > 0.5;
+			}
+			
+		};
+
+		// This code changes shooter speed analog input to integer between 0 and 11
+		this.shooterSpeed = new XboxShooterThing(xbox.getButton(XboxButton.SELECT), xbox.getButton(XboxButton.START));
+		this.autoManualToggle = new SampleButtonInput() {
+
+			@Override
+			public boolean getButton() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+		};
+		this.panicButton = new SampleButtonInput() {
+
+			@Override
+			public boolean getButton() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+		};
 
 		gearButton = new MultiButtonInput(MultiButtonInput.Operator.OR,
 				rightStick.getButton(FlightStick.FlightButton.THREE),
 				leftStick.getButton(FlightStick.FlightButton.THREE));
-		agitateButton = rightStick.getButton(FlightButton.SEVEN);
+
 	}
 
 	public BlastoiseInputManager(XboxController controller, BlastoiseController blastoiseController) {
