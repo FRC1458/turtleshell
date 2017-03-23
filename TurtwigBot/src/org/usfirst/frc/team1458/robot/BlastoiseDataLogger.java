@@ -68,6 +68,8 @@ public class BlastoiseDataLogger {
 	private static boolean fail = true;
 
 	private static final DecimalFormat POINT_TWO = new DecimalFormat(".##");
+	
+	static String path;
 
 	public static void setup(TurtleTalonSRXCAN left1, TurtleTalonSRXCAN left2, TurtleTalonSRXCAN left3, TurtleTalonSRXCAN right1, TurtleTalonSRXCAN right2, TurtleTalonSRXCAN right3, TurtleTalonSRXCAN intake, TurtleTalonSRXCAN climber, TurtleTalonSRXCAN agitator, TurtleTalonSRXCAN leftShooter, TurtleTalonSRXCAN rightShooter, TurtleNavX navX, TurtleDistanceSensor lidar, TurtleDistanceSensor leftEncoder, TurtleDistanceSensor rightEncoder, TurtleHallSensor leftHall, TurtleHallSensor rightHall) {
 		BlastoiseDataLogger.left1 = left1;
@@ -96,7 +98,6 @@ public class BlastoiseDataLogger {
 		BlastoiseDataLogger.leftStick = new FlightStick(Constants.DriverStation.UsbPorts.LEFT_STICK);
 		BlastoiseDataLogger.controller = new BlastoiseController(Constants.DriverStation.UsbPorts.ARDUINO_CONTROLLER);
 
-		String path;
 		if(driverStation.isFMSAttached()) {
 			path = Constants.LOG_PATH_FMS;
 		} else {
@@ -105,26 +106,6 @@ public class BlastoiseDataLogger {
 		DateFormat dateFormat = new SimpleDateFormat("MM-dd_HH:mm:ss");
 		path += "log"+dateFormat.format(new Date())+".txt";
 
-		logFile = new File(path);
-		try {
-			if(!logFile.createNewFile()) {
-				throw new Exception("File already exists");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail = true;
-			return;
-		}
-
-		try {
-			writer = new PrintWriter(new FileOutputStream(logFile));
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail = true;
-			return;
-		}
-
-		fail = false;
 		new Timer().schedule(new TimerTask() {
 
 			@Override
@@ -200,8 +181,7 @@ public class BlastoiseDataLogger {
 		line.append(POINT_TWO.format(rightHall.getRPM()));
 
 		try {
-			writer.println(line.toString());
-			writer.flush();
+			Runtime.getRuntime().exec("cat "+line+">>"+path);
 			System.out.println("logging line");
 		} catch (Exception e) {
 			e.printStackTrace();
