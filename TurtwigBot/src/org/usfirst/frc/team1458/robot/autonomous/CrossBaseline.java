@@ -33,7 +33,6 @@ public class CrossBaseline extends SampleAutoMode {
 		t.start();
 		while (t.get() < 1.0 && RobotState.isAutonomous() && RobotState.isEnabled()) {
 			chassis.tankDrive(new MotorValue(-.59), new MotorValue(-.49));
-			//SmartDashboard.putNumber("TV", t.get());
 			System.out.println(t.get() + " " + chassis.getLeftDistance().getInches() + " " +
 			chassis.getRightDistance().getInches() + " ");
 		}
