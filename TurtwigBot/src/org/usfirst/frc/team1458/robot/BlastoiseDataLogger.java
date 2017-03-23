@@ -3,8 +3,10 @@ package org.usfirst.frc.team1458.robot;
 import com.team1458.turtleshell2.input.FlightStick;
 import com.team1458.turtleshell2.movement.TurtleTalonSRXCAN;
 import com.team1458.turtleshell2.sensor.TurtleDistanceSensor;
+import com.team1458.turtleshell2.sensor.TurtleHallSensor;
 import com.team1458.turtleshell2.sensor.TurtleNavX;
 import com.team1458.turtleshell2.util.TurtleMaths;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.RobotState;
@@ -18,6 +20,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Logs robot data throughout the match
@@ -53,17 +56,20 @@ public class BlastoiseDataLogger {
 	private static TurtleDistanceSensor leftEncoder;
 	private static TurtleDistanceSensor rightEncoder;
 
+	private static TurtleHallSensor leftHall;
+	private static TurtleHallSensor rightHall;
+	
 	private static PowerDistributionPanel pdp;
 	private static DriverStation driverStation;
 
 	private static File logFile;
 	private static PrintWriter writer;
 
-	private static boolean fail = false;
+	private static boolean fail = true;
 
 	private static final DecimalFormat POINT_TWO = new DecimalFormat(".##");
 
-	public static void setup(TurtleTalonSRXCAN left1, TurtleTalonSRXCAN left2, TurtleTalonSRXCAN left3, TurtleTalonSRXCAN right1, TurtleTalonSRXCAN right2, TurtleTalonSRXCAN right3, TurtleTalonSRXCAN intake, TurtleTalonSRXCAN climber, TurtleTalonSRXCAN agitator, TurtleTalonSRXCAN leftShooter, TurtleTalonSRXCAN rightShooter, TurtleNavX navX, TurtleDistanceSensor lidar, TurtleDistanceSensor leftEncoder, TurtleDistanceSensor rightEncoder) {
+	public static void setup(TurtleTalonSRXCAN left1, TurtleTalonSRXCAN left2, TurtleTalonSRXCAN left3, TurtleTalonSRXCAN right1, TurtleTalonSRXCAN right2, TurtleTalonSRXCAN right3, TurtleTalonSRXCAN intake, TurtleTalonSRXCAN climber, TurtleTalonSRXCAN agitator, TurtleTalonSRXCAN leftShooter, TurtleTalonSRXCAN rightShooter, TurtleNavX navX, TurtleDistanceSensor lidar, TurtleDistanceSensor leftEncoder, TurtleDistanceSensor rightEncoder, TurtleHallSensor leftHall, TurtleHallSensor rightHall) {
 		BlastoiseDataLogger.left1 = left1;
 		BlastoiseDataLogger.left2 = left2;
 		BlastoiseDataLogger.left3 = left3;
@@ -79,6 +85,8 @@ public class BlastoiseDataLogger {
 		BlastoiseDataLogger.lidar = lidar;
 		BlastoiseDataLogger.leftEncoder = leftEncoder;
 		BlastoiseDataLogger.rightEncoder = rightEncoder;
+		BlastoiseDataLogger.leftHall = leftHall;
+		BlastoiseDataLogger.rightHall = rightHall;
 
 		// Instantiate everything
 		BlastoiseDataLogger.driverStation = DriverStation.getInstance();
@@ -104,13 +112,25 @@ public class BlastoiseDataLogger {
 			}
 		} catch (Exception e) {
 			fail = true;
+			return;
 		}
 
 		try {
 			writer = new PrintWriter(new FileOutputStream(logFile));
 		} catch (Exception e) {
 			fail = true;
+			return;
 		}
+
+		fail = false;
+		new Timer().schedule(new TimerTask() {
+
+			@Override
+			public void run() {
+				log();
+			}
+			
+		}, 500, 500);
 	}
 
 	private static void log() {
@@ -157,9 +177,25 @@ public class BlastoiseDataLogger {
 		line.append(POINT_TWO.format(lidar.getDistance()));  line.append(",");
 		
 		logTalonData(line, left1);
+		logTalonData(line, left2);
+		logTalonData(line, left3);
+
+		logTalonData(line, right1);
+		logTalonData(line, right2);
+		logTalonData(line, right3);
+
+		logTalonData(line, intake);
+		logTalonData(line, climber);
+		logTalonData(line, agitator);
+		logTalonData(line, leftShooter);
+		logTalonData(line, rightShooter);
 
 		line.append(POINT_TWO.format(leftEncoder.getDistance()));  line.append(",");
-		line.append(POINT_TWO.format(rightEncoder.getDistance()));
+		line.append(POINT_TWO.format(rightEncoder.getDistance()));  line.append(",");
+		
+
+		line.append(POINT_TWO.format(leftHall.getRPM()));  line.append(",");
+		line.append(POINT_TWO.format(rightHall.getRPM()));
 
 		try {
 			writer.println(line.toString());

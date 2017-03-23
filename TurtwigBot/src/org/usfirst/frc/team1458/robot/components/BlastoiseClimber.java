@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.DriverStation;
  * @author asinghani
  */
 public class BlastoiseClimber {
-	private final TurtleMotor motor = new TurtleTalonSRXCAN(Constants.Climber.MOTOR_PORT);
+	public final TurtleTalonSRXCAN motor = new TurtleTalonSRXCAN(Constants.Climber.MOTOR_PORT);
 	private final MotorValue speed = Constants.Climber.SPEED;
 	private final MotorValue lowSpeed = Constants.Climber.SPEED_LOW;
 

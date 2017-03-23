@@ -6,7 +6,10 @@ import com.team1458.turtleshell2.sensor.TurtleNavX;
 import com.team1458.turtleshell2.util.Logger;
 import com.team1458.turtleshell2.util.types.Distance;
 import com.team1458.turtleshell2.util.types.MotorValue;
+
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This autonomous program will make the robot cross the baseline and nothing else.
@@ -26,9 +29,12 @@ public class CrossBaseline extends SampleAutoMode {
 	 */
 	@Override
 	public void auto(){
-		chassis.driveForward(Distance.createFeet(9.5), new MotorValue(0.8), Distance.createFeet(0.5));
+		Timer t = new Timer();
+		t.start();
+		while (t.get() < 0.9 && RobotState.isAutonomous() && RobotState.isEnabled()) {
+			chassis.tankDrive(new MotorValue(-.8), new MotorValue(-.8));
+			//SmartDashboard.putNumber("TV", t.get());
+		}
 		chassis.stop();
-		Timer.delay(0.2);
-		chassis.driveForward(Distance.createFeet(2.0), new MotorValue(0.3), Distance.createFeet(0.3));
 	}
 }

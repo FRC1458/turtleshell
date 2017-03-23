@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team1458.robot.autonomous.CrossBaseline;
 import org.usfirst.frc.team1458.robot.autonomous.MiddleGear;
 import org.usfirst.frc.team1458.robot.autonomous.TestAutonomous;
 import org.usfirst.frc.team1458.robot.components.BlastoiseClimber;
@@ -103,8 +104,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	}
 
 	private void setupAutoModes() {
-		autoModes.add(new TestAutonomous(chassis, logger, navX,this));
-		autoModes.add(new MiddleGear(chassis, logger, navX));
+		autoModes.add(new CrossBaseline(chassis, logger, navX));
 		selectedAutoMode = 0;
 		SmartDashboard.putString("AutoModeSetting2", "set4");
 	}
@@ -138,28 +138,40 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 	}
 
 	private void setupActuators() {
+		TurtleTalonSRXCAN left1 = new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR1);
+		TurtleTalonSRXCAN left2 = new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR2);
+		TurtleTalonSRXCAN left3 = new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR3);
+
+		TurtleTalonSRXCAN right1 = new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR1);
+		TurtleTalonSRXCAN right2 = new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR2);
+		TurtleTalonSRXCAN right3 = new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR3);
+		
+		TurtleDistanceEncoder leftEncoder = new TurtleDistanceEncoder(
+				Constants.LeftDrive.ENCODER_A, Constants.LeftDrive.ENCODER_B,
+				Constants.LeftDrive.ENCODER_RATIO
+		);
+		
+
+		TurtleDistanceEncoder rightEncoder = new TurtleDistanceEncoder(
+				Constants.RightDrive.ENCODER_A, Constants.RightDrive.ENCODER_B,
+				Constants.RightDrive.ENCODER_RATIO, true
+		);
+		
 		chassis = new TankDrive(
-				new MotorSet(
-						new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR1),
-						new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR2),
-						new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR3)
-				),
-				new MotorSet(
-						new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR1, true),
-						new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR2, true),
-						new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR3, true)
-				),
-				new TurtleDistanceEncoder(
-						Constants.LeftDrive.ENCODER_A, Constants.LeftDrive.ENCODER_B,
-						Constants.LeftDrive.ENCODER_RATIO
-				),
-				new TurtleDistanceEncoder(
-						Constants.RightDrive.ENCODER_A, Constants.RightDrive.ENCODER_B,
-						Constants.RightDrive.ENCODER_RATIO, true
-				),
+				new MotorSet(left1, left2, left3),
+				new MotorSet(right1, right2, right3),
+				leftEncoder, rightEncoder,
 				navX.getYawAxis(), Constants.StraightDrivePID.PID_CONSTANTS,
 				Constants.StraightDrivePID.TURN_PID_CONSTANTS, Constants.TurnPID.PID_CONSTANTS,
 				Constants.StraightDrivePID.kLR);
+		
+
+		climber = new BlastoiseClimber();
+		intake = new BlastoiseIntake();
+		shooterLeft = new TurtwigShooter(false);
+		shooterRight = new TurtwigShooter(true);
+		
+		BlastoiseDataLogger.setup(left1, left2, left3, right1, right2, right3, intake.motor, climber.motor, agitator, shooterLeft.motor, shooterRight.motor, navX, lidar, leftEncoder, rightEncoder, shooterLeft.hall, shooterRight.hall);
 
 		// TODO THIS WILL BREAK SOMETHING
 
@@ -174,11 +186,6 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 		 * Constants.StraightDrivePID.TURN_PID_CONSTANTS,
 		 * Constants.TurnPID.PID_CONSTANTS, Constants.StraightDrivePID.kLR );
 		 */
-
-		climber = new BlastoiseClimber();
-		intake = new BlastoiseIntake();
-		shooterLeft = new TurtwigShooter(false);
-		shooterRight = new TurtwigShooter(true);
 
 		/*
 		 * shooterLeft = new BlastoiseShooter(Constants.LeftShooter.MOTOR_PORT,

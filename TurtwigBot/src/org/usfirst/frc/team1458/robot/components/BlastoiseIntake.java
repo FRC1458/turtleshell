@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author asinghani
  */
 public class BlastoiseIntake {
-	private final TurtleMotor motor = new TurtleTalonSRXCAN(Constants.Intake.MOTOR_PORT, true);
+	public final TurtleTalonSRXCAN motor = new TurtleTalonSRXCAN(Constants.Intake.MOTOR_PORT, true);
 	
 	private final MotorValue speed = Constants.Intake.SPEED;
 	private final MotorValue reverseSpeed = Constants.Intake.REVERSE_SPEED;

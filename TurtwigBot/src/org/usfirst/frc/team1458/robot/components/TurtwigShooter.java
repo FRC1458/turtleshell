@@ -12,9 +12,9 @@ import com.team1458.turtleshell2.util.types.MotorValue;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TurtwigShooter {
-	private final TurtleSmartMotor motor;
+	public final TurtleTalonSRXCAN motor;
 	private ShooterPID pid;
-	private final TurtleHallSensor hall;
+	public final TurtleHallSensor hall;
 
 	private boolean isManualPower = false;
 	private boolean isReverse = false;
