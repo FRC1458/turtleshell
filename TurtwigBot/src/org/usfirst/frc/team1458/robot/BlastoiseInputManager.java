@@ -103,11 +103,14 @@ public class BlastoiseInputManager implements Rumbleable {
 
 		this.climberSwitch = xbox.getButton(XboxButton.A);
 
+		final ButtonInput xboxX = xbox.getButton(XboxButton.X);
+		final ButtonInput xboxB = xbox.getButton(XboxButton.B);
+		
 		// This block of code changes analog value to digital integer between 0 and 2
 		this.intakeSwitch = () -> {
-			if(xbox.getButton(XboxButton.X).getButton()) {
+			if(xboxX.getButton()) {
 				return 2;
-			} else if(xbox.getButton(XboxButton.B).getButton()) {
+			} else if(xboxB.getButton()) {
 				return 1;
 			} else {
 				return 0;
