@@ -111,6 +111,7 @@ public class BlastoiseDataLogger {
 				throw new Exception("File already exists");
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			fail = true;
 			return;
 		}
@@ -118,6 +119,7 @@ public class BlastoiseDataLogger {
 		try {
 			writer = new PrintWriter(new FileOutputStream(logFile));
 		} catch (Exception e) {
+			e.printStackTrace();
 			fail = true;
 			return;
 		}
@@ -200,6 +202,7 @@ public class BlastoiseDataLogger {
 		try {
 			writer.println(line.toString());
 			writer.flush();
+			System.out.println("logging line");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

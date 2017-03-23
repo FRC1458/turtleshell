@@ -142,9 +142,9 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 		TurtleTalonSRXCAN left2 = new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR2);
 		TurtleTalonSRXCAN left3 = new TurtleTalonSRXCAN(Constants.LeftDrive.MOTOR3);
 
-		TurtleTalonSRXCAN right1 = new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR1);
-		TurtleTalonSRXCAN right2 = new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR2);
-		TurtleTalonSRXCAN right3 = new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR3);
+		TurtleTalonSRXCAN right1 = new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR1, true);
+		TurtleTalonSRXCAN right2 = new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR2, true);
+		TurtleTalonSRXCAN right3 = new TurtleTalonSRXCAN(Constants.RightDrive.MOTOR3, true);
 		
 		TurtleDistanceEncoder leftEncoder = new TurtleDistanceEncoder(
 				Constants.LeftDrive.ENCODER_A, Constants.LeftDrive.ENCODER_B,

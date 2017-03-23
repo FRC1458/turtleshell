@@ -16,8 +16,8 @@ public class Constants {
 	public static boolean DEBUG = true;
 	public static final Logger.LogFormat LOGGER_MODE = Logger.LogFormat.PLAINTEXT;
 
-	public static final String LOG_PATH_FMS = null; // todo add directory name (must end with slash)
-	public static final String LOG_PATH_NO_FMS = null; // todo add directory name (must end with slash)
+	public static final String LOG_PATH_FMS = "/media/sda2/logs_field/"; // todo add directory name (must end with slash)
+	public static final String LOG_PATH_NO_FMS = "/media/sda2/logs_no_field/"; // todo add directory name (must end with slash)
 
 	public static final boolean LOGGER_PRETTY_PRINT = true;
 
