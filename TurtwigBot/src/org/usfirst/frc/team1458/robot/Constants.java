@@ -96,8 +96,8 @@ public class Constants {
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.0015, 0, 0);
 		public static final MotorValue BASE_VALUE = new MotorValue(0);
 
-		public static final double MIN_SPEED = 3675; // Speed at manual farthest left option
-		public static final double MAX_SPEED = 4875; // Speed at manual farthest right option
+		public static final double MIN_SPEED = 3775; // Speed at manual farthest left option
+		public static final double MAX_SPEED = 4975; // Speed at manual farthest right option
 
 		// Inches
 		public static final TurtleMaths.AdvancedRangeShifter RPM_SHIFTER = new TurtleMaths.AdvancedRangeShifter(
