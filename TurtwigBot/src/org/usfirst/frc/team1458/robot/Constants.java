@@ -65,7 +65,7 @@ public class Constants {
 
 	public static final class Intake {
 		public static final int MOTOR_PORT = TalonID.GRANT.id;
-		public static final MotorValue SPEED = new MotorValue(0.8);
+		public static final MotorValue SPEED = new MotorValue(0.6);
 		public static final MotorValue REVERSE_SPEED = new MotorValue(-0.8);
 	}
 
@@ -113,8 +113,8 @@ public class Constants {
 		public static final PIDConstants PID_CONSTANTS = new PIDConstants(0.0015, 0, 0);
 		public static final MotorValue BASE_VALUE = new MotorValue(0);
 
-		public static final double MIN_SPEED = 3450; // Speed at manual farthest left option 3300
-		public static final double MAX_SPEED = 4650; // Speed at manual farthest right option 4400
+		public static final double MIN_SPEED = 3100; // Speed at manual farthest left option 3300
+		public static final double MAX_SPEED = 4350; // Speed at manual farthest right option 4400
 
 		// Inches
 		public static final TurtleMaths.AdvancedRangeShifter RPM_SHIFTER = new TurtleMaths.AdvancedRangeShifter(
