@@ -32,7 +32,7 @@ public class CrossBaseline extends SampleAutoMode {
 		Timer t = new Timer();
 		t.start();
 		while (t.get() < 1.0 && RobotState.isAutonomous() && RobotState.isEnabled()) {
-			chassis.tankDrive(new MotorValue(-.59), new MotorValue(-.49));
+			chassis.tankDrive(new MotorValue(-.55), new MotorValue(-.55));
 			System.out.println(t.get() + " " + chassis.getLeftDistance().getInches() + " " +
 			chassis.getRightDistance().getInches() + " ");
 		}
