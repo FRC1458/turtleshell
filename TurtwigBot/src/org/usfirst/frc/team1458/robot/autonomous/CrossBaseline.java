@@ -21,7 +21,7 @@ public class CrossBaseline extends SampleAutoMode {
 	public CrossBaseline(TankDrive chassis, Logger logger, TurtleNavX navX) {
 		super(chassis, logger, navX.getYawAxis());
 	}
-
+    // places middle gear
 	/**
 	 * Runs the autonomous program.
 	 *
