@@ -287,7 +287,7 @@ public class Robot extends SampleRobot implements AutoModeHolder {
 		SmartDashboard.putNumber("PDP voltage", pdp.getVoltage());
 
 		if (inputManager.agitateButton.getButton()) {
-			agitator.set(Constants.Shooter.AGITATOR_SPEED);
+			agitator.set(Constants.Shooter.AGITATOR_SPEED.plus(Constants.Shooter.AGITATOR_VARY.scale(Math.sin(System.currentTimeMillis() / 125.0))));
 		} else {
 			agitator.set(new MotorValue(0));
 		}
