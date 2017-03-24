@@ -121,7 +121,7 @@ public class BlastoiseInputManager implements Rumbleable {
 
 			@Override
 			public boolean getButton() {
-				return xbox.getAxis(XboxAxis.RT).get() > 0.5;
+				return xbox.getAxis(XboxAxis.RT).get() > 0.25;
 			}
 			
 		};
@@ -129,7 +129,7 @@ public class BlastoiseInputManager implements Rumbleable {
 
 			@Override
 			public boolean getButton() {
-				return xbox.getAxis(XboxAxis.RT).get() > 0.5;
+				return xbox.getAxis(XboxAxis.RT).get() > 0.75;
 			}
 			
 		};

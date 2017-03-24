@@ -85,7 +85,7 @@ public class Constants {
 		public static final double UBPS = 0.000175;
 
 		public static final int AGITATOR_PORT = TalonID.KAREN.id;
-		public static final MotorValue AGITATOR_SPEED = new MotorValue(0.6);
+		public static final MotorValue AGITATOR_SPEED = new MotorValue(1.0);
 	}
 
 	public static final class LeftShooter {
