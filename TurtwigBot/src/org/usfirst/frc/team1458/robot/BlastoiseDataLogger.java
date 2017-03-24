@@ -106,6 +106,13 @@ public class BlastoiseDataLogger {
 		DateFormat dateFormat = new SimpleDateFormat("MM-dd_HH:mm:ss");
 		path += "log"+dateFormat.format(new Date())+".txt";
 
+		try {
+			Runtime.getRuntime().exec("touch "+path);
+		} catch(Exception e) {
+			e.printStackTrace();
+			fail = true;
+			return;
+		}
 		new Timer().schedule(new TimerTask() {
 
 			@Override
@@ -113,7 +120,7 @@ public class BlastoiseDataLogger {
 				log();
 			}
 			
-		}, 500, 500);
+		}, Constants.LOG_INTERVAL, Constants.LOG_INTERVAL);
 	}
 
 	private static void log() {
@@ -181,7 +188,7 @@ public class BlastoiseDataLogger {
 		line.append(POINT_TWO.format(rightHall.getRPM()));
 
 		try {
-			Runtime.getRuntime().exec("cat "+line+">>"+path);
+			Runtime.getRuntime().exec("echo \""+line+"\" >>"+path);
 			System.out.println("logging line");
 		} catch (Exception e) {
 			e.printStackTrace();
