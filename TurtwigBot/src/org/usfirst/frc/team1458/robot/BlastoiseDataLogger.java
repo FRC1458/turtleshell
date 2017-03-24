@@ -118,7 +118,7 @@ public class BlastoiseDataLogger {
 			@Override
 			public void run() {
 				try {
-					//log();
+					log();
 				} catch (Exception e){
 					e.printStackTrace();
 					System.err.println("LOGGING CRASHED");
