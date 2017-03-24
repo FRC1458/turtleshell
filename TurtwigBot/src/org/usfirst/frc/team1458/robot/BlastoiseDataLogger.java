@@ -165,7 +165,7 @@ public class BlastoiseDataLogger {
 		line.append(POINT_TWO.format(navX.getTempC()));  line.append(",");
 		line.append(POINT_TWO.format(navX.getCompassHeading().getDegrees()));  line.append(",");
 
-		line.append(POINT_TWO.format(lidar.getDistance()));  line.append(",");
+		line.append(POINT_TWO.format(lidar.getDistance().getInches()));  line.append(",");
 		
 		logTalonData(line, left1);
 		logTalonData(line, left2);
@@ -181,8 +181,8 @@ public class BlastoiseDataLogger {
 		logTalonData(line, leftShooter);
 		logTalonData(line, rightShooter);
 
-		line.append(POINT_TWO.format(leftEncoder.getDistance()));  line.append(",");
-		line.append(POINT_TWO.format(rightEncoder.getDistance()));  line.append(",");
+		line.append(POINT_TWO.format(leftEncoder.getDistance().getInches()));  line.append(",");
+		line.append(POINT_TWO.format(rightEncoder.getDistance().getInches()));  line.append(",");
 		
 
 		line.append(POINT_TWO.format(leftHall.getRPM()));  line.append(",");
