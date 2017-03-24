@@ -66,7 +66,7 @@ public class Constants {
 
 	public static final class Intake {
 		public static final int MOTOR_PORT = TalonID.GRANT.id;
-		public static final MotorValue SPEED = new MotorValue(0.6);
+		public static final MotorValue SPEED = new MotorValue(0.7);
 		public static final MotorValue REVERSE_SPEED = new MotorValue(-0.8);
 	}
 
