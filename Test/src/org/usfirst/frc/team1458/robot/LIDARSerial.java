@@ -76,7 +76,7 @@ public class LIDARSerial {
 		byte[] val = new byte[] { 0x13 };
 		sensor.read(0x04, 1, val);
 		Timer.delay(0.1);
-		System.out.println(Integer.toHexString(val[0]));
+		//System.out.println(Integer.toHexString(val[0]));
 
 		byte[] high = new byte[] { 0x00, 0x00 };
 		byte[] status = { Byte.MAX_VALUE }; // All bits are 1

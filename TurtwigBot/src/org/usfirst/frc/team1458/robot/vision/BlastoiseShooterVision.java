@@ -143,7 +143,7 @@ public class BlastoiseShooterVision {
 			}
 		}
 		
-		System.out.println(contour1.toString() + ", "+contour2.toString());
+		//System.out.println(contour1.toString() + ", "+contour2.toString());
 		SmartDashboard.putString("ContoursInfo", contour1.toString() + ", "+contour2.toString());
 		
 		return new ArrayList<>(Arrays.asList(new Rect[]{contour1, contour2}));
@@ -151,7 +151,7 @@ public class BlastoiseShooterVision {
 
 	public double getShooterTargetX() {
 		ArrayList<Rect> contours = getCorrectContours();
-		System.out.println(contours.toString());
+		//System.out.println(contours.toString());
 		if(contours.size() != 2){
 			return -1;
 		}

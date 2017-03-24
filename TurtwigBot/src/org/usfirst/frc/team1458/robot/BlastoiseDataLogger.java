@@ -65,7 +65,7 @@ public class BlastoiseDataLogger {
 	private static File logFile;
 	private static PrintWriter writer;
 
-	private static boolean fail = true;
+	private static boolean fail = false;
 
 	private static final DecimalFormat POINT_TWO = new DecimalFormat(".##");
 	
@@ -117,6 +117,7 @@ public class BlastoiseDataLogger {
 
 			@Override
 			public void run() {
+				System.out.println("logging");
 				log();
 			}
 			

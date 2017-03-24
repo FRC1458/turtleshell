@@ -77,7 +77,7 @@ public class LIDARLite implements TurtleDistanceSensor {
 		byte[] val = new byte[] { 0x00 };
 		sensor.read(0x04, 1, val);
 		Timer.delay(0.01);
-		System.out.println(Integer.toHexString(val[0]));
+		//System.out.println(Integer.toHexString(val[0]));
 		byte[] high = new byte[] { 0x00, 0x00 };
 		byte[] status = { Byte.MAX_VALUE }; // All bits are 1
 
