@@ -117,19 +117,22 @@ public class BlastoiseDataLogger {
 
 			@Override
 			public void run() {
-				/*try {
+				try {
 					//log();
 				} catch (Exception e){
 					e.printStackTrace();
 					System.err.println("LOGGING CRASHED");
-				}*/
+				}
 			}
 			
 		}, Constants.LOG_INTERVAL, Constants.LOG_INTERVAL);
 	}
 
 	private static void log() {
-		if(fail) return;
+		if(fail) {
+			System.out.println("LOGGING FAILED");
+			return;
+		}
 
 		StringBuilder line = new StringBuilder();
 
