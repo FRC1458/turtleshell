@@ -31,18 +31,18 @@ public class CrossBaseline extends SampleAutoMode {
 	public void auto(){
 		Timer t = new Timer();
 		t.start();
-		while (t.get() < 0.95 && RobotState.isAutonomous() && RobotState.isEnabled()) {
-			chassis.tankDrive(new MotorValue(-.55), new MotorValue(-.55));
+		while (t.get() < 2 && RobotState.isAutonomous() && RobotState.isEnabled()) {
+			chassis.tankDrive(new MotorValue(-.28), new MotorValue(-.28));
 			System.out.println(t.get() + " " + chassis.getLeftDistance().getInches() + " " +
 			chassis.getRightDistance().getInches() + " ");
 		}
-		while (t.get() < 2.5 && RobotState.isAutonomous() && RobotState.isEnabled()) {
+		while (t.get() < 3.5 && RobotState.isAutonomous() && RobotState.isEnabled()) {
 			chassis.tankDrive(new MotorValue(-.15),new MotorValue(-.15));
 		}
-		while (t.get() < 3.0 && RobotState.isAutonomous() && RobotState.isEnabled()) {
+		while (t.get() < 4.0 && RobotState.isAutonomous() && RobotState.isEnabled()) {
 			chassis.tankDrive(new MotorValue(0),new MotorValue(0));
 		}
-		while (t.get() < 3.10 && RobotState.isAutonomous() && RobotState.isEnabled()) {
+		while (t.get() < 4.10 && RobotState.isAutonomous() && RobotState.isEnabled()) {
 			chassis.tankDrive(new MotorValue(.15),new MotorValue(.15));
 		}
 		chassis.stop();
