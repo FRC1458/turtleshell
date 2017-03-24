@@ -155,7 +155,7 @@ public class BlastoiseDataLogger {
 
 		appendFlightStickData(line, rightStick);
 		appendFlightStickData(line, leftStick);
-		appendArduinoData(line, controller);
+		//appendArduinoData(line, controller);
 
 		line.append(POINT_TWO.format(navX.getVelocityX().getValue()));  line.append(",");
 		line.append(POINT_TWO.format(navX.getVelocityY().getValue()));  line.append(",");
@@ -196,8 +196,8 @@ public class BlastoiseDataLogger {
 		line.append(POINT_TWO.format(rightHall.getRPM()));
 
 		try {
-			Runtime.getRuntime().exec("echo \""+line+"\" >>"+path);
-			System.out.println("logging line "+path);
+			Runtime.getRuntime().exec(new String[] {"/bin/sh", "-c", "echo \""+line+"\" >>"+path});
+			System.out.println("logging line "+"echo \""+line+"\" >>"+path);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
