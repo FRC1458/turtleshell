@@ -103,7 +103,7 @@ public class BlastoiseDataLogger {
 		} else {
 			path = Constants.LOG_PATH_NO_FMS;
 		}
-		DateFormat dateFormat = new SimpleDateFormat("MM-dd_HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("MM_dd_HH_mm_ss");
 		path += "log"+dateFormat.format(new Date())+".txt";
 
 		try {
@@ -117,8 +117,12 @@ public class BlastoiseDataLogger {
 
 			@Override
 			public void run() {
-				System.out.println("logging");
-				log();
+				try {
+					log();
+				} catch (Exception e){
+					e.printStackTrace();
+					System.err.println("LOGGING CRASHED");
+				}
 			}
 			
 		}, Constants.LOG_INTERVAL, Constants.LOG_INTERVAL);
@@ -190,7 +194,7 @@ public class BlastoiseDataLogger {
 
 		try {
 			Runtime.getRuntime().exec("echo \""+line+"\" >>"+path);
-			System.out.println("logging line");
+			System.out.println("logging line "+path);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
