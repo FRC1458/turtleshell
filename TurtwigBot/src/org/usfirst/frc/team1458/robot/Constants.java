@@ -86,7 +86,7 @@ public class Constants {
 
 		public static final int AGITATOR_PORT = TalonID.KAREN.id;
 		public static final MotorValue AGITATOR_SPEED = new MotorValue(0.8);
-		public static final MotorValue AGITATOR_VARY = new MotorValue(0.6);
+		public static final MotorValue AGITATOR_VARY = new MotorValue(0.4);
 	}
 
 	public static final class LeftShooter {
