@@ -42,7 +42,7 @@ public class CrossBaseline extends SampleAutoMode {
 		while (t.get() < 4.0 && RobotState.isAutonomous() && RobotState.isEnabled()) {
 			chassis.tankDrive(new MotorValue(0),new MotorValue(0));
 		}
-		while (t.get() < 4.10 && RobotState.isAutonomous() && RobotState.isEnabled()) {
+		while (t.get() < 4.30 && RobotState.isAutonomous() && RobotState.isEnabled()) {//icnreased from 4.1 to 4.3
 			chassis.tankDrive(new MotorValue(.15),new MotorValue(.15));
 		}
 		chassis.stop();
