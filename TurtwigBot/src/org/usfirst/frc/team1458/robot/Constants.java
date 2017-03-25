@@ -20,7 +20,7 @@ public class Constants {
 	public static final String LOG_PATH_NO_FMS = "/media/sda2/logs_no_field/"; // todo add directory name (must end with slash)
 
 	public static final boolean LOGGER_PRETTY_PRINT = true;
-	public static final long LOG_INTERVAL = 1000;
+	public static final long LOG_INTERVAL = 250;
 
 	public static final class DriverStation {
 		public static final double JOYSTICK_DEADBAND = 0.1;

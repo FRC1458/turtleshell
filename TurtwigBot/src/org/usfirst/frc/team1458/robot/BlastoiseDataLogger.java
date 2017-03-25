@@ -19,6 +19,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -66,11 +67,12 @@ public class BlastoiseDataLogger {
 	private static PrintWriter writer;
 
 	private static boolean fail = false;
+	static boolean ready = false;
 
 	private static final DecimalFormat POINT_TWO = new DecimalFormat(".##");
 	
 	static String path;
-
+	
 	public static void setup(TurtleTalonSRXCAN left1, TurtleTalonSRXCAN left2, TurtleTalonSRXCAN left3, TurtleTalonSRXCAN right1, TurtleTalonSRXCAN right2, TurtleTalonSRXCAN right3, TurtleTalonSRXCAN intake, TurtleTalonSRXCAN climber, TurtleTalonSRXCAN agitator, TurtleTalonSRXCAN leftShooter, TurtleTalonSRXCAN rightShooter, TurtleNavX navX, TurtleDistanceSensor lidar, TurtleDistanceSensor leftEncoder, TurtleDistanceSensor rightEncoder, TurtleHallSensor leftHall, TurtleHallSensor rightHall) {
 		BlastoiseDataLogger.left1 = left1;
 		BlastoiseDataLogger.left2 = left2;
@@ -103,20 +105,28 @@ public class BlastoiseDataLogger {
 		} else {
 			path = Constants.LOG_PATH_NO_FMS;
 		}
-		DateFormat dateFormat = new SimpleDateFormat("MM_dd_HH_mm_ss");
-		path += "log"+dateFormat.format(new Date())+".txt";
-
-		try {
-			Runtime.getRuntime().exec("touch "+path);
-		} catch(Exception e) {
-			e.printStackTrace();
-			fail = true;
-			return;
-		}
+		final DateFormat dateFormat = new SimpleDateFormat("MM_dd_HH_mm_ss");
 		new Timer().schedule(new TimerTask() {
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public void run() {
+				if(!ready) {
+					Date now = new Date();
+					if((now.getYear() > 2017-1900) || (now.getYear() == 2017-1900 && now.getMonth() > 1)) { // hacky thing - this was last reimage time for roborio
+						path += "log"+dateFormat.format(new Date())+".txt";
+
+						try {
+							Runtime.getRuntime().exec("touch "+path);
+						} catch(Exception e) {
+							e.printStackTrace();
+						}
+						ready = true;
+					} else {
+						return;
+					}
+					
+				}
 				try {
 					log();
 				} catch (Exception e){
